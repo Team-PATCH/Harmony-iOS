@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A1882C44AA230011F371 /* HarmonyApp.swift */; };
 		BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A18A2C44AA230011F371 /* ContentView.swift */; };
 		BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18C2C44AA250011F371 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		BE99A1852C44AA230011F371 /* Harmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE99A1882C44AA230011F371 /* HarmonyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarmonyApp.swift; sourceTree = "<group>"; };
 		BE99A18A2C44AA230011F371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +34,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE06A0D82C44F168008D3C03 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		BE06A0D92C44F18F008D3C03 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BE06A0DA2C44F19E008D3C03 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE06A0DB2C44F1A9008D3C03 /* Extensions */,
+				BE06A0DD2C44F1BA008D3C03 /* Helpers */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BE06A0DB2C44F1A9008D3C03 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BE06A0DD2C44F1BA008D3C03 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BE06A0DE2C44F212008D3C03 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE06A0E02C44F24E008D3C03 /* LaunchScreen */,
+				BE06A0DF2C44F223008D3C03 /* Auth */,
+				BE06A0E12C44F258008D3C03 /* Home */,
+				BE06A0E22C44F263008D3C03 /* Profile */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BE06A0DF2C44F223008D3C03 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		BE06A0E02C44F24E008D3C03 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		BE06A0E12C44F258008D3C03 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BE06A0E22C44F263008D3C03 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		BE99A17C2C44AA230011F371 = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +132,12 @@
 			children = (
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
+				BE06A0DA2C44F19E008D3C03 /* Utilities */,
+				BE06A0D92C44F18F008D3C03 /* Services */,
+				BE06A0D82C44F168008D3C03 /* Config */,
+				BE99A1992C44F1020011F371 /* Models */,
+				BE99A1972C44EE700011F371 /* ViewModels */,
+				BE06A0DE2C44F212008D3C03 /* Views */,
 				BE99A18C2C44AA250011F371 /* Assets.xcassets */,
 				BE99A18E2C44AA250011F371 /* Preview Content */,
 			);
@@ -65,6 +150,20 @@
 				BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BE99A1972C44EE700011F371 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BE99A1992C44F1020011F371 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +238,7 @@
 			files = (
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
+				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
