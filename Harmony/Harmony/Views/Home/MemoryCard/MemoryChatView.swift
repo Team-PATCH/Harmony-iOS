@@ -18,7 +18,7 @@ struct MemoryChatView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(message.date)
                                 .font(.footnote)
-                                .foregroundColor(.gray)
+                                .foregroundStyle(.gray)
                             
                             HStack {
                                 if message.sender == "모니" {
@@ -51,7 +51,7 @@ struct MemoryChatView: View {
             HStack {
                 NavigationLink(destination: Text("이어서 대화하기 뷰")) {
                     Text("이어서 대화하기")
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.blue)

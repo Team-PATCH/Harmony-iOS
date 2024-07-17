@@ -45,7 +45,7 @@ class MemoryCardViewModel: ObservableObject {
             if let detail = detail {
                 self?.memoryCardDetail = detail
             } else {
-                self?.errorMessage = "Failed to load memory card detail"
+                self?.errorMessage = "추억 카드 상세 정보를 조회하는 데 실패했습니다."
             }
         }
     }

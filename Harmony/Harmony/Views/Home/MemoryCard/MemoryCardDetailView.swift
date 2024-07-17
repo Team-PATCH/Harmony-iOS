@@ -61,7 +61,7 @@ struct MemoryCardDetailView: View {
             HStack(spacing: 10) {
                 NavigationLink(destination: Text("이어서 대화하기 뷰")) {
                     Text("이어서 대화하기")
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.blue)
@@ -70,7 +70,7 @@ struct MemoryCardDetailView: View {
                 
                 NavigationLink(destination: MemoryChatView(messages: dummyChatMessages)) {
                     Text("대화 전체 보기")
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.green)
