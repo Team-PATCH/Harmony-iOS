@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+// MARK: - 색상을 hex코드로 간편하게 사용할 수 있게 해주는 Extension
+
 extension Color {
     // 16진수 문자열을 사용하여 Color를 생성하는 초기화 메서드
     init(hex: String) {

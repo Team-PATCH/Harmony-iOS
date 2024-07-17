@@ -8,6 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
+		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
+		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
+		BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */; };
+		BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */; };
+		BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */; };
+		BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E50002C461BED003EC4E1 /* Kingfisher */; };
+		BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50022C461C16003EC4E1 /* MemoryCardDetailView.swift */; };
+		BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */; };
+		BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */; };
+		BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50092C468276003EC4E1 /* View+Extensions.swift */; };
+		BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatDate.swift */; };
+		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
+		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
+		BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7ED2C47986C003C41F9 /* Pretendard-Black.ttf */; };
+		BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7EE2C47986C003C41F9 /* Pretendard-Bold.ttf */; };
+		BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7EF2C47986C003C41F9 /* Pretendard-ExtraBold.ttf */; };
+		BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F02C47986C003C41F9 /* Pretendard-ExtraLight.ttf */; };
+		BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F12C47986C003C41F9 /* Pretendard-Light.ttf */; };
+		BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F22C47986C003C41F9 /* Pretendard-Medium.ttf */; };
+		BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F32C47986C003C41F9 /* Pretendard-Regular.ttf */; };
+		BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F42C47986C003C41F9 /* Pretendard-SemiBold.ttf */; };
+		BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7F52C47986C003C41F9 /* Pretendard-Thin.ttf */; };
+		BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B8002C4798A3003C41F9 /* Font+Extensions.swift */; };
+		BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */; };
 		BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A1882C44AA230011F371 /* HarmonyApp.swift */; };
 		BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A18A2C44AA230011F371 /* ContentView.swift */; };
 		BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18C2C44AA250011F371 /* Assets.xcassets */; };
@@ -16,6 +40,27 @@
 
 /* Begin PBXFileReference section */
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardModel.swift; sourceTree = "<group>"; };
+		BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardService.swift; sourceTree = "<group>"; };
+		BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardsView.swift; sourceTree = "<group>"; };
+		BE3E50022C461C16003EC4E1 /* MemoryCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardDetailView.swift; sourceTree = "<group>"; };
+		BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardViewModel.swift; sourceTree = "<group>"; };
+		BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardView.swift; sourceTree = "<group>"; };
+		BE3E50092C468276003EC4E1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		BE96B7E62C473337003C41F9 /* FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDate.swift; sourceTree = "<group>"; };
+		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		BE96B7ED2C47986C003C41F9 /* Pretendard-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.ttf"; sourceTree = "<group>"; };
+		BE96B7EE2C47986C003C41F9 /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
+		BE96B7EF2C47986C003C41F9 /* Pretendard-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.ttf"; sourceTree = "<group>"; };
+		BE96B7F02C47986C003C41F9 /* Pretendard-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.ttf"; sourceTree = "<group>"; };
+		BE96B7F12C47986C003C41F9 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
+		BE96B7F22C47986C003C41F9 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
+		BE96B7F32C47986C003C41F9 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
+		BE96B7F42C47986C003C41F9 /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
+		BE96B7F52C47986C003C41F9 /* Pretendard-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.ttf"; sourceTree = "<group>"; };
+		BE96B8002C4798A3003C41F9 /* Font+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
+		BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryChatView.swift; sourceTree = "<group>"; };
 		BE99A1852C44AA230011F371 /* Harmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE99A1882C44AA230011F371 /* HarmonyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarmonyApp.swift; sourceTree = "<group>"; };
 		BE99A18A2C44AA230011F371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,6 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */,
+				BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */,
+				BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +92,7 @@
 		BE06A0D92C44F18F008D3C03 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -53,6 +102,7 @@
 			children = (
 				BE06A0DB2C44F1A9008D3C03 /* Extensions */,
 				BE06A0DD2C44F1BA008D3C03 /* Helpers */,
+				BE96B7E62C473337003C41F9 /* FormatDate.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -60,7 +110,10 @@
 		BE06A0DB2C44F1A9008D3C03 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BE96B8002C4798A3003C41F9 /* Font+Extensions.swift */,
 				BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */,
+				BE3E50092C468276003EC4E1 /* View+Extensions.swift */,
+				BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -100,6 +153,8 @@
 		BE06A0E12C44F258008D3C03 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
+				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -109,6 +164,41 @@
 			children = (
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		BE3E50062C466BB3003EC4E1 /* MemoryCard */ = {
+			isa = PBXGroup;
+			children = (
+				BE3E50022C461C16003EC4E1 /* MemoryCardDetailView.swift */,
+				BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */,
+				BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */,
+				BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */,
+			);
+			path = MemoryCard;
+			sourceTree = "<group>";
+		};
+		BE96B7EC2C479826003C41F9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BE96B7F62C47986C003C41F9 /* font */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BE96B7F62C47986C003C41F9 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				BE96B7ED2C47986C003C41F9 /* Pretendard-Black.ttf */,
+				BE96B7EE2C47986C003C41F9 /* Pretendard-Bold.ttf */,
+				BE96B7EF2C47986C003C41F9 /* Pretendard-ExtraBold.ttf */,
+				BE96B7F02C47986C003C41F9 /* Pretendard-ExtraLight.ttf */,
+				BE96B7F12C47986C003C41F9 /* Pretendard-Light.ttf */,
+				BE96B7F22C47986C003C41F9 /* Pretendard-Medium.ttf */,
+				BE96B7F32C47986C003C41F9 /* Pretendard-Regular.ttf */,
+				BE96B7F42C47986C003C41F9 /* Pretendard-SemiBold.ttf */,
+				BE96B7F52C47986C003C41F9 /* Pretendard-Thin.ttf */,
+			);
+			path = font;
 			sourceTree = "<group>";
 		};
 		BE99A17C2C44AA230011F371 = {
@@ -132,6 +222,7 @@
 			children = (
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
+				BE96B7EC2C479826003C41F9 /* Resources */,
 				BE06A0DA2C44F19E008D3C03 /* Utilities */,
 				BE06A0D92C44F18F008D3C03 /* Services */,
 				BE06A0D82C44F168008D3C03 /* Config */,
@@ -155,6 +246,7 @@
 		BE99A1972C44EE700011F371 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -162,6 +254,7 @@
 		BE99A1992C44F1020011F371 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,6 +275,11 @@
 			dependencies = (
 			);
 			name = Harmony;
+			packageProductDependencies = (
+				BE3E4FF72C460F88003EC4E1 /* Alamofire */,
+				BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */,
+				BE3E50002C461BED003EC4E1 /* Kingfisher */,
+			);
 			productName = Harmony;
 			productReference = BE99A1852C44AA230011F371 /* Harmony.app */;
 			productType = "com.apple.product-type.application";
@@ -210,6 +308,10 @@
 				Base,
 			);
 			mainGroup = BE99A17C2C44AA230011F371;
+			packageReferences = (
+				BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BE3E4FFF2C461BED003EC4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = BE99A1862C44AA230011F371 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -224,8 +326,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
+				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
+				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
+				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
+				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
+				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,
+				BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */,
+				BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */,
+				BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,8 +347,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
+				BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */,
+				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
+				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
+				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
+				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
+				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
+				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
+				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
+				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
+				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
+				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +502,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -408,7 +531,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -444,6 +567,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		BE3E4FFF2C461BED003EC4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE3E4FF72C460F88003EC4E1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
+		};
+		BE3E50002C461BED003EC4E1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE3E4FFF2C461BED003EC4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BE99A17D2C44AA230011F371 /* Project object */;
 }
