@@ -17,7 +17,7 @@ struct MemoryCardView: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             RoundedRectangle(cornerRadius: 15)
-                .fill(Color.gray.opacity(0.1))
+                .fill(.gray.opacity(0.1))
                 .frame(height: 200)
             
             VStack(alignment: .leading, spacing: 10) {
@@ -31,7 +31,7 @@ struct MemoryCardView: View {
                             .cornerRadius(15, corners: [.topLeft, .topRight])
                     } else {
                         Rectangle()
-                            .fill(Color.gray.opacity(0.2))
+                            .fill(.gray.opacity(0.2))
                             .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 120) // 고정 너비와 높이 설정
                             .clipShape(RoundedCorner(radius: 15, corners: [.topLeft, .topRight]))
                     }
@@ -50,9 +50,9 @@ struct MemoryCardView: View {
 //                    .frame(maxHeight: .infinity)
             }
         }
-        .background(Color.white)
+        .background(.white)
         .cornerRadius(15)
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 5)
         .frame(width: UIScreen.main.bounds.width / 2 - 30) // 고정 너비 및 높이 설정
         .frame(maxHeight: .infinity)
     }

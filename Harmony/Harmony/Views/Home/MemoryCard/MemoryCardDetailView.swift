@@ -40,7 +40,7 @@ struct MemoryCardDetailView: View {
                     ForEach(memoryCardDetail.tag, id: \.self) { tag in
                         Text(tag)
                             .padding(8)
-                            .background(Color.gray.opacity(0.2))
+                            .background(.gray.opacity(0.2))
                             .clipShape(Capsule())
                     }
                 }
@@ -64,7 +64,7 @@ struct MemoryCardDetailView: View {
                         .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(.blue)
                         .cornerRadius(10)
                 }
                 
@@ -73,7 +73,7 @@ struct MemoryCardDetailView: View {
                         .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green)
+                        .background(.green)
                         .cornerRadius(10)
                 }
             }

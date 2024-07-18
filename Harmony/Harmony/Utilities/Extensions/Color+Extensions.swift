@@ -5,7 +5,6 @@
 //  Created by 한범석 on 7/15/24.
 //
 
-import Foundation
 import SwiftUI
 
 // MARK: - 색상을 hex코드로 간편하게 사용할 수 있게 해주는 Extension

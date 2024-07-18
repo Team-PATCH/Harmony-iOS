@@ -27,14 +27,14 @@ struct MemoryChatView: View {
                                         .frame(width: 30, height: 30)
                                     Text(message.message)
                                         .padding()
-                                        .background(Color.gray.opacity(0.2))
+                                        .background(.gray.opacity(0.2))
                                         .cornerRadius(10)
                                     Spacer()
                                 } else {
                                     Spacer()
                                     Text(message.message)
                                         .padding()
-                                        .background(Color.green.opacity(0.6))
+                                        .background(.green.opacity(0.6))
                                         .cornerRadius(10)
                                     Image(systemName: "person.crop.circle.fill")
                                         .resizable()
@@ -54,7 +54,7 @@ struct MemoryChatView: View {
                         .foregroundStyle(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(.blue)
                         .cornerRadius(10)
                 }
             }

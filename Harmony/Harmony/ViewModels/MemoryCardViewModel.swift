@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Alamofire
 
-class MemoryCardViewModel: ObservableObject {
+final class MemoryCardViewModel: ObservableObject {
     @Published var memoryCards: [MemoryCard] = []
     @Published var filteredMemoryCards: [MemoryCard] = []
     @Published var memoryCardDetail: MemoryCardDetail?
@@ -21,31 +21,53 @@ class MemoryCardViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     func loadMemoryCards() {
+        Task {
+            await loadMemoryCardsAsync()
+        }
+    }
+    
+    private func loadMemoryCardsAsync() async {
         isLoading = true
         errorMessage = nil
         hasLoaded = false
-        MemoryCardService.shared.fetchMemoryCards { [weak self] cards in
-            self?.isLoading = false
-            self?.hasLoaded = true
-            if let cards = cards {
-                self?.memoryCards = cards
-                self?.filteredMemoryCards = cards // 초기 데이터 설정
-                self?.applySorting()
-            } else {
-                self?.errorMessage = "추억 카드 목록을 조회하는 데 실패했습니다."
+        do {
+            if let cards = try await MemoryCardService.shared.fetchMemoryCards() {
+                DispatchQueue.main.async { [weak self] in
+                    self?.memoryCards = cards
+                    self?.filteredMemoryCards = cards
+                    self?.applySorting()
+                    self?.hasLoaded = true
+                    self?.isLoading = false
+                }
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                self?.errorMessage = "추억 카드 목록을 조회하는 데 실패했습니다: \(error.localizedDescription)"
+                self?.isLoading = false
             }
         }
     }
     
     func loadMemoryCardDetail(id: Int) {
+        Task {
+            await loadMemoryCardDetailAsync(id: id)
+        }
+    }
+    
+    private func loadMemoryCardDetailAsync(id: Int) async {
         isLoading = true
         errorMessage = nil
-        MemoryCardService.shared.fetchMemoryCardDetail(id: id) { [weak self] detail in
-            self?.isLoading = false
-            if let detail = detail {
-                self?.memoryCardDetail = detail
-            } else {
-                self?.errorMessage = "추억 카드 상세 정보를 조회하는 데 실패했습니다."
+        do {
+            if let detail = try await MemoryCardService.shared.fetchMemoryCardDetail(id: id) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.memoryCardDetail = detail
+                    self?.isLoading = false
+                }
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                self?.errorMessage = "추억 카드 상세 정보를 조회하는 데 실패했습니다: \(error.localizedDescription)"
+                self?.isLoading = false
             }
         }
     }
@@ -66,7 +88,6 @@ class MemoryCardViewModel: ObservableObject {
         applySorting()
     }
     
-    
     private func applySorting() {
         if isSortedByNewest {
             filteredMemoryCards = filteredMemoryCards.sorted {
@@ -84,5 +105,5 @@ class MemoryCardViewModel: ObservableObject {
         dateFormatter.formatOptions = [.withInternetDateTime]
         return dateFormatter.date(from: dateTime) ?? Date.distantPast
     }
-    
 }
+
