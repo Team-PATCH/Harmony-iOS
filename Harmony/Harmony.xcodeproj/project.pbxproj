@@ -10,7 +10,6 @@
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
-		BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */; };
 		BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */; };
 		BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */; };
 		BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E50002C461BED003EC4E1 /* Kingfisher */; };
@@ -75,7 +74,6 @@
 			files = (
 				BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */,
 				BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */,
-				BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +275,6 @@
 			name = Harmony;
 			packageProductDependencies = (
 				BE3E4FF72C460F88003EC4E1 /* Alamofire */,
-				BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */,
 				BE3E50002C461BED003EC4E1 /* Kingfisher */,
 			);
 			productName = Harmony;
@@ -492,9 +489,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Harmony/Preview Content\"";
+				DEVELOPMENT_TEAM = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -510,6 +509,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -521,9 +521,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Harmony/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -539,6 +543,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -592,11 +598,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 		BE3E50002C461BED003EC4E1 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
