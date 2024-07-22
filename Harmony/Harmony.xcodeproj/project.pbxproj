@@ -10,7 +10,6 @@
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
-		BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */; };
 		BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */; };
 		BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */; };
 		BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E50002C461BED003EC4E1 /* Kingfisher */; };
@@ -75,7 +74,6 @@
 			files = (
 				BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */,
 				BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */,
-				BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +275,6 @@
 			name = Harmony;
 			packageProductDependencies = (
 				BE3E4FF72C460F88003EC4E1 /* Alamofire */,
-				BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */,
 				BE3E50002C461BED003EC4E1 /* Kingfisher */,
 			);
 			productName = Harmony;
@@ -601,11 +598,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 		BE3E50002C461BED003EC4E1 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
