@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isAuth = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if isAuth {
+            MemoryCardsView()
+        } else {
+            SimpleOnboardingView(isAuth: $isAuth)
         }
-        .padding()
     }
 }
 
