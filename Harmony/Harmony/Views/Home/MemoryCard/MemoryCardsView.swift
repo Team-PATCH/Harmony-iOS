@@ -39,6 +39,9 @@ struct MemoryCardsView: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        if let userData = UserDefaultsManager.shared.getUserData() {
+                            print(userData)
+                        }
                         withAnimation {
                             viewModel.toggleSorting()
                         }
