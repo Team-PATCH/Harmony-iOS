@@ -34,6 +34,7 @@ struct MemoryCardView: View {
                             .fill(.gray.opacity(0.2))
                             .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 120) // 고정 너비와 높이 설정
                             .clipShape(RoundedCorner(radius: 15, corners: [.topLeft, .topRight]))
+                        
                     }
                 }
                 
@@ -59,10 +60,10 @@ struct MemoryCardView: View {
 }
 
 
-//#Preview {
-//    MemoryCardView(card: dummyMemoryCard, viewModel: dummyViewModel)
-//}
+#Preview {
+    MemoryCardView(card: dummyMemoryCard, viewModel: dummyViewModel)
+}
 
-let dummyMemoryCard = MemoryCard(id: 1, title: "더미", dateTime: "날짜", image: "업ㄷㅅ어")
+let dummyMemoryCard = MemoryCard(id: 1, title: "더미", dateTime: "날짜", image: "https://cdn.eyesmag.com/content/uploads/posts/2022/09/07/main-b40b2d5d-2d99-4734-80af-9fd4ac428fb4.jpg")
 
 let dummyViewModel = MemoryCardViewModel()
