@@ -50,4 +50,17 @@ extension Color {
             opacity: Double(a) / 255
         )
     }
+    
+    //Team Patch Color Palete
+    static let mainGreen = Color(hex: "#00c573")
+    static let subGreen = Color(hex: "#def7e8")
+    static let subRed = Color(hex: "#dd4a4a")
+    static let bl = Color(hex: "#363232")
+    static let wh = Color(hex: "#ffffff")
+    static let gray5 = Color(hex: "#7a7971")
+    static let gray4 = Color(hex: "#9b9b97")
+    static let gray3 = Color(hex: "#c0beb6")
+    static let gray2 = Color(hex: "#e6e3dd")
+    static let gray1 = Color(hex: "#f5f5f1")
+    
 }
