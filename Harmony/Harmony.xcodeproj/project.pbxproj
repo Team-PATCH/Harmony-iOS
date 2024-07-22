@@ -13,7 +13,6 @@
 		BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */; };
 		BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */; };
 		BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */; };
-		BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E50002C461BED003EC4E1 /* Kingfisher */; };
 		BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50022C461C16003EC4E1 /* MemoryCardDetailView.swift */; };
 		BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */; };
 		BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */; };
@@ -73,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */,
 				BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */,
 				BE3E4FFA2C460F88003EC4E1 /* AlamofireDynamic in Frameworks */,
 			);
@@ -278,7 +276,6 @@
 			packageProductDependencies = (
 				BE3E4FF72C460F88003EC4E1 /* Alamofire */,
 				BE3E4FF92C460F88003EC4E1 /* AlamofireDynamic */,
-				BE3E50002C461BED003EC4E1 /* Kingfisher */,
 			);
 			productName = Harmony;
 			productReference = BE99A1852C44AA230011F371 /* Harmony.app */;
@@ -606,11 +603,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = AlamofireDynamic;
-		};
-		BE3E50002C461BED003EC4E1 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BE3E4FFF2C461BED003EC4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
