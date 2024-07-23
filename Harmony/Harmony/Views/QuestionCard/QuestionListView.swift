@@ -29,11 +29,11 @@ struct QuestionListView: View {
         .navigationTitle("주고받은 질문 목록")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("주고받은 질문 목록")
-                            .font(.pretendardBold(size: 20))
-                    }
-                }
+            ToolbarItem(placement: .principal) {
+                Text("주고받은 질문 목록")
+                    .font(.pretendardBold(size: 20))
+            }
+        }
         .task {
             await viewModel.fetchAllQuestions(groupId: 1)
         }
@@ -75,10 +75,8 @@ struct QuestionListBox: View {
 
 
 // MARK: - Preview
-struct QuestionListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            QuestionListView(viewModel: QuestionViewModel(mockData: true))
-        }
+#Preview {
+    NavigationView {
+        QuestionListView(viewModel: QuestionViewModel(mockData: true))
     }
 }

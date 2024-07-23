@@ -59,8 +59,8 @@ struct AnswerCommonView: View {
         ZStack(alignment: .bottomTrailing) {
             CustomTextEditor(text: $answerText,
                              backgroundColor: UIColor(Color.gray1), placeholder: "여정님의 답변을 알려주세요.")
-                .frame(height: height)
-                .cornerRadius(8)
+            .frame(height: height)
+            .cornerRadius(8)
         }
         .background(Color.gray1)
         .cornerRadius(10)
@@ -91,7 +91,7 @@ struct AnswerView: View {
     let questionId: Int
     @State private var answerText = ""
     @State private var navigateToDetail = false
-
+    
     var body: some View {
         NavigationStack {
             AnswerCommonView(
@@ -120,10 +120,8 @@ struct AnswerView: View {
 
 
 // MARK: - Preview
-struct AnswerView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-        }
+#Preview {
+    NavigationView {
+        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
     }
 }

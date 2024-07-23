@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class QuestionCardService {
+final class QuestionCardService {
     static let shared = QuestionCardService()
     private let baseURL = "http://localhost:3000/qc" // 로컬 서버 주소
 

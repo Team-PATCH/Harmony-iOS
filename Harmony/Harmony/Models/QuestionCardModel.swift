@@ -14,11 +14,10 @@ struct Question: Identifiable, Codable {
     var answer: String?
     let createdAt: Date
     var answeredAt: Date?
-    var updatedAt: Date
 
     enum CodingKeys: String, CodingKey {
         case id = "questionId" // 서버의 questionId를 id로 매핑
-        case groupId, question, answer, createdAt, answeredAt, updatedAt
+        case groupId, question, answer, createdAt, answeredAt
     }
 }
 

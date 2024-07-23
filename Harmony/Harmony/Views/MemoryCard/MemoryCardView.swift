@@ -36,7 +36,7 @@ struct MemoryCardView: View {
                         .font(.title3)
                         .bold()
                         .foregroundColor(.black)
-                    Text(formattedDate(from: card.dateTime))
+                    Text(FormatManager.shared.formattedDate(from: card.dateTime))
                         .font(.subheadline)
                         .foregroundColor(.black)
                 }

@@ -29,7 +29,7 @@
 		BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */; };
 		BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */; };
 		BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50092C468276003EC4E1 /* View+Extensions.swift */; };
-		BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatDate.swift */; };
+		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
 		BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE96B7ED2C47986C003C41F9 /* Pretendard-Black.ttf */; };
@@ -47,6 +47,8 @@
 		BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A18A2C44AA230011F371 /* ContentView.swift */; };
 		BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18C2C44AA250011F371 /* Assets.xcassets */; };
 		BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */; };
+		BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */; };
+		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 		C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */; };
 		C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */; };
 		C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */; };
@@ -56,8 +58,6 @@
 		C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */; };
 		C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE232C4FAECB00B1A87D /* QuestionListView.swift */; };
 		C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE252C4FAEEE00B1A87D /* QuestionMainView.swift */; };
-		BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */; };
-		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,7 +82,7 @@
 		BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardViewModel.swift; sourceTree = "<group>"; };
 		BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardView.swift; sourceTree = "<group>"; };
 		BE3E50092C468276003EC4E1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		BE96B7E62C473337003C41F9 /* FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDate.swift; sourceTree = "<group>"; };
+		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		BE96B7ED2C47986C003C41F9 /* Pretendard-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.ttf"; sourceTree = "<group>"; };
@@ -101,6 +101,8 @@
 		BE99A18A2C44AA230011F371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BE99A18C2C44AA250011F371 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardRecordView.swift; sourceTree = "<group>"; };
+		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 		C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardModel.swift; sourceTree = "<group>"; };
 		C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardViewModel.swift; sourceTree = "<group>"; };
 		C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardService.swift; sourceTree = "<group>"; };
@@ -110,8 +112,6 @@
 		C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		C49DBE232C4FAECB00B1A87D /* QuestionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionListView.swift; sourceTree = "<group>"; };
 		C49DBE252C4FAEEE00B1A87D /* QuestionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMainView.swift; sourceTree = "<group>"; };
-		BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardRecordView.swift; sourceTree = "<group>"; };
-		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +130,8 @@
 		3EA6EB9F2C4F488D00627C63 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
+				C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */,
 				3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */,
 			);
 			path = Common;
@@ -148,6 +150,7 @@
 		55A10B1A2C4E5960001728EF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				BE96B7E62C473337003C41F9 /* FormatManager.swift */,
 				55A10B192C4E5960001728EF /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
@@ -156,10 +159,18 @@
 		55A10B1E2C4F75BC001728EF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				55A10B1F2C4F76C5001728EF /* LoginView.swift */,
 				55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */,
+				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		55A10B242C4FB97A001728EF /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				55A10B1F2C4F76C5001728EF /* LoginView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		BE06A0D82C44F168008D3C03 /* Config */ = {
@@ -183,7 +194,6 @@
 			children = (
 				BE06A0DB2C44F1A9008D3C03 /* Extensions */,
 				BE06A0DD2C44F1BA008D3C03 /* Helpers */,
-				BE96B7E62C473337003C41F9 /* FormatDate.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -209,21 +219,17 @@
 		BE06A0DE2C44F212008D3C03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C49DBE1A2C4FAE5500B1A87D /* QuestionCard */,
+				3EA6EBA62C4F496A00627C63 /* Routine */,
+				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
 				55A10B1E2C4F75BC001728EF /* Onboarding */,
+				55A10B242C4FB97A001728EF /* Auth */,
 				3EA6EB9F2C4F488D00627C63 /* Common */,
 				BE06A0E02C44F24E008D3C03 /* LaunchScreen */,
-				BE06A0DF2C44F223008D3C03 /* Auth */,
 				BE06A0E12C44F258008D3C03 /* Home */,
 				BE06A0E22C44F263008D3C03 /* Profile */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		BE06A0DF2C44F223008D3C03 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Auth;
 			sourceTree = "<group>";
 		};
 		BE06A0E02C44F24E008D3C03 /* LaunchScreen */ = {
@@ -236,13 +242,6 @@
 		BE06A0E12C44F258008D3C03 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C49DBE1A2C4FAE5500B1A87D /* QuestionCard */,
-				3EA6EBA62C4F496A00627C63 /* Routine */,
-				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
-				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
-				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
-				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
-				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
 				3EA6EBA42C4F495700627C63 /* HomeView.swift */,
 			);
 			path = Home;
@@ -263,6 +262,7 @@
 				BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */,
 				BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */,
 				BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */,
+				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -313,6 +313,7 @@
 				55A10B232C4F94C8001728EF /* Info.plist */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
+				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
 				BE96B7EC2C479826003C41F9 /* Resources */,
 				BE06A0DA2C44F19E008D3C03 /* Utilities */,
 				BE06A0D92C44F18F008D3C03 /* Services */,
@@ -361,7 +362,6 @@
 				C49DBE1B2C4FAE6C00B1A87D /* QuestionDetailView.swift */,
 				C49DBE1D2C4FAE8300B1A87D /* AnswerView.swift */,
 				C49DBE1F2C4FAEA100B1A87D /* AnswerEditView.swift */,
-				C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */,
 				C49DBE232C4FAECB00B1A87D /* QuestionListView.swift */,
 				C49DBE252C4FAEEE00B1A87D /* QuestionMainView.swift */,
 			);
@@ -460,7 +460,7 @@
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
 				C49DBE1E2C4FAE8300B1A87D /* AnswerView.swift in Sources */,
-				BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */,
+				BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */,
 				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct QuestionMainView: View {
-    @ObservedObject var viewModel: QuestionViewModel
-    let userNick: String
+    @StateObject var viewModel = QuestionViewModel()
+    let userNick = "여정"
     
     var body: some View {
         NavigationView {
@@ -33,21 +33,21 @@ struct QuestionMainView: View {
                 }
             }
             .background(Color.white)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .principal) {
-                                HStack {
-                                    Text("오늘의 ")
-                                        .font(.system(size: 24, weight: .bold))
-                                    + Text("질문")
-                                        .font(.system(size: 24, weight: .bold))
-                                        .foregroundColor(.mainGreen)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, -1)  // 왼쪽으로 더 붙이기 위해 음수 패딩 사용
-                                .padding(.bottom)
-                            }
-                        }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("오늘의 ")
+                            .font(.system(size: 24, weight: .bold))
+                        + Text("질문")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(.mainGreen)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, -1)  // 왼쪽으로 더 붙이기 위해 음수 패딩 사용
+                    .padding(.bottom)
+                }
+            }
         }
         .task {
             await viewModel.fetchCurrentQuestion(groupId: 1)
@@ -73,13 +73,13 @@ struct CurrentQuestionBox: View {
                     Text("답변하러 가기")
                     Image("GoToRightArrow")
                 }
-                        .font(.pretendardSemiBold(size: 20))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.mainGreen)
-                    .cornerRadius(999)
+                .font(.pretendardSemiBold(size: 20))
+                .foregroundColor(.white)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
+                .background(Color.mainGreen)
+                .cornerRadius(999)
             }
         }
     }
@@ -148,8 +148,6 @@ struct QuestionBox: View {
 }
 
 // MARK: - Preview
-struct QuestionMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        QuestionMainView(viewModel: QuestionViewModel(mockData: true), userNick: "테스터")
-    }
+#Preview {
+    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
 }

@@ -173,9 +173,9 @@ struct CommentModalView: View {
                                      font: .pretendardMedium(size: 18),
                                      placeholder: "댓글을 입력해주세요",
                                      maxLength: 200)
-                        .frame(height: 250)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                    .frame(height: 250)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
                     
                     Button("작성 완료") {
                         Task {
@@ -215,10 +215,9 @@ struct CommentModalView: View {
 
 
 // MARK: - Preview
-struct QuestionDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            QuestionDetailView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-        }
+#Preview {
+    NavigationView {
+        QuestionDetailView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
     }
 }
+

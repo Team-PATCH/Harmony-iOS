@@ -19,8 +19,7 @@ struct MainTabView: View {
                 case 1:
                     MemoryCardsView()
                 case 2:
-                    // Question View 추가
-                    Text("Question View")
+                    QuestionMainView()
                 case 3:
                     RoutineView()
                 default:

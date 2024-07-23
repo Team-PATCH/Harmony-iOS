@@ -79,7 +79,7 @@ struct MemoryCardRecordView: View {
                         )
                     HStack {
                         Spacer()
-                        Image("모니_talk")
+                        Image("moni-talk")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200, height: 200)

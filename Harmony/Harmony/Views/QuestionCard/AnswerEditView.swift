@@ -12,13 +12,13 @@ struct AnswerEditView: View {
     let questionId: Int
     @State private var answerText: String
     @State private var navigateToDetail = false
-
+    
     init(viewModel: QuestionViewModel, questionId: Int) {
         self.viewModel = viewModel
         self.questionId = questionId
         _answerText = State(initialValue: viewModel.selectedQuestion?.answer ?? "")
     }
-
+    
     var body: some View {
         NavigationStack {
             AnswerCommonView(
@@ -47,10 +47,8 @@ struct AnswerEditView: View {
 
 
 // MARK: - Preview
-struct AnswerEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AnswerEditView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-        }
+#Preview {
+    NavigationView {
+        AnswerEditView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
     }
 }

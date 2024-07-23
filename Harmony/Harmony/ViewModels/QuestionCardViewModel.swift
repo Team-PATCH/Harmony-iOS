@@ -149,8 +149,8 @@ class QuestionViewModel: ObservableObject {
             question: "오늘 가장 감사했던 순간은 언제인가요?",
             answer: "매순간이 감사하지~~~ 지혜가 문자보냈을때 너무 좋았어!!!",
             createdAt: now.addingTimeInterval(-86400),
-            answeredAt: now.addingTimeInterval(-43200),
-            updatedAt: now.addingTimeInterval(-43200)
+            answeredAt: now.addingTimeInterval(-43200)
+            
         )
         
         // 최근 질문들
@@ -161,8 +161,8 @@ class QuestionViewModel: ObservableObject {
                 question: "어제 먹은 음식 중 가장 맛있었던 것은?",
                 answer: "어제 먹은 파스타가 정말 맛있었어요.",
                 createdAt: now.addingTimeInterval(-86400),
-                answeredAt: now.addingTimeInterval(-43200),
-                updatedAt: now.addingTimeInterval(-43200)
+                answeredAt: now.addingTimeInterval(-43200)
+                
             ),
             Question(
                 id: 2,
@@ -170,8 +170,8 @@ class QuestionViewModel: ObservableObject {
                 question: "최근에 본 영화 중 추천하고 싶은 작품이 있나요?",
                 answer: "인셉션을 다시 봤는데, 여전히 훌륭한 영화더라구요.",
                 createdAt: now.addingTimeInterval(-172800),
-                answeredAt: now.addingTimeInterval(-86400),
-                updatedAt: now.addingTimeInterval(-86400)
+                answeredAt: now.addingTimeInterval(-86400)
+                
             ),
             Question(
                 id: 3,
@@ -179,8 +179,8 @@ class QuestionViewModel: ObservableObject {
                 question: "올해의 목표는 무엇인가요?",
                 answer: "규칙적인 운동 습관을 들이는 것이 목표예요.",
                 createdAt: now.addingTimeInterval(-259200),
-                answeredAt: now.addingTimeInterval(-172800),
-                updatedAt: now.addingTimeInterval(-172800)
+                answeredAt: now.addingTimeInterval(-172800)
+                
             )
         ]
         
@@ -192,8 +192,8 @@ class QuestionViewModel: ObservableObject {
                 question: "가장 좋아하는 계절은 언제인가요?",
                 answer: "저는 선선한 가을이 가장 좋아요.",
                 createdAt: now.addingTimeInterval(-345600),
-                answeredAt: now.addingTimeInterval(-259200),
-                updatedAt: now.addingTimeInterval(-259200)
+                answeredAt: now.addingTimeInterval(-259200)
+                
             ),
             Question(
                 id: 5,
@@ -201,8 +201,8 @@ class QuestionViewModel: ObservableObject {
                 question: "최근에 새로 배운 것이 있다면 무엇인가요?",
                 answer: "최근에 기타를 배우기 시작했어요. 아직은 서툴지만 재미있어요.",
                 createdAt: now.addingTimeInterval(-432000),
-                answeredAt: now.addingTimeInterval(-345600),
-                updatedAt: now.addingTimeInterval(-345600)
+                answeredAt: now.addingTimeInterval(-345600)
+                
             )
         ]
         
@@ -258,11 +258,11 @@ class QuestionViewModel: ObservableObject {
             if let index = allQuestions.firstIndex(where: { $0.id == questionId }) {
                 allQuestions[index].answer = answer
                 allQuestions[index].answeredAt = Date()
-                allQuestions[index].updatedAt = Date()
+                
                 if questionId == currentQuestion?.id {
                     currentQuestion?.answer = answer
                     currentQuestion?.answeredAt = Date()
-                    currentQuestion?.updatedAt = Date()
+                    
                 }
             }
         }
@@ -273,10 +273,10 @@ class QuestionViewModel: ObservableObject {
         if mockData {
             if let index = allQuestions.firstIndex(where: { $0.id == questionId }) {
                 allQuestions[index].answer = answer
-                allQuestions[index].updatedAt = Date()
+                
                 if questionId == selectedQuestion?.id {
                     selectedQuestion?.answer = answer
-                    selectedQuestion?.updatedAt = Date()
+                    
                 }
             }
         }

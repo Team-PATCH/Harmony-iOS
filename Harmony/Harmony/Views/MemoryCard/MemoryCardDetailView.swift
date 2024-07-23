@@ -38,7 +38,7 @@ struct MemoryCardDetailView: View {
                     .padding([.top, .horizontal])
                     .multilineTextAlignment(.center)
                 
-                Text(formattedDateTime(from: memoryCardDetail.dateTime))
+                Text(FormatManager.shared.formattedDateTime(from: memoryCardDetail.dateTime))
                     .font(.subheadline)
                 HStack {
                     ForEach(memoryCardDetail.tag, id: \.self) { tag in

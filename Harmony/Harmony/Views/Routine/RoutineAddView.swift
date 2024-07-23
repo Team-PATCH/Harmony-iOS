@@ -81,10 +81,7 @@ struct RoutineAddView: View {
             title: title,
             photo: nil,
             days: days,
-            time: time,
-            createdAt: Date(),
-            updatedAt: nil,
-            deletedAt: nil
+            time: time
         )
         viewModel.routines.append(newRoutine)
         viewModel.generateDailyRoutines()
