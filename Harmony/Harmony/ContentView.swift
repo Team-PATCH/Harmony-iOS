@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var isAuth = false
     var body: some View {
         if isAuth {
-            MemoryCardsView()
+            MainTabView()
         } else {
             SimpleOnboardingView(isAuth: $isAuth)
         }
