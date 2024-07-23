@@ -20,7 +20,7 @@ struct LoginView: View {
                     
                     VStack(spacing: 12) {
                         NavigationLink {
-                            HomeView()
+                            AllowNotificationView()
                         } label: {
                             Text("Apple로 계속하기")
                                 .frame(maxWidth: .infinity)
