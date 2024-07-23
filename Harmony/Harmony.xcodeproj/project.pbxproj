@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */; };
+		3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA22C4F492900627C63 /* MainTabView.swift */; };
+		3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA42C4F495700627C63 /* HomeView.swift */; };
+		3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA72C4F497700627C63 /* RoutineView.swift */; };
+		3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA92C4F724200627C63 /* RoutineModel.swift */; };
+		3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */; };
+		3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */; };
+		3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
@@ -42,6 +50,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		3EA6EBA22C4F492900627C63 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		3EA6EBA42C4F495700627C63 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		3EA6EBA72C4F497700627C63 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		3EA6EBA92C4F724200627C63 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
+		3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineAddView.swift; sourceTree = "<group>"; };
+		3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManagementView.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -88,6 +104,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EA6EB9F2C4F488D00627C63 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3EA6EBA62C4F496A00627C63 /* Routine */ = {
+			isa = PBXGroup;
+			children = (
+				3EA6EBA72C4F497700627C63 /* RoutineView.swift */,
+				3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */,
+				3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */,
+			);
+			path = Routine;
+			sourceTree = "<group>";
+		};
 		55A10B1A2C4E5960001728EF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +176,7 @@
 		BE06A0DE2C44F212008D3C03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3EA6EB9F2C4F488D00627C63 /* Common */,
 				BE06A0E02C44F24E008D3C03 /* LaunchScreen */,
 				BE06A0DF2C44F223008D3C03 /* Auth */,
 				BE06A0E12C44F258008D3C03 /* Home */,
@@ -167,10 +202,13 @@
 		BE06A0E12C44F258008D3C03 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3EA6EBA62C4F496A00627C63 /* Routine */,
 				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
 				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
 				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
 				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
+				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
+				3EA6EBA42C4F495700627C63 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -265,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
+				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -273,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */,
+				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,11 +404,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */,
 				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
+				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
+				3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */,
+				3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */,
 				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
@@ -376,10 +420,14 @@
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
 				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
+				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
+				3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
+				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
+				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
 				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
