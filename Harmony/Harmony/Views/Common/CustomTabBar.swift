@@ -23,7 +23,8 @@ struct CustomTabBar: View {
                 CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 1, image: "tab-memory-icon", text: "추억 보관소")
                 Spacer()
                 CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 2, image: "tab-question-icon", text: "질문")
-                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 2, image: "tab-routine-icon", text: "일과")
+                Spacer()
+                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 3, image: "tab-routine-icon", text: "일과")
             }
             .frame(height: 60)
             .padding(.horizontal, 55)
