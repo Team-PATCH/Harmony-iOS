@@ -45,6 +45,8 @@
 		BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE99A18A2C44AA230011F371 /* ContentView.swift */; };
 		BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18C2C44AA250011F371 /* Assets.xcassets */; };
 		BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */; };
+		BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */; };
+		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		BE99A18A2C44AA230011F371 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BE99A18C2C44AA250011F371 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardRecordView.swift; sourceTree = "<group>"; };
+		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +206,7 @@
 				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
 				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
 				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
+				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
 				3EA6EBA42C4F495700627C63 /* HomeView.swift */,
 			);
@@ -222,6 +227,7 @@
 				BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */,
 				BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */,
 				BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */,
+				BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */,
+				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
 				3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */,
@@ -422,6 +429,7 @@
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
+				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

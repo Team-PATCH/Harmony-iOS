@@ -21,11 +21,15 @@ struct MemoryCardDetailView: View {
             } else if let memoryCardDetail = viewModel.memoryCardDetail {
                 
                 HStack {
-                    KFImage(URL(string: "https://cdn.eyesmag.com/content/uploads/posts/2022/09/07/main-b40b2d5d-2d99-4734-80af-9fd4ac428fb4.jpg"))
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 300, maxHeight: 200)
-                        .clipped()
+                    if let memoryCard = viewModel.memoryCard {
+                        
+                        KFImage(URL(string: memoryCard.image))
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: 300, maxHeight: 200)
+                            .clipped()
+                            .cornerRadius(10, corners: [.topLeft, .topRight])
+                    }
                 }
                 
                 Text(memoryCardDetail.title)
