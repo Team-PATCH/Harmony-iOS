@@ -14,21 +14,24 @@ struct CustomTabBar: View {
         VStack {
             Rectangle()
                 .frame(height: 0.8)
-                .foregroundStyle(Color.gray4)
+                .foregroundStyle(Color.gray3)
                 .padding(.bottom, 5)
             
-            HStack {
-                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 0, image: "tab-home-icon", text: "홈")
-                Spacer()
-                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 1, image: "tab-memory-icon", text: "추억 보관소")
-                Spacer()
-                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 2, image: "tab-question-icon", text: "질문")
-                Spacer()
-                CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 3, image: "tab-routine-icon", text: "일과")
+            GeometryReader { geometry in
+                HStack(spacing: 0) {
+                    CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 0, image: "tab-home-icon", text: "홈")
+                        .frame(width: geometry.size.width / 4)
+                    CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 1, image: "tab-memory-icon", text: "추억 보관소")
+                        .frame(width: geometry.size.width / 4)
+                    CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 2, image: "tab-question-icon", text: "질문")
+                        .frame(width: geometry.size.width / 4)
+                    CustomTabBarItem(selectedTab: $selectedTab, tabIndex: 3, image: "tab-routine-icon", text: "일과")
+                        .frame(width: geometry.size.width / 4)
+                }
             }
-            .frame(height: 60)
-            .padding(.horizontal, 55)
+            .padding(.horizontal, 20)
         }
+        .frame(height: 63)
         .background(Color.white)
     }
 }
@@ -47,10 +50,10 @@ struct CustomTabBarItem: View {
                 Image(image)
                     .renderingMode(.template)
                     .resizable()
-                    .frame(width: 20, height: 20)
+                    .frame(width: 24, height: 24)
                     .foregroundColor(selectedTab == tabIndex ? Color.mainGreen : Color.gray3)
                 Text(text)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.pretendardMedium(size: 15))
                     .foregroundColor(selectedTab == tabIndex ? Color.mainGreen : Color.gray3)
             }
         }
