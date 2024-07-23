@@ -131,7 +131,7 @@ struct CommentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .center, spacing: 20) {
-                Image("Group 170")
+                Image("mock-profile")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40) // 이미지 크기 조절

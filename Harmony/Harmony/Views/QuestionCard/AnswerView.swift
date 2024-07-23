@@ -7,6 +7,35 @@
 
 import SwiftUI
 
+struct AnswerView: View {
+    @ObservedObject var viewModel: QuestionViewModel
+    let questionId: Int
+    @State private var answerText = ""
+    @State private var navigateToDetail = false
+    
+    var body: some View {
+        AnswerCommonView(
+            questionIndex: viewModel.currentQuestion?.id ?? 0,
+            question: viewModel.currentQuestion?.question ?? "",
+            answeredAt: nil,
+            answerText: $answerText,
+            buttonText: "답변 완료",
+            onSubmit: {
+                Task {
+                    await viewModel.postAnswer(questionId: questionId, answer: answerText)
+                    navigateToDetail = true
+                }
+            }
+        )
+        .navigationDestination(isPresented: $navigateToDetail) {
+            QuestionDetailView(viewModel: viewModel, questionId: questionId)
+        }
+        .task {
+            await viewModel.fetchCurrentQuestion(groupId: 1)
+        }
+    }
+}
+
 struct AnswerCommonView: View {
     let questionIndex: Int
     let question: String
@@ -25,7 +54,6 @@ struct AnswerCommonView: View {
                         questionSection
                         
                         textEditorSection(height: geometry.size.height * 0.6)
-                        // 화면 높이의 60%로 설정
                         
                         submitButton
                     }
@@ -86,42 +114,13 @@ struct AnswerCommonView: View {
     }
 }
 
-struct AnswerView: View {
-    @ObservedObject var viewModel: QuestionViewModel
-    let questionId: Int
-    @State private var answerText = ""
-    @State private var navigateToDetail = false
-    
-    var body: some View {
-        NavigationStack {
-            AnswerCommonView(
-                questionIndex: viewModel.currentQuestion?.id ?? 0,
-                question: viewModel.currentQuestion?.question ?? "",
-                answeredAt: nil,
-                answerText: $answerText,
-                buttonText: "답변 완료",
-                onSubmit: {
-                    Task {
-                        await viewModel.postAnswer(questionId: questionId, answer: answerText)
-                        navigateToDetail = true
-                    }
-                }
-            )
-            .navigationDestination(isPresented: $navigateToDetail) {
-                QuestionDetailView(viewModel: viewModel, questionId: questionId)
-            }
-        }
-        .task {
-            await viewModel.fetchCurrentQuestion(groupId: 1)
-        }
-    }
-}
-
 
 
 // MARK: - Preview
-#Preview {
-    NavigationView {
-        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
+struct AnswerView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
+        }
     }
 }

@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct QuestionMainView: View {
     @StateObject var viewModel = QuestionViewModel()
     let userNick = "여정"
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 ScrollView {
                     VStack(spacing: 20) {
@@ -44,7 +46,7 @@ struct QuestionMainView: View {
                             .foregroundColor(.mainGreen)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, -1)  // 왼쪽으로 더 붙이기 위해 음수 패딩 사용
+                    .padding(.leading, -1)
                     .padding(.bottom)
                 }
             }
@@ -71,7 +73,7 @@ struct CurrentQuestionBox: View {
             NavigationLink(destination: AnswerView(viewModel: viewModel, questionId: question.id)) {
                 HStack {
                     Text("답변하러 가기")
-                    Image("GoToRightArrow")
+                    Image("qc-right-arrow")
                 }
                 .font(.pretendardSemiBold(size: 20))
                 .foregroundColor(.white)
@@ -148,6 +150,8 @@ struct QuestionBox: View {
 }
 
 // MARK: - Preview
-#Preview {
-    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
+struct QuestionMainView_Previews: PreviewProvider {
+    static var previews: some View {
+        QuestionMainView(viewModel: QuestionViewModel(mockData: true))
+    }
 }
