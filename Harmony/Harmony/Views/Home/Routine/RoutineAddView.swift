@@ -11,6 +11,8 @@ struct RoutineAddView: View {
     @State private var title: String = ""
     @State private var selectedDays: [Bool] = Array(repeating: false, count: 7)
     @State private var time: Date = Date()
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: RoutineViewModel
 
     var body: some View {
         NavigationView {
@@ -55,7 +57,7 @@ struct RoutineAddView: View {
                 Spacer()
 
                 Button(action: {
-                    // Add Routine action
+                    addRoutine()
                 }) {
                     Text("추가하기")
                         .font(.headline)
@@ -69,6 +71,24 @@ struct RoutineAddView: View {
                 .disabled(title.isEmpty || !selectedDays.contains(true))
             }
         }
+    }
+
+    func addRoutine() {
+        let days = selectedDays.enumerated().reduce(0) { $0 + ($1.element ? (1 << (6 - $1.offset)) : 0) }
+        let newRoutine = Routine(
+            id: viewModel.routines.count + 1,
+            groupId: 1,
+            title: title,
+            photo: nil,
+            days: days,
+            time: time,
+            createdAt: Date(),
+            updatedAt: nil,
+            deletedAt: nil
+        )
+        viewModel.routines.append(newRoutine)
+        viewModel.generateDailyRoutines()
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
@@ -102,13 +122,6 @@ struct DayButton: View {
     }
 }
 
-struct RoutineAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoutineAddView()
-    }
-}
-
-
 #Preview {
-    RoutineAddView()
+    RoutineAddView(viewModel: RoutineViewModel())
 }
