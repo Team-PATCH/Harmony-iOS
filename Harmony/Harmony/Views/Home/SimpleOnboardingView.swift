@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SimpleOnboardingView: View {
     @Binding var isAuth: Bool
-    
+    @State var isOnboarding = false
     var body: some View {
         VStack {
             HStack {
@@ -24,12 +24,22 @@ struct SimpleOnboardingView: View {
                 }
                 .padding()
                 .background(Color.gray1)
+                
+                Button {
+                    self.isOnboarding = true
+                } label: {
+                    Text("Onboarding")
+                }
+                .fullScreenCover(isPresented: $isOnboarding, content: {
+                    LoginView()
+                })
+                .font(.pretendardBold(size: 24))
+                .padding()
+                
             }
-            .font(.pretendardBold(size: 24))
-            .padding()
         }
     }
-    
+}
     func saveUserData(permission: String) {
         let userData: UserData
         
@@ -55,7 +65,7 @@ struct SimpleOnboardingView: View {
         
         UserDefaultsManager.shared.saveUserData(userData)
     }
-}
+
 
 #Preview {
     SimpleOnboardingView(isAuth: .constant(false))
