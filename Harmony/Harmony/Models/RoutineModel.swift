@@ -14,9 +14,6 @@ struct Routine: Identifiable {
     var photo: URL?
     var days: Int
     var time: Date
-    var createdAt: Date
-    var updatedAt: Date?
-    var deletedAt: Date?
 }
 
 struct DailyRoutine: Identifiable {

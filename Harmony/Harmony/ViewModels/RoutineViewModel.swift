@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class RoutineViewModel: ObservableObject {
+final class RoutineViewModel: ObservableObject {
     @Published var routines: [Routine] = dummyRoutines
     @Published var dailyRoutines: [DailyRoutine] = []
     @Published var routineReactions: [RoutineReaction] = []
@@ -93,8 +93,8 @@ extension String {
 
 
 let dummyRoutines = [
-    Routine(id: 1, groupId: 1, title: "하율이 등원 시키기", photo: nil, days: 0b1111100, time: Date(), createdAt: Date(), updatedAt: nil, deletedAt: nil), // 월화수목금
-    Routine(id: 2, groupId: 1, title: "공원 산책가서 비둘기 사진 찍기", photo: nil, days: 0b1100000, time: Date(), createdAt: Date(), updatedAt: nil, deletedAt: nil), // 월화
-    Routine(id: 3, groupId: 1, title: "문화센터 서예 교실 가기", photo: URL(string: "https://example.com/photo2.jpg"), days: 0b0000011, time: Date(), createdAt: Date(), updatedAt: nil, deletedAt: nil), // 주말
-    Routine(id: 4, groupId: 1, title: "요리하기", photo: URL(string: "https://example.com/photo3.jpg"), days: 0b1000000, time: Date(), createdAt: Date(), updatedAt: nil, deletedAt: nil)  // 월
+    Routine(id: 1, groupId: 1, title: "하율이 등원 시키기", photo: nil, days: 0b1111100, time: Date()), // 월화수목금
+    Routine(id: 2, groupId: 1, title: "공원 산책가서 비둘기 사진 찍기", photo: nil, days: 0b1100000, time: Date()), // 월화
+    Routine(id: 3, groupId: 1, title: "문화센터 서예 교실 가기", photo: URL(string: "https://example.com/photo2.jpg"), days: 0b0000011, time: Date()), // 주말
+    Routine(id: 4, groupId: 1, title: "요리하기", photo: URL(string: "https://example.com/photo3.jpg"), days: 0b1000000, time: Date())  // 월
 ]
