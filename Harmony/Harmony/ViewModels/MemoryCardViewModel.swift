@@ -13,6 +13,7 @@ final class MemoryCardViewModel: ObservableObject {
     @Published var memoryCards: [MemoryCard] = []
     @Published var filteredMemoryCards: [MemoryCard] = []
     @Published var memoryCardDetail: MemoryCardDetail?
+    @Published var memoryCard: MemoryCard?
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var hasLoaded = false

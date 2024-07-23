@@ -11,6 +11,10 @@
 		3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA22C4F492900627C63 /* MainTabView.swift */; };
 		3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA42C4F495700627C63 /* HomeView.swift */; };
 		3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA72C4F497700627C63 /* RoutineView.swift */; };
+		3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBA92C4F724200627C63 /* RoutineModel.swift */; };
+		3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */; };
+		3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */; };
+		3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
@@ -50,6 +54,8 @@
 		C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */; };
 		C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE232C4FAECB00B1A87D /* QuestionListView.swift */; };
 		C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE252C4FAEEE00B1A87D /* QuestionMainView.swift */; };
+		BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */; };
+		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +63,10 @@
 		3EA6EBA22C4F492900627C63 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		3EA6EBA42C4F495700627C63 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3EA6EBA72C4F497700627C63 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		3EA6EBA92C4F724200627C63 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
+		3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineAddView.swift; sourceTree = "<group>"; };
+		3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManagementView.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -95,6 +105,8 @@
 		C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		C49DBE232C4FAECB00B1A87D /* QuestionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionListView.swift; sourceTree = "<group>"; };
 		C49DBE252C4FAEEE00B1A87D /* QuestionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMainView.swift; sourceTree = "<group>"; };
+		BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardRecordView.swift; sourceTree = "<group>"; };
+		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				3EA6EBA72C4F497700627C63 /* RoutineView.swift */,
+				3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */,
+				3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -212,6 +226,7 @@
 				BE3E50062C466BB3003EC4E1 /* MemoryCard */,
 				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
 				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
+				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
 				3EA6EBA42C4F495700627C63 /* HomeView.swift */,
 			);
@@ -232,6 +247,7 @@
 				BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */,
 				BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */,
 				BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */,
+				BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -308,6 +324,7 @@
 			children = (
 				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
+				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -317,6 +334,7 @@
 			children = (
 				BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */,
 				C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */,
+				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,13 +440,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
+				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
 				C49DBE1E2C4FAE8300B1A87D /* AnswerView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatDate.swift in Sources */,
+				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
 				3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */,
+				3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */,
 				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
 				C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */,
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
@@ -440,9 +461,11 @@
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
 				C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */,
 				C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */,
+				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
 				3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */,
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
+				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
 				C49DBE1C2C4FAE6C00B1A87D /* QuestionDetailView.swift in Sources */,
@@ -450,6 +473,7 @@
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
 				C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */,
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
+				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

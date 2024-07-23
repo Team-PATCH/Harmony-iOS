@@ -14,8 +14,7 @@ func formattedDate(from dateTime: String) -> String {
     dateFormatter.formatOptions = [.withInternetDateTime]
     if let date = dateFormatter.date(from: dateTime) {
         let outputFormatter = DateFormatter()
-        outputFormatter.dateStyle = .medium
-        outputFormatter.timeStyle = .none
+        outputFormatter.dateFormat = "yyyy년 M월 d일"
         return outputFormatter.string(from: date)
     }
     return dateTime

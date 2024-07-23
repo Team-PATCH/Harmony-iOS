@@ -15,54 +15,51 @@ struct MemoryCardView: View {
     let viewModel: MemoryCardViewModel
     
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(.gray.opacity(0.1))
-                .frame(height: 200)
-            
+        GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 10) {
-                VStack {
-                    if let url = URL(string: "https://cdn.eyesmag.com/content/uploads/posts/2022/09/07/main-b40b2d5d-2d99-4734-80af-9fd4ac428fb4.jpg"), !card.image.isEmpty {
-                        KFImage(url)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 120) // 고정 너비와 높이 설정
-                            .clipped()
-                            .cornerRadius(15, corners: [.topLeft, .topRight])
-                    } else {
-                        Rectangle()
-                            .fill(.gray.opacity(0.2))
-                            .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 120) // 고정 너비와 높이 설정
-                            .clipShape(RoundedCorner(radius: 15, corners: [.topLeft, .topRight]))
-                    }
+                if let url = URL(string: card.image), !card.image.isEmpty {
+                    KFImage(url)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geometry.size.width, height: 120)
+                        .clipped()
+                        .cornerRadius(10, corners: [.topLeft, .topRight])
+                } else {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: geometry.size.width, height: 120)
+                        .cornerRadius(10, corners: [.topLeft, .topRight])
                 }
-                
-                Text(card.title)
-                    .font(.title3)
-                    .bold()
-                    .foregroundStyle(.black)
-                    .padding([.leading, .bottom], 10)
-//                    .frame(maxHeight: .infinity)
-                Text(formattedDate(from: card.dateTime))
-                    .font(.subheadline)
-                    .foregroundStyle(.black)
-                    .padding([.leading, .bottom], 10)
-//                    .frame(maxHeight: .infinity)
+
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(card.title)
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.black)
+                    Text(formattedDate(from: card.dateTime))
+                        .font(.subheadline)
+                        .foregroundColor(.black)
+                }
+                .padding([.horizontal, .bottom])
             }
+            .background(Color.white)
+            .cornerRadius(15)
+            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.gray3, lineWidth: 0.5)
+            )
         }
-        .background(.white)
-        .cornerRadius(15)
-        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 5)
-        .frame(width: UIScreen.main.bounds.width / 2 - 30) // 고정 너비 및 높이 설정
+        .padding(.horizontal)
+        .frame(height: 200)
         .frame(maxHeight: .infinity)
     }
 }
 
+#Preview {
+    MemoryCardView(card: dummyMemoryCard, viewModel: dummyViewModel)
+}
 
-//#Preview {
-//    MemoryCardView(card: dummyMemoryCard, viewModel: dummyViewModel)
-//}
-
-let dummyMemoryCard = MemoryCard(id: 1, title: "더미", dateTime: "날짜", image: "업ㄷㅅ어")
+let dummyMemoryCard = MemoryCard(id: 1, title: "더미", dateTime: "날짜", image: "https://cdn.eyesmag.com/content/uploads/posts/2022/09/07/main-b40b2d5d-2d99-4734-80af-9fd4ac428fb4.jpg")
 
 let dummyViewModel = MemoryCardViewModel()
