@@ -16,10 +16,12 @@ struct RoutineDetailView: View {
         viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })
     }
 
+    @State private var showingProvingView = false
+
     var body: some View {
         VStack {
             Text("일과 알림")
-                .font(.pretendardBold(size: 20))
+                .font(.largeTitle)
                 .bold()
                 .padding(.top)
 
@@ -33,10 +35,10 @@ struct RoutineDetailView: View {
 
                     VStack {
                         Text(dailyRoutine.time, style: .time)
-                            .font(.pretendardMedium(size: 28))
+                            .font(.title)
                             .foregroundColor(.green)
                         Text(routine.title)
-                            .font(.pretendardSemiBold(size: 36))
+                            .font(.title2)
                             .bold()
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
@@ -55,7 +57,7 @@ struct RoutineDetailView: View {
 
                 VStack {
                     Button(action: {
-                        // 인증사진 남기기 액션
+                        showingProvingView.toggle()
                     }) {
                         Text("인증사진 남기러 가기")
                             .font(.headline)
@@ -66,6 +68,9 @@ struct RoutineDetailView: View {
                             .cornerRadius(10)
                     }
                     .padding(.horizontal)
+                    .fullScreenCover(isPresented: $showingProvingView) {
+                        RoutineProvingView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+                    }
 
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
