@@ -55,8 +55,7 @@ struct AllowNotificationView: View {
                 
                 // 버튼
                 NavigationLink{
-                    
-                    
+                    CreateGroupSpaceView(path: $path)
                 } label: {
                     Text("하모니 시작하기")
                         .font(.pretendardSemiBold(size: 24))
