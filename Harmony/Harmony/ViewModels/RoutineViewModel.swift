@@ -17,6 +17,8 @@ final class RoutineViewModel: ObservableObject {
     @Published var currentDayString: String = ""
 
     var completionRate: Double {
+        guard !dailyRoutines.isEmpty else { return 0.0 }
+        
         let completedCount = dailyRoutines.filter { $0.completedPhoto != nil }.count
         return Double(completedCount) / Double(dailyRoutines.count)
     }

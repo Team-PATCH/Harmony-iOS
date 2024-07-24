@@ -50,39 +50,46 @@ struct RoutineView: View {
                 }
                 .padding()
 
-                // Routine List
-                List(viewModel.dailyRoutines) { dailyRoutine in
-                    HStack {
-                        if dailyRoutine.completedPhoto != nil {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.green)
-                                .font(.title)
-                        } else {
-                            Image(systemName: "circle")
-                                .foregroundColor(.gray)
-                                .font(.title)
+                // Routine List or No Routine Message
+                if viewModel.dailyRoutines.isEmpty {
+                    Text("오늘의 일과가 없습니다")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List(viewModel.dailyRoutines) { dailyRoutine in
+                        HStack {
+                            if dailyRoutine.completedPhoto != nil {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                                    .font(.title)
+                            } else {
+                                Image(systemName: "circle")
+                                    .foregroundColor(.gray)
+                                    .font(.title)
+                            }
+                            VStack(alignment: .leading) {
+                                Text(dailyRoutine.time, style: .time)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                Text(viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })?.title ?? "")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                            }
+                            Spacer()
                         }
-                        VStack(alignment: .leading) {
-                            Text(dailyRoutine.time, style: .time)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            Text(viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })?.title ?? "")
-                                .font(.headline)
-                                .foregroundColor(.black)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 2)
+                        .onTapGesture {
+                            selectedDailyRoutine = dailyRoutine
                         }
-                        Spacer()
                     }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 2)
-                    .onTapGesture {
-                        selectedDailyRoutine = dailyRoutine
+                    .listStyle(PlainListStyle())
+                    .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
+                        RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
                     }
-                }
-                .listStyle(PlainListStyle())
-                .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
-                    RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
                 }
 
                 Spacer()

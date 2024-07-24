@@ -14,37 +14,49 @@ struct RoutineManagementView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List {
-                    ForEach(viewModel.routines) { routine in
-                        HStack {
-                            Image(systemName: "rectangle")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .background(Color.gray)
-                                .cornerRadius(8)
-                                .padding(.trailing, 8)
-                            VStack(alignment: .leading) {
-                                Text(routine.title)
-                                    .font(.headline)
-                                Text("\(viewModel.daysAsString(for: routine)) / \(routine.time, style: .time)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                if viewModel.routines.isEmpty {
+                    Text("아직 일과가 없습니다.")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List {
+                        ForEach(viewModel.routines) { routine in
+                            HStack {
+                                Image(systemName: "rectangle")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.gray)
+                                    .cornerRadius(8)
+                                    .padding(.trailing, 8)
+                                VStack(alignment: .leading) {
+                                    Text(routine.title)
+                                        .font(.headline)
+                                    Text("\(viewModel.daysAsString(for: routine)) / \(routine.time, style: .time)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                                Button(action: {
+                                    deleteRoutine(routine)
+                                }) {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.red)
+                                }
+                                .buttonStyle(PlainButtonStyle()) // Button 스타일을 명확히 지정합니다.
                             }
-                            Spacer()
-                            Button(action: {
-                                deleteRoutine(routine)
-                            }) {
-                                Image(systemName: "trash")
-                                    .foregroundColor(.red)
+                            .contentShape(Rectangle()) // 전체 HStack을 터치할 수 있게 지정합니다.
+                            .onTapGesture {
+                                // 리스트를 눌렀을 때 다른 동작을 하게 하려면 여기서 처리합니다.
+                                print("Routine tapped: \(routine.title)")
                             }
                         }
                     }
+                    .listStyle(PlainListStyle())
                 }
-                .listStyle(PlainListStyle())
 
                 Spacer()
 
-                // Add Button
                 Button(action: {
                     showingAddRoutineView.toggle()
                 }) {
@@ -76,3 +88,4 @@ struct RoutineManagementView: View {
 #Preview {
     RoutineManagementView(viewModel: RoutineViewModel())
 }
+
