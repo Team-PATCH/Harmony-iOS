@@ -117,10 +117,8 @@ struct AnswerCommonView: View {
 
 
 // MARK: - Preview
-struct AnswerView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-        }
+#Preview {
+    NavigationView {
+        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
     }
 }

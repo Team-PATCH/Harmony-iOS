@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct QuestionMainView: View {
     @StateObject var viewModel = QuestionViewModel()
     let userNick = "여정"
@@ -150,8 +148,6 @@ struct QuestionBox: View {
 }
 
 // MARK: - Preview
-struct QuestionMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        QuestionMainView(viewModel: QuestionViewModel(mockData: true))
-    }
+#Preview {
+    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
 }
