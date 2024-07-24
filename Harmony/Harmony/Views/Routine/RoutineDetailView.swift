@@ -19,26 +19,30 @@ struct RoutineDetailView: View {
     var body: some View {
         VStack {
             Text("일과 알림")
-                .font(.largeTitle)
+                .font(.pretendardBold(size: 20))
                 .bold()
                 .padding(.top)
 
             if let routine = routine {
-                VStack {
-                    Text(dailyRoutine.time, style: .time)
-                        .font(.title)
-                        .foregroundColor(Color.mainGreen)
-                    Text(routine.title)
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
+                ZStack {
+                    Image("speech-bubble")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 285)
                         .padding()
+
+                    VStack {
+                        Text(dailyRoutine.time, style: .time)
+                            .font(.pretendardMedium(size: 28))
+                            .foregroundColor(.green)
+                        Text(routine.title)
+                            .font(.pretendardSemiBold(size: 36))
+                            .bold()
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
                 }
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(10)
-                .padding(.horizontal)
 
                 Spacer()
 
@@ -58,7 +62,7 @@ struct RoutineDetailView: View {
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.mainGreen)
+                            .background(Color.green)
                             .cornerRadius(10)
                     }
                     .padding(.horizontal)
