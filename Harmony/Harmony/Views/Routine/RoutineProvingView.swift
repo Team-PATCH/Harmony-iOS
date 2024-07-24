@@ -21,26 +21,23 @@ struct RoutineProvingView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .font(.title)
-                        .foregroundColor(.black)
-                }
-                Spacer()
-                Text("일과 인증")
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(.black)
-                Spacer()
-                Image(systemName: "arrow.left") // Invisible button to center the title
-                    .foregroundColor(.clear)
-            }
-            .padding()
-            
             if let routine = routine {
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                    }
+                    Spacer()
+                    Text("일과 인증")
+                        .font(.pretendardBold(size: 20))
+                    Spacer()
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.clear)
+                }
+                
                 VStack {
                     Button(action: {
                         showingCameraView.toggle()

@@ -31,7 +31,7 @@ final class RoutineViewModel: ObservableObject {
     func updateCurrentDate() {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy년 M월 d일 EEEE"
+        formatter.dateFormat = "yyyy년 M월 d일"
         
         let today = Date()
         currentDateString = formatter.string(from: today)

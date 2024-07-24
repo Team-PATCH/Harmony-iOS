@@ -20,11 +20,6 @@ struct RoutineDetailView: View {
 
     var body: some View {
         VStack {
-            Text("일과 알림")
-                .font(.largeTitle)
-                .bold()
-                .padding(.top)
-
             if let routine = routine {
                 if let completedTime = dailyRoutine.completedTime
 //                if let completedPhoto = dailyRoutine.completedPhoto,
@@ -33,6 +28,22 @@ struct RoutineDetailView: View {
 //                   let uiImage = UIImage(data: imageData) 
                 {
                     VStack {
+                        HStack {
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .font(.title2)
+                                    .foregroundColor(.black)
+                            }
+                            Spacer()
+                            Text("일과 알림")
+                                .font(.pretendardBold(size: 20))
+                            Spacer()
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.clear)
+                        }
+                        
                         Image(systemName: "kingfisher-1.jpg")
                             .resizable()
                             .scaledToFit()
@@ -63,6 +74,22 @@ struct RoutineDetailView: View {
                     }
                 } else {
                     VStack {
+                        HStack {
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .font(.title2)
+                                    .foregroundColor(.black)
+                            }
+                            Spacer()
+                            Text("일과 인증")
+                                .font(.pretendardBold(size: 20))
+                            Spacer()
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.clear)
+                        }
+                        
                         ZStack {
                             Image("speech-bubble")
                                 .resizable()
