@@ -26,9 +26,9 @@ struct CreateGroupSpaceView: View {
                     .padding(.bottom, 20)
                 
                 VStack(spacing: 12) {
-                    Button(action: {
-                        // 가족 공간 만들기 액션
-                    }) {
+                    NavigationLink {
+                        VIPInfoEntryView(path: $path)
+                    } label: {
                         HStack {
                             Image("create-group-icon")
                                 .padding()
@@ -49,7 +49,6 @@ struct CreateGroupSpaceView: View {
                     }
                     
                     Button(action: {
-                        print($path)
                         // 가족 공간 입장하기 액션
                     }) {
                         HStack {
