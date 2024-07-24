@@ -11,7 +11,8 @@ struct RoutineView: View {
     @ObservedObject var viewModel = RoutineViewModel()
     @State private var showingAddRoutineView = false
     @State private var showingManagementView = false
-    
+    @State private var selectedDailyRoutine: DailyRoutine?
+
     var body: some View {
         NavigationView {
             VStack {
@@ -31,7 +32,7 @@ struct RoutineView: View {
                     }
                 }
                 .padding()
-                
+
                 // Completion Rate
                 VStack(alignment: .leading) {
                     Text("나머지도 힘내서 달성해 봐요!")
@@ -48,7 +49,7 @@ struct RoutineView: View {
                         .padding(.top, 4)
                 }
                 .padding()
-                
+
                 // Routine List
                 List(viewModel.dailyRoutines) { dailyRoutine in
                     HStack {
@@ -75,11 +76,17 @@ struct RoutineView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 2)
+                    .onTapGesture {
+                        selectedDailyRoutine = dailyRoutine
+                    }
                 }
                 .listStyle(PlainListStyle())
-                
+                .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
+                    RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+                }
+
                 Spacer()
-                
+
                 // Add Button
                 Button(action: {
                     showingAddRoutineView.toggle()
