@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 final class RoutineViewModel: ObservableObject {
     @Published var routines: [Routine] = dummyRoutines
@@ -38,7 +39,7 @@ final class RoutineViewModel: ObservableObject {
     func generateDailyRoutines() {
         let today = Date()
         let calendar = Calendar(identifier: .gregorian)
-        let weekday = (calendar.component(.weekday, from: today) + 5) % 7 // 월요일 = 0, 화요일 = 1, ... 일요일 = 6
+        let weekday = calendar.component(.weekday, from: today) - 1
 
         dailyRoutines = routines.compactMap { routine in
             let daysString = String(routine.days, radix: 2).pad(with: "0", toLength: 7)
@@ -74,6 +75,20 @@ final class RoutineViewModel: ObservableObject {
         }
         return result.joined(separator: ", ")
     }
+    
+    func updateDailyRoutine(dailyRoutine: DailyRoutine, with photo: UIImage) {
+        if let index = dailyRoutines.firstIndex(where: { $0.id == dailyRoutine.id }) {
+//            dailyRoutines[index].completedPhoto = photo
+            dailyRoutines[index].completedTime = Date()
+        }
+    }
+//    func updateDailyRoutines(dailyRoutine: inout DailyRoutine, with photo: UIImage) {
+//        if let photoURL = saveImageToDocumentsDirectory(image: photo) {
+//            dailyRoutine.completedPhoto = photoURL
+//            dailyRoutine.completedTime = Date()
+//        }
+//    }
+
 }
 
 extension String {

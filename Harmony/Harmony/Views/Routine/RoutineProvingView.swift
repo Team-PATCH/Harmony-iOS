@@ -11,13 +11,14 @@ struct RoutineProvingView: View {
     let dailyRoutine: DailyRoutine
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
-
+    
     var routine: Routine? {
         viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })
     }
-
+    
     @State private var selectedImage: UIImage?
-
+    @State private var showingCameraView = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -30,59 +31,60 @@ struct RoutineProvingView: View {
                 }
                 Spacer()
                 Text("일과 인증")
-                    .font(.largeTitle)
+                    .font(.title2)
                     .bold()
                     .foregroundColor(.black)
                 Spacer()
-                Image(systemName: "arrow.left") // Invisible button to center the title
-                    .foregroundColor(.clear)
             }
-            .padding()
-
+            
             if let routine = routine {
                 VStack {
                     Button(action: {
-                        // 사진 선택 액션
+                        showingCameraView.toggle()
                     }) {
                         VStack {
-                            Image(systemName: "camera")
-                                .font(.largeTitle)
-                                .foregroundColor(.gray)
-                            Text("이곳을 눌러 사진을 남겨보세요!")
-                                .font(.headline)
-                                .foregroundColor(.green)
+                            if let selectedImage = selectedImage {
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 393, height: 240)
+                            } else {
+                                Image(systemName: "camera")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.gray)
+                                Text("이곳을 눌러 사진을 남겨보세요!")
+                                    .font(.headline)
+                                    .foregroundColor(.green)
+                            }
                         }
-                        .frame(width: 300, height: 200)
+                        .frame(width: 393, height: 240)
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(10)
-                        .padding()
                     }
-
-                    if let selectedImage = selectedImage {
-                        Image(uiImage: selectedImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .padding()
+                    .sheet(isPresented: $showingCameraView) {
+                        CameraView(selectedImage: $selectedImage)
                     }
-
+                    
                     Text(routine.title)
                         .font(.title2)
                         .bold()
                         .foregroundColor(.black)
-                        .padding(.bottom, 0)
-
+                        .padding(.top)
+                    
                     Text(dailyRoutine.time, style: .time)
                         .font(.title3)
                         .foregroundColor(.green)
-                        .padding(.top, 5)
+                        .padding(.top)
                 }
                 .padding()
-
+                
                 Spacer()
-
+                
                 Button(action: {
-                    // 인증 완료 액션
+                    if let selectedImage = selectedImage {
+                        viewModel.updateDailyRoutine(dailyRoutine: dailyRoutine, with: selectedImage)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }) {
                     Text("인증 완료")
                         .font(.headline)
@@ -117,5 +119,5 @@ struct RoutineProvingView: View {
         updatedAt: nil,
         deletedAt: nil
     ),
-    viewModel: RoutineViewModel())
+        viewModel: RoutineViewModel())
 }
