@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutineProvingView: View {
-    let dailyRoutine: DailyRoutine
+    @Binding var dailyRoutine: DailyRoutine
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
     
@@ -35,7 +35,10 @@ struct RoutineProvingView: View {
                     .bold()
                     .foregroundColor(.black)
                 Spacer()
+                Image(systemName: "arrow.left") // Invisible button to center the title
+                    .foregroundColor(.clear)
             }
+            .padding()
             
             if let routine = routine {
                 VStack {
@@ -81,10 +84,14 @@ struct RoutineProvingView: View {
                 Spacer()
                 
                 Button(action: {
-                    if let selectedImage = selectedImage {
+//                    if let selectedImage = selectedImage, let photoURL = saveImageToDocumentsDirectory(image: selectedImage) {
+//                        dailyRoutine.completedPhoto = photoURL
+                        let selectedImage = Image(systemName: "kingfisher-1.jpg")
+                        dailyRoutine.completedTime = Date()
                         viewModel.updateDailyRoutine(dailyRoutine: dailyRoutine, with: selectedImage)
                         presentationMode.wrappedValue.dismiss()
-                    }
+                        print("인증 완료~!")
+//                    }
                 }) {
                     Text("인증 완료")
                         .font(.headline)
@@ -107,17 +114,36 @@ struct RoutineProvingView: View {
     }
 }
 
-#Preview {
-    RoutineProvingView(dailyRoutine: DailyRoutine(
-        id: 1,
-        routineId: 1,
-        groupId: 1,
-        time: Date(),
-        completedPhoto: nil,
-        completedTime: nil,
-        createdAt: Date(),
-        updatedAt: nil,
-        deletedAt: nil
-    ),
-        viewModel: RoutineViewModel())
+struct RoutineProvingView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = RoutineViewModel()
+        let dailyRoutine = DailyRoutine(
+            id: 1,
+            routineId: 1,
+            groupId: 1,
+            time: Date(),
+            completedPhoto: nil,
+            completedTime: nil,
+            createdAt: Date(),
+            updatedAt: nil,
+            deletedAt: nil
+        )
+        return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
+    }
 }
+
+
+//#Preview {
+//    RoutineProvingView(dailyRoutine: DailyRoutine(
+//        id: 1,
+//        routineId: 1,
+//        groupId: 1,
+//        time: Date(),
+//        completedPhoto: nil,
+//        completedTime: nil,
+//        createdAt: Date(),
+//        updatedAt: nil,
+//        deletedAt: nil
+//    ),
+//        viewModel: RoutineViewModel())
+//}

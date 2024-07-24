@@ -76,7 +76,7 @@ final class RoutineViewModel: ObservableObject {
         return result.joined(separator: ", ")
     }
     
-    func updateDailyRoutine(dailyRoutine: DailyRoutine, with photo: UIImage) {
+    func updateDailyRoutine(dailyRoutine: DailyRoutine, with photo: Image) {
         if let index = dailyRoutines.firstIndex(where: { $0.id == dailyRoutine.id }) {
 //            dailyRoutines[index].completedPhoto = photo
             dailyRoutines[index].completedTime = Date()

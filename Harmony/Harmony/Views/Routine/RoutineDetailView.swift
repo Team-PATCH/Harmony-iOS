@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutineDetailView: View {
-    let dailyRoutine: DailyRoutine
+    @State var dailyRoutine: DailyRoutine
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
 
@@ -17,41 +17,27 @@ struct RoutineDetailView: View {
     }
 
     @State private var showingProvingView = false
-    @State private var completedImage: UIImage?
 
     var body: some View {
         VStack {
+            Text("일과 알림")
+                .font(.largeTitle)
+                .bold()
+                .padding(.top)
+
             if let routine = routine {
-                if let completedTime = dailyRoutine.completedTime {
+                if let completedTime = dailyRoutine.completedTime
 //                if let completedPhoto = dailyRoutine.completedPhoto,
 //                   let completedPhotoURL = URL(string: completedPhoto.path),
 //                   let imageData = try? Data(contentsOf: completedPhotoURL),
-//                   let uiImage = UIImage(data: imageData) {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "arrow.left")
-                                .font(.title)
-                                .foregroundColor(.black)
-                        }
-                        Spacer()
-                        Text("일과 인증")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.black)
-                        Spacer()
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.clear)
-                    }
-                    .padding()
-                    
+//                   let uiImage = UIImage(data: imageData) 
+                {
                     VStack {
-//                        Image(uiImage: uiImage)
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 393, height: 240)
-//                            .padding()
+                        Image(systemName: "kingfisher-1.jpg")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 393, height: 240)
+                            .padding()
 
                         Text(routine.title)
                             .font(.title2)
@@ -76,25 +62,6 @@ struct RoutineDetailView: View {
                         .padding()
                     }
                 } else {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "arrow.left")
-                                .font(.title)
-                                .foregroundColor(.black)
-                        }
-                        Spacer()
-                        Text("일과 인증")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.black)
-                        Spacer()
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.clear)
-                    }
-                    .padding()
-                    
                     VStack {
                         ZStack {
                             Image("speech-bubble")
@@ -139,7 +106,7 @@ struct RoutineDetailView: View {
                             }
                             .padding(.horizontal)
                             .fullScreenCover(isPresented: $showingProvingView) {
-                                RoutineProvingView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+                                RoutineProvingView(dailyRoutine: $dailyRoutine, viewModel: viewModel)
                             }
 
                             Button(action: {
@@ -196,19 +163,36 @@ struct RoutineCommentView: View {
     }
 }
 
-
-#Preview {
-    RoutineDetailView(dailyRoutine: DailyRoutine(
-        id: 1,
-        routineId: 1,
-        groupId: 1,
-        time: Date(),
-        completedPhoto: nil,
-        completedTime: nil,
-        createdAt: Date(),
-        updatedAt: nil,
-        deletedAt: nil
-    ),
-    viewModel: RoutineViewModel()
-    )
+struct RoutineDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = RoutineViewModel()
+        let dailyRoutine = DailyRoutine(
+            id: 1,
+            routineId: 1,
+            groupId: 1,
+            time: Date(),
+            completedPhoto: nil,
+            completedTime: nil,
+            createdAt: Date(),
+            updatedAt: nil,
+            deletedAt: nil
+        )
+        return RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+    }
 }
+//
+//#Preview {
+//    RoutineDetailView(dailyRoutine: DailyRoutine(
+//        id: 1,
+//        routineId: 1,
+//        groupId: 1,
+//        time: Date(),
+//        completedPhoto: nil,
+//        completedTime: nil,
+//        createdAt: Date(),
+//        updatedAt: nil,
+//        deletedAt: nil
+//    ),
+//    viewModel: RoutineViewModel()
+//    )
+//}
