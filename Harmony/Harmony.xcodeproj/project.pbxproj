@@ -19,6 +19,7 @@
 		3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */; };
 		3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB52C50A1B900627C63 /* CameraView.swift */; };
 		3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */; };
+		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
@@ -84,6 +85,7 @@
 		3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineProvingView.swift; sourceTree = "<group>"; };
 		3EA6EBB52C50A1B900627C63 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineRow.swift; sourceTree = "<group>"; };
+		555F92212C51F33800BFC121 /* InviteVIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVIPView.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -186,12 +188,13 @@
 		55A10B1E2C4F75BC001728EF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
 				55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */,
 				55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */,
 				55A10B272C50C506001728EF /* VIPInfoEntryView.swift */,
 				55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */,
-				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
 				55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */,
+				555F92212C51F33800BFC121 /* InviteVIPView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				C49DBE1E2C4FAE8300B1A87D /* AnswerView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */,
 				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
+				555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
 				3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,

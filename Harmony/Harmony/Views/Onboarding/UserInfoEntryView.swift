@@ -47,7 +47,7 @@ struct UserInfoEntryView: View {
                 
                 NavigationLink(destination: ProfileRegisterView(path: $path)) {
                     Text("다음")
-                        .font(.pretendardSemiBold(size: 18))
+                        .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
                         .frame(maxWidth: .infinity)
                         .padding()
