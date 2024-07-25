@@ -111,36 +111,19 @@ struct RoutineProvingView: View {
     }
 }
 
-struct RoutineProvingView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = RoutineViewModel()
-        let dailyRoutine = DailyRoutine(
-            id: 1,
-            routineId: 1,
-            groupId: 1,
-            time: Date(),
-            completedPhoto: nil,
-            completedTime: nil,
-            createdAt: Date(),
-            updatedAt: nil,
-            deletedAt: nil
-        )
-        return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
-    }
+
+#Preview {
+    let viewModel = RoutineViewModel()
+    let dailyRoutine = DailyRoutine(
+        id: 1,
+        routineId: 1,
+        groupId: 1,
+        time: Date(),
+        completedPhoto: nil,
+        completedTime: nil,
+        createdAt: Date(),
+        updatedAt: nil,
+        deletedAt: nil
+    )
+    return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
 }
-
-
-//#Preview {
-//    RoutineProvingView(dailyRoutine: DailyRoutine(
-//        id: 1,
-//        routineId: 1,
-//        groupId: 1,
-//        time: Date(),
-//        completedPhoto: nil,
-//        completedTime: nil,
-//        createdAt: Date(),
-//        updatedAt: nil,
-//        deletedAt: nil
-//    ),
-//        viewModel: RoutineViewModel())
-//}
