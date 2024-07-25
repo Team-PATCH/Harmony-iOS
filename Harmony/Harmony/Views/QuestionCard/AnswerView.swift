@@ -117,8 +117,8 @@ struct AnswerCommonView: View {
 
 
 // MARK: - Preview
-#Preview {
-    NavigationView {
-        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-    }
-}
+//#Preview {
+//    NavigationView {
+//        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
+//    }
+//}

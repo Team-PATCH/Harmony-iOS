@@ -148,6 +148,6 @@ struct QuestionBox: View {
 }
 
 // MARK: - Preview
-#Preview {
-    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
-}
+//#Preview {
+//    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
+//}
