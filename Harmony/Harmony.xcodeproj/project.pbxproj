@@ -23,6 +23,12 @@
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
 		55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */; };
+		55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */; };
+		55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B272C50C506001728EF /* VIPInfoEntryView.swift */; };
+		55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */; };
+		55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2B2C510475001728EF /* CustomTextFieldView.swift */; };
+		55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */; };
+		55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
@@ -82,6 +88,12 @@
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationView.swift; sourceTree = "<group>"; };
 		55A10B232C4F94C8001728EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupSpaceView.swift; sourceTree = "<group>"; };
+		55A10B272C50C506001728EF /* VIPInfoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPInfoEntryView.swift; sourceTree = "<group>"; };
+		55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEntryView.swift; sourceTree = "<group>"; };
+		55A10B2B2C510475001728EF /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
+		55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownView.swift; sourceTree = "<group>"; };
+		55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRegisterView.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardModel.swift; sourceTree = "<group>"; };
 		BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardService.swift; sourceTree = "<group>"; };
@@ -139,9 +151,11 @@
 			isa = PBXGroup;
 			children = (
 				BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */,
+				55A10B2B2C510475001728EF /* CustomTextFieldView.swift */,
 				C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */,
 				3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */,
 				3EA6EBB52C50A1B900627C63 /* CameraView.swift */,
+				55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -172,7 +186,11 @@
 			isa = PBXGroup;
 			children = (
 				55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */,
+				55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */,
+				55A10B272C50C506001728EF /* VIPInfoEntryView.swift */,
+				55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */,
 				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
+				55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -469,6 +487,7 @@
 			files = (
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
+				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
@@ -485,6 +504,7 @@
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
 				55A10B202C4F76C5001728EF /* LoginView.swift in Sources */,
+				55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */,
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
 				55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */,
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
@@ -497,6 +517,8 @@
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
+				55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */,
+				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
 				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
@@ -509,6 +531,8 @@
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
 				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
+				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
+				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,10 +664,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Harmony/Preview Content\"";
-				DEVELOPMENT_TEAM = CP9THWX4QS;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
@@ -661,6 +687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
