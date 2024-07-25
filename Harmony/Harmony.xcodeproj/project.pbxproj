@@ -49,6 +49,8 @@
 		BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */; };
 		BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */; };
 		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
+		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
+		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
 		C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */; };
 		C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */; };
 		C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */; };
@@ -103,6 +105,8 @@
 		BE99A18F2C44AA250011F371 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardRecordView.swift; sourceTree = "<group>"; };
 		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
+		BEA2AA872C50CF940033AAEF /* AzureAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIService.swift; sourceTree = "<group>"; };
+		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
 		C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardModel.swift; sourceTree = "<group>"; };
 		C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardViewModel.swift; sourceTree = "<group>"; };
 		C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardService.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			children = (
 				BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */,
 				C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */,
+				BEA2AA872C50CF940033AAEF /* AzureAIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */,
 				C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */,
 				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
+				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 				C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */,
 				C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */,
 				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
+				BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */,
 				3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */,
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
@@ -491,6 +498,7 @@
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
 				C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */,
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
+				BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */,
 				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 			);
@@ -624,10 +632,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Harmony/Preview Content\"";
-				DEVELOPMENT_TEAM = CP9THWX4QS;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CP9THWX4QS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
@@ -645,6 +655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -100,9 +100,9 @@ struct MemoryCardRecordView: View {
                 Button(action: {
                     isRecording.toggle()
                     if isRecording {
-                        startRecording()
+                        viewModel.startRecording()
                     } else {
-                        stopRecording()
+                        viewModel.stopRecording()
                     }
                 }) {
                     HStack {
@@ -125,18 +125,6 @@ struct MemoryCardRecordView: View {
         .onAppear {
             viewModel.loadMemoryCardDetail(id: memoryCardId)
         }
-    }
-    
-    func startRecording() {
-        // STT, TTS, and Azure OpenAI API integration logic
-        chatBotMessage = "다은이를 분만실에서 처음 봤을 때 어떤 느낌이 들었나요?"
-        // 여기에 STT 및 TTS 시작 로직을 추가
-    }
-    
-    func stopRecording() {
-        // Stop STT and TTS logic
-        chatBotMessage = "대화가 종료되었습니다."
-        // 여기에 STT 및 TTS 종료 로직을 추가
     }
 }
 
