@@ -71,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E91E47C2C51E28600A6635D /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		3EA6EBA22C4F492900627C63 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		3EA6EBA42C4F495700627C63 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -341,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				55A10B232C4F94C8001728EF /* Info.plist */,
+				3E91E47C2C51E28600A6635D /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
