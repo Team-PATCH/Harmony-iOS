@@ -8,120 +8,142 @@
 import Foundation
 import Alamofire
 
-//@MainActor
-//class QuestionViewModel: ObservableObject {
-//    @Published var currentQuestion: Question?
-//    @Published var provideQuestion: ProvideQuestion?
-//    @Published var recentQuestions: [Question] = []
-//    @Published var allQuestions: [Question] = []
-//    @Published var selectedQuestion: Question?
-//    @Published var comments: [Comment] = []
-//
-//    func fetchProvideQuestion() async {
-//        do {
-//            let question: ProvideQuestion = try await QuestionCardService.shared.fetchData(endpoint: "/providequestion")
-//            self.provideQuestion = question
-//        } catch {
-//            print("Error fetching provide question: \(error)")
-//        }
-//    }
-//
-//    func fetchRecentQuestions(groupId: Int) async {
-//        do {
-//            let questions: [Question] = try await QuestionCardService.shared.fetchData(endpoint: "/questions/\(groupId)")
-//            self.recentQuestions = questions
-//        } catch {
-//            print("Error fetching recent questions: \(error)")
-//        }
-//    }
-//
-//    func fetchAllQuestions(groupId: Int) async {
-//        do {
-//            let questions: [Question] = try await QuestionCardService.shared.fetchData(endpoint: "/allquestions/\(groupId)")
-//            self.allQuestions = questions
-//        } catch {
-//            print("Error fetching all questions: \(error)")
-//        }
-//    }
-//
-//    func fetchQuestionDetail(questionId: Int) async {
-//        do {
-//            let question: Question = try await QuestionCardService.shared.fetchData(endpoint: "/question/\(questionId)")
-//            self.selectedQuestion = question
-//        } catch {
-//            print("Error fetching question detail: \(error)")
-//        }
-//    }
-//
-//    func postAnswer(questionId: Int, answer: String) async {
-//        do {
-//            let parameters: [String: Any] = ["answer": answer]
-//            let updatedQuestion: Question = try await QuestionCardService.shared.postData(endpoint: "/answer/\(questionId)", parameters: parameters)
-//            self.selectedQuestion = updatedQuestion
-//            if let index = self.allQuestions.firstIndex(where: { $0.id == questionId }) {
-//                self.allQuestions[index] = updatedQuestion
-//            }
-//        } catch {
-//            print("Error posting answer: \(error)")
-//        }
-//    }
-//
-//    func fetchComments(questionId: Int) async {
-//        do {
-//            let fetchedComments: [Comment] = try await QuestionCardService.shared.fetchData(endpoint: "/comments/\(questionId)")
-//            self.comments = fetchedComments
-//        } catch {
-//            print("Error fetching comments: \(error)")
-//        }
-//    }
-//
-//    func postComment(questionId: Int, content: String) async {
-//        do {
-//            let parameters: [String: Any] = ["questionId": questionId, "content": content]
-//            let newComment: Comment = try await QuestionCardService.shared.postData(endpoint: "/comment", parameters: parameters)
-//            self.comments.append(newComment)
-//        } catch {
-//            print("Error posting comment: \(error)")
-//        }
-//    }
-//
-//    func fetchCurrentQuestion(groupId: Int) async {
-//        do {
-//            let question: Question = try await QuestionCardService.shared.fetchData(endpoint: "/currentquestion/\(groupId)")
-//            self.currentQuestion = question
-//        } catch {
-//            print("Error fetching current question: \(error)")
-//        }
-//    }
-//
-//    func updateAnswer(questionId: Int, answer: String) async {
-//        do {
-//            let parameters: [String: Any] = ["answer": answer]
-//            let updatedQuestion: Question = try await QuestionCardService.shared.postData(endpoint: "/updateanswer/\(questionId)", parameters: parameters)
-//            self.selectedQuestion = updatedQuestion
-//            if let index = self.allQuestions.firstIndex(where: { $0.id == questionId }) {
-//                self.allQuestions[index] = updatedQuestion
-//            }
-//        } catch {
-//            print("Error updating answer: \(error)")
-//        }
-//    }
-//}
-//
-//
-//extension QuestionViewModel {
-//    func fetchQuestion(id: Int) async {
-//        do {
-//            let question: Question = try await QuestionCardService.shared.fetchData(endpoint: "/question/\(id)")
-//            self.selectedQuestion = question
-//        } catch {
-//            print("Error fetching question: \(error)")
-//        }
-//    }
-//}
+@MainActor
+class QuestionViewModel: ObservableObject {
+    @Published var currentQuestion: Question?
+    @Published var provideQuestion: ProvideQuestion?
+    @Published var recentQuestions: [Question] = []
+    @Published var allQuestions: [Question] = []
+    @Published var selectedQuestion: Question?
+    @Published var comments: [Comment] = []
+    
+    //제공된 질문 불러오기
+    func fetchProvideQuestion() async {
+        do {
+            let question: ProvideQuestion = try await QuestionCardService.shared.fetchData(endpoint: "/providequestion")
+            self.provideQuestion = question
+        } catch {
+            print("Error fetching provide question: \(error)")
+        }
+    }
+    
+    //오늘의 질문 불러오기
+    func fetchCurrentQuestion(groupId: Int) async {
+        do {
+            let question: Question = try await QuestionCardService.shared.fetchData(endpoint: "/currentquestion/\(groupId)")
+            self.currentQuestion = question
+        } catch {
+            print("Error fetching current question: \(error)")
+        }
+    }
+    
+    //최근질문 세개 조회
+    func fetchRecentQuestions(groupId: Int) async {
+        do {
+            let questions: [Question] = try await QuestionCardService.shared.fetchData(endpoint: "/questions/\(groupId)")
+            self.recentQuestions = questions
+        } catch {
+            print("Error fetching recent questions: \(error)")
+        }
+    }
+    
+    //전체 질문목록 조회
+    func fetchAllQuestions(groupId: Int) async {
+        do {
+            let questions: [Question] = try await QuestionCardService.shared.fetchData(endpoint: "/allquestions/\(groupId)")
+            self.allQuestions = questions
+        } catch {
+            print("Error fetching all questions: \(error)")
+        }
+    }
+    
+    //질문카드 상세정보 조회
+    func fetchQuestionDetail(questionId: Int) async {
+        do {
+            let question: Question = try await QuestionCardService.shared.fetchData(endpoint: "/question/\(questionId)")
+            self.selectedQuestion = question
+        } catch {
+            print("Error fetching question detail: \(error)")
+        }
+    }
+    
+    //질문카드 코멘트 조회
+    func fetchComments(questionId: Int) async {
+        do {
+            let fetchedComments: [Comment] = try await QuestionCardService.shared.fetchData(endpoint: "/comments/\(questionId)")
+            self.comments = fetchedComments
+        } catch {
+            print("Error fetching comments: \(error)")
+        }
+    }
+    
+    //질문카드 답변 저장
+    func postAnswer(questionId: Int, answer: String) async {
+        do {
+            let parameters: [String: Any] = ["answer": answer]
+            let updatedQuestion: Question = try await QuestionCardService.shared.postData(endpoint: "/answer/\(questionId)", parameters: parameters)
+            self.selectedQuestion = updatedQuestion
+            if let index = self.allQuestions.firstIndex(where: { $0.id == questionId }) {
+                self.allQuestions[index] = updatedQuestion
+            }
+            
+            // 답변 후 다음 질문 가져오기
+            await fetchNextQuestion()
+        } catch {
+            print("Error posting answer: \(error)")
+        }
+    }
+    
+    func fetchNextQuestion() async {
+        do {
+            let nextQuestion: Question = try await QuestionCardService.shared.fetchData(endpoint: "/nextquestion")
+            self.currentQuestion = nextQuestion
+        } catch {
+            print("Error fetching next question: \(error)")
+        }
+    }
+    
+    //질문카드 코멘트 저장
+    func postComment(questionId: Int, groupId: Int, content: String) async {
+        do {
+            // UserDefaultsManager에서 nick을 가져와 authorId로 사용
+            let authorId = UserDefaultsManager.shared.getNick() ?? "unknown_user"
+            
+            let parameters: [String: Any] = [
+                "questionId": questionId,
+                "groupId": groupId,
+                "authorId": authorId,  // 사용자의 nick을 authorId로 사용
+                "content": content
+            ]
+            let newComment: Comment = try await QuestionCardService.shared.postData(endpoint: "/comment", parameters: parameters)
+            self.comments.append(newComment)
+        } catch {
+            print("Error posting comment: \(error)")
+        }
+    }
+    
+    //질문카드 답변 수정
+    func updateAnswer(questionId: Int, answer: String) async {
+        do {
+            let parameters: [String: Any] = ["answer": answer]
+            let updatedQuestion: Question = try await QuestionCardService.shared.postData(endpoint: "/updateanswer/\(questionId)", parameters: parameters)
+            self.selectedQuestion = updatedQuestion
+            if let index = self.allQuestions.firstIndex(where: { $0.id == questionId }) {
+                self.allQuestions[index] = updatedQuestion
+            }
+        } catch {
+            print("Error updating answer: \(error)")
+        }
+    }
+}
 
+extension QuestionViewModel {
+    var answeredQuestions: [Question] {
+        return allQuestions.filter { $0.answer != nil }
+    }
+}
 
-
+/*
 // MARK: Mock Data
 class QuestionViewModel: ObservableObject {
     @Published var currentQuestion: Question?
@@ -297,3 +319,4 @@ class QuestionViewModel: ObservableObject {
         }
     }
 }
+*/
