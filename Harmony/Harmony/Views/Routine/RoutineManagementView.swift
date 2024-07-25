@@ -88,4 +88,3 @@ struct RoutineManagementView: View {
 #Preview {
     RoutineManagementView(viewModel: RoutineViewModel())
 }
-

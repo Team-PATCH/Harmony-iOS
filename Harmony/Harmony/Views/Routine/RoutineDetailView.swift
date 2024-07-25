@@ -17,7 +17,6 @@ struct RoutineDetailView: View {
     }
     
     @State private var showingProvingView = false
-    @State private var newReaction: String = ""
     @State private var showingReactionView = false
     
     var body: some View {
@@ -70,34 +69,36 @@ struct RoutineDetailView: View {
                                 .font(.headline)
                                 .foregroundColor(.gray)
                             ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
-                                RoutineCommentView(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
+                                RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
                             }
                         }
                         .padding()
                         
+                        Spacer()
+                    }
+                    .overlay(
                         VStack {
-                            TextField("댓글을 입력해주세요.", text: $newReaction)
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(10)
-                                .padding(.horizontal)
-                            Button(action: {
-                                if !newReaction.isEmpty {
-                                    viewModel.addReactionToRoutine(to: dailyRoutine, content: newReaction)
-                                    newReaction = ""
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    showingReactionView.toggle()
+                                }) {
+                                    Text("댓글 남기기")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.green)
+                                        .cornerRadius(10)
                                 }
-                            }) {
-                                Text("작성 완료")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.green)
-                                    .cornerRadius(10)
-                                    .padding()
+                                .padding()
+                                .sheet(isPresented: $showingReactionView) {
+                                    RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+                                        .presentationDetents([.medium, .fraction(0.4)])
+                                }
                             }
                         }
-                    }
+                    )
                 } else {
                     VStack {
                         HStack {
@@ -185,67 +186,23 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
+        
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
     }
 }
 
-struct RoutineCommentView: View {
-    let author: String
-    let comment: String
-    let imageName: String
-    
-    var body: some View {
-        HStack(alignment: .top) {
-            Image(imageName)
-                .resizable()
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
-                .padding(.trailing, 8)
-            VStack(alignment: .leading) {
-                Text(author)
-                    .font(.headline)
-                    .foregroundColor(.black)
-                Text(comment)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }
-            Spacer()
-        }
-        .padding(.vertical, 4)
-    }
+#Preview {
+    RoutineDetailView(dailyRoutine: DailyRoutine(
+        id: 1,
+        routineId: 1,
+        groupId: 1,
+        time: Date(),
+        completedPhoto: nil,
+        completedTime: nil,
+        createdAt: Date(),
+        updatedAt: nil,
+        deletedAt: nil
+    ),
+                      viewModel: RoutineViewModel()
+    )
 }
-
-struct RoutineDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = RoutineViewModel()
-        let dailyRoutine = DailyRoutine(
-            id: 1,
-            routineId: 1,
-            groupId: 1,
-            time: Date(),
-            completedPhoto: nil,
-            completedTime: nil,
-            createdAt: Date(),
-            updatedAt: nil,
-            deletedAt: nil
-        )
-        return RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
-    }
-}
-//
-//#Preview {
-//    RoutineDetailView(dailyRoutine: DailyRoutine(
-//        id: 1,
-//        routineId: 1,
-//        groupId: 1,
-//        time: Date(),
-//        completedPhoto: nil,
-//        completedTime: nil,
-//        createdAt: Date(),
-//        updatedAt: nil,
-//        deletedAt: nil
-//    ),
-//    viewModel: RoutineViewModel()
-//    )
-//}
