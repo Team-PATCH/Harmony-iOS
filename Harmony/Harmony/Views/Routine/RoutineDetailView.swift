@@ -11,21 +11,23 @@ struct RoutineDetailView: View {
     @State var dailyRoutine: DailyRoutine
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
-
+    
     var routine: Routine? {
         viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })
     }
-
+    
     @State private var showingProvingView = false
-
+    @State private var newReaction: String = ""
+    @State private var showingReactionView = false
+    
     var body: some View {
         VStack {
             if let routine = routine {
                 if let completedTime = dailyRoutine.completedTime
-//                if let completedPhoto = dailyRoutine.completedPhoto,
-//                   let completedPhotoURL = URL(string: completedPhoto.path),
-//                   let imageData = try? Data(contentsOf: completedPhotoURL),
-//                   let uiImage = UIImage(data: imageData) 
+                //                if let completedPhoto = dailyRoutine.completedPhoto,
+                //                   let completedPhotoURL = URL(string: completedPhoto.path),
+                //                   let imageData = try? Data(contentsOf: completedPhotoURL),
+                //                   let uiImage = UIImage(data: imageData)
                 {
                     VStack {
                         HStack {
@@ -49,28 +51,52 @@ struct RoutineDetailView: View {
                             .scaledToFit()
                             .frame(width: 393, height: 240)
                             .padding()
-
+                        
                         Text(routine.title)
                             .font(.title2)
                             .bold()
                             .foregroundColor(.black)
                             .padding(.top)
-
+                        
                         Text(dailyRoutine.time, style: .time)
                             .font(.title3)
                             .foregroundColor(.green)
                             .padding(.top)
-
+                        
                         Spacer()
-
+                        
                         VStack(alignment: .leading) {
-                            Text("댓글 2")
+                            Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
                                 .font(.headline)
                                 .foregroundColor(.gray)
-                            RoutineCommentView(author: "손녀 조다은", comment: "이거... 비둘기가 아닌 거 같은데요...?", imageName: "granddaughter")
-                            RoutineCommentView(author: "손녀 조다은", comment: "멋있어 보이는 새!!!", imageName: "granddaughter")
+                            ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
+                                RoutineCommentView(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
+                            }
                         }
                         .padding()
+                        
+                        VStack {
+                            TextField("댓글을 입력해주세요.", text: $newReaction)
+                                .padding()
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                            Button(action: {
+                                if !newReaction.isEmpty {
+                                    viewModel.addReactionToRoutine(to: dailyRoutine, content: newReaction)
+                                    newReaction = ""
+                                }
+                            }) {
+                                Text("작성 완료")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.green)
+                                    .cornerRadius(10)
+                                    .padding()
+                            }
+                        }
                     }
                 } else {
                     VStack {
@@ -96,7 +122,7 @@ struct RoutineDetailView: View {
                                 .scaledToFit()
                                 .frame(height: 285)
                                 .padding()
-
+                            
                             VStack {
                                 Text(dailyRoutine.time, style: .time)
                                     .font(.title)
@@ -109,16 +135,16 @@ struct RoutineDetailView: View {
                                     .padding()
                             }
                         }
-
+                        
                         Spacer()
-
+                        
                         Image("character")
                             .resizable()
                             .frame(width: 100, height: 100)
                             .padding()
-
+                        
                         Spacer()
-
+                        
                         VStack {
                             Button(action: {
                                 showingProvingView.toggle()
@@ -135,7 +161,7 @@ struct RoutineDetailView: View {
                             .fullScreenCover(isPresented: $showingProvingView) {
                                 RoutineProvingView(dailyRoutine: $dailyRoutine, viewModel: viewModel)
                             }
-
+                            
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
@@ -167,7 +193,7 @@ struct RoutineCommentView: View {
     let author: String
     let comment: String
     let imageName: String
-
+    
     var body: some View {
         HStack(alignment: .top) {
             Image(imageName)

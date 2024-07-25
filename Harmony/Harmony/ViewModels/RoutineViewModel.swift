@@ -65,6 +65,22 @@ final class RoutineViewModel: ObservableObject {
     func fetchRoutineReactions() {
         // Fetch routine reactions from your backend API and update the `routineReactions` array
     }
+    
+    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) {
+            let newReaction = RoutineReaction(
+                id: UUID().hashValue,
+                dailyId: dailyRoutine.id,
+                routineId: dailyRoutine.routineId,
+                groupId: dailyRoutine.groupId,
+                authorId: "손녀 조다은", // 이 값을 적절히 변경해주세요.
+                photo: nil,
+                comment: content,
+                createdAt: Date(),
+                updatedAt: nil,
+                deletedAt: nil
+            )
+            routineReactions.append(newReaction)
+        }
 
     func daysAsString(for routine: Routine) -> String {
         let daysArray = ["월", "화", "수", "목", "금", "토", "일"]
