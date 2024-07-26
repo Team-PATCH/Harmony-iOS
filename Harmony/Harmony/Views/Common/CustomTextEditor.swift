@@ -97,6 +97,13 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
         return label
     }()
     
+    private let placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .gray
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -105,6 +112,7 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
     private func setupViews() {
         view.addSubview(textView)
         view.addSubview(characterCountLabel)
+        textView.addSubview(placeholderLabel)
         
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -113,7 +121,11 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
             textView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             characterCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            characterCountLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
+            characterCountLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 8),
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 4),
+            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -4)
         ])
         
         textView.delegate = self
@@ -134,16 +146,12 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
     
     private func updateFont() {
         textView.font = font
+        placeholderLabel.font = font
     }
     
     private func updatePlaceholder() {
-        if text.isEmpty {
-            textView.text = placeholder
-            textView.textColor = .gray
-        } else if textView.textColor == .gray {
-            textView.text = text
-            textView.textColor = textColor
-        }
+        placeholderLabel.text = placeholder
+        placeholderLabel.isHidden = !text.isEmpty
     }
     
     private func updateCharacterCount() {
@@ -151,19 +159,18 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .gray {
-            textView.text = nil
-            textView.textColor = textColor
-        }
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
     
     func textViewDidChange(_ textView: UITextView) {
         text = textView.text
+        placeholderLabel.isHidden = !textView.text.isEmpty
         delegate?.textDidChange(text)
+        updateCharacterCount()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        updatePlaceholder()
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -174,11 +181,10 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
     }
 }
 
-
-
 // UIFont extension for Pretendard fonts
 extension UIFont {
     static func pretendardMedium(size: CGFloat) -> UIFont {
         return UIFont(name: "Pretendard-Medium", size: size) ?? .systemFont(ofSize: size)
     }
 }
+

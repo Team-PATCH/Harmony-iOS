@@ -47,8 +47,8 @@ struct AnswerEditView: View {
 
 
 // MARK: - Preview
-#Preview {
-    NavigationView {
-        AnswerEditView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-    }
-}
+//#Preview {
+//    NavigationView {
+//        AnswerEditView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
+//    }
+//}

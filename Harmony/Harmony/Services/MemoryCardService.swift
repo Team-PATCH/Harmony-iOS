@@ -5,6 +5,7 @@
 //  Created by 한범석 on 7/16/24.
 //
 
+
 import Alamofire
 
 final class MemoryCardService {
@@ -34,9 +35,65 @@ final class MemoryCardService {
                         continuation.resume(returning: memoryCardDetail)
                     case .failure(let error):
                         print("단일 추억카드 상세 불러오기 실패: \(error.localizedDescription)")
+                        debugPrint(error)
                         continuation.resume(throwing: error)
                 }
             }
         }
     }
 }
+
+
+
+
+/*
+import Alamofire
+import Combine
+import Foundation
+
+final class MemoryCardService {
+    static let shared = MemoryCardService()
+    private let baseURL = "https://patch-harmony.azurewebsites.net/mc"
+    
+    private init() {}
+    
+    func fetchMemoryCards() -> AnyPublisher<[MemoryCard], Error> {
+        return Future { promise in
+            AF.request(self.baseURL).responseDecodable(of: MemoryCardList.self) { response in
+                switch response.result {
+                case .success(let memoryCardList):
+                    if let data = memoryCardList.data {
+                        promise(.success(data))
+                    } else {
+                        promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found"])))
+                    }
+                case .failure(let error):
+                    print("추억카드 목록 불러오기 실패: \(error.localizedDescription)")
+                    promise(.failure(error))
+                }
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
+    }
+    
+    func fetchMemoryCardDetail(id: Int) -> AnyPublisher<MemoryCardDetail, Error> {
+        let url = "\(baseURL)/\(id)"
+        return Future { promise in
+            AF.request(url).responseDecodable(of: MemoryCardDetail.self) { response in
+                switch response.result {
+                case .success(let memoryCardDetail):
+                    promise(.success(memoryCardDetail))
+                case .failure(let error):
+                    print("단일 추억카드 상세 불러오기 실패: \(error.localizedDescription)")
+                    promise(.failure(error))
+                }
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
+    }
+}
+*/
+
+
