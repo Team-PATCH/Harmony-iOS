@@ -21,6 +21,9 @@
 		3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */; };
 		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
 		3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */; };
+		550003492C53657700B00635 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 550003482C53657700B00635 /* Secrets.xcconfig */; };
+		5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */; };
+		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
@@ -75,7 +78,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E91E47C2C51E28600A6635D /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		3EA6EBA22C4F492900627C63 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		3EA6EBA42C4F495700627C63 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,10 @@
 		3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineRow.swift; sourceTree = "<group>"; };
 		555F92212C51F33800BFC121 /* InviteVIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVIPView.swift; sourceTree = "<group>"; };
 		3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineReactionInputView.swift; sourceTree = "<group>"; };
+		550003482C53657700B00635 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5500034A2C5367D600B00635 /* Harmony.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Harmony.entitlements; sourceTree = "<group>"; };
+		5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extentions.swift"; sourceTree = "<group>"; };
+		5500034D2C5377E700B00635 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -188,6 +194,7 @@
 			children = (
 				BE96B7E62C473337003C41F9 /* FormatManager.swift */,
 				55A10B192C4E5960001728EF /* UserDefaultsManager.swift */,
+				5500034D2C5377E700B00635 /* NotificationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -247,6 +254,7 @@
 				BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */,
 				BE3E50092C468276003EC4E1 /* View+Extensions.swift */,
 				BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */,
+				5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,8 +360,9 @@
 		BE99A1872C44AA230011F371 /* Harmony */ = {
 			isa = PBXGroup;
 			children = (
+				5500034A2C5367D600B00635 /* Harmony.entitlements */,
 				55A10B232C4F94C8001728EF /* Info.plist */,
-				3E91E47C2C51E28600A6635D /* Secrets.xcconfig */,
+				550003482C53657700B00635 /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -486,6 +495,7 @@
 				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
 				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
 				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,
+				550003492C53657700B00635 /* Secrets.xcconfig in Resources */,
 				BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */,
 				BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */,
 				BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */,
@@ -500,6 +510,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
+				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
@@ -519,6 +530,7 @@
 				C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */,
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
+				5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */,
 				55A10B202C4F76C5001728EF /* LoginView.swift in Sources */,
 				55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */,
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
@@ -559,7 +571,6 @@
 /* Begin XCBuildConfiguration section */
 		BE99A1912C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E91E47C2C51E28600A6635D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -679,10 +690,10 @@
 		};
 		BE99A1942C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E91E47C2C51E28600A6635D /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Harmony/Harmony.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -719,6 +730,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Harmony/Harmony.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
