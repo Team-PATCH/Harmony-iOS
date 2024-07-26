@@ -63,7 +63,7 @@ struct MemoryCardDetailView: View {
             Spacer()
             
             HStack(spacing: 10) {
-                NavigationLink(destination: Text("이어서 대화하기 뷰")) {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: 1)) {
                     Text("이어서 대화하기")
                         .foregroundStyle(.white)
                         .padding()
