@@ -17,7 +17,8 @@ struct QuestionListView: View {
             ScrollView {
                 VStack(spacing: 15) {
                     Divider()
-                    ForEach(viewModel.allQuestions) { question in
+                    // 변경: allQuestions 대신 answeredQuestions 사용
+                    ForEach(viewModel.answeredQuestions) { question in
                         QuestionListBox(question: question, viewModel: viewModel)
                     }
                     .foregroundColor(.black)
@@ -35,7 +36,9 @@ struct QuestionListView: View {
             }
         }
         .task {
-            await viewModel.fetchAllQuestions(groupId: 1)
+            if let groupId = UserDefaultsManager.shared.getGroupId() {
+                await viewModel.fetchAllQuestions(groupId: groupId)
+            }
         }
     }
 }
@@ -75,8 +78,8 @@ struct QuestionListBox: View {
 
 
 // MARK: - Preview
-#Preview {
-    NavigationView {
-        QuestionListView(viewModel: QuestionViewModel(mockData: true))
-    }
-}
+//#Preview {
+//    NavigationView {
+//        QuestionListView(viewModel: QuestionViewModel(mockData: true))
+//    }
+//}

@@ -179,7 +179,11 @@ struct CommentModalView: View {
                     
                     Button("작성 완료") {
                         Task {
-                            await viewModel.postComment(questionId: questionId, content: commentText)
+                            await viewModel.postComment(
+                                questionId: questionId,
+                                groupId: viewModel.selectedQuestion?.groupId ?? 0,
+                                content: commentText
+                            )
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
@@ -215,9 +219,9 @@ struct CommentModalView: View {
 
 
 // MARK: - Preview
-#Preview {
-    NavigationView {
-        QuestionDetailView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-    }
-}
+//#Preview {
+//    NavigationView {
+//        QuestionDetailView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
+//    }
+//}
 
