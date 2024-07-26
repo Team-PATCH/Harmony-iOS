@@ -139,7 +139,7 @@ final class MemoryCardViewModel: ObservableObject {
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer 5b76d0e6a6ea4ed0948db1d9ee1e5e54"
+            "Authorization": "Bearer "
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
@@ -304,7 +304,7 @@ final class MemoryCardViewModel: ObservableObject {
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer 5b76d0e6a6ea4ed0948db1d9ee1e5e54"
+            "Authorization": "Bearer "
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)

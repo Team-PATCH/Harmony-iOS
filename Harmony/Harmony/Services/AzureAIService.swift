@@ -9,11 +9,11 @@ import Foundation
 import AVFoundation
 import Alamofire
 
-class SpeechService {
+final class SpeechService {
     private var audioRecorder: AVAudioRecorder?
     private let audioFilename: URL
     private let endpoint = "https://koreacentral.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1"
-    private let subscriptionKey = "a84015bd8b264580b81e5ddebdd6ec73"
+    private let subscriptionKey = ""
     
     init() {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -63,7 +63,7 @@ class SpeechService {
 
 
 class TextToSpeechService {
-    private let subscriptionKey = "a84015bd8b264580b81e5ddebdd6ec73"
+    private let subscriptionKey = ""
     private let endpoint = "https://koreacentral.tts.speech.microsoft.com/cognitiveservices/v1"
     
     func synthesizeText(_ text: String, completion: @escaping (Data?) -> Void) {
