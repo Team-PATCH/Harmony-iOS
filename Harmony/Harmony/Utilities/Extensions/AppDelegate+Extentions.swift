@@ -28,6 +28,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
         print("APNS token: \(token)")
+        UserDefaultsManager.shared.setToken(token)
+        print("dㅏㄴ녕하셔" + UserDefaultsManager.shared.getToken())
+        
     }
 }
 

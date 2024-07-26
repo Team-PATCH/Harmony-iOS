@@ -2,6 +2,8 @@ import SwiftUI
 
 struct AllowNotificationView: View {
     @Binding var path: [String]
+    @State private var isNotificationEnabled = false
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 20) {
@@ -54,6 +56,14 @@ struct AllowNotificationView: View {
                 Spacer()
                 
                 // 버튼
+                Button {
+                    NotificationManager.shared.requestAuthorization { granted in
+                        self.isNotificationEnabled = granted
+                    }
+                } label: {
+                    Text("dasdfasdf")
+                }
+
                 NavigationLink{
                     CreateGroupSpaceView(path: $path)
                 } label: {
@@ -71,6 +81,9 @@ struct AllowNotificationView: View {
             .frame(width: geometry.size.width)
             .background(Color.gray1)
             .edgesIgnoringSafeArea(.bottom)
+        }
+        .onAppear {
+
         }
     }
 }

@@ -19,6 +19,15 @@ final class UserDefaultsManager {
         }
     }
     
+    func setToken(_ token: String) {
+        UserDefaults.standard.set(token, forKey: "deviceToken")
+    }
+    
+    func getToken() -> String {
+        guard let token = UserDefaults.standard.string(forKey: "deviceToken") else { return "빈 토큰" }
+        return token
+    }
+    
     func getUserData() -> UserData? {
         guard let savedUserData = UserDefaults.standard.data(forKey: userDataKey),
               let loadedUserData = try? JSONDecoder().decode(UserData.self, from: savedUserData) else {
@@ -50,10 +59,6 @@ final class UserDefaultsManager {
     
     func getAlias() -> String? {
         return getUserData()?.alias
-    }
-    
-    func getDeviceToken() -> String? {
-        return getUserData()?.deviceToken
     }
     
     // 사용자가 인증되었는지 확인하는 메서드
