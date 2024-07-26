@@ -11,6 +11,8 @@ struct ProfileRegisterView: View {
     @Binding var path: [String]
     @State private var relationship: String = ""
     @State private var name: String = ""
+    @State private var profileImage: Image?// = Image(systemName: "3.circle")
+
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -33,13 +35,45 @@ struct ProfileRegisterView: View {
 
                 Spacer()
                 
-                NavigationLink(destination: UserInfoEntryView(path: $path)) {
+                VStack {
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray2)
+                            .frame(width: 200, height: 200)
+                        
+                        if let profileImage = profileImage {
+                            profileImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 200, height: 200)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundColor(.gray4)
+                        }
+                        
+                        Image("camera")
+                            .frame(width: 70, height: 70)
+                            .background(Color.green)
+                            .clipShape(Circle())
+                            .offset(x: 70, y: 70)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
+                
+                NavigationLink(destination: InviteVIPView(path: $path)) {
                     Text("다음")
-                        .font(.pretendardSemiBold(size: 18))
+                        .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(!relationship.isEmpty && !name.isEmpty ? Color.mainGreen : Color.gray3)
+                        .background(Color.mainGreen)
+                        //.background(!relationship.isEmpty && !name.isEmpty ? Color.mainGreen : Color.gray3)
                         .cornerRadius(10)
                 }
             }
