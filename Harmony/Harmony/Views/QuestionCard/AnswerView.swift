@@ -19,6 +19,7 @@ struct AnswerView: View {
             question: viewModel.currentQuestion?.question ?? "",
             answeredAt: nil,
             answerText: $answerText,
+            //placeholder: "\(UserDefaultsManager.shared.getNick() ?? "Unknown")님의 답변을 알려주세요.",
             buttonText: "답변 완료",
             onSubmit: {
                 Task {
@@ -31,7 +32,9 @@ struct AnswerView: View {
             QuestionDetailView(viewModel: viewModel, questionId: questionId)
         }
         .task {
-            await viewModel.fetchCurrentQuestion(groupId: 1)
+            if let groupId = UserDefaultsManager.shared.getGroupId() {
+                await viewModel.fetchCurrentQuestion(groupId: groupId)
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 @MainActor
-class QuestionViewModel: ObservableObject {
+final class QuestionViewModel: ObservableObject {
     @Published var currentQuestion: Question?
     @Published var provideQuestion: ProvideQuestion?
     @Published var recentQuestions: [Question] = []
@@ -107,7 +107,7 @@ class QuestionViewModel: ObservableObject {
     func postComment(questionId: Int, groupId: Int, content: String) async {
         do {
             // UserDefaultsManager에서 nick을 가져와 authorId로 사용
-            let authorId = UserDefaultsManager.shared.getNick() ?? "unknown_user"
+            let authorId = UserDefaultsManager.shared.getNick() ?? "Unknown User"
             
             let parameters: [String: Any] = [
                 "questionId": questionId,

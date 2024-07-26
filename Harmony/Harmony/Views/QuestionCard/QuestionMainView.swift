@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuestionMainView: View {
     @StateObject var viewModel = QuestionViewModel()
-    let userNick = "여정"
+    let userNick = UserDefaultsManager.shared.getNick() ?? " "
     
     var body: some View {
         NavigationStack {
@@ -50,8 +50,10 @@ struct QuestionMainView: View {
             }
         }
         .task {
-            await viewModel.fetchCurrentQuestion(groupId: 1)
-            await viewModel.fetchRecentQuestions(groupId: 1)
+            if let groupId = UserDefaultsManager.shared.getGroupId() {
+                await viewModel.fetchCurrentQuestion(groupId: groupId)
+                await viewModel.fetchRecentQuestions(groupId: groupId)
+            }
         }
     }
 }

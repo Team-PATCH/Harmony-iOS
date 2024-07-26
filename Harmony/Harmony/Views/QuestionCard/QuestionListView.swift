@@ -36,7 +36,9 @@ struct QuestionListView: View {
             }
         }
         .task {
-            await viewModel.fetchAllQuestions(groupId: 1)
+            if let groupId = UserDefaultsManager.shared.getGroupId() {
+                await viewModel.fetchAllQuestions(groupId: groupId)
+            }
         }
     }
 }
