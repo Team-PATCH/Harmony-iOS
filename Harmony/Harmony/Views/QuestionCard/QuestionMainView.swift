@@ -10,6 +10,8 @@ import SwiftUI
 struct QuestionMainView: View {
     @StateObject var viewModel = QuestionViewModel()
     let userNick = UserDefaultsManager.shared.getNick() ?? " "
+    // 추가: VIP 여부를 저장할 State 변수
+    @State private var isVIP: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -18,7 +20,7 @@ struct QuestionMainView: View {
                     VStack(spacing: 20) {
                         if let currentQuestion = viewModel.currentQuestion {
                             VStack {
-                                CurrentQuestionBox(question: currentQuestion, viewModel: viewModel)
+                                CurrentQuestionBox(question: currentQuestion, viewModel: viewModel, isVIP: isVIP)
                             }
                             .padding()
                             .background(Color.wh)
@@ -55,12 +57,16 @@ struct QuestionMainView: View {
                 await viewModel.fetchRecentQuestions(groupId: groupId)
             }
         }
+        .onAppear {
+            isVIP = UserDefaultsManager.shared.isVIP()
+        }
     }
 }
 
 struct CurrentQuestionBox: View {
     let question: Question
     @ObservedObject var viewModel: QuestionViewModel
+    let isVIP: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -80,9 +86,10 @@ struct CurrentQuestionBox: View {
                 .padding(.horizontal, 24)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity)
-                .background(Color.mainGreen)
+                .background(isVIP ? Color.mainGreen : Color.gray)  // 변경: VIP 여부에 따라 배경색 변경
                 .cornerRadius(999)
             }
+            .disabled(!isVIP)  // 추가: VIP가 아닌 경우 버튼 비활성화
         }
     }
 }

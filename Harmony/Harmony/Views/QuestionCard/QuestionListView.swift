@@ -9,6 +9,13 @@ import SwiftUI
 
 struct QuestionListView: View {
     @ObservedObject var viewModel: QuestionViewModel
+    @State private var isVIP: Bool = false
+    
+    init(viewModel: QuestionViewModel) {
+        self.viewModel = viewModel
+        // 추가: 초기화 시점에 VIP 여부 확인
+        self._isVIP = State(initialValue: UserDefaultsManager.shared.isVIP())
+    }
     
     var body: some View {
         ZStack {
@@ -39,6 +46,9 @@ struct QuestionListView: View {
             if let groupId = UserDefaultsManager.shared.getGroupId() {
                 await viewModel.fetchAllQuestions(groupId: groupId)
             }
+        }
+        .onAppear {
+            isVIP = UserDefaultsManager.shared.isVIP()
         }
     }
 }

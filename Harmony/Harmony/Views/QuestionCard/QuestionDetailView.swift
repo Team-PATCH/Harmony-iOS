@@ -11,6 +11,7 @@ struct QuestionDetailView: View {
     @ObservedObject var viewModel: QuestionViewModel
     let questionId: Int
     @State private var showingCommentModal = false
+    @State private var isVIP: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -37,8 +38,9 @@ struct QuestionDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: AnswerEditView(viewModel: viewModel, questionId: questionId)) {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.black)
+                        .foregroundColor(isVIP ? .black : .gray) // 변경: VIP 여부에 따라 색상 변경
                 }
+                .disabled(!isVIP)  // 추가: VIP가 아닌 경우 버튼 비활성화
             }
         }
         .sheet(isPresented: $showingCommentModal) {
@@ -48,6 +50,9 @@ struct QuestionDetailView: View {
         .task {
             await viewModel.fetchQuestionDetail(questionId: questionId)
             await viewModel.fetchComments(questionId: questionId)
+        }
+        .onAppear {
+            isVIP = UserDefaultsManager.shared.isVIP()
         }
     }
     
