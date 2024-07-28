@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KakaoSDKCommon
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     
@@ -19,6 +20,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             }
         }
         center.delegate = self
+        guard let nativeAppKey = Bundle.main.nativeAppKey else {
+            print("카카오 네이티브 앱 키를 로드하지 못했음")
+            return false
+        }
+        KakaoSDK.initSDK(appKey: nativeAppKey)
+        print(nativeAppKey)
         return true
     }
     

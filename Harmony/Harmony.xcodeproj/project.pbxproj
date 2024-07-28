@@ -25,6 +25,7 @@
 		3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */; };
 		5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */; };
 		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
+		555199A02C5619C000CDBAE1 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */; };
 		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
@@ -36,6 +37,7 @@
 		55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2B2C510475001728EF /* CustomTextFieldView.swift */; };
 		55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */; };
 		55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */; };
+		55A558712C561ECF00DF2CFF /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 55A558702C561ECF00DF2CFF /* KakaoSDK */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
@@ -123,6 +125,7 @@
 		5500034A2C5367D600B00635 /* Harmony.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Harmony.entitlements; sourceTree = "<group>"; };
 		5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extentions.swift"; sourceTree = "<group>"; };
 		5500034D2C5377E700B00635 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		555F92212C51F33800BFC121 /* InviteVIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVIPView.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 			files = (
 				BE3E50012C461BED003EC4E1 /* Kingfisher in Frameworks */,
 				BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */,
+				55A558712C561ECF00DF2CFF /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +333,7 @@
 				5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */,
 				BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */,
 				BEEA0D252C6B339500A02BA1 /* Int+Extensions.swift */,
+				5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +536,7 @@
 			packageProductDependencies = (
 				BE3E4FF72C460F88003EC4E1 /* Alamofire */,
 				BE3E50002C461BED003EC4E1 /* Kingfisher */,
+				55A558702C561ECF00DF2CFF /* KakaoSDK */,
 			);
 			productName = Harmony;
 			productReference = BE99A1852C44AA230011F371 /* Harmony.app */;
@@ -563,6 +569,7 @@
 			packageReferences = (
 				BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BE3E4FFF2C461BED003EC4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				5551999E2C56160700CDBAE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = BE99A1862C44AA230011F371 /* Products */;
 			projectDirPath = "";
@@ -668,6 +675,7 @@
 				BE884B5D2C59E19900D9BCCA /* MemoryCardCreateView.swift in Sources */,
 				3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */,
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
+				555199A02C5619C000CDBAE1 /* Bundle+Extensions.swift in Sources */,
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
 				BE884B652C5A3E3E00D9BCCA /* CustomDatePickerView.swift in Sources */,
 				C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */,
@@ -808,6 +816,7 @@
 		};
 		BE99A1942C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 550003482C53657700B00635 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -823,6 +832,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -861,6 +871,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -906,6 +917,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5551999E2C56160700CDBAE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.22.5;
+			};
+		};
 		BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -925,6 +944,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		55A558702C561ECF00DF2CFF /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5551999E2C56160700CDBAE1 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
 		BE3E4FF72C460F88003EC4E1 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BE3E4FF62C460F88003EC4E1 /* XCRemoteSwiftPackageReference "Alamofire" */;
