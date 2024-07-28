@@ -7,6 +7,9 @@
 
 import UIKit
 import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
+
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     
@@ -25,23 +28,54 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return false
         }
         KakaoSDK.initSDK(appKey: nativeAppKey)
-        print(nativeAppKey)
+        print("Kakao 네이티브 앱 키: \(nativeAppKey)")
+        if (AuthApi.hasToken()) {
+            UserApi.shared.accessTokenInfo { (_, error) in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+                        //로그인 필요
+                    }
+                    else {
+                        //기타 에러
+                    }
+                }
+                else {
+                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                }
+            }
+        }
+        else {
+            //로그인 필요
+        }
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            
+            return AuthController.handleOpenUrl(url: url)
+        }
+        
+
+        return false
+    }
+    
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         var token: String = ""
         for i in 0..<deviceToken.count {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
-        print("APNS token: \(token)")
+        
         UserDefaultsManager.shared.setToken(token)
-        print("dㅏㄴ녕하셔" + UserDefaultsManager.shared.getToken())
+        print("userdefault에 저장된 토큰: " + UserDefaultsManager.shared.getToken())
         
     }
+    
+    
 }
 
-
+/// 푸쉬 알림 관련 설정
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let info = response.notification.request.content.userInfo
@@ -54,3 +88,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.banner,.sound])
     }
 }
+
+

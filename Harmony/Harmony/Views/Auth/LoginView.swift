@@ -1,7 +1,10 @@
 import SwiftUI
+import KakaoSDKUser
+
 
 struct LoginView: View {
     @State var path: [String] = []
+    @StateObject var authViewModel = AuthViewModel()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -20,7 +23,7 @@ struct LoginView: View {
                     
                     VStack(spacing: 12) {
                         NavigationLink {
-                            AllowNotificationView(path: $path)
+                            AllowNotificationView(userInfo: authViewModel.userInfo, path: $path)
                         } label: {
                             Text("Apple로 계속하기")
                                 .frame(maxWidth: .infinity)
@@ -32,7 +35,7 @@ struct LoginView: View {
                         .frame(width: geometry.size.width * 0.9)
                         
                         Button {
-                            // 카카오 로그인 액션
+                            authViewModel.loginWithKakao()
                         } label: {
                             Text("카카오로 계속하기")
                                 .frame(maxWidth: .infinity)
@@ -49,6 +52,16 @@ struct LoginView: View {
                 .font(.pretendardBold(size: 24))
             }
             .background(Color.gray1)
+            .onChange(of: authViewModel.isLoggedIn) { newValue in
+                if newValue {
+                    path.append("AllowNotificationView")
+                }
+            }
+            .navigationDestination(for: String.self) { view in
+                if view == "AllowNotificationView" {
+                    AllowNotificationView(userInfo: authViewModel.userInfo, path: $path)
+                }
+            }
         }
     }
 }
