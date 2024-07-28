@@ -65,6 +65,18 @@ final class UserDefaultsManager {
     func isUserAuthenticated() -> Bool {
         return getUserData() != nil
     }
+    
+    func isVIP() -> Bool {
+        return getPermissionId() == "v"
+    }
+
+    func isMember() -> Bool {
+        return getPermissionId() == "m"
+    }
+
+    func isAdmin() -> Bool {
+        return getPermissionId() == "a"
+    }
 }
 
 struct UserData: Codable {

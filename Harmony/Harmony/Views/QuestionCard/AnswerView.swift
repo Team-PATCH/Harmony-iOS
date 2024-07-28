@@ -5,6 +5,48 @@
 //  Created by Ji Hye PARK on 7/23/24.
 //
 
+//import SwiftUI
+
+//struct AnswerView: View {
+//    @ObservedObject var viewModel: QuestionViewModel
+//    let questionId: Int
+//    @State private var answerText = ""
+//    @State private var navigateToDetail = false
+//    let isVIP: Bool
+//    
+//    init(viewModel: QuestionViewModel, questionId: Int) {
+//            self.viewModel = viewModel
+//            self.questionId = questionId
+//            // 추가: 초기화 시점에 VIP 여부 확인
+//            self.isVIP = UserDefaultsManager.shared.getPermissionId() == "VIP"
+//        }
+//    
+//    var body: some View {
+//        AnswerCommonView(
+//            questionIndex: viewModel.currentQuestion?.id ?? 0,
+//            question: viewModel.currentQuestion?.question ?? "",
+//            answeredAt: nil,
+//            answerText: $answerText,
+//            //placeholder: "\(UserDefaultsManager.shared.getNick() ?? "Unknown")님의 답변을 알려주세요.",
+//            buttonText: "답변 완료",
+//            onSubmit: {
+//                Task {
+//                    await viewModel.postAnswer(questionId: questionId, answer: answerText)
+//                    navigateToDetail = true
+//                }
+//            }
+//        )
+//        .navigationDestination(isPresented: $navigateToDetail) {
+//            QuestionDetailView(viewModel: viewModel, questionId: questionId, isVIP: isVIP)
+//        }
+//        .task {
+//            if let groupId = UserDefaultsManager.shared.getGroupId() {
+//                await viewModel.fetchCurrentQuestion(groupId: groupId)
+//            }
+//        }
+//    }
+//}
+
 import SwiftUI
 
 struct AnswerView: View {
@@ -12,29 +54,41 @@ struct AnswerView: View {
     let questionId: Int
     @State private var answerText = ""
     @State private var navigateToDetail = false
+    @State private var isVIP: Bool = false
     
     var body: some View {
-        AnswerCommonView(
-            questionIndex: viewModel.currentQuestion?.id ?? 0,
-            question: viewModel.currentQuestion?.question ?? "",
-            answeredAt: nil,
-            answerText: $answerText,
-            //placeholder: "\(UserDefaultsManager.shared.getNick() ?? "Unknown")님의 답변을 알려주세요.",
-            buttonText: "답변 완료",
-            onSubmit: {
-                Task {
-                    await viewModel.postAnswer(questionId: questionId, answer: answerText)
-                    navigateToDetail = true
+        Group {
+            if isVIP {
+                AnswerCommonView(
+                    questionIndex: viewModel.currentQuestion?.id ?? 0,
+                    question: viewModel.currentQuestion?.question ?? "",
+                    answeredAt: nil,
+                    answerText: $answerText,
+                    buttonText: "답변 완료",
+                    onSubmit: {
+                        Task {
+                            await viewModel.postAnswer(questionId: questionId, answer: answerText)
+                            navigateToDetail = true
+                        }
+                    }
+                )
+                .navigationDestination(isPresented: $navigateToDetail) {
+                    QuestionDetailView(viewModel: viewModel, questionId: questionId)
                 }
+            } else {
+                Text("VIP 회원만 답변을 작성할 수 있습니다.")
+                    .font(.pretendardMedium(size: 18))
+                    .foregroundColor(.secondary)
+                    .padding()
             }
-        )
-        .navigationDestination(isPresented: $navigateToDetail) {
-            QuestionDetailView(viewModel: viewModel, questionId: questionId)
         }
         .task {
             if let groupId = UserDefaultsManager.shared.getGroupId() {
                 await viewModel.fetchCurrentQuestion(groupId: groupId)
             }
+        }
+        .onAppear {
+            isVIP = UserDefaultsManager.shared.isVIP()
         }
     }
 }
