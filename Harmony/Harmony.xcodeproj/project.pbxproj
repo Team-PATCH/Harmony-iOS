@@ -38,6 +38,7 @@
 		55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */; };
 		55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */; };
 		55A558712C561ECF00DF2CFF /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 55A558702C561ECF00DF2CFF /* KakaoSDK */; };
+		55A558732C56575400DF2CFF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A558722C56575400DF2CFF /* AuthViewModel.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
@@ -138,6 +139,7 @@
 		55A10B2B2C510475001728EF /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownView.swift; sourceTree = "<group>"; };
 		55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRegisterView.swift; sourceTree = "<group>"; };
+		55A558722C56575400DF2CFF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardModel.swift; sourceTree = "<group>"; };
 		BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardService.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */,
 				C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */,
 				C46D395E2C62023200489A4A /* HomeViewModel.swift */,
+				55A558722C56575400DF2CFF /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
 				BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */,
 				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
+				55A558732C56575400DF2CFF /* AuthViewModel.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,

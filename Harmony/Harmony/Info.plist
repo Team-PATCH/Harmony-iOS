@@ -11,16 +11,14 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaocb6265392057b711cba427ec8fd380c2://oauth</string>
+				<string>kakaocb6265392057b711cba427ec8fd380c2</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakaocb6265392057b711cba427ec8fd380c2://kakaolink</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>

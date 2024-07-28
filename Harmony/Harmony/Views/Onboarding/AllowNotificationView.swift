@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct AllowNotificationView: View {
+    let userInfo: UserInfo?
     @Binding var path: [String]
     @State private var isNotificationEnabled = false
 
@@ -99,6 +100,6 @@ struct Triangle: Shape {
     }
 }
 
-#Preview {
-    AllowNotificationView(path: .constant(["1","2"]))
-}
+//#Preview {
+//    AllowNotificationView(path: .constant(["1","2"]))
+//}

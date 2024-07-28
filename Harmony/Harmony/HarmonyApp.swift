@@ -16,6 +16,7 @@ struct HarmonyApp: App {
     @StateObject private var memoryCardViewModel = MemoryCardViewModel()
     
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    
     init() {
         // Kakao SDK 초기화
         guard let nativeAppKey = Bundle.main.nativeAppKey else {
@@ -24,10 +25,17 @@ struct HarmonyApp: App {
         }
         KakaoSDK.initSDK(appKey: nativeAppKey)
     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(memoryCardViewModel)
+                .onOpenURL(perform: { url in
+                    if(AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                       // print(a)
+                    }
+                })
         }
     }
 }
