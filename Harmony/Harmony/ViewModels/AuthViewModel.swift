@@ -8,17 +8,19 @@
 import Foundation
 import KakaoSDKUser
 
-import Foundation
-import KakaoSDKUser
-
-class AuthViewModel: ObservableObject {
-    @Published var isLoggedIn: Bool = false
+final class AuthViewModel: ObservableObject {
+    @Published var isLoggedIn = false
     @Published var userInfo: UserInfo?
+    
+    
+    init() {
+        isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    }
     
     func loginWithKakao() {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                if let error = error {
+                if let error {
                     print(error)
                 } else {
                     print("loginWithKakaoTalk() success.")
@@ -30,14 +32,16 @@ class AuthViewModel: ObservableObject {
     
     func getUserInfo() {
         UserApi.shared.me { (user, error) in
-            if let error = error {
+            if let error {
                 print(error)
             } else {
-                if let user = user {
+                if let user {
                     self.userInfo = UserInfo(id: user.id,
                                              nickname: user.kakaoAccount?.profile?.nickname,
                                              profileImageUrl: user.kakaoAccount?.profile?.profileImageUrl)
                     self.isLoggedIn = true
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+
                 }
             }
         }

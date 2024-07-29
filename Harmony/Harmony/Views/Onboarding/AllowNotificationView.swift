@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AllowNotificationView: View {
     let userInfo: UserInfo?
-    @Binding var path: [String]
+    @State var path: [String] = []
     @State private var isNotificationEnabled = false
 
     var body: some View {

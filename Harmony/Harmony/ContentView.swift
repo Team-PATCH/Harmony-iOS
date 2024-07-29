@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isAuth = false
-    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
+    @StateObject var authViewModel = AuthViewModel()
 
-    
     var body: some View {
-        if isAuth {
-            MainTabView(isAuth: $isAuth)
-                .environmentObject(memoryCardViewModel)
+        if authViewModel.isLoggedIn {
+            AllowNotificationView(userInfo: UserInfo(id: 1, nickname: "b", profileImageUrl: nil))
         } else {
-            SimpleOnboardingView(isAuth: $isAuth)
-                .environmentObject(memoryCardViewModel)
+            LoginView()
+                .environmentObject(authViewModel)
         }
     }
 }

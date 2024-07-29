@@ -33,7 +33,6 @@ struct HarmonyApp: App {
                 .onOpenURL(perform: { url in
                     if(AuthApi.isKakaoTalkLoginUrl(url)) {
                         _ = AuthController.handleOpenUrl(url: url)
-                       // print(a)
                     }
                 })
         }

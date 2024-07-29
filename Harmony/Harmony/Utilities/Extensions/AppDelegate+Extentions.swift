@@ -31,21 +31,24 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("Kakao 네이티브 앱 키: \(nativeAppKey)")
         if (AuthApi.hasToken()) {
             UserApi.shared.accessTokenInfo { (_, error) in
-                if let error = error {
+                if let error {
                     if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
-                        //로그인 필요
+                        UserDefaults.standard.set(false, forKey: "isLoggedIn")
                     }
                     else {
                         //기타 에러
+                        UserDefaults.standard.set(false, forKey: "isLoggedIn")
                     }
                 }
                 else {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+
                 }
             }
         }
         else {
-            //로그인 필요
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
         }
         return true
     }
@@ -56,7 +59,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return AuthController.handleOpenUrl(url: url)
         }
         
-
+        
         return false
     }
     
