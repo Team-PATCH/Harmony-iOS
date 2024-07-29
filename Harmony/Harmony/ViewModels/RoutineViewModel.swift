@@ -10,11 +10,12 @@ import Combine
 import SwiftUI
 
 final class RoutineViewModel: ObservableObject {
-    @Published var routines: [Routine] = dummyRoutines
+    @Published var routines: [Routine] = []
     @Published var dailyRoutines: [DailyRoutine] = []
     @Published var routineReactions: [RoutineReaction] = []
     @Published var currentDateString: String = ""
     @Published var currentDayString: String = ""
+    private var cancellables = Set<AnyCancellable>()
 
     var completionRate: Double {
         guard !dailyRoutines.isEmpty else { return 0.0 }
@@ -25,7 +26,10 @@ final class RoutineViewModel: ObservableObject {
 
     init() {
         updateCurrentDate()
-        generateDailyRoutines()
+        Task {
+            await fetchRoutines()
+            await fetchDailyRoutines()
+        }
     }
 
     func updateCurrentDate() {
@@ -38,49 +42,45 @@ final class RoutineViewModel: ObservableObject {
         currentDayString = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: today) - 1]
     }
 
-    func generateDailyRoutines() {
-        let today = Date()
-        let calendar = Calendar(identifier: .gregorian)
-        let weekday = calendar.component(.weekday, from: today) - 1
-
-        dailyRoutines = routines.compactMap { routine in
-            let daysString = String(routine.days, radix: 2).pad(with: "0", toLength: 7)
-            if daysString[weekday] == "1" {
-                return DailyRoutine(
-                    id: UUID().hashValue,
-                    routineId: routine.id,
-                    groupId: routine.groupId,
-                    time: routine.time,
-                    completedPhoto: nil,
-                    completedTime: nil,
-                    createdAt: today,
-                    updatedAt: nil,
-                    deletedAt: nil
-                )
-            }
-            return nil
+    func fetchRoutines() async {
+        do {
+            routines = try await RoutineService.shared.fetchRoutines()
+        } catch {
+            print("Error fetching routines: \(error)")
         }
     }
 
-    func fetchRoutineReactions() {
-        // Fetch routine reactions from your backend API and update the `routineReactions` array
+    func fetchDailyRoutines() async {
+        do {
+            dailyRoutines = try await RoutineService.shared.fetchDailyRoutines()
+        } catch {
+            print("Error fetching daily routines: \(error)")
+        }
     }
-    
+
+    func fetchRoutineReactions(dailyId: Int) async {
+        do {
+            routineReactions = try await RoutineService.shared.fetchRoutineReactions(dailyId: dailyId)
+        } catch {
+            print("Error fetching routine reactions: \(error)")
+        }
+    }
+
     func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) {
-            let newReaction = RoutineReaction(
-                id: UUID().hashValue,
-                dailyId: dailyRoutine.id,
-                routineId: dailyRoutine.routineId,
-                groupId: dailyRoutine.groupId,
-                authorId: "손녀 조다은", // 이 값을 적절히 변경해주세요.
-                photo: nil,
-                comment: content,
-                createdAt: Date(),
-                updatedAt: nil,
-                deletedAt: nil
-            )
-            routineReactions.append(newReaction)
-        }
+        let newReaction = RoutineReaction(
+            id: UUID().hashValue,
+            dailyId: dailyRoutine.id,
+            routineId: dailyRoutine.routineId,
+            groupId: dailyRoutine.groupId,
+            authorId: "손녀 조다은", // 이 값을 적절히 변경해주세요.
+            photo: nil,
+            comment: content,
+            createdAt: Date(),
+            updatedAt: nil,
+            deletedAt: nil
+        )
+        routineReactions.append(newReaction)
+    }
 
     func daysAsString(for routine: Routine) -> String {
         let daysArray = ["월", "화", "수", "목", "금", "토", "일"]
@@ -100,14 +100,8 @@ final class RoutineViewModel: ObservableObject {
             dailyRoutines[index].completedTime = Date()
         }
     }
-//    func updateDailyRoutines(dailyRoutine: inout DailyRoutine, with photo: UIImage) {
-//        if let photoURL = saveImageToDocumentsDirectory(image: photo) {
-//            dailyRoutine.completedPhoto = photoURL
-//            dailyRoutine.completedTime = Date()
-//        }
-//    }
-
 }
+
 
 extension String {
     func pad(with character: Character, toLength length: Int) -> String {
