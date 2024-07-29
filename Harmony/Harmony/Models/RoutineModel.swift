@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Routine: Identifiable {
+struct Routine: Identifiable, Codable {
     var id: Int
     var groupId: Int
     var title: String
@@ -16,7 +16,7 @@ struct Routine: Identifiable {
     var time: Date
 }
 
-struct DailyRoutine: Identifiable {
+struct DailyRoutine: Identifiable, Codable {
     var id: Int
     var routineId: Int
     var groupId: Int
@@ -28,7 +28,7 @@ struct DailyRoutine: Identifiable {
     var deletedAt: Date?
 }
 
-struct RoutineReaction: Identifiable {
+struct RoutineReaction: Identifiable, Codable {
     var id: Int
     var dailyId: Int
     var routineId: Int
