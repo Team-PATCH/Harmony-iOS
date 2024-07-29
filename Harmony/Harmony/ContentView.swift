@@ -9,11 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isAuth = false
+    @StateObject var authViewModel = AuthViewModel()
+
     var body: some View {
-        if isAuth {
-            MainTabView()
+        if authViewModel.isLoggedIn {
+            AllowNotificationView(userInfo: UserInfo(id: 1, nickname: "b", profileImageUrl: nil))
         } else {
-            SimpleOnboardingView(isAuth: $isAuth)
+            LoginView()
+                .environmentObject(authViewModel)
         }
     }
 }
