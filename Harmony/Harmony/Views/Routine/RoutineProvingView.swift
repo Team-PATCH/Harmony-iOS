@@ -71,10 +71,10 @@ struct RoutineProvingView: View {
                         .foregroundColor(.black)
                         .padding(.top)
                     
-                    Text(dailyRoutine.time, style: .time)
-                        .font(.title3)
-                        .foregroundColor(.green)
-                        .padding(.top)
+//                    Text(dailyRoutine.time, style: .time)
+//                        .font(.title3)
+//                        .foregroundColor(.green)
+//                        .padding(.top)
                 }
                 .padding()
                 
@@ -84,7 +84,7 @@ struct RoutineProvingView: View {
 //                    if let selectedImage = selectedImage, let photoURL = saveImageToDocumentsDirectory(image: selectedImage) {
 //                        dailyRoutine.completedPhoto = photoURL
                         let selectedImage = Image(systemName: "kingfisher-1.jpg")
-                        dailyRoutine.completedTime = Date()
+//                        dailyRoutine.completedTime = Date()
                         viewModel.updateDailyRoutine(dailyRoutine: dailyRoutine, with: selectedImage)
                         presentationMode.wrappedValue.dismiss()
                         print("인증 완료~!")
@@ -112,18 +112,18 @@ struct RoutineProvingView: View {
 }
 
 
-#Preview {
-    let viewModel = RoutineViewModel()
-    let dailyRoutine = DailyRoutine(
-        id: 1,
-        routineId: 1,
-        groupId: 1,
-        time: Date(),
-        completedPhoto: nil,
-        completedTime: nil,
-        createdAt: Date(),
-        updatedAt: nil,
-        deletedAt: nil
-    )
-    return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
-}
+//#Preview {
+//    let viewModel = RoutineViewModel()
+//    let dailyRoutine = DailyRoutine(
+//        id: 1,
+//        routineId: 1,
+//        groupId: 1,
+//        time: Date(),
+//        completedPhoto: nil,
+//        completedTime: nil,
+//        createdAt: Date(),
+//        updatedAt: nil,
+//        deletedAt: nil
+//    )
+//    return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
+//}

@@ -15,11 +15,13 @@ final class RoutineService {
     private init() {}
 
     func fetchRoutines() async throws -> [Routine] {
-        try await fetchData(endpoint: "/routine")
+        let response: RoutineResponse = try await fetchData(endpoint: "/routine")
+        return response.data
     }
     
     func fetchDailyRoutines() async throws -> [DailyRoutine] {
-        try await fetchData(endpoint: "/dailyroutine/today")
+        let response: DailyRoutineResponse = try await fetchData(endpoint: "/dailyroutine/today")
+        return response.data
     }
     
     func fetchRoutineReactions(dailyId: Int) async throws -> [RoutineReaction] {

@@ -100,12 +100,18 @@ struct RoutineView: View {
                 }
                 .padding()
                 .sheet(isPresented: $showingAddRoutineView) {
-                    RoutineAddView(viewModel: viewModel)
+//                    RoutineAddView(viewModel: viewModel)
                 }
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showingManagementView) {
-                RoutineManagementView(viewModel: viewModel)
+//                RoutineManagementView(viewModel: viewModel)
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchRoutines()
+                    await viewModel.fetchDailyRoutines()
+                }
             }
         }
     }
@@ -116,11 +122,11 @@ struct CustomProgressViewStyle: ProgressViewStyle {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.gray2)
-                .frame(height: 17) // 배경의 높이를 설정합니다.
+                .frame(height: 17)
             
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.mainGreen)
-                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * UIScreen.main.bounds.width, height: 17) // 진행 바의 높이를 설정합니다.
+                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * UIScreen.main.bounds.width, height: 17)
         }
     }
 }
