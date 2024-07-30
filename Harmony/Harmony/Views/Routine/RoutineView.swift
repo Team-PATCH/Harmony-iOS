@@ -12,7 +12,7 @@ struct RoutineView: View {
     @State private var showingAddRoutineView = false
     @State private var showingManagementView = false
     @State private var selectedDailyRoutine: DailyRoutine?
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -21,13 +21,13 @@ struct RoutineView: View {
                     Text("\(viewModel.currentDateString)")
                         .font(.pretendardBold(size: 22))
                         .foregroundColor(Color.black)
-                    
+
                     Text("일과")
                         .font(.pretendardBold(size: 22))
                         .foregroundColor(Color.mainGreen)
-                    
+
                     Spacer()
-                    
+
                     Button(action: {
                         showingManagementView.toggle()
                     }) {
@@ -39,10 +39,10 @@ struct RoutineView: View {
                 .padding()
                 .frame(height: 70)
                 .background(Color.white)
-                
+
                 Divider()
                     .background(Color.gray3)
-                
+
                 // Completion Rate
                 VStack(alignment: .leading) {
                     Text("나머지도 힘내서 달성해 봐요!")
@@ -59,7 +59,7 @@ struct RoutineView: View {
                 }
                 .padding()
                 .background(Color.white)
-                
+
                 // Routine List
                 if viewModel.dailyRoutines.isEmpty {
                     Text("오늘의 일과가 없습니다")
@@ -83,9 +83,9 @@ struct RoutineView: View {
                         RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
                     }
                 }
-                
+
                 Spacer()
-                
+
                 // Add Button
                 Button(action: {
                     showingAddRoutineView.toggle()
@@ -99,13 +99,24 @@ struct RoutineView: View {
                         .shadow(radius: 2)
                 }
                 .padding()
-                .sheet(isPresented: $showingAddRoutineView) {
+                .sheet(isPresented: $showingAddRoutineView, onDismiss: {
+                    Task {
+                        await viewModel.fetchRoutines()
+                        await viewModel.fetchDailyRoutines()
+                    }
+                }) {
                     RoutineAddView(viewModel: viewModel)
                 }
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showingManagementView) {
-                RoutineManagementView(viewModel: viewModel)
+                 RoutineManagementView(viewModel: viewModel)
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchRoutines()
+                    await viewModel.fetchDailyRoutines()
+                }
             }
         }
     }
@@ -116,11 +127,11 @@ struct CustomProgressViewStyle: ProgressViewStyle {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.gray2)
-                .frame(height: 17) // 배경의 높이를 설정합니다.
-            
+                .frame(height: 17)
+
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.mainGreen)
-                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * UIScreen.main.bounds.width, height: 17) // 진행 바의 높이를 설정합니다.
+                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * UIScreen.main.bounds.width, height: 17)
         }
     }
 }

@@ -1,20 +1,29 @@
 //
-//  RoutineAddView.swift
+//  RoutineEditView.swift
 //  Harmony
 //
-//  Created by 조다은 on 7/23/24.
+//  Created by 조다은 on 7/30/24.
 //
 
 import SwiftUI
 
-struct RoutineAddView: View {
-    @State private var title: String = ""
-    @State private var selectedDays: [Bool] = Array(repeating: false, count: 7)
-    @State private var time: Date = Date()
+struct RoutineEditView: View {
+    @State private var title: String
+    @State private var selectedDays: [Bool]
+    @State private var time: Date
     @State private var isSaving: Bool = false
     @State private var isShowingTimePicker: Bool = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
+    var routine: Routine
+
+    init(viewModel: RoutineViewModel, routine: Routine) {
+        self.viewModel = viewModel
+        self.routine = routine
+        _title = State(initialValue: routine.title)
+        _time = State(initialValue: Date()) // 시간을 적절히 변환해야 함
+        _selectedDays = State(initialValue: routine.daysToBoolArray())
+    }
 
     var body: some View {
         NavigationView {
@@ -22,7 +31,7 @@ struct RoutineAddView: View {
                 HStack {
                     Spacer()
                     
-                    Text("새로운 일과")
+                    Text("일과 수정")
                         .font(.largeTitle)
                         .bold()
                         .padding()
@@ -87,10 +96,10 @@ struct RoutineAddView: View {
                         .padding()
                 } else {
                     Button(action: {
-                        addRoutine()
+                        updateRoutine()
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        Text("추가하기")
+                        Text("수정하기")
                             .font(.headline)
                             .foregroundColor(title.isEmpty || !selectedDays.contains(true) ? .gray : .white)
                             .frame(maxWidth: .infinity)
@@ -103,13 +112,13 @@ struct RoutineAddView: View {
                 }
             }
             .sheet(isPresented: $isShowingTimePicker) {
-                DatePickerModal(time: $time)
+                EditDatePickerModal(time: $time)
                     .presentationDetents([.fraction(0.5)]) // 모달의 높이를 절반으로 설정
             }
         }
     }
 
-    func addRoutine() {
+    func updateRoutine() {
         isSaving = true
         let days = selectedDays.enumerated().reduce(0) { $0 + ($1.element ? (1 << (6 - $1.offset)) : 0) }
         let formatter = DateFormatter()
@@ -117,7 +126,6 @@ struct RoutineAddView: View {
         let timeString = formatter.string(from: time)
 
         let parameters: [String: Any] = [
-            "groupId": 1,
             "title": title,
             "days": days,
             "time": timeString
@@ -125,11 +133,11 @@ struct RoutineAddView: View {
 
         Task {
             do {
-                let newRoutine = try await RoutineService.shared.createRoutine(parameters: parameters)
-                viewModel.routines.append(newRoutine)
+                try await RoutineService.shared.updateRoutine(routineId: routine.id, parameters: parameters)
+                await viewModel.fetchRoutines()
                 presentationMode.wrappedValue.dismiss()
             } catch {
-                print("Error adding routine: \(error)")
+                print("Error updating routine: \(error)")
                 isSaving = false
             }
         }
@@ -143,37 +151,14 @@ struct RoutineAddView: View {
     }
 }
 
-struct DayButton: View {
-    let day: Int
-    @Binding var isSelected: Bool
-
-    var body: some View {
-        Button(action: {
-            isSelected.toggle()
-        }) {
-            Text(daySymbol(for: day))
-                .frame(width: 40, height: 40)
-                .background(isSelected ? Color.green : Color(UIColor.systemGray5))
-                .foregroundColor(.white)
-                .cornerRadius(20)
-        }
-    }
-
-    func daySymbol(for day: Int) -> String {
-        switch day {
-        case 0: return "월"
-        case 1: return "화"
-        case 2: return "수"
-        case 3: return "목"
-        case 4: return "금"
-        case 5: return "토"
-        case 6: return "일"
-        default: return ""
-        }
+extension Routine {
+    func daysToBoolArray() -> [Bool] {
+        let daysString = String(days, radix: 2).pad(with: "0", toLength: 7)
+        return daysString.map { $0 == "1" }
     }
 }
 
-struct DatePickerModal: View {
+struct EditDatePickerModal: View {
     @Binding var time: Date
     @Environment(\.presentationMode) var presentationMode
 
@@ -207,5 +192,5 @@ struct DatePickerModal: View {
 }
 
 #Preview {
-    RoutineAddView(viewModel: RoutineViewModel())
+    RoutineEditView(viewModel: RoutineViewModel(), routine: Routine(id: 1, groupId: 1, title: "아침 운동", days: 0b1111100, time: "Date()"))
 }

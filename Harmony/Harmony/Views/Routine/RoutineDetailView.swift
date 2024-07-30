@@ -57,10 +57,10 @@ struct RoutineDetailView: View {
                             .foregroundColor(.black)
                             .padding(.top)
                         
-                        Text(dailyRoutine.time, style: .time)
-                            .font(.title3)
-                            .foregroundColor(.green)
-                            .padding(.top)
+//                        Text(dailyRoutine.time, style: .time)
+//                            .font(.title3)
+//                            .foregroundColor(.green)
+//                            .padding(.top)
                         
                         Spacer()
                         
@@ -125,9 +125,12 @@ struct RoutineDetailView: View {
                                 .padding()
                             
                             VStack {
-                                Text(dailyRoutine.time, style: .time)
+                                Text("dailyRoutine.time")
                                     .font(.title)
                                     .foregroundColor(.green)
+//                                Text(dailyRoutine.time, style: .time)
+//                                    .font(.title)
+//                                    .foregroundColor(.green)
                                 Text(routine.title)
                                     .font(.title2)
                                     .bold()
@@ -196,13 +199,10 @@ struct RoutineDetailView: View {
         id: 1,
         routineId: 1,
         groupId: 1,
-        time: Date(),
+        time: "Date()",
         completedPhoto: nil,
-        completedTime: nil,
-        createdAt: Date(),
-        updatedAt: nil,
-        deletedAt: nil
+        completedTime: nil
     ),
-                      viewModel: RoutineViewModel()
+        viewModel: RoutineViewModel()
     )
 }

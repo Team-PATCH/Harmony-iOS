@@ -85,19 +85,19 @@ struct RoutineReactionRow: View {
     }
 }
 
-
-#Preview {
-    let viewModel = RoutineViewModel()
-    let dailyRoutine = DailyRoutine(
-        id: 1,
-        routineId: 1,
-        groupId: 1,
-        time: Date(),
-        completedPhoto: nil,
-        completedTime: nil,
-        createdAt: Date(),
-        updatedAt: nil,
-        deletedAt: nil
-    )
-    return RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
-}
+//
+//#Preview {
+//    let viewModel = RoutineViewModel()
+//    let dailyRoutine = DailyRoutine(
+//        id: 1,
+//        routineId: 1,
+//        groupId: 1,
+//        time: Date(),
+//        completedPhoto: nil,
+//        completedTime: nil,
+//        createdAt: Date(),
+//        updatedAt: nil,
+//        deletedAt: nil
+//    )
+//    return RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+//}
