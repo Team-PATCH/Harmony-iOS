@@ -42,7 +42,9 @@ struct RoutineReaction: Identifiable, Codable {
     var authorId: String
     var photo: URL?
     var comment: String
-    var createdAt: Date
-    var updatedAt: Date?
-    var deletedAt: Date?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "rrId"
+        case dailyId, routineId, groupId, authorId, photo, comment
+    }
 }

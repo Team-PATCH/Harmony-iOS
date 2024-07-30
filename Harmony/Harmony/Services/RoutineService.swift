@@ -11,9 +11,9 @@ import Alamofire
 final class RoutineService {
     static let shared = RoutineService()
     private let baseURL = "http://localhost:3000" // 로컬 서버 주소
-
+    
     private init() {}
-
+    
     func fetchRoutines() async throws -> [Routine] {
         let response: Response<[Routine]> = try await fetchData(endpoint: "/routine")
         return response.data
@@ -25,7 +25,7 @@ final class RoutineService {
     }
     
     func fetchRoutineReactions(dailyId: Int) async throws -> [RoutineReaction] {
-        let response: Response<[RoutineReaction]> = try await fetchData(endpoint: "/dailyroutine/\(dailyId)/reactions")
+        let response: Response<[RoutineReaction]> = try await fetchData(endpoint: "/dailyroutine/reaction/\(dailyId)")
         return response.data
     }
     
@@ -66,6 +66,11 @@ final class RoutineService {
         }
     }
     
+    func addReaction(dailyId: Int, parameters: [String: Any]) async throws -> RoutineReaction {
+        let response: Response<RoutineReaction> = try await postData(endpoint: "/dailyroutine/reaction/\(dailyId)", parameters: parameters)
+        return response.data
+    }
+    
     private func fetchData<T: Decodable>(endpoint: String, method: HTTPMethod = .get, parameters: [String: Any]? = nil) async throws -> T {
         let url = baseURL + endpoint
         print("Requesting URL: \(url)")
@@ -91,7 +96,7 @@ final class RoutineService {
                 }
         }
     }
-
+    
     private func postData<U: Decodable>(endpoint: String, parameters: [String: Any], method: HTTPMethod = .post) async throws -> U {
         let url = baseURL + endpoint
         print("Posting to URL: \(url)")
@@ -117,7 +122,7 @@ final class RoutineService {
                 }
         }
     }
-
+    
     private func request(endpoint: String, method: HTTPMethod) async throws -> Void {
         let url = baseURL + endpoint
         print("Requesting URL: \(url)")
