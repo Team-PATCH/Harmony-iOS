@@ -110,7 +110,7 @@ struct RoutineView: View {
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showingManagementView) {
-                // RoutineManagementView(viewModel: viewModel)
+                 RoutineManagementView(viewModel: viewModel)
             }
             .onAppear {
                 Task {
