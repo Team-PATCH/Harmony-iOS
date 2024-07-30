@@ -22,6 +22,7 @@
 		3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */; };
 		3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C12C57A92E00B16DB8 /* RoutineService.swift */; };
 		3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */; };
+		3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */; };
 		550003492C53657700B00635 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 550003482C53657700B00635 /* Secrets.xcconfig */; };
 		5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */; };
 		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
@@ -95,6 +96,7 @@
 		3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineReactionInputView.swift; sourceTree = "<group>"; };
 		3EE527C12C57A92E00B16DB8 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
 		3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditView.swift; sourceTree = "<group>"; };
+		3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		550003482C53657700B00635 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5500034A2C5367D600B00635 /* Harmony.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Harmony.entitlements; sourceTree = "<group>"; };
 		5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extentions.swift"; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */,
 				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
+				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
+				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,12 +20,6 @@ struct Routine: Identifiable, Codable {
     }
 }
 
-struct RoutineResponse: Codable {
-    let status: Bool
-    let data: [Routine]
-    let message: String
-}
-
 struct DailyRoutine: Identifiable, Codable {
     var id: Int
     var routineId: Int
@@ -40,12 +34,6 @@ struct DailyRoutine: Identifiable, Codable {
     }
 }
 
-struct DailyRoutineResponse: Codable {
-    let status: Bool
-    let data: [DailyRoutine]
-    let message: String
-}
-
 struct RoutineReaction: Identifiable, Codable {
     var id: Int
     var dailyId: Int
@@ -54,7 +42,9 @@ struct RoutineReaction: Identifiable, Codable {
     var authorId: String
     var photo: URL?
     var comment: String
-    var createdAt: Date
-    var updatedAt: Date?
-    var deletedAt: Date?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "rrId"
+        case dailyId, routineId, groupId, authorId, photo, comment
+    }
 }

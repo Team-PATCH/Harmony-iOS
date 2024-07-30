@@ -191,6 +191,11 @@ struct RoutineDetailView: View {
         }
         
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            Task {
+                await viewModel.fetchRoutineReactions(dailyId: dailyRoutine.id)
+            }
+        }
     }
 }
 

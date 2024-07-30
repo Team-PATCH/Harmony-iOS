@@ -18,6 +18,7 @@ struct RoutineProvingView: View {
     
     @State private var selectedImage: UIImage?
     @State private var showingCameraView = false
+    @State private var isSaving = false
     
     var body: some View {
         VStack {
@@ -71,35 +72,44 @@ struct RoutineProvingView: View {
                         .foregroundColor(.black)
                         .padding(.top)
                     
-//                    Text(dailyRoutine.time, style: .time)
-//                        .font(.title3)
-//                        .foregroundColor(.green)
-//                        .padding(.top)
+                    Text(dailyRoutine.time)
+                        .font(.title3)
+                        .foregroundColor(.green)
+                        .padding(.top)
                 }
                 .padding()
                 
                 Spacer()
                 
-                Button(action: {
-//                    if let selectedImage = selectedImage, let photoURL = saveImageToDocumentsDirectory(image: selectedImage) {
-//                        dailyRoutine.completedPhoto = photoURL
-                        let selectedImage = Image(systemName: "kingfisher-1.jpg")
-//                        dailyRoutine.completedTime = Date()
-                        viewModel.updateDailyRoutine(dailyRoutine: dailyRoutine, with: selectedImage)
-                        presentationMode.wrappedValue.dismiss()
-                        print("인증 완료~!")
-//                    }
-                }) {
-                    Text("인증 완료")
-                        .font(.headline)
-                        .foregroundColor(.white)
+                if isSaving {
+                    ProgressView()
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray)
-                        .cornerRadius(10)
-                        .padding()
+                } else {
+                    Button(action: {
+                        if let selectedImage = selectedImage {
+                            Task {
+                                isSaving = true
+                                do {
+                                    try await viewModel.proveDailyRoutine(dailyRoutine: dailyRoutine, image: selectedImage)
+                                    presentationMode.wrappedValue.dismiss()
+                                } catch {
+                                    print("Error proving routine: \(error)")
+                                }
+                                isSaving = false
+                            }
+                        }
+                    }) {
+                        Text("인증 완료")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(selectedImage == nil ? Color.gray : Color.green)
+                            .cornerRadius(10)
+                            .padding()
+                    }
+                    .disabled(selectedImage == nil)
                 }
-                .disabled(selectedImage == nil)
             } else {
                 Text("루틴 정보를 불러올 수 없습니다.")
                     .font(.headline)
@@ -111,19 +121,15 @@ struct RoutineProvingView: View {
     }
 }
 
-
-//#Preview {
-//    let viewModel = RoutineViewModel()
-//    let dailyRoutine = DailyRoutine(
-//        id: 1,
-//        routineId: 1,
-//        groupId: 1,
-//        time: Date(),
-//        completedPhoto: nil,
-//        completedTime: nil,
-//        createdAt: Date(),
-//        updatedAt: nil,
-//        deletedAt: nil
-//    )
-//    return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
-//}
+#Preview {
+    let viewModel = RoutineViewModel()
+    let dailyRoutine = DailyRoutine(
+        id: 1,
+        routineId: 1,
+        groupId: 1,
+        time: "2024-07-30T00:00:00.000Z",
+        completedPhoto: nil,
+        completedTime: nil
+    )
+    return RoutineProvingView(dailyRoutine: .constant(dailyRoutine), viewModel: viewModel)
+}

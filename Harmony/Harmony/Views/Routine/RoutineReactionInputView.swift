@@ -36,9 +36,11 @@ struct RoutineReactionInputView: View {
             
             Button(action: {
                 if !newReaction.isEmpty {
-                    viewModel.addReactionToRoutine(to: dailyRoutine, content: newReaction)
-                    newReaction = ""
-                    presentationMode.wrappedValue.dismiss()
+                    Task {
+                        await viewModel.addReactionToRoutine(to: dailyRoutine, content: newReaction)
+                        newReaction = ""
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             }) {
                 Text("작성 완료")
@@ -85,19 +87,15 @@ struct RoutineReactionRow: View {
     }
 }
 
-//
-//#Preview {
-//    let viewModel = RoutineViewModel()
-//    let dailyRoutine = DailyRoutine(
-//        id: 1,
-//        routineId: 1,
-//        groupId: 1,
-//        time: Date(),
-//        completedPhoto: nil,
-//        completedTime: nil,
-//        createdAt: Date(),
-//        updatedAt: nil,
-//        deletedAt: nil
-//    )
-//    return RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
-//}
+#Preview {
+    let viewModel = RoutineViewModel()
+    let dailyRoutine = DailyRoutine(
+        id: 1,
+        routineId: 1,
+        groupId: 1,
+        time: "08:00:00",
+        completedPhoto: nil,
+        completedTime: nil
+    )
+    return RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+}

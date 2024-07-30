@@ -66,20 +66,22 @@ final class RoutineViewModel: ObservableObject {
         }
     }
 
-    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) {
-        let newReaction = RoutineReaction(
-            id: UUID().hashValue,
-            dailyId: dailyRoutine.id,
-            routineId: dailyRoutine.routineId,
-            groupId: dailyRoutine.groupId,
-            authorId: "손녀 조다은", // 이 값을 적절히 변경해주세요.
-            photo: nil,
-            comment: content,
-            createdAt: Date(),
-            updatedAt: nil,
-            deletedAt: nil
-        )
-        routineReactions.append(newReaction)
+    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) async {
+        let parameters: [String: Any] = [
+            "routineId": dailyRoutine.routineId,
+            "groupId": dailyRoutine.groupId,
+            "authorId": "test@user.com",
+            "comment": content
+        ]
+
+        do {
+            let newReaction = try await RoutineService.shared.addReaction(dailyId: dailyRoutine.id, parameters: parameters)
+            DispatchQueue.main.async {
+                self.routineReactions.append(newReaction)
+            }
+        } catch {
+            print("Error adding reaction: \(error)")
+        }
     }
 
     func daysAsString(for routine: Routine) -> String {
@@ -92,6 +94,20 @@ final class RoutineViewModel: ObservableObject {
             }
         }
         return result.joined(separator: ", ")
+    }
+    
+    func proveDailyRoutine(dailyRoutine: DailyRoutine, image: UIImage) async throws {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+        do {
+            let updatedRoutine = try await RoutineService.shared.proveDailyRoutine(dailyId: dailyRoutine.id, imageData: imageData)
+            DispatchQueue.main.async {
+                if let index = self.dailyRoutines.firstIndex(where: { $0.id == dailyRoutine.id }) {
+                    self.dailyRoutines[index] = updatedRoutine
+                }
+            }
+        } catch {
+            throw error
+        }
     }
     
     func updateDailyRoutine(dailyRoutine: DailyRoutine, with photo: Image) {
