@@ -30,7 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: nativeAppKey)
         print("Kakao 네이티브 앱 키: \(nativeAppKey)")
         if (AuthApi.hasToken()) {
-            UserApi.shared.accessTokenInfo { (_, error) in
+            UserApi.shared.accessTokenInfo { (token, error) in
                 if let error {
                     if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
                         UserDefaults.standard.set(false, forKey: "isLoggedIn")
@@ -43,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 else {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
-
+                    print("토큰!!: \(token)")
                 }
             }
         }
@@ -71,7 +71,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         
         UserDefaultsManager.shared.setToken(token)
-        print("userdefault에 저장된 토큰: " + UserDefaultsManager.shared.getToken())
+        print("저장된 디바이스 토큰: " + UserDefaultsManager.shared.getToken())
         
     }
     
