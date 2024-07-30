@@ -100,7 +100,7 @@ struct RoutineView: View {
                 }
                 .padding()
                 .sheet(isPresented: $showingAddRoutineView) {
-//                    RoutineAddView(viewModel: viewModel)
+                    RoutineAddView(viewModel: viewModel)
                 }
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
