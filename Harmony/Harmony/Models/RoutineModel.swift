@@ -20,12 +20,6 @@ struct Routine: Identifiable, Codable {
     }
 }
 
-struct RoutineResponse: Codable {
-    let status: Bool
-    let data: [Routine]
-    let message: String
-}
-
 struct DailyRoutine: Identifiable, Codable {
     var id: Int
     var routineId: Int
@@ -38,12 +32,6 @@ struct DailyRoutine: Identifiable, Codable {
         case id = "dailyId"
         case routineId, groupId, time, completedPhoto, completedTime
     }
-}
-
-struct DailyRoutineResponse: Codable {
-    let status: Bool
-    let data: [DailyRoutine]
-    let message: String
 }
 
 struct RoutineReaction: Identifiable, Codable {

@@ -115,6 +115,20 @@ final class RoutineViewModel: ObservableObject {
             throw error
         }
     }
+
+    func proveDailyRoutine(dailyRoutine: DailyRoutine, image: UIImage) async throws {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+        do {
+            let updatedRoutine = try await RoutineService.shared.proveDailyRoutine(dailyId: dailyRoutine.id, imageData: imageData)
+            DispatchQueue.main.async {
+                if let index = self.dailyRoutines.firstIndex(where: { $0.id == dailyRoutine.id }) {
+                    self.dailyRoutines[index] = updatedRoutine
+                }
+            }
+        } catch {
+            throw error
+        }
+    }
 }
 
 extension String {

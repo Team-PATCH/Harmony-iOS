@@ -15,29 +15,55 @@ final class RoutineService {
     private init() {}
 
     func fetchRoutines() async throws -> [Routine] {
-        let response: RoutineResponse = try await fetchData(endpoint: "/routine")
+        let response: Response<[Routine]> = try await fetchData(endpoint: "/routine")
         return response.data
     }
     
     func fetchDailyRoutines() async throws -> [DailyRoutine] {
-        let response: DailyRoutineResponse = try await fetchData(endpoint: "/dailyroutine/today")
+        let response: Response<[DailyRoutine]> = try await fetchData(endpoint: "/dailyroutine/today")
         return response.data
     }
     
     func fetchRoutineReactions(dailyId: Int) async throws -> [RoutineReaction] {
-        try await fetchData(endpoint: "/dailyroutine/\(dailyId)/reactions")
+        let response: Response<[RoutineReaction]> = try await fetchData(endpoint: "/dailyroutine/\(dailyId)/reactions")
+        return response.data
     }
     
     func createRoutine(parameters: [String: Any]) async throws -> Routine {
-        try await postData(endpoint: "/routine", parameters: parameters)
+        let response: Response<Routine> = try await postData(endpoint: "/routine", parameters: parameters)
+        return response.data
     }
     
     func updateRoutine(routineId: Int, parameters: [String: Any]) async throws -> Routine {
-        try await postData(endpoint: "/routine/update/\(routineId)", parameters: parameters, method: .post)
+        let response: Response<Routine> = try await postData(endpoint: "/routine/update/\(routineId)", parameters: parameters, method: .post)
+        return response.data
     }
     
     func deleteRoutine(routineId: Int) async throws -> Void {
         try await request(endpoint: "/routine/\(routineId)", method: .delete)
+    }
+    
+    func proveDailyRoutine(dailyId: Int, imageData: Data) async throws -> DailyRoutine {
+        let url = baseURL + "/dailyroutine/proving/\(dailyId)"
+        let headers: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "completedPhoto", fileName: "photo.jpg", mimeType: "image/jpeg")
+            }, to: url, headers: headers)
+            .responseDecodable(of: Response<DailyRoutine>.self) { response in
+                switch response.result {
+                case .success(let responseData):
+                    if responseData.status {
+                        continuation.resume(returning: responseData.data)
+                    } else {
+                        continuation.resume(throwing: URLError(.badServerResponse))
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
     
     private func fetchData<T: Decodable>(endpoint: String, method: HTTPMethod = .get, parameters: [String: Any]? = nil) async throws -> T {
