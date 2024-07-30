@@ -12,6 +12,7 @@ struct RoutineAddView: View {
     @State private var selectedDays: [Bool] = Array(repeating: false, count: 7)
     @State private var time: Date = Date()
     @State private var isSaving: Bool = false
+    @State private var isShowingTimePicker: Bool = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
 
@@ -22,7 +23,7 @@ struct RoutineAddView: View {
                     Spacer()
                     
                     Text("새로운 일과")
-                        .font(.title2)
+                        .font(.largeTitle)
                         .bold()
                         .padding()
                     
@@ -64,10 +65,20 @@ struct RoutineAddView: View {
                     .padding(.horizontal)
                     .padding(.top)
 
-                DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                    .datePickerStyle(WheelDatePickerStyle())
+                Button(action: {
+                    isShowingTimePicker.toggle()
+                }) {
+                    HStack {
+                        Text(formatTime(time))
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
                     .padding(.horizontal)
+                }
 
                 Spacer()
 
@@ -90,6 +101,10 @@ struct RoutineAddView: View {
                     }
                     .disabled(title.isEmpty || !selectedDays.contains(true))
                 }
+            }
+            .sheet(isPresented: $isShowingTimePicker) {
+                DatePickerModal(time: $time)
+                    .presentationDetents([.fraction(0.5)]) // 모달의 높이를 절반으로 설정
             }
         }
     }
@@ -118,6 +133,13 @@ struct RoutineAddView: View {
                 isSaving = false
             }
         }
+    }
+
+    func formatTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
     }
 }
 
@@ -151,7 +173,39 @@ struct DayButton: View {
     }
 }
 
+struct DatePickerModal: View {
+    @Binding var time: Date
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                DatePicker("시간 선택", selection: $time, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
+                    .padding()
+                    .environment(\.locale, Locale(identifier: "ko_KR")) // DatePicker의 로케일 설정
+
+                Spacer()
+
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("완료")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .padding()
+                }
+            }
+            .navigationBarTitle("시간 설정", displayMode: .inline)
+        }
+    }
+}
+
 #Preview {
     RoutineAddView(viewModel: RoutineViewModel())
 }
-
