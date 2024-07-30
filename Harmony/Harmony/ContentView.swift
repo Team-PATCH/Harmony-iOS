@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         if authViewModel.isLoggedIn {
-            AllowNotificationView(userInfo: UserInfo(id: 1, nickname: "b", profileImageUrl: nil))
+            AllowNotificationView()
         } else {
             LoginView()
                 .environmentObject(authViewModel)
