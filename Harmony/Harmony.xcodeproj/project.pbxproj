@@ -21,6 +21,7 @@
 		3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */; };
 		3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */; };
 		3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C12C57A92E00B16DB8 /* RoutineService.swift */; };
+		3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */; };
 		550003492C53657700B00635 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 550003482C53657700B00635 /* Secrets.xcconfig */; };
 		5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */; };
 		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
@@ -93,6 +94,7 @@
 		3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineRow.swift; sourceTree = "<group>"; };
 		3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineReactionInputView.swift; sourceTree = "<group>"; };
 		3EE527C12C57A92E00B16DB8 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
+		3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditView.swift; sourceTree = "<group>"; };
 		550003482C53657700B00635 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5500034A2C5367D600B00635 /* Harmony.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Harmony.entitlements; sourceTree = "<group>"; };
 		5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extentions.swift"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				3EA6EBA72C4F497700627C63 /* RoutineView.swift */,
 				3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */,
 				3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */,
+				3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */,
 				3EA6EBB12C5094CB00627C63 /* RoutineDetailView.swift */,
 				3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */,
 				3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */,
@@ -551,6 +554,7 @@
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
 				55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */,
 				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
+				3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */,
 				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
 				3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,

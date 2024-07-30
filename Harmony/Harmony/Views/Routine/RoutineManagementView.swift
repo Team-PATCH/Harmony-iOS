@@ -10,6 +10,8 @@ import SwiftUI
 struct RoutineManagementView: View {
     @ObservedObject var viewModel: RoutineViewModel
     @State private var showingAddRoutineView = false
+    @State private var showingEditRoutineView = false
+    @State private var selectedRoutine: Routine?
 
     var body: some View {
         NavigationView {
@@ -37,19 +39,30 @@ struct RoutineManagementView: View {
                                         .foregroundColor(.gray)
                                 }
                                 Spacer()
-                                Button(action: {
-                                    deleteRoutine(routine)
-                                }) {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.red)
+                                Menu {
+                                    Button(action: {
+                                        selectedRoutine = routine
+                                        showingEditRoutineView = true
+                                    }) {
+                                        Text("일과 수정")
+                                    }
+                                    Button(action: {
+                                        Task {
+                                            await deleteRoutine(routine)
+                                        }
+                                    }) {
+                                        Text("일과 삭제")
+                                            .foregroundColor(.red)
+                                    }
+                                } label: {
+                                    Image(systemName: "ellipsis")
+                                        .rotationEffect(.degrees(90))
+                                        .foregroundColor(.black)
+                                        .padding()
                                 }
                                 .buttonStyle(PlainButtonStyle()) // Button 스타일을 명확히 지정합니다.
                             }
                             .contentShape(Rectangle()) // 전체 HStack을 터치할 수 있게 지정합니다.
-                            .onTapGesture {
-                                // 리스트를 눌렀을 때 다른 동작을 하게 하려면 여기서 처리합니다.
-                                print("Routine tapped: \(routine.title)")
-                            }
                         }
                     }
                     .listStyle(PlainListStyle())
@@ -79,6 +92,9 @@ struct RoutineManagementView: View {
                 }
             }
             .navigationBarTitle("일과 관리", displayMode: .inline)
+            .sheet(item: $selectedRoutine) { routine in
+                RoutineEditView(viewModel: viewModel, routine: routine)
+            }
             .onAppear {
                 Task {
                     await viewModel.fetchRoutines()
@@ -87,13 +103,11 @@ struct RoutineManagementView: View {
         }
     }
 
-    func deleteRoutine(_ routine: Routine) {
-        Task {
-            do {
-                try await viewModel.deleteRoutine(routine)
-            } catch {
-                print("Error deleting routine: \(error)")
-            }
+    func deleteRoutine(_ routine: Routine) async {
+        do {
+            try await viewModel.deleteRoutine(routine)
+        } catch {
+            print("Error deleting routine: \(error)")
         }
     }
 }

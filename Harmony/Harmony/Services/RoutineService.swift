@@ -33,7 +33,7 @@ final class RoutineService {
     }
     
     func updateRoutine(routineId: Int, parameters: [String: Any]) async throws -> Routine {
-        try await postData(endpoint: "/routine/\(routineId)", parameters: parameters, method: .put)
+        try await postData(endpoint: "/routine/update/\(routineId)", parameters: parameters, method: .post)
     }
     
     func deleteRoutine(routineId: Int) async throws -> Void {
