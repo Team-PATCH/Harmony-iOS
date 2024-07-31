@@ -110,9 +110,12 @@ struct MemoryCardCreateView: View {
                                 .foregroundColor(.gray5)
                             
                             Button(action: {
-                                withAnimation(.spring()) {
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.7, blendDuration: 0.1)) {
                                     isShowingYearPicker.toggle()
                                 }
+//                                withAnimation(.spring()) {
+//                                    isShowingYearPicker.toggle()
+//                                }
                             }) {
                                 HStack {
                                     Text(numberFormatter.string(from: NSNumber(value: year)) ?? "")
@@ -164,9 +167,10 @@ struct MemoryCardCreateView: View {
                 if isShowingYearPicker {
                     YearPickerView(selectedYear: $year, isPresented: $isShowingYearPicker)
                         .position(x: yearPickerPosition.x + 230, y: yearPickerPosition.y - 205)
-                        .transition(.asymmetric(insertion: .scale(scale: 0.1).combined(with: .opacity),
-                                                removal: .scale(scale: 0.1).combined(with: .opacity)))
-                        .animation(.spring(), value: isShowingYearPicker)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.1).combined(with: .opacity),
+                            removal: .scale(scale: 0.1).combined(with: .opacity)
+                        ))
                 }
             }
             .onAppear {
