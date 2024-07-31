@@ -27,9 +27,9 @@ struct DailyRoutineRow: View {
                 }
             }
             VStack(alignment: .leading) {
-//                Text(dailyRoutine.time, style: .time)
-//                    .font(.subheadline)
-//                    .foregroundColor(.gray)
+                Text(dailyRoutine.time)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
                 Text(routine?.title ?? "")
                     .font(.headline)
                     .foregroundColor(.black)
@@ -43,23 +43,19 @@ struct DailyRoutineRow: View {
     }
 }
 
-//#Preview {
-//    DailyRoutineRow(dailyRoutine: DailyRoutine(
-//        id: 1,
-//        routineId: 1,
-//        groupId: 1,
-//        time: Date(),
-//        completedPhoto: nil,
-//        completedTime: Date(),
-//        createdAt: Date(),
-//        updatedAt: nil,
-//        deletedAt: nil
-//    ), routine: Routine(
-//        id: 1,
-//        groupId: 1,
-//        title: "공원 산책",
-//        photo: nil,
-//        days: 0b01111111,
-//        time: Date()
-//    ))
-//}
+#Preview {
+    DailyRoutineRow(dailyRoutine: DailyRoutine(
+        id: 1,
+        routineId: 1,
+        groupId: 1,
+        time: "오전 11시",
+        completedPhoto: nil,
+        completedTime: "Date()"
+    ), routine: Routine(
+        id: 1,
+        groupId: 1,
+        title: "공원 산책",
+        days: 0b01111111,
+        time: "Date()"
+    ))
+}
