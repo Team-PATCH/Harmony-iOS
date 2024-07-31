@@ -81,9 +81,9 @@ final class UserDefaultsManager {
 
 struct UserData: Codable {
     let userId: String
-    let nick: String
+    var nick: String //let -> var
     let permissionId: String
     let groupId: Int
-    let alias: String
+    var alias: String //let -> var
     let deviceToken: String
 }
