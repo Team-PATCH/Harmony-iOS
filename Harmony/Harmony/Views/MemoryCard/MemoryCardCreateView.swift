@@ -193,50 +193,6 @@ struct MemoryCardCreateView: View {
     }
 }
 
-struct YearPickerView: View {
-    @Binding var selectedYear: Int
-    @Binding var isPresented: Bool
-    
-    private var numberFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
-        return formatter
-    }
-    
-    var body: some View {
-        VStack {
-            Picker("Year", selection: $selectedYear) {
-                ForEach(1900...2025, id: \.self) { year in
-                    Text(numberFormatter.string(from: NSNumber(value: year)) ?? "").tag(year)
-                }
-            }
-            .pickerStyle(WheelPickerStyle())
-            
-            Button("Done") {
-                withAnimation(.spring()) {
-                    isPresented = false
-                }
-            }
-            .padding()
-        }
-        .frame(width: 200, height: 250)
-        .background(Color.wh)
-        .cornerRadius(20)
-        .overlay(
-            Path { path in
-                path.move(to: CGPoint(x: 160, y: 250))  // 오른쪽으로 이동
-                path.addLine(to: CGPoint(x: 170, y: 270))  // 오른쪽으로 이동
-                path.addLine(to: CGPoint(x: 180, y: 250))  // 오른쪽으로 이동
-            }
-            .fill(Color.wh)
-            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
-            , alignment: .bottomLeading
-        )
-        .shadow(radius: 10)
-    }
-}
-
-
 #Preview {
     MemoryCardCreateView(isPresented: .constant(true))
 }
