@@ -41,7 +41,7 @@ struct MemoryCardDetailView: View {
                 Text(FormatManager.shared.formattedDateTime(from: memoryCardDetail.dateTime))
                     .font(.subheadline)
                 HStack {
-                    ForEach(memoryCardDetail.tag, id: \.self) { tag in
+                    ForEach(memoryCardDetail.tags, id: \.self) { tag in
                         Text(tag)
                             .padding(8)
                             .background(.gray.opacity(0.2))

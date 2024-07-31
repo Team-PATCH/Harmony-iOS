@@ -10,7 +10,7 @@ import Alamofire
 
 final class MemoryCardService {
     static let shared = MemoryCardService()
-    private let baseURL = "http://localhost:3000/mc"
+    private let baseURL = "https://harmony-sion.azurewebsites.net/mc"
     
     func fetchMemoryCards() async throws -> [MemoryCard]? {
         return try await withCheckedThrowingContinuation { continuation in

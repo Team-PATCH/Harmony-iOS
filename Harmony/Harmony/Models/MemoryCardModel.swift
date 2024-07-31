@@ -30,7 +30,7 @@ struct MemoryCardDetail: Codable {
     var memorycardId: Int
     var title: String
     var dateTime: String
-    var tag: [String]
+    var tags: [String]
     var image: String
     var description: String
     var message: String
