@@ -22,12 +22,7 @@ struct RoutineDetailView: View {
     var body: some View {
         VStack {
             if let routine = routine {
-                if let completedTime = dailyRoutine.completedTime
-                //                if let completedPhoto = dailyRoutine.completedPhoto,
-                //                   let completedPhotoURL = URL(string: completedPhoto.path),
-                //                   let imageData = try? Data(contentsOf: completedPhotoURL),
-                //                   let uiImage = UIImage(data: imageData)
-                {
+                if let completedTime = dailyRoutine.completedTime, let completedPhoto = dailyRoutine.completedPhoto, let completedPhotoURL = URL(string: completedPhoto) {
                     VStack {
                         HStack {
                             Button(action: {
@@ -45,22 +40,28 @@ struct RoutineDetailView: View {
                                 .foregroundColor(.clear)
                         }
                         
-                        Image(systemName: "kingfisher-1.jpg")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 393, height: 240)
-                            .padding()
+                        // 인증된 사진 섹션
+                        AsyncImage(url: completedPhotoURL) { phase in
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 393, height: 240)
+                                    .padding()
+                            } else if phase.error != nil {
+                                Text("Failed to load image")
+                                    .foregroundColor(.red)
+                            } else {
+                                ProgressView()
+                                    .frame(width: 393, height: 240)
+                            }
+                        }
                         
                         Text(routine.title)
                             .font(.title2)
                             .bold()
                             .foregroundColor(.black)
                             .padding(.top)
-                        
-//                        Text(dailyRoutine.time, style: .time)
-//                            .font(.title3)
-//                            .foregroundColor(.green)
-//                            .padding(.top)
                         
                         Spacer()
                         
@@ -128,9 +129,6 @@ struct RoutineDetailView: View {
                                 Text("dailyRoutine.time")
                                     .font(.title)
                                     .foregroundColor(.green)
-//                                Text(dailyRoutine.time, style: .time)
-//                                    .font(.title)
-//                                    .foregroundColor(.green)
                                 Text(routine.title)
                                     .font(.title2)
                                     .bold()
@@ -189,7 +187,6 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
-        
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             Task {
