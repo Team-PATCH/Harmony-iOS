@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var isShowingMemoryCardCreate = false
+    
     var body: some View {
-        Text("Home View")
+        ZStack {
+            // 기존 HomeView 내용
+            
+            Button("추억 카드 만들기") {
+                isShowingMemoryCardCreate = true
+            }
+            
+            if isShowingMemoryCardCreate {
+                MemoryCardCreateView(isPresented: $isShowingMemoryCardCreate)
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+        }
+        .animation(.default, value: isShowingMemoryCardCreate)
     }
 }
 

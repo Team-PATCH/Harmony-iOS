@@ -47,6 +47,9 @@
 		BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */; };
 		BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */; };
 		BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E50092C468276003EC4E1 /* View+Extensions.swift */; };
+		BE884B5D2C59E19900D9BCCA /* MemoryCardCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */; };
+		BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */; };
+		BE884B612C5A124900D9BCCA /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B602C5A124900D9BCCA /* YearPickerView.swift */; };
 		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
@@ -121,6 +124,9 @@
 		BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardViewModel.swift; sourceTree = "<group>"; };
 		BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardView.swift; sourceTree = "<group>"; };
 		BE3E50092C468276003EC4E1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardCreateView.swift; sourceTree = "<group>"; };
+		BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		BE884B602C5A124900D9BCCA /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
 		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 			children = (
 				BE06A0DB2C44F1A9008D3C03 /* Extensions */,
 				BE06A0DD2C44F1BA008D3C03 /* Helpers */,
+				BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -320,7 +327,9 @@
 				BE3E50072C466BDB003EC4E1 /* MemoryCardView.swift */,
 				BE96B8022C479DC7003C41F9 /* MemoryChatView.swift */,
 				BEA2AA812C4F8D500033AAEF /* MemoryCardRecordView.swift */,
+				BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */,
 				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
+				BE884B602C5A124900D9BCCA /* YearPickerView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -521,6 +530,7 @@
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
+				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
@@ -542,6 +552,7 @@
 				5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */,
 				55A10B202C4F76C5001728EF /* LoginView.swift in Sources */,
 				55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */,
+				BE884B612C5A124900D9BCCA /* YearPickerView.swift in Sources */,
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
 				55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */,
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
@@ -564,6 +575,7 @@
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
 				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
 				C49DBE1C2C4FAE6C00B1A87D /* QuestionDetailView.swift in Sources */,
+				BE884B5D2C59E19900D9BCCA /* MemoryCardCreateView.swift in Sources */,
 				3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */,
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
