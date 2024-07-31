@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct UserInfoEntryView: View {
+    @ObservedObject var viewModel: OnboardingViewModel
     @Binding var path: [String]
-    @State private var relationship: String = ""
-    @State private var name: String = ""
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -34,35 +33,35 @@ struct UserInfoEntryView: View {
                     Text("관계")
                         .padding(.leading,10)
                         .font(.pretendardMedium(size: 18))
-                    CustomTextFieldView(placeholder: "예) 손녀", value: $relationship)
+                    CustomTextFieldView(placeholder: "예) 손녀", value: Binding(
+                        get: { self.viewModel.alias },
+                        set: { self.viewModel.alias = $0 }
+                    ))
                     Text("이름")
                         .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 0))
                         .font(.pretendardMedium(size: 18))
-                    CustomTextFieldView(placeholder: "이름을 입력해주세요.", value: $name)
-                    
+                    CustomTextFieldView(placeholder: "이름을 입력해주세요.", value: Binding(
+                        get: { self.viewModel.userName },
+                        set: { self.viewModel.userName = $0 }
+                    ))
                 }
                 .padding(.top, 20)
                 
                 Spacer()
                 
-                NavigationLink(destination: ProfileRegisterView(path: $path)) {
+                NavigationLink(destination: ProfileRegisterView(viewModel: viewModel, path: $path)) {
                     Text("다음")
                         .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(!relationship.isEmpty && !name.isEmpty ? Color.mainGreen : Color.gray3)
+                        .background(!viewModel.alias.isEmpty && !viewModel.userName.isEmpty ? Color.mainGreen : Color.gray3)
                         .cornerRadius(10)
                 }
-                .disabled(relationship.isEmpty || name.isEmpty)
+                .disabled(viewModel.alias.isEmpty || viewModel.userName.isEmpty)
             }
             .padding()
             .background(Color.wh)
         }
     }
-}
-
-#Preview{
-    UserInfoEntryView(path: .constant([]))
-    
 }

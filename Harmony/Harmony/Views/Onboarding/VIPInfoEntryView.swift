@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct VIPInfoEntryView: View {
+    
+    @ObservedObject var viewModel: OnboardingViewModel
     @Binding var path: [String]
     @State private var selectedRole: String = "선택해주세요"
-    @State private var vipName: String = ""
     @State private var isDropdownOpen = false
     
     let roles = ["할머니", "할아버지"]
@@ -29,28 +30,31 @@ struct VIPInfoEntryView: View {
                     
                     CustomDropdownView(selected: $selectedRole, isOpen: $isDropdownOpen, list: roles)
                     
-                    CustomTextFieldView(placeholder: "성함", value: $vipName)
+                    CustomTextFieldView(placeholder: "성함", value: Binding(
+                        get: { self.viewModel.groupName },
+                        set: { self.viewModel.groupName = $0 }
+                    ))
                 }
                 
                 Spacer()
                 
-                NavigationLink(destination: UserInfoEntryView(path: $path)) {
+                NavigationLink(destination: UserInfoEntryView(viewModel: viewModel, path: $path)) {
                     Text("다음")
                         .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selectedRole != "선택해주세요" && !vipName.isEmpty ? Color.mainGreen : Color.gray3)
+                        .background(selectedRole != "선택해주세요" && !viewModel.groupName.isEmpty ? Color.mainGreen : Color.gray3)
                         .cornerRadius(10)
                 }
-                .disabled(selectedRole == "선택해주세요" || vipName.isEmpty)
+                .disabled(selectedRole == "선택해주세요" || viewModel.groupName.isEmpty)
             }
             .padding()
             .background(Color.wh)
         }
     }
 }
-
-#Preview {
-    VIPInfoEntryView(path: .constant([]))
-}
+//
+//#Preview {
+//    VIPInfoEntryView(path: .constant([]))
+//}
