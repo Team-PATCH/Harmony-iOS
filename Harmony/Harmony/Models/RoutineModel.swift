@@ -25,7 +25,7 @@ struct DailyRoutine: Identifiable, Codable {
     var routineId: Int
     var groupId: Int
     var time: String
-    var completedPhoto: URL?
+    var completedPhoto: String?
     var completedTime: String?
     
     enum CodingKeys: String, CodingKey {

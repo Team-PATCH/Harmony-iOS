@@ -10,7 +10,8 @@ import Alamofire
 
 final class RoutineService {
     static let shared = RoutineService()
-    private let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as! String
+        private let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as! String
+//        private let baseURL = "http://localhost:3000"
     
     private init() {}
     
