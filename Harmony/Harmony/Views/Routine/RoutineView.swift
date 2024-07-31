@@ -12,7 +12,7 @@ struct RoutineView: View {
     @State private var showingAddRoutineView = false
     @State private var showingManagementView = false
     @State private var selectedDailyRoutine: DailyRoutine?
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -21,13 +21,13 @@ struct RoutineView: View {
                     Text("\(viewModel.currentDateString)")
                         .font(.pretendardBold(size: 22))
                         .foregroundColor(Color.black)
-
+                    
                     Text("일과")
                         .font(.pretendardBold(size: 22))
                         .foregroundColor(Color.mainGreen)
-
+                    
                     Spacer()
-
+                    
                     Button(action: {
                         showingManagementView.toggle()
                     }) {
@@ -39,10 +39,10 @@ struct RoutineView: View {
                 .padding(20)
                 .frame(height: 65)
                 .background(Color.white)
-
+                
                 Divider()
                     .background(Color.gray3)
-
+                
                 // Completion Rate
                 VStack(alignment: .leading, spacing: 0) {
                     if viewModel.completionRate == 1.0 {
@@ -71,7 +71,8 @@ struct RoutineView: View {
                         .progressViewStyle(CustomProgressViewStyle())
                 }
                 .background(Color.white)
-
+                .padding(.bottom, 10)
+                
                 // Routine List
                 if viewModel.dailyRoutines.isEmpty {
                     Text("오늘의 일과가 없습니다")
@@ -85,7 +86,10 @@ struct RoutineView: View {
                             routine: viewModel.routines.first(where: { $0.id == dailyRoutine.routineId })
                         )
                         .listRowBackground(Color.gray1)
+                        .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 20)
                         .onTapGesture {
                             selectedDailyRoutine = dailyRoutine
                         }
@@ -95,9 +99,9 @@ struct RoutineView: View {
                         RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
                     }
                 }
-
+                
                 Spacer()
-
+                
                 // Add Button
                 HStack {
                     Spacer()
@@ -111,7 +115,6 @@ struct RoutineView: View {
                             .padding()
                             .background(Color.green)
                             .clipShape(Circle())
-                            .shadow(radius: 2)
                     }
                     .padding()
                     .sheet(isPresented: $showingAddRoutineView, onDismiss: {
@@ -126,7 +129,7 @@ struct RoutineView: View {
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $showingManagementView) {
-                 RoutineManagementView(viewModel: viewModel)
+                RoutineManagementView(viewModel: viewModel)
             }
             .onAppear {
                 Task {
@@ -144,7 +147,7 @@ struct CustomProgressViewStyle: ProgressViewStyle {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.gray2)
                 .frame(height: 17)
-
+            
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.mainGreen)
                 .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * (UIScreen.main.bounds.width - 40), height: 17)
