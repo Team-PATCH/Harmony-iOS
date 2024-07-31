@@ -14,7 +14,7 @@ struct RoutineView: View {
     @State private var selectedDailyRoutine: DailyRoutine?
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 // Header
                 HStack {
@@ -28,9 +28,7 @@ struct RoutineView: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        showingManagementView.toggle()
-                    }) {
+                    NavigationLink(destination: RoutineManagementView(viewModel: viewModel)) {
                         Image("routine-edit-icon")
                             .font(.title2)
                             .foregroundColor(.black)
@@ -128,9 +126,6 @@ struct RoutineView: View {
                 }
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
-            .sheet(isPresented: $showingManagementView) {
-                RoutineManagementView(viewModel: viewModel)
-            }
             .onAppear {
                 Task {
                     await viewModel.fetchRoutines()
