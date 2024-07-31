@@ -117,7 +117,7 @@ struct RoutineView: View {
                             .clipShape(Circle())
                     }
                     .padding()
-                    .sheet(isPresented: $showingAddRoutineView, onDismiss: {
+                    .fullScreenCover(isPresented: $showingAddRoutineView, onDismiss: {
                         Task {
                             await viewModel.fetchRoutines()
                             await viewModel.fetchDailyRoutines()

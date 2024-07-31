@@ -18,13 +18,13 @@ struct RoutineAddView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack {
+                    Spacer()
                     Spacer()
                     
                     Text("새로운 일과")
-                        .font(.largeTitle)
-                        .bold()
+                        .font(.pretendardBold(size: 20))
                         .padding()
                     
                     Spacer()
@@ -36,49 +36,72 @@ struct RoutineAddView: View {
                             .font(.title2)
                             .foregroundColor(.black)
                     }
+                    .padding(.horizontal, 25)
+                    .padding(.vertical, 20)
                 }
 
-                Text("무슨 일과인가요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-
-                TextField("예) 아침 식사 먹기", text: $title)
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
-
-                Text("무슨 요일마다 하나요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top)
-
-                HStack {
-                    ForEach(0..<7, id: \.self) { index in
-                        DayButton(day: index, isSelected: $selectedDays[index])
-                    }
+                Divider()
+                    .background(Color.gray3)
+                
+                VStack(alignment: .leading) {
+                    Text("무슨 일과인가요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
+                    TextField("예) 아침 식사 먹기", text: $title)
+                        .padding()
+                        .background(Color.gray1)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        )
                 }
-                .padding(.horizontal)
+                .padding(.top, 20)
+                .padding(.horizontal, 20)
 
-                Text("몇 시로 설정할까요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top)
-
-                Button(action: {
-                    isShowingTimePicker.toggle()
-                }) {
+                
+                VStack(alignment: .leading) {
+                    Text("무슨 요일마다 하나요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
                     HStack {
-                        Text(formatTime(time))
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
+                        ForEach(0..<7, id: \.self) { index in
+                            DayButton(day: index, isSelected: $selectedDays[index])
+                        }
                     }
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
                 }
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
+
+                VStack(alignment: .leading) {
+                    Text("몇 시로 설정할까요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
+                    Button(action: {
+                        isShowingTimePicker.toggle()
+                    }) {
+                        HStack {
+                            Image("clock-icon")
+                                .foregroundColor(.gray)
+                            Text(formatTime(time))
+                                .font(.pretendardSemiBold(size: 20))
+                                .foregroundColor(Color.bl)
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        )
+                    }
+                }
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
 
                 Spacer()
 
@@ -91,11 +114,12 @@ struct RoutineAddView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("추가하기")
-                            .font(.headline)
-                            .foregroundColor(title.isEmpty || !selectedDays.contains(true) ? .gray : .white)
+                            .font(.pretendardSemiBold(size: 24))
+                            .foregroundColor(Color.wh)
                             .frame(maxWidth: .infinity)
+                            .frame(height: 40)
                             .padding()
-                            .background(title.isEmpty || !selectedDays.contains(true) ? Color(UIColor.systemGray4) : Color.green)
+                            .background(title.isEmpty || !selectedDays.contains(true) ? Color.gray2 : Color.mainGreen)
                             .cornerRadius(10)
                             .padding()
                     }
@@ -104,7 +128,7 @@ struct RoutineAddView: View {
             }
             .sheet(isPresented: $isShowingTimePicker) {
                 DatePickerModal(time: $time)
-                    .presentationDetents([.fraction(0.5)]) // 모달의 높이를 절반으로 설정
+                    .presentationDetents([.fraction(0.5)])
             }
         }
     }
@@ -152,10 +176,15 @@ struct DayButton: View {
             isSelected.toggle()
         }) {
             Text(daySymbol(for: day))
-                .frame(width: 40, height: 40)
-                .background(isSelected ? Color.green : Color(UIColor.systemGray5))
-                .foregroundColor(.white)
-                .cornerRadius(20)
+                .font(.pretendardSemiBold(size: 18))
+                .frame(width: 41, height: 48)
+                .background(isSelected ? Color.subGreen : Color.gray1)
+                .foregroundColor(Color.gray4)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray2, lineWidth: 1)
+                )
         }
     }
 
@@ -184,7 +213,7 @@ struct DatePickerModal: View {
                     .datePickerStyle(WheelDatePickerStyle())
                     .labelsHidden()
                     .padding()
-                    .environment(\.locale, Locale(identifier: "ko_KR")) // DatePicker의 로케일 설정
+                    .environment(\.locale, Locale(identifier: "ko_KR"))
 
                 Spacer()
 
@@ -196,7 +225,7 @@ struct DatePickerModal: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green)
+                        .background(Color.mainGreen)
                         .cornerRadius(10)
                         .padding()
                 }
