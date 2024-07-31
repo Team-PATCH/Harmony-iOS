@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CreateGroupSpaceView: View {
+    
+    @ObservedObject var viewModel: OnboardingViewModel
     @Binding var path: [String]
     
     var body: some View {
@@ -27,7 +29,7 @@ struct CreateGroupSpaceView: View {
                 
                 VStack(spacing: 12) {
                     NavigationLink {
-                        VIPInfoEntryView(path: $path)
+                        VIPInfoEntryView(viewModel: viewModel, path: $path)
                     } label: {
                         HStack {
                             Image("create-group-icon")
@@ -67,7 +69,8 @@ struct CreateGroupSpaceView: View {
                         }
                         .padding()
                         .background(Color.gray1)
-                        .cornerRadius(10)                    }
+                        .cornerRadius(10)
+                    }
                 }
                 
                 Spacer()
@@ -78,6 +81,6 @@ struct CreateGroupSpaceView: View {
     }
 }
 
-#Preview {
-    CreateGroupSpaceView(path: .constant([]))
-}
+//#Preview {
+//    CreateGroupSpaceView(path: .constant([]))
+//}

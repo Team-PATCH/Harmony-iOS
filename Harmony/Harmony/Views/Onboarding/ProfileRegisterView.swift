@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileRegisterView: View {
+    @ObservedObject var viewModel: OnboardingViewModel
     @Binding var path: [String]
     @State private var relationship: String = ""
     @State private var name: String = ""
@@ -66,7 +67,7 @@ struct ProfileRegisterView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: InviteVIPView(path: $path)) {
+                NavigationLink(destination: InviteVIPView(viewModel: viewModel, path: $path)) {
                     Text("다음")
                         .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
@@ -84,6 +85,6 @@ struct ProfileRegisterView: View {
 
 }
 
-#Preview {
-    ProfileRegisterView(path: .constant([]))
-}
+//#Preview {
+//    ProfileRegisterView(path: .constant([]))
+//}

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AllowNotificationView: View {
     
+    @StateObject var viewModel = OnboardingViewModel()
     @State var path: [String] = []
     @State private var isNotificationEnabled = false
     
@@ -68,7 +69,7 @@ struct AllowNotificationView: View {
                     }
                     
                     NavigationLink{
-                        CreateGroupSpaceView(path: $path)
+                        CreateGroupSpaceView(viewModel: viewModel, path: $path)
                     } label: {
                         Text("하모니 시작하기")
                             .font(.pretendardSemiBold(size: 24))
@@ -103,6 +104,6 @@ struct Triangle: Shape {
     }
 }
 
-//#Preview {
-//    AllowNotificationView(path: .constant(["1","2"]))
-//}
+#Preview {
+    AllowNotificationView()
+}

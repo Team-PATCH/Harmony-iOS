@@ -27,6 +27,7 @@
 		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
 		555199A02C5619C000CDBAE1 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */; };
 		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
+		5573E9782C5A479300284775 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9772C5A479300284775 /* OnboardingViewModel.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
@@ -129,6 +130,7 @@
 		5500034D2C5377E700B00635 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		555F92212C51F33800BFC121 /* InviteVIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVIPView.swift; sourceTree = "<group>"; };
+		5573E9772C5A479300284775 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */,
 				C46D395E2C62023200489A4A /* HomeViewModel.swift */,
 				55A558722C56575400DF2CFF /* AuthViewModel.swift */,
+				5573E9772C5A479300284775 /* OnboardingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				BEEA0D282C6B35D600A02BA1 /* LoadingView.swift in Sources */,
 				C49DBE1C2C4FAE6C00B1A87D /* QuestionDetailView.swift in Sources */,
 				BE884B5D2C59E19900D9BCCA /* MemoryCardCreateView.swift in Sources */,
+				5573E9782C5A479300284775 /* OnboardingViewModel.swift in Sources */,
 				3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */,
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
 				555199A02C5619C000CDBAE1 /* Bundle+Extensions.swift in Sources */,

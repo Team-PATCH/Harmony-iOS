@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InviteVIPView: View {
+    @ObservedObject var viewModel: OnboardingViewModel
     @Binding var path: [String]
     
     var body: some View {
@@ -30,7 +31,7 @@ struct InviteVIPView: View {
                     .padding(.bottom, 20)
                 
                 Button {
-                    
+                    viewModel.createGroup()
                 } label:
                 {
                     HStack {
@@ -56,7 +57,7 @@ struct InviteVIPView: View {
     }
 }
 
-#Preview{
-    InviteVIPView(path: .constant([]))
-    
-}
+//#Preview{
+//    InviteVIPView(path: .constant([]))
+//    
+//}
