@@ -179,11 +179,11 @@ struct DayButton: View {
                 .font(.pretendardSemiBold(size: 18))
                 .frame(width: 41, height: 48)
                 .background(isSelected ? Color.subGreen : Color.gray1)
-                .foregroundColor(Color.gray4)
+                .foregroundColor(isSelected ? Color.mainGreen : Color.gray4)
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray2, lineWidth: 1)
+                        .stroke(isSelected ? Color.mainGreen  : Color.gray2, lineWidth: 1)
                 )
         }
     }

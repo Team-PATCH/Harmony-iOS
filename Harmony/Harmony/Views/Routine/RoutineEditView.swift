@@ -21,19 +21,19 @@ struct RoutineEditView: View {
         self.viewModel = viewModel
         self.routine = routine
         _title = State(initialValue: routine.title)
-        _time = State(initialValue: Date()) // 시간을 적절히 변환해야 함
+        _time = State(initialValue: Date())
         _selectedDays = State(initialValue: routine.daysToBoolArray())
     }
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack {
+                    Spacer()
                     Spacer()
                     
                     Text("일과 수정")
-                        .font(.largeTitle)
-                        .bold()
+                        .font(.pretendardBold(size: 20))
                         .padding()
                     
                     Spacer()
@@ -45,49 +45,71 @@ struct RoutineEditView: View {
                             .font(.title2)
                             .foregroundColor(.black)
                     }
+                    .padding(.horizontal, 25)
+                    .padding(.vertical, 20)
                 }
+                
+                Divider()
+                    .background(Color.gray3)
 
-                Text("무슨 일과인가요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-
-                TextField("예) 아침 식사 먹기", text: $title)
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
-
-                Text("무슨 요일마다 하나요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top)
-
-                HStack {
-                    ForEach(0..<7, id: \.self) { index in
-                        DayButton(day: index, isSelected: $selectedDays[index])
-                    }
+                VStack(alignment: .leading) {
+                    Text("무슨 일과인가요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
+                    TextField("예) 아침 식사 먹기", text: $title)
+                        .padding()
+                        .background(Color.gray1)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        )
                 }
-                .padding(.horizontal)
+                .padding(.top, 20)
+                .padding(.horizontal, 20)
 
-                Text("몇 시로 설정할까요?")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top)
-
-                Button(action: {
-                    isShowingTimePicker.toggle()
-                }) {
+                VStack(alignment: .leading) {
+                    Text("무슨 요일마다 하나요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
                     HStack {
-                        Text(formatTime(time))
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
+                        ForEach(0..<7, id: \.self) { index in
+                            DayButton(day: index, isSelected: $selectedDays[index])
+                        }
                     }
-                    .padding()
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
                 }
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
+
+                VStack(alignment: .leading) {
+                    Text("몇 시로 설정할까요?")
+                        .font(.pretendardMedium(size: 18))
+                        .padding(.horizontal, 5)
+                    
+                    Button(action: {
+                        isShowingTimePicker.toggle()
+                    }) {
+                        HStack {
+                            Image("clock-icon")
+                                .foregroundColor(.gray)
+                            Text(formatTime(time))
+                                .font(.pretendardSemiBold(size: 20))
+                                .foregroundColor(Color.bl)
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        )
+                    }
+                }
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
 
                 Spacer()
 
@@ -113,7 +135,7 @@ struct RoutineEditView: View {
             }
             .sheet(isPresented: $isShowingTimePicker) {
                 EditDatePickerModal(time: $time)
-                    .presentationDetents([.fraction(0.5)]) // 모달의 높이를 절반으로 설정
+                    .presentationDetents([.fraction(0.5)])
             }
         }
     }
@@ -169,7 +191,7 @@ struct EditDatePickerModal: View {
                     .datePickerStyle(WheelDatePickerStyle())
                     .labelsHidden()
                     .padding()
-                    .environment(\.locale, Locale(identifier: "ko_KR")) // DatePicker의 로케일 설정
+                    .environment(\.locale, Locale(identifier: "ko_KR"))
 
                 Spacer()
 

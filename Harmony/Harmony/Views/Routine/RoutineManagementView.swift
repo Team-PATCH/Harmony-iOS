@@ -28,7 +28,7 @@ struct RoutineManagementView: View {
                 List {
                     ForEach(viewModel.routines) { routine in
                         RoutineRow(routine: routine, selectedRoutine: $selectedRoutine, showingEditRoutineView: $showingEditRoutineView, viewModel: viewModel)
-                            .contentShape(Rectangle()) // 전체 HStack을 터치할 수 있게 지정합니다.
+                            .contentShape(Rectangle())
                     }
                     .listRowBackground(Color.gray1)
                     .listRowInsets(EdgeInsets())
