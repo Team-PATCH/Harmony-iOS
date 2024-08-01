@@ -12,7 +12,8 @@ struct RoutineManagementView: View {
     @State private var showingAddRoutineView = false
     @State private var showingEditRoutineView = false
     @State private var selectedRoutine: Routine?
-    
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         VStack {
             if viewModel.routines.isEmpty {
@@ -40,6 +41,13 @@ struct RoutineManagementView: View {
         }
         .background(Color.gray1)
         .navigationBarTitle("일과 관리", displayMode: .inline)
+        .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image("back-icon")
+                })
         .sheet(item: $selectedRoutine) { routine in
             RoutineEditView(viewModel: viewModel, routine: routine)
         }

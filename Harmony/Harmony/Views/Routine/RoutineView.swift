@@ -12,7 +12,20 @@ struct RoutineView: View {
     @State private var showingAddRoutineView = false
     @State private var showingManagementView = false
     @State private var selectedDailyRoutine: DailyRoutine?
-
+    
+    init() {
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.backgroundColor = UIColor(Color.wh)
+        navBarAppearance.shadowColor = UIColor.gray
+        
+                navBarAppearance.largeTitleTextAttributes = [.font: UIFont.systemFont(ofSize: 24)]
+        
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().compactAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -22,26 +35,28 @@ struct RoutineView: View {
                         Text("\(viewModel.currentDateString)")
                             .font(.pretendardBold(size: 22))
                             .foregroundColor(Color.black)
-
+                        
                         Text("일과")
                             .font(.pretendardBold(size: 22))
                             .foregroundColor(Color.mainGreen)
-
+                        
                         Spacer()
-
-                        NavigationLink(destination: RoutineManagementView(viewModel: viewModel)) {
+                        
+                        NavigationLink(destination: RoutineManagementView(viewModel: viewModel))
+                        {
                             Image("routine-edit-icon")
                                 .font(.title2)
                                 .foregroundColor(.black)
                         }
+                        
                     }
                     .padding(20)
                     .frame(height: 65)
                     .background(Color.white)
-
+                    
                     Divider()
                         .background(Color.gray3)
-
+                    
                     // Completion Rate
                     VStack(alignment: .leading, spacing: 0) {
                         if viewModel.completionRate == 1.0 {
@@ -66,19 +81,19 @@ struct RoutineView: View {
                                 .padding(.top, 20)
                                 .padding(.bottom, 5)
                         }
-
+                        
                         Text("\(Int(viewModel.completionRate * 100))% 완료")
                             .font(.pretendardBold(size: 24))
                             .foregroundColor(Color.mainGreen)
                             .padding(.horizontal, 20)
                             .padding(.bottom, 10)
-
+                        
                         ProgressView(value: viewModel.completionRate)
                             .progressViewStyle(CustomProgressViewStyle())
                     }
                     .background(Color.white)
                     .padding(.bottom, 10)
-
+                    
                     // Routine List
                     if viewModel.dailyRoutines.isEmpty {
                         Text("오늘의 일과가 없습니다")
@@ -105,7 +120,7 @@ struct RoutineView: View {
                             RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: viewModel)
                         }
                     }
-
+                    
                     Spacer()
                 }
                 .background(Color.gray1.edgesIgnoringSafeArea(.all))
@@ -115,7 +130,7 @@ struct RoutineView: View {
                         await viewModel.fetchDailyRoutines()
                     }
                 }
-
+                
                 // Add Button
                 VStack {
                     Spacer()
@@ -154,7 +169,7 @@ struct CustomProgressViewStyle: ProgressViewStyle {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.gray2)
                 .frame(height: 17)
-
+            
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.mainGreen)
                 .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * (UIScreen.main.bounds.width - 40), height: 17)
