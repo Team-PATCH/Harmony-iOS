@@ -75,6 +75,12 @@
 		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
+		C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C47B35B82C5A4373006A3561 /* Secrets.xcconfig */; };
+		C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */; };
+		C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */; };
+		C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */; };
+		C47B35C32C5A44C0006A3561 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C22C5A44C0006A3561 /* ProfileEditView.swift */; };
+		C47B35C52C5A44D8006A3561 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C42C5A44D8006A3561 /* SettingsView.swift */; };
 		C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */; };
 		C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */; };
 		C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */; };
@@ -156,6 +162,12 @@
 		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 		BEA2AA872C50CF940033AAEF /* AzureAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIService.swift; sourceTree = "<group>"; };
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
+		C47B35B82C5A4373006A3561 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoModel.swift; sourceTree = "<group>"; };
+		C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoViewModel.swift; sourceTree = "<group>"; };
+		C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FamilyInfoView.swift; path = Harmony/ViewModels/FamilyInfoView.swift; sourceTree = SOURCE_ROOT; };
+		C47B35C22C5A44C0006A3561 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileEditView.swift; path = Harmony/ViewModels/ProfileEditView.swift; sourceTree = SOURCE_ROOT; };
+		C47B35C42C5A44D8006A3561 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Harmony/ViewModels/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		C49DBE142C4FADDE00B1A87D /* QuestionCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardModel.swift; sourceTree = "<group>"; };
 		C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardViewModel.swift; sourceTree = "<group>"; };
 		C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardService.swift; sourceTree = "<group>"; };
@@ -321,6 +333,9 @@
 		BE06A0E22C44F263008D3C03 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */,
+				C47B35C22C5A44C0006A3561 /* ProfileEditView.swift */,
+				C47B35C42C5A44D8006A3561 /* SettingsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -389,6 +404,7 @@
 				5500034A2C5367D600B00635 /* Harmony.entitlements */,
 				55A10B232C4F94C8001728EF /* Info.plist */,
 				550003482C53657700B00635 /* Secrets.xcconfig */,
+				C47B35B82C5A4373006A3561 /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -420,6 +436,7 @@
 				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
 				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
+				C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -432,6 +449,7 @@
 				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
+				C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,6 +534,7 @@
 			files = (
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
+				C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */,
 				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
 				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
@@ -536,8 +555,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */,
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
+				C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
@@ -558,7 +579,9 @@
 				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
 				C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */,
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
+				C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
+				C47B35C52C5A44D8006A3561 /* SettingsView.swift in Sources */,
 				5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */,
 				55A10B202C4F76C5001728EF /* LoginView.swift in Sources */,
 				55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */,
@@ -569,6 +592,7 @@
 				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
 				BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */,
+				C47B35C32C5A44C0006A3561 /* ProfileEditView.swift in Sources */,
 				C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */,
 				C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */,
 				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
