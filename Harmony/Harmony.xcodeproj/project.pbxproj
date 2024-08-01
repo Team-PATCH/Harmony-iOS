@@ -50,6 +50,9 @@
 		BE884B5D2C59E19900D9BCCA /* MemoryCardCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */; };
 		BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */; };
 		BE884B612C5A124900D9BCCA /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B602C5A124900D9BCCA /* YearPickerView.swift */; };
+		BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */; };
+		BE884B652C5A3E3E00D9BCCA /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */; };
+		BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */; };
 		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
@@ -133,6 +136,9 @@
 		BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardCreateView.swift; sourceTree = "<group>"; };
 		BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BE884B602C5A124900D9BCCA /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
+		BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
+		BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
 		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -345,6 +351,9 @@
 				BE884B5C2C59E19900D9BCCA /* MemoryCardCreateView.swift */,
 				BEA2AA832C4F91920033AAEF /* WaveFormView.swift */,
 				BE884B602C5A124900D9BCCA /* YearPickerView.swift */,
+				BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */,
+				BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */,
+				BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -553,6 +562,7 @@
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
+				BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
@@ -581,6 +591,7 @@
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
 				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
+				BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */,
 				C47B35C32C5A44C0006A3561 /* ProfileEditView.swift in Sources */,
 				C49DBE222C4FAEB700B1A87D /* CustomTextEditor.swift in Sources */,
 				C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */,
@@ -603,6 +614,7 @@
 				3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */,
 				BE3E4FFE2C461062003EC4E1 /* MemoryCardsView.swift in Sources */,
 				3EA6EBA82C4F497700627C63 /* RoutineView.swift in Sources */,
+				BE884B652C5A3E3E00D9BCCA /* CustomDatePickerView.swift in Sources */,
 				C49DBE242C4FAECB00B1A87D /* QuestionListView.swift in Sources */,
 				BE3E500A2C468276003EC4E1 /* View+Extensions.swift in Sources */,
 				BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */,

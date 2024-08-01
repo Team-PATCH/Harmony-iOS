@@ -12,19 +12,20 @@ struct MemoryCardCreateView: View {
     @State private var isShowingImagePicker = false
     @State private var selectedImage: UIImage?
     @State private var description = ""
-    @State private var year = 2024
-    @State private var isShowingYearPicker = false
+    @State private var selectedDate = Date()
+    @State private var isShowingDatePicker = false
     @State private var offset: CGFloat = 1000
-    @State private var yearPickerPosition: CGPoint = .zero
+    @State private var datePickerPosition: CGPoint = .zero
+    @State private var datePickerOpacity: Double = 0
 
-    private var numberFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter
     }
 
     var isFormValid: Bool {
-        selectedImage != nil && !description.isEmpty && year != 0
+        selectedImage != nil && !description.isEmpty
     }
 
     var body: some View {
@@ -33,9 +34,9 @@ struct MemoryCardCreateView: View {
                 Color.black.opacity(0.3)
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
-                        if isShowingYearPicker {
-                            withAnimation {
-                                isShowingYearPicker = false
+                        if isShowingDatePicker {
+                            withAnimation(.spring()) {
+                                isShowingDatePicker = false
                             }
                         } else {
                             closeView()
@@ -43,19 +44,11 @@ struct MemoryCardCreateView: View {
                     }
                 
                 VStack {
-                    HStack {
-                        Text("추억 카드 만들기")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        Spacer()
-                        Button(action: closeView) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.gray3)
-                        }
-                        .padding(.leading, -20)
-                    }
-                    .padding()
+                    Text("추억 카드 만들기")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
                     
                     VStack(spacing: 20) {
                         ZStack {
@@ -110,15 +103,12 @@ struct MemoryCardCreateView: View {
                                 .foregroundColor(.gray5)
                             
                             Button(action: {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.7, blendDuration: 0.1)) {
-                                    isShowingYearPicker.toggle()
+                                withAnimation(.spring()) {
+                                    isShowingDatePicker.toggle()
                                 }
-//                                withAnimation(.spring()) {
-//                                    isShowingYearPicker.toggle()
-//                                }
                             }) {
                                 HStack {
-                                    Text(numberFormatter.string(from: NSNumber(value: year)) ?? "")
+                                    Text(dateFormatter.string(from: selectedDate))
                                         .foregroundColor(.bl)
                                     Spacer()
                                     Image(systemName: "calendar")
@@ -135,7 +125,7 @@ struct MemoryCardCreateView: View {
                             .overlay(
                                 GeometryReader { geo -> Color in
                                     DispatchQueue.main.async {
-                                        yearPickerPosition = geo.frame(in: .global).origin
+                                        datePickerPosition = geo.frame(in: .global).origin
                                     }
                                     return Color.clear
                                 }
@@ -164,13 +154,11 @@ struct MemoryCardCreateView: View {
                 .offset(y: offset)
                 .animation(.spring(), value: offset)
                 
-                if isShowingYearPicker {
-                    YearPickerView(selectedYear: $year, isPresented: $isShowingYearPicker)
-                        .position(x: yearPickerPosition.x + 230, y: yearPickerPosition.y - 205)
-                        .transition(.asymmetric(
-                            insertion: .scale(scale: 0.1).combined(with: .opacity),
-                            removal: .scale(scale: 0.1).combined(with: .opacity)
-                        ))
+                if isShowingDatePicker {
+                    CustomDatePickerView(selectedDate: $selectedDate, isPresented: $isShowingDatePicker)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                        .opacity(datePickerOpacity)
+                        .animation(.spring(), value: datePickerOpacity)
                 }
             }
             .onAppear {
@@ -183,6 +171,11 @@ struct MemoryCardCreateView: View {
                     .ignoresSafeArea()
             }
         }
+        .onChange(of: isShowingDatePicker) { newValue in
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7, blendDuration: 0.1)) {
+                datePickerOpacity = newValue ? 1 : 0
+            }
+        }
     }
     
     private func closeView() {
@@ -192,6 +185,7 @@ struct MemoryCardCreateView: View {
         }
     }
 }
+
 
 #Preview {
     MemoryCardCreateView(isPresented: .constant(true))
