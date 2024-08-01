@@ -9,105 +9,10 @@ import Foundation
 import Combine
 import Alamofire
 
-// MARK: - API Service
-
-class HarmonyAPIService {
-    private let baseURL = ""
-        private let session: Session
-        
-        init() {
-            let interceptor = AuthInterceptor()
-            self.session = Session(interceptor: interceptor)
-        }
-        
-        func createGroup(name: String, alias: String, userId: String, deviceToken: String) async throws -> (Group, String, String) {
-            let parameters: [String: Any] = [
-                "name": name,
-                "alias": alias,
-                "userId": userId,
-                "deviceToken": deviceToken
-            ]
-            
-            let response: GroupCreationResponse = try await session.request("\(baseURL)/group", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-                .validate()
-                .serializingDecodable(GroupCreationResponse.self)
-                .value
-            
-            return (response.group, response.inviteUrl, response.vipInviteUrl)
-        }
-        
-        func joinGroup(userId: String, inviteCode: String, deviceToken: String, alias: String) async throws -> Group {
-            let parameters: [String: Any] = [
-                "userId": userId,
-                "inviteCode": inviteCode,
-                "deviceToken": deviceToken,
-                "alias": alias
-            ]
-            
-            let response: GroupJoinResponse = try await session.request("\(baseURL)/group/join", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-                .validate()
-                .serializingDecodable(GroupJoinResponse.self)
-                .value
-            
-            return response.group
-        }
-        
-        func updateOnboardingInfo(groupId: Int, userId: String, alias: String, deviceToken: String) async throws -> UserGroup {
-            let parameters: [String: Any] = [
-                "userId": userId,
-                "alias": alias,
-                "deviceToken": deviceToken
-            ]
-            
-            let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .put, parameters: parameters, encoding: JSONEncoding.default)
-                .validate()
-                .serializingDecodable(OnboardingUpdateResponse.self)
-                .value
-            
-            return response.userGroup
-        }
-
-}
-
-// MARK: - Data Models
-
-struct Group: Codable {
-    let groupId: Int
-    let name: String
-    let inviteUrl: String?
-    let vipInviteUrl: String?
-    let updatedAt: String
-    let createdAt: String
-}
-
-struct UserGroup: Codable {
-    let userId: String
-    let groupId: String
-    let permissionId: String
-    let alias: String
-    let deviceToken: String
-}
-
-struct GroupCreationResponse: Codable {
-    let group: Group
-    let inviteUrl: String
-    let vipInviteUrl: String
-}
-
-struct GroupJoinResponse: Codable {
-    let message: String
-    let group: Group
-}
-
-struct OnboardingUpdateResponse: Codable {
-    let message: String
-    let userGroup: UserGroup
-}
-
 // MARK: - ViewModel
 
-class OnboardingViewModel: ObservableObject {
-    private let apiService: HarmonyAPIService
+final class OnboardingViewModel: ObservableObject {
+    private let apiService: OnboardingService
     
     @Published var groupName = "" {
         didSet { logStateChange("groupName", oldValue, groupName) }
@@ -134,7 +39,7 @@ class OnboardingViewModel: ObservableObject {
         didSet { logStateChange("currentUserGroup", oldValue, currentUserGroup) }
     }
     
-    init(apiService: HarmonyAPIService = HarmonyAPIService()) {
+    init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService
         print("OnboardingViewModel initialized")
     }
@@ -156,12 +61,12 @@ class OnboardingViewModel: ObservableObject {
         let userId = UserDefaults.standard.string(forKey: "userId") ?? ""
         let deviceToken = UserDefaults.standard.string(forKey: "deviceToken") ?? ""
         print("Creating group with - userId: \(userId), deviceToken: \(deviceToken)")
-
+        
         Task {
             do {
                 let (group, inviteUrl, vipInviteUrl) = try await apiService.createGroup(name: groupName, alias: alias, userId: userId, deviceToken: deviceToken)
                 
-
+                
                 DispatchQueue.main.async {
                     self.currentGroup = group
                     self.isLoading = false
@@ -241,18 +146,5 @@ class OnboardingViewModel: ObservableObject {
                 }
             }
         }
-    }
-}
-
-class AuthInterceptor: RequestInterceptor {
-    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        var urlRequest = urlRequest
-        
-        // UserDefaults에서 토큰을 가져옵니다.
-        if let token = UserDefaults.standard.string(forKey: "serverToken") {
-            urlRequest.headers.add(.authorization(bearerToken: token))
-        }
-        
-        completion(.success(urlRequest))
     }
 }
