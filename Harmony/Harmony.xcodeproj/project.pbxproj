@@ -28,6 +28,9 @@
 		555199A02C5619C000CDBAE1 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */; };
 		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
 		5573E9782C5A479300284775 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9772C5A479300284775 /* OnboardingViewModel.swift */; };
+		5573E97A2C5B182400284775 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9792C5B182400284775 /* OnboardingModel.swift */; };
+		5573E97C2C5B18BA00284775 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E97B2C5B18BA00284775 /* AuthInterceptor.swift */; };
+		5573E97E2C5B193B00284775 /* OnboardingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E97D2C5B193B00284775 /* OnboardingService.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
@@ -131,6 +134,9 @@
 		5551999F2C5619C000CDBAE1 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		555F92212C51F33800BFC121 /* InviteVIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVIPView.swift; sourceTree = "<group>"; };
 		5573E9772C5A479300284775 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		5573E9792C5B182400284775 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
+		5573E97B2C5B18BA00284775 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		5573E97D2C5B193B00284775 /* OnboardingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingService.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				C49DBE182C4FAE2E00B1A87D /* QuestionCardService.swift */,
 				BEA2AA872C50CF940033AAEF /* AzureAIService.swift */,
 				3EE527C12C57A92E00B16DB8 /* RoutineService.swift */,
+				5573E97D2C5B193B00284775 /* OnboardingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -347,6 +354,7 @@
 		BE06A0DD2C44F1BA008D3C03 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5573E97B2C5B18BA00284775 /* AuthInterceptor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -510,6 +518,7 @@
 				BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */,
 				C47B35BC2C5A43CD006A3561 /* GroupModel.swift */,
 				55A558742C57946B00DF2CFF /* AuthModel.swift */,
+				5573E9792C5B182400284775 /* OnboardingModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -664,6 +673,7 @@
 				C49DBE152C4FADDE00B1A87D /* QuestionCardModel.swift in Sources */,
 				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
 				BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */,
+				5573E97E2C5B193B00284775 /* OnboardingService.swift in Sources */,
 				3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */,
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
@@ -678,6 +688,7 @@
 				BE884B6F2C5E5EF100D9BCCA /* ChatHistoryManager.swift in Sources */,
 				3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
+				5573E97A2C5B182400284775 /* OnboardingModel.swift in Sources */,
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
 				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
 				BEEA0D282C6B35D600A02BA1 /* LoadingView.swift in Sources */,
@@ -695,6 +706,7 @@
 				BEA2AA822C4F8D500033AAEF /* MemoryCardRecordView.swift in Sources */,
 				55A558732C56575400DF2CFF /* AuthViewModel.swift in Sources */,
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
+				5573E97C2C5B18BA00284775 /* AuthInterceptor.swift in Sources */,
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
 				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
