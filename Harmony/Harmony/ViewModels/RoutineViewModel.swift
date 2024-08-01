@@ -146,4 +146,21 @@ extension String {
     subscript(i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
     }
+    
+    var formattedTime: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        if let date = dateFormatter.date(from: self) {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            
+            if let hour = components.hour, let minute = components.minute {
+                let period = hour < 12 ? "오전" : "오후"
+                let hourString = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour)
+                return String(format: "%@ %d시 %d분", period, hourString, minute)
+            }
+        }
+        return self
+    }
 }

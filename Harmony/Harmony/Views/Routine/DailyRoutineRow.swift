@@ -32,9 +32,9 @@ struct DailyRoutineRow: View {
                     .padding(.top, 5)
                 
                 Text(routine?.title ?? "")
-                    .font(.pretendardSemiBold(size: 20))
+                    .font(.pretendardSemiBold(size: 24))
                     .foregroundColor(.black)
-                    .lineSpacing(20 * 0.4)
+                    .lineSpacing(20 * 0.2)
                     .frame(width: 157, height: 68, alignment: .topLeading)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.leading)
@@ -50,25 +50,6 @@ struct DailyRoutineRow: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray2, lineWidth: 1)
         )
-    }
-}
-
-extension String {
-    var formattedTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // 정확한 날짜 파싱을 위해 locale 설정
-        if let date = dateFormatter.date(from: self) {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.hour, .minute], from: date)
-            
-            if let hour = components.hour, let minute = components.minute {
-                let period = hour < 12 ? "오전" : "오후"
-                let hourString = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour)
-                return String(format: "%@ %d시 %d분", period, hourString, minute)
-            }
-        }
-        return self
     }
 }
 
