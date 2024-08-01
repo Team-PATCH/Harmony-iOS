@@ -13,6 +13,9 @@ struct CustomDatePickerView: View {
     @State private var currentDate: Date = Date()
     @State private var isShowingYearMonthPicker = false
     @State private var yearMonthPickerOpacity: Double = 0
+    @State private var slideOffset: CGFloat = 0
+    @State private var isSliding = false
+    @State private var previousDate: Date = Date()
 
     private let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
     private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
@@ -31,24 +34,44 @@ struct CustomDatePickerView: View {
                     }
                 
                 VStack(spacing: 20) {
-                    Button(action: {
-                        withAnimation(.spring()) {
-                            isShowingYearMonthPicker.toggle()
+                    HStack {
+                        Button(action: {
+                            moveMonth(forward: false)
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.mainGreen)
                         }
-                    }) {
-                        HStack {
-                            Text(monthYearString(from: currentDate))
-                                .font(.headline)
-                                .foregroundColor(.black)
-                            Image(systemName: "chevron.down")
-                                .foregroundColor(.gray5)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                isShowingYearMonthPicker.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Text(monthYearString(from: currentDate))
+                                    .font(.headline)
+                                    .foregroundColor(.mainGreen)
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(.mainGreen)
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .background(Color.gray1)
+                            .cornerRadius(8)
                         }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 12)
-                        .background(Color.gray1)
-                        .cornerRadius(8)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            moveMonth(forward: true)
+                        }) {
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.mainGreen)
+                        }
                     }
-                    .padding(.top)
+                    .padding(.horizontal)
 
                     HStack {
                         ForEach(daysOfWeek, id: \.self) { day in
@@ -58,17 +81,34 @@ struct CustomDatePickerView: View {
                         }
                     }
                     
-                    LazyVGrid(columns: columns, spacing: 5) {
-                        ForEach(days(), id: \.self) { date in
-                            if let date = date {
-                                DayCell(date: date, selectedDate: $selectedDate, currentDate: currentDate, month: month)
-                            } else {
-                                Text("")
-                                    .frame(width: 30, height: 30)  // 빈 셀도 같은 크기로 유지
+                    ZStack {
+                        LazyVGrid(columns: columns, spacing: 5) {
+                            ForEach(days(for: previousDate), id: \.self) { date in
+                                if let date = date {
+                                    DayCell(date: date, selectedDate: $selectedDate, currentDate: previousDate, month: previousDate)
+                                } else {
+                                    Text("")
+                                        .frame(width: 30, height: 30)
+                                }
                             }
                         }
+                        .opacity(isSliding ? 1 : 0)
+                        .offset(x: -slideOffset)
+
+                        LazyVGrid(columns: columns, spacing: 5) {
+                            ForEach(days(for: currentDate), id: \.self) { date in
+                                if let date = date {
+                                    DayCell(date: date, selectedDate: $selectedDate, currentDate: currentDate, month: currentDate)
+                                } else {
+                                    Text("")
+                                        .frame(width: 30, height: 30)
+                                }
+                            }
+                        }
+                        .opacity(isSliding ? 0 : 1)
+                        .offset(x: isSliding ? slideOffset : 0)
                     }
-                    
+
                     HStack {
                         Button("취소") {
                             isPresented = false
@@ -85,7 +125,7 @@ struct CustomDatePickerView: View {
                     .padding()
                 }
                 .padding()
-                .background(Color.wh)
+                .background(Color.white)
                 .cornerRadius(20)
                 .shadow(radius: 10)
                 .frame(width: 350, height: 400)
@@ -115,42 +155,54 @@ struct CustomDatePickerView: View {
             }
         }
     }
-    
-    private func days() -> [Date?] {
+
+    private func days(for date: Date) -> [Date?] {
         let calendar = Calendar.current
         
-        // 현재 달의 첫 날과 마지막 날 구하기
-        guard let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: month)),
+        guard let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date)),
               let lastDayOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: firstDayOfMonth)
         else {
             return []
         }
         
-        // 첫 주의 시작일 구하기 (이전 달의 날짜 포함)
         let firstWeekday = calendar.component(.weekday, from: firstDayOfMonth)
         let startDate = calendar.date(byAdding: .day, value: -(firstWeekday - 1), to: firstDayOfMonth)!
         
         var dates: [Date?] = []
         var currentDate = startDate
         
-        // 6주 동안의 날짜 생성 (이전 달과 다음 달의 날짜 포함)
         for _ in 0..<42 {
             dates.append(currentDate)
             currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
         }
         
-        print(dates.map { $0.map { String(describing: $0) } ?? "nil" }) // Debug print
-        
         return dates
     }
-
-
     
     private func monthYearString(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월"
         return formatter.string(from: date)
+    }
+
+    private func moveMonth(forward: Bool) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isSliding = true
+            slideOffset = forward ? -UIScreen.main.bounds.width : UIScreen.main.bounds.width
+        }
+        
+        previousDate = currentDate
+        
+        let calendar = Calendar.current
+        if let newDate = calendar.date(byAdding: .month, value: forward ? 1 : -1, to: currentDate) {
+            currentDate = newDate
+        }
+        
+        withAnimation(.easeInOut(duration: 0.3)) {
+            slideOffset = 0
+            isSliding = false
+        }
     }
 }
 
