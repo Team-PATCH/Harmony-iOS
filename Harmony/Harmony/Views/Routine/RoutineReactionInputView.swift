@@ -13,6 +13,8 @@ struct RoutineReactionInputView: View {
     @ObservedObject var viewModel: RoutineViewModel
 
     @State private var newReaction: String = ""
+    @State private var selectedImage: UIImage?
+    @State private var showingCameraView = false
 
     var body: some View {
         VStack {
@@ -27,12 +29,36 @@ struct RoutineReactionInputView: View {
                 Spacer()
             }
             .padding()
+            
+            Button(action: {
+                            showingCameraView.toggle()
+                        }) {
+                            VStack {
+                                if let selectedImage = selectedImage {
+                                    Image(uiImage: selectedImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 393, height: 240)
+                                } else {
+                                    Image(systemName: "camera")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.gray)
+                                    Text("사진을 추가하려면 여기를 누르세요")
+                                        .font(.headline)
+                                        .foregroundColor(.green)
+                                }
+                            }
+                            .frame(width: 393, height: 240)
+                            .background(Color(UIColor.systemGray6))
+                            .cornerRadius(10)
+                        }
+                        .sheet(isPresented: $showingCameraView) {
+                            CameraView(selectedImage: $selectedImage)
+                        }
 
-            TextField("댓글을 입력해주세요.", text: $newReaction)
-                .padding()
-                .background(Color.gray.opacity(0.2))
+            CustomTextEditor(text: $newReaction, backgroundColor: UIColor(Color.gray2), placeholder: "댓글을 입력해 주세요.")
                 .cornerRadius(10)
-                .padding(.horizontal)
+                .padding()
             
             Button(action: {
                 if !newReaction.isEmpty {
@@ -49,14 +75,16 @@ struct RoutineReactionInputView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.green)
-                    .cornerRadius(10)
-                    .padding()
+                    .cornerRadius(5)
+                    .padding(.horizontal)
             }
 
             Spacer()
         }
-        .frame(height: 376)
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .frame(height: 585)
+        .background(Color.bl.edgesIgnoringSafeArea(.all))
+        .cornerRadius(10, corners: .topLeft)
+        .cornerRadius(10, corners: .topRight)
     }
 }
 

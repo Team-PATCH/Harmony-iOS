@@ -23,22 +23,21 @@ struct RoutineDetailView: View {
         VStack {
             if let routine = routine {
                 if let completedTime = dailyRoutine.completedTime, let completedPhoto = dailyRoutine.completedPhoto, let completedPhotoURL = URL(string: completedPhoto) {
-                    VStack {
+                    VStack(spacing: 0) {
                         HStack {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
-                                Image(systemName: "arrow.left")
-                                    .font(.title2)
-                                    .foregroundColor(.black)
+                                Image("back-icon")
+                                    .foregroundColor(.clear)
                             }
                             Spacer()
-                            Text("일과 알림")
+                            Text("일과 인증")
                                 .font(.pretendardBold(size: 20))
                             Spacer()
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.clear)
                         }
+                        .padding(.horizontal, 20)
+                        .frame(height: 60)
                         
                         // 인증된 사진 섹션
                         AsyncImage(url: completedPhotoURL) { phase in
@@ -47,7 +46,7 @@ struct RoutineDetailView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 393, height: 240)
-                                    .padding()
+                                
                             } else if phase.error != nil {
                                 Text("Failed to load image")
                                     .foregroundColor(.red)
@@ -56,19 +55,30 @@ struct RoutineDetailView: View {
                                     .frame(width: 393, height: 240)
                             }
                         }
+                        .padding(0)
                         
-                        Text(routine.title)
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.black)
-                            .padding(.top)
+                        VStack(spacing: 0) {
+                            Text(routine.title)
+                                .font(.pretendardBold(size: 24))
+                            
+                            Text(dailyRoutine.time.formattedTime)
+                                .font(.pretendardMedium(size: 20))
+                                .foregroundColor(Color.mainGreen)
+                                .padding(.top, 10)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 25)
+                        .background(Color.wh)
                         
-                        Spacer()
                         
                         VStack(alignment: .leading) {
-                            Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
-                                .font(.headline)
-                                .foregroundColor(.gray)
+                            HStack {
+                                Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
+                                    .font(.pretendardMedium(size: 18))
+                                    .foregroundColor(.gray)
+                                Spacer()
+                            }
+                            
                             ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
                                 RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
                             }
@@ -81,21 +91,20 @@ struct RoutineDetailView: View {
                         VStack {
                             Spacer()
                             HStack {
-                                Spacer()
                                 Button(action: {
                                     showingReactionView.toggle()
                                 }) {
                                     Text("댓글 남기기")
-                                        .font(.headline)
+                                        .font(.pretendardSemiBold(size: 22))
                                         .foregroundColor(.white)
                                         .padding()
-                                        .background(Color.green)
-                                        .cornerRadius(10)
+                                        .frame(width: 201, height: 68)
+                                        .background(Color.mainGreen)
+                                        .cornerRadius(999)
                                 }
-                                .padding()
+                                .padding(10)
                                 .sheet(isPresented: $showingReactionView) {
                                     RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
-                                        .presentationDetents([.medium, .fraction(0.4)])
                                 }
                             }
                         }
@@ -187,7 +196,7 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(Color.gray1.edgesIgnoringSafeArea(.all))
         .onAppear {
             Task {
                 await viewModel.fetchRoutineReactions(dailyId: dailyRoutine.id)
@@ -202,9 +211,9 @@ struct RoutineDetailView: View {
         routineId: 1,
         groupId: 1,
         time: "Date()",
-        completedPhoto: nil,
-        completedTime: nil
+        completedPhoto: "https://saharmony.blob.core.windows.net/daily-routine-proving/daily-routine-proving/Rectangle 641722412176673.png",
+        completedTime: "nil"
     ),
-        viewModel: RoutineViewModel()
+                      viewModel: RoutineViewModel()
     )
 }
