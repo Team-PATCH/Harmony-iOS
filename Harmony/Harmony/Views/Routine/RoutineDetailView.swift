@@ -37,7 +37,7 @@ struct RoutineDetailView: View {
                             Spacer()
                         }
                         .padding(.horizontal, 20)
-                        .frame(height: 60)
+                        .frame(height: 40)
                         
                         // 인증된 사진 섹션
                         AsyncImage(url: completedPhotoURL) { phase in
