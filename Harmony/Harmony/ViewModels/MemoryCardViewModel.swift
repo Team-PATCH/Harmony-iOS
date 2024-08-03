@@ -6,7 +6,7 @@
 //
 
 
-import Foundation
+import SwiftUI
 import Combine
 import Alamofire
 import AVFoundation
@@ -22,6 +22,7 @@ final class MemoryCardViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var hasLoaded = false
     @Published var isSortedByNewest = true
+    @Published var memoryCardData: MemoryCardData?
     
     private var cancellables = Set<AnyCancellable>()
     private let speechService = SpeechService()
@@ -79,6 +80,28 @@ final class MemoryCardViewModel: ObservableObject {
             }
         }
     }
+    
+    func createMemoryCard(groupId: Int, title: String, date: Date, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
+            isLoading = true
+            let serverDateFormatter = DateFormatter()
+            serverDateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedDate = serverDateFormatter.string(from: date)
+            
+            MemoryCardService.shared.createMemoryCard(groupId: groupId, title: title, year: formattedDate, image: image) { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    switch result {
+                        case .success(let memoryCardData):
+                            self?.memoryCardData = memoryCardData
+                            completion(.success(memoryCardData))
+                        case .failure(let error):
+                            self?.errorMessage = "추억 카드 생성 실패: \(error.localizedDescription)"
+                            completion(.failure(error))
+                    }
+                }
+            }
+        }
+    
     
     func searchMemoryCards(with query: String) {
         if query.isEmpty {

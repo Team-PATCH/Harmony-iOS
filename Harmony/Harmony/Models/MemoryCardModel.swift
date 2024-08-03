@@ -37,6 +37,37 @@ struct MemoryCardDetail: Codable {
 }
 
 
+struct ImageUploadResponse: Decodable {
+    let imageUrl: String
+}
+
+
+// MARK: - 메모리 카드 생성 POST 응답
+
+
+struct CreateMemoryCard: Codable {
+    let status: Bool
+    let data: MemoryCardData
+    let message: String
+    
+}
+
+
+struct MemoryCardData: Codable {
+    let memorycardId: Int
+    let title: String
+    let dateTime: String
+    let image: String
+    let tags: [String]
+}
+
+
+
+
+
+
+// MARK: - 채팅 관련 응답
+
 struct ChatMessage: Identifiable {
     let id = UUID()
     let date: String

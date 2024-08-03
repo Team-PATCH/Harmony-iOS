@@ -7,10 +7,11 @@
 
 
 import Alamofire
+import SwiftUI
 
 final class MemoryCardService {
     static let shared = MemoryCardService()
-    private let baseURL = "https://harmony-sion.azurewebsites.net/mc"
+    private let baseURL = "http://localhost:3000/mc"
     
     func fetchMemoryCards() async throws -> [MemoryCard]? {
         return try await withCheckedThrowingContinuation { continuation in
@@ -41,6 +42,30 @@ final class MemoryCardService {
             }
         }
     }
+    
+    func createMemoryCard(groupId: Int, title: String, year: String, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
+            let url = baseURL
+            
+            let headers: HTTPHeaders = [
+                "Content-Type": "multipart/form-data"
+            ]
+            
+            AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append("\(groupId)".data(using: .utf8)!, withName: "groupId")
+                multipartFormData.append(title.data(using: .utf8)!, withName: "title")
+                multipartFormData.append(year.data(using: .utf8)!, withName: "year") // date를 year로 보냄
+                if let imageData = image.jpegData(compressionQuality: 0.5) {
+                    multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
+                }
+            }, to: url, headers: headers).responseDecodable(of: CreateMemoryCard.self) { response in
+                switch response.result {
+                    case .success(let createMemoryCardResponse):
+                        completion(.success(createMemoryCardResponse.data))
+                    case .failure(let error):
+                        completion(.failure(error))
+                }
+            }
+        }
 }
 
 
