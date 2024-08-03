@@ -33,7 +33,7 @@ struct DailyRoutineRow: View {
                 
                 Text(routine?.title ?? "")
                     .font(.pretendardSemiBold(size: 24))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.bl)
                     .lineSpacing(20 * 0.2)
                     .frame(width: 157, height: 68, alignment: .topLeading)
                     .fixedSize(horizontal: false, vertical: true)

@@ -115,44 +115,44 @@ struct RoutineDetailView: View {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
-                                Image(systemName: "arrow.left")
+                                Image("back-icon")
                                     .font(.title2)
                                     .foregroundColor(.black)
                             }
                             Spacer()
-                            Text("일과 인증")
+                            Text("일과 알림")
                                 .font(.pretendardBold(size: 20))
                             Spacer()
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.clear)
                         }
+                        .padding(.horizontal, 20)
+                        .frame(height: 60)
+                        .padding(.bottom, 15)
                         
                         ZStack {
                             Image("speech-bubble")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 285)
-                                .padding()
                             
-                            VStack {
-                                Text("dailyRoutine.time")
-                                    .font(.title)
-                                    .foregroundColor(.green)
+                            VStack(spacing: 0) {
+                                Text(dailyRoutine.time.formattedTime)
+                                    .font(.pretendardMedium(size: 28))
+                                    .foregroundColor(Color.mainGreen)
+                                    .padding(.bottom, 25)
+                                
                                 Text(routine.title)
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundColor(.black)
+                                    .font(.pretendardSemiBold(size: 36))
                                     .multilineTextAlignment(.center)
-                                    .padding()
+                                    .lineSpacing(36 * 0.2)
+                                    .frame(width: 235, height: 100, alignment: .center)
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
                         }
                         
-                        Spacer()
-                        
-                        Image("character")
+                        Image("moni-face")
                             .resizable()
-                            .frame(width: 100, height: 100)
-                            .padding()
+                            .frame(width: 164, height: 136)
+                            .padding(.top, 15)
                         
                         Spacer()
                         
@@ -161,11 +161,11 @@ struct RoutineDetailView: View {
                                 showingProvingView.toggle()
                             }) {
                                 Text("인증사진 남기러 가기")
-                                    .font(.headline)
+                                    .font(.pretendardSemiBold(size: 24))
                                     .foregroundColor(.white)
-                                    .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.green)
+                                    .frame(height: 68)
+                                    .background(Color.mainGreen)
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
@@ -177,11 +177,11 @@ struct RoutineDetailView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
                                 Text("나중에 남기기")
-                                    .font(.headline)
+                                    .font(.pretendardSemiBold(size: 24))
                                     .foregroundColor(.white)
-                                    .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.black)
+                                    .frame(height: 68)
+                                    .background(Color.bl)
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
@@ -196,7 +196,7 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
-        .background(Color.gray1.edgesIgnoringSafeArea(.all))
+        .background(Color.wh.edgesIgnoringSafeArea(.all))
         .onAppear {
             Task {
                 await viewModel.fetchRoutineReactions(dailyId: dailyRoutine.id)
@@ -211,8 +211,8 @@ struct RoutineDetailView: View {
         routineId: 1,
         groupId: 1,
         time: "Date()",
-        completedPhoto: "https://saharmony.blob.core.windows.net/daily-routine-proving/daily-routine-proving/Rectangle 641722412176673.png",
-        completedTime: "nil"
+        completedPhoto: nil,
+        completedTime: nil
     ),
                       viewModel: RoutineViewModel()
     )
