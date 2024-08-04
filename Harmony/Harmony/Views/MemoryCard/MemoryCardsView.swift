@@ -1,5 +1,5 @@
 //
-//  GetMemoryCardsView.swift
+//  MemoryCardsView.swift
 //  Harmony
 //
 //  Created by 한범석 on 7/16/24.

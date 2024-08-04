@@ -53,6 +53,13 @@
 		BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */; };
 		BE884B652C5A3E3E00D9BCCA /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */; };
 		BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */; };
+		BE884B6B2C5E5E5D00D9BCCA /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */; };
+		BE884B6D2C5E5EBA00D9BCCA /* AzureAIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */; };
+		BE884B6F2C5E5EF100D9BCCA /* ChatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */; };
+		BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */; };
+		BE884B732C5EF07A00D9BCCA /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */; };
+		BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */; };
+		BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */; };
 		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
@@ -139,6 +146,13 @@
 		BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
+		BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIViewModel.swift; sourceTree = "<group>"; };
+		BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryManager.swift; sourceTree = "<group>"; };
+		BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
+		BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardChatHistoryView.swift; sourceTree = "<group>"; };
 		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -226,6 +240,8 @@
 				BE96B7E62C473337003C41F9 /* FormatManager.swift */,
 				55A10B192C4E5960001728EF /* UserDefaultsManager.swift */,
 				5500034D2C5377E700B00635 /* NotificationManager.swift */,
+				BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */,
+				BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -288,6 +304,7 @@
 				BE3E50092C468276003EC4E1 /* View+Extensions.swift */,
 				BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */,
 				5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */,
+				BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -354,6 +371,8 @@
 				BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */,
 				BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */,
 				BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */,
+				BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */,
+				BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -437,6 +456,7 @@
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
 				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
 				C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */,
+				BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -450,6 +470,7 @@
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
 				C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */,
+				BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -555,6 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE884B6D2C5E5EBA00D9BCCA /* AzureAIViewModel.swift in Sources */,
 				C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */,
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
@@ -562,15 +584,18 @@
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
+				BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */,
 				BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
+				BE884B6B2C5E5E5D00D9BCCA /* ChatModel.swift in Sources */,
 				C49DBE1E2C4FAE8300B1A87D /* AnswerView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */,
 				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
+				BE884B732C5EF07A00D9BCCA /* AudioPlayerManager.swift in Sources */,
 				3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */,
 				3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
@@ -603,8 +628,10 @@
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
 				55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */,
 				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
+				BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */,
 				3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */,
 				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
+				BE884B6F2C5E5EF100D9BCCA /* ChatHistoryManager.swift in Sources */,
 				3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
@@ -623,6 +650,7 @@
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
 				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
+				BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
