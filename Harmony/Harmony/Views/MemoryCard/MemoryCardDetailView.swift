@@ -103,6 +103,7 @@ import Kingfisher
 
 struct MemoryCardDetailView: View {
     var memoryCardId: Int
+    var groupId: Int
     @StateObject var viewModel = MemoryCardViewModel()
     
     var body: some View {
@@ -155,7 +156,7 @@ struct MemoryCardDetailView: View {
             Spacer()
             
             HStack(spacing: 10) {
-                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatHistory)) {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: viewModel.memoryCardDetail?.groupId ?? 0, previousChatHistory: viewModel.chatHistory)) {
                     Text(viewModel.memoryCardDetail?.description.isEmpty ?? true ? "모니와 대화하기" : "이어서 대화하기")
                         .foregroundStyle(.white)
                         .padding()
@@ -164,7 +165,7 @@ struct MemoryCardDetailView: View {
                         .cornerRadius(10)
                 }
                 
-                NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId)) {
+                NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId, groupId: groupId)) {
                     Text("대화 기록 보기")
                         .foregroundStyle(.white)
                         .padding()
@@ -177,7 +178,7 @@ struct MemoryCardDetailView: View {
             
         }
         .padding()
-        .navigationTitle("너무 멋지고 특별한 추억")
+//        .navigationTitle("추억 카드 상세")
         .onAppear {
             viewModel.loadMemoryCardDetail(id: memoryCardId)
         }
@@ -185,6 +186,6 @@ struct MemoryCardDetailView: View {
 }
 
 #Preview {
-    MemoryCardDetailView(memoryCardId: 1)
+    MemoryCardDetailView(memoryCardId: 1, groupId: 1)
 }
 

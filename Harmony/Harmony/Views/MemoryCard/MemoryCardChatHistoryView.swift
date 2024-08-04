@@ -136,13 +136,15 @@ import Combine
 
 struct ChatHistoryView: View {
     let memoryCardId: Int
+    let groupId: Int
     @StateObject private var viewModel: ChatHistoryViewModel
     @State private var selectedMessageId: UUID?
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var showAudioPlayer = false
     
-    init(memoryCardId: Int) {
+    init(memoryCardId: Int, groupId: Int) {
         self.memoryCardId = memoryCardId
+        self.groupId = groupId
         _viewModel = StateObject(wrappedValue: ChatHistoryViewModel(memoryCardId: memoryCardId))
     }
     
@@ -169,7 +171,7 @@ struct ChatHistoryView: View {
             }
             
             HStack {
-                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatMessages)) {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: groupId, previousChatHistory: viewModel.chatMessages)) {
                     Text("이어서 대화하기")
                         .padding()
                         .background(Color.blue)
@@ -209,8 +211,17 @@ struct ChatHistoryView: View {
 //        audioPlayer.loadPlaylist(audioURLs)
 //        audioPlayer.playPause()
 //    }
+    
+//    func playAllAudio() {
+//        let audioURLs = viewModel.chatMessages.compactMap { $0.audioRecord?.remoteURL }
+//        audioPlayer.loadPlaylist(audioURLs)
+//        audioPlayer.playPause()
+//    }
     func playAllAudio() {
-        let audioURLs = viewModel.chatMessages.compactMap { $0.audioRecord?.remoteURL }
+        let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
+            guard let audioRecord = message.audioRecord else { return nil }
+            return URL(string: "\(MemoryCardService.shared.baseURL)/audio/\(audioRecord.fileName)")
+        }
         audioPlayer.loadPlaylist(audioURLs)
         audioPlayer.playPause()
     }
@@ -223,7 +234,7 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(message.role == "user" ? "사용자" : "AI")
+            Text(message.role == "user" ? "사용자" : "모니")
                 .font(.caption)
                 .foregroundColor(.secondary)
             

@@ -34,6 +34,7 @@ final class AzureAIViewModel: ObservableObject {
     private var silenceStartTime: Date?
 //    private var chatId: UUID
     private var memoryCardId: Int
+    private let groupId: Int
     
 
     private let amplitudeThreshold: CGFloat = 0.1 // 진폭 임계값 추가
@@ -58,9 +59,11 @@ final class AzureAIViewModel: ObservableObject {
             self.currentMessage = "대화를 시작해주세요."
         }
     }
-     */
-    init(chatMessages: [ChatMessage]? = nil, memoryCardId: Int) {
+    */
+    
+    init(chatMessages: [ChatMessage]? = nil, memoryCardId: Int, groupId: Int) {
         self.memoryCardId = memoryCardId
+        self.groupId = groupId
         if let messages = chatMessages {
             self.chatHistory = messages
             self.isChatting = false
@@ -161,6 +164,8 @@ final class AzureAIViewModel: ObservableObject {
     }
      */
     
+    /*
+    // MARK: - 동작 버전
     func endConversation() {
         isRecording = false
         isChatting = false
@@ -171,6 +176,33 @@ final class AzureAIViewModel: ObservableObject {
         
         // 서버에 채팅 기록 저장
         MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, messages: chatHistory)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Chat history saved to server successfully")
+                case .failure(let error):
+                    print("Failed to save chat history to server: \(error)")
+                }
+            }, receiveValue: { _ in })
+            .store(in: &cancellables)
+        
+        // 로컬에 채팅 기록 저장
+        let history = ChatHistory(id: memoryCardId, date: Date(), messages: chatHistory)
+        ChatHistoryManager.shared.saveChatHistory(history)
+        print("saveChatHistory Method Call for memory card \(memoryCardId)")
+    }
+    */
+    
+    func endConversation() {
+        isRecording = false
+        isChatting = false
+        stopRecordingWithoutSending()
+        audioPlayer?.stop()
+        audioPlayer = nil
+        currentMessage = "좋아요! 대화를 종료하고 기록을 저장했어요."
+        
+        // 서버에 채팅 기록 저장
+        MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

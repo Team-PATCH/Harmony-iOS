@@ -269,17 +269,19 @@ import Kingfisher
 
 struct MemoryCardRecordView: View {
     var memoryCardId: Int
+    var groupId: Int
     var previousChatHistory: [ChatMessage]
     @StateObject private var viewModel: MemoryCardViewModel
     @StateObject private var aiViewModel: AzureAIViewModel
     @Environment(\.presentationMode) var presentationMode
 
     
-    init(memoryCardId: Int, previousChatHistory: [ChatMessage]) {
+    init(memoryCardId: Int, groupId: Int, previousChatHistory: [ChatMessage]) {
         self.memoryCardId = memoryCardId
+        self.groupId = groupId
         self.previousChatHistory = previousChatHistory
         _viewModel = StateObject(wrappedValue: MemoryCardViewModel())
-        _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(chatMessages: previousChatHistory, memoryCardId: memoryCardId))
+        _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(chatMessages: previousChatHistory, memoryCardId: memoryCardId, groupId: groupId))
     }
     
     var body: some View {

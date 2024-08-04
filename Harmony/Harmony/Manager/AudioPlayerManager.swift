@@ -81,7 +81,8 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
     
     private func pausePlayback() {
-        players[currentPlayerIndex].pause()
+        guard !players.isEmpty else { return }
+        players[safe: currentPlayerIndex]?.pause()
         stopTimer()
         isPlaying = false
     }

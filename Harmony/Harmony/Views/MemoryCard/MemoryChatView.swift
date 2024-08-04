@@ -159,15 +159,17 @@ import SwiftUI
 
 struct MemoryChatView: View {
     var memoryCardId: Int
+    var groupId: Int
     @StateObject private var viewModel: MemoryCardViewModel
     @StateObject private var aiViewModel: AzureAIViewModel
     @State private var showAudioPlayer = false
     @StateObject private var audioPlayer = AudioPlayer()
     
-    init(memoryCardId: Int) {
+    init(memoryCardId: Int, groupId: Int) {
         self.memoryCardId = memoryCardId
+        self.groupId = groupId
         _viewModel = StateObject(wrappedValue: MemoryCardViewModel())
-        _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(memoryCardId: memoryCardId))
+        _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(memoryCardId: memoryCardId, groupId: groupId))
     }
     
     var body: some View {
@@ -207,7 +209,7 @@ struct MemoryChatView: View {
                 }
 
                 HStack {
-                    NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatHistory)) {
+                    NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: groupId, previousChatHistory: viewModel.chatHistory)) {
                         Text(viewModel.chatHistory.isEmpty ? "모니와 대화 시작하기" : "이어서 대화하기")
                             .foregroundStyle(.white)
                             .padding()
@@ -255,7 +257,7 @@ struct ChatBubble: View {
 }
 
 #Preview {
-    MemoryChatView(memoryCardId: 1)
+    MemoryChatView(memoryCardId: 1, groupId: 1)
 }
 
 

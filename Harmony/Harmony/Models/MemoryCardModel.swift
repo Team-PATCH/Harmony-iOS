@@ -12,10 +12,11 @@ struct MemoryCard: Identifiable, Codable {
     var title: String
     var dateTime: String
     var image: String
+    var groupId: Int?
     
     enum CodingKeys: String, CodingKey {
         case id = "memorycardId"
-        case title, dateTime, image
+        case title, dateTime, image, groupId
     }
 }
 
@@ -34,6 +35,7 @@ struct MemoryCardDetail: Codable {
     var image: String
     var description: String
     var message: String
+    var groupId: Int?
 }
 
 

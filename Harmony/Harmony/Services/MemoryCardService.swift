@@ -76,7 +76,7 @@ import SwiftUI
 
 final class MemoryCardService {
     static let shared = MemoryCardService()
-    private let baseURL = "http://localhost:3000/mc"
+    let baseURL = "http://localhost:3000/mc"
     
     func fetchMemoryCards() -> AnyPublisher<[MemoryCard], Error> {
         Future { promise in
@@ -197,6 +197,8 @@ final class MemoryCardService {
         .eraseToAnyPublisher()
     }
      */
+    /*
+    // MARK: - 동작 버전
     
     func saveChatHistory(mcId: Int, messages: [ChatMessage]) -> AnyPublisher<Void, Error> {
         let url = "\(baseURL)/\(mcId)/chat"
@@ -231,7 +233,47 @@ final class MemoryCardService {
         }
         .eraseToAnyPublisher()
     }
-
+    */
+    func saveChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<Void, Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        let parameters: [String: Any] = [
+            "groupId": groupId,
+            "messages": messages.map { message in
+                var messageDict: [String: Any] = [
+                    "role": message.role,
+                    "content": message.content
+                ]
+                if let audioRecord = message.audioRecord {
+                    messageDict["audioRecord"] = [
+                        "fileName": audioRecord.fileName,
+                        "isUser": audioRecord.isUser,
+                        "duration": audioRecord.duration
+                    ]
+                }
+                return messageDict
+            }
+        ]
+        
+        return Future { promise in
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseDecodable(of: ChatHistoryResponse.self) { response in
+                    switch response.result {
+                    case .success(let chatHistoryResponse):
+                        if chatHistoryResponse.status {
+                            promise(.success(()))
+                        } else {
+                            promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: chatHistoryResponse.message])))
+                        }
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    /*
     func getChatHistory(mcId: Int) -> AnyPublisher<[ChatMessage], Error> {
         let url = "\(baseURL)/\(mcId)/chat"
         
@@ -268,6 +310,43 @@ final class MemoryCardService {
         }
         .eraseToAnyPublisher()
     }
+     */
+    
+    func getChatHistory(mcId: Int) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        return Future { promise in
+            AF.request(url).responseDecodable(of: ChatHistoryResponse.self) { response in
+                switch response.result {
+                case .success(let chatHistoryResponse):
+                    if let messageData = chatHistoryResponse.data {
+                        let messages = messageData.map { data in
+                            let audioRecord = data.audioRecord.map { audioData in
+                                AudioRecord(id: UUID(),
+                                            fileName: audioData.fileName,
+                                            isUser: audioData.isUser,
+                                            duration: audioData.duration,
+                                            remoteURL: URL(string: "\(self.baseURL)/audio/\(audioData.fileName)")!)
+                            }
+                            print("Loaded message: \(data.content), Audio: \(audioRecord?.fileName ?? "None")")
+                            return ChatMessage(id: UUID(uuidString: String(data.id)) ?? UUID(),
+                                               role: data.role,
+                                               content: data.content,
+                                               audioRecord: audioRecord,
+                                               date: Date())
+                        }
+                        promise(.success(messages))
+                    } else {
+                        promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No chat history data"])))
+                    }
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
 
     func getInitialPrompt(mcId: Int) -> AnyPublisher<String, Error> {
         let url = "\(baseURL)/\(mcId)/initial-prompt"

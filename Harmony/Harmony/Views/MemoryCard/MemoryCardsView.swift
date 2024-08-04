@@ -98,7 +98,7 @@ struct MemoryCardsView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(viewModel.filteredMemoryCards) { card in
-                            NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id)) {
+                            NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: card.groupId ?? 1)) {
                                 MemoryCardView(card: card, viewModel: viewModel)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                     .padding(.horizontal, -15)
