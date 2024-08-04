@@ -503,6 +503,7 @@ final class MemoryCardViewModel: ObservableObject {
         applySorting()
     }
     
+    /*
     private func applySorting() {
         if isSortedByNewest {
             filteredMemoryCards = filteredMemoryCards.sorted {
@@ -520,7 +521,25 @@ final class MemoryCardViewModel: ObservableObject {
         dateFormatter.formatOptions = [.withInternetDateTime]
         return dateFormatter.date(from: dateTime) ?? Date.distantPast
     }
-    
+    */
+    private func date(from dateTime: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter.date(from: dateTime) ?? Date.distantPast
+    }
+
+    private func applySorting() {
+        if isSortedByNewest {
+            filteredMemoryCards = filteredMemoryCards.sorted {
+                date(from: $0.dateTime) > date(from: $1.dateTime)
+            }
+        } else {
+            filteredMemoryCards = filteredMemoryCards.sorted {
+                date(from: $0.dateTime) < date(from: $1.dateTime)
+            }
+        }
+    }
     
     
     func loadChatHistory(for memoryCardId: Int) {
@@ -543,6 +562,8 @@ final class MemoryCardViewModel: ObservableObject {
         }
         return "아직 대화 내용이 없습니다."
     }
+    
+    
     
 }
 
