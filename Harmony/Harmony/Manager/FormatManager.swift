@@ -14,9 +14,10 @@ final class FormatManager {
 
     func formattedDate(from dateTime: String) -> String {
         let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withInternetDateTime]
+        dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
         if let date = dateFormatter.date(from: dateTime) {
             let outputFormatter = DateFormatter()
+            outputFormatter.locale = Locale(identifier: "ko_KR")
             outputFormatter.dateFormat = "yyyy년 M월 d일"
             return outputFormatter.string(from: date)
         }
@@ -25,11 +26,13 @@ final class FormatManager {
     
     // MARK: - 시간 분 단위까지 표시
     func formattedDateTime(from dateTime: String) -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withInternetDateTime]
-        if let date = dateFormatter.date(from: dateTime) {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if let date = inputFormatter.date(from: dateTime) {
             let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            outputFormatter.locale = Locale(identifier: "ko_KR")
+            outputFormatter.dateFormat = "yyyy년 M월 d일 a h시 m분"
             return outputFormatter.string(from: date)
         }
         return dateTime
