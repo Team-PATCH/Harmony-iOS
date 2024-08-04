@@ -7,11 +7,43 @@
 
 import Foundation
 
+// MARK: - 대화 기록, 음성 데이터 관련 응답
+
+struct SaveChatHistoryResponse: Codable {
+    let status: Bool
+    let message: String
+}
+
+struct ChatHistoryResponse: Codable {
+    let status: Bool
+    let data: [MessageData]?
+    let message: String
+}
+
+struct InitialPromptResponse: Codable {
+    let status: Bool
+    let data: String
+    let message: String
+}
+
+struct MessageData: Codable {
+    let id: Int
+    let role: String
+    let content: String
+    let audioRecord: AudioRecordData?
+}
+
+struct AudioRecordData: Codable {
+    let fileName: String
+    let isUser: Bool
+    let duration: TimeInterval
+}
+
 struct ChatMessage: Codable, Identifiable {
     let id: UUID
     let role: String
     let content: String
-    let audioRecord: AudioRecord?
+    var audioRecord: AudioRecord?
     let date: Date
     
     init(id: UUID = UUID(), role: String, content: String, audioRecord: AudioRecord? = nil, date: Date = Date()) {
@@ -28,12 +60,14 @@ struct AudioRecord: Codable, Identifiable {
     let fileName: String
     let isUser: Bool
     let duration: TimeInterval
+    var remoteURL: URL? // 새로 추가된 속성
     
-    init(id: UUID = UUID(), fileName: String, isUser: Bool, duration: TimeInterval) {
+    init(id: UUID = UUID(), fileName: String, isUser: Bool, duration: TimeInterval, remoteURL: URL? = nil) {
         self.id = id
         self.fileName = fileName
         self.isUser = isUser
         self.duration = duration
+        self.remoteURL = remoteURL
     }
 }
 

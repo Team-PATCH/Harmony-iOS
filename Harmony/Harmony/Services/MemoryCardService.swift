@@ -141,6 +141,150 @@ final class MemoryCardService {
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
+    
+    
+    
+    
+    /*
+    func saveChatHistory(mcId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        let parameters: [String: Any] = [
+            "messages": messages.map { message in
+                [
+                    "role": message.role,
+                    "content": message.content,
+                    "audioRecord": message.audioRecord.map { audioRecord in
+                        [
+                            "fileName": audioRecord.fileName,
+                            "isUser": audioRecord.isUser,
+                            "duration": audioRecord.duration
+                        ]
+                    }
+                ]
+            }
+        ]
+        
+        return Future { promise in
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseDecodable(of: ChatHistoryResponse.self) { response in
+                    switch response.result {
+                    case .success(let chatHistoryResponse):
+                        if let messageDataArray = chatHistoryResponse.data {
+                            let savedMessages = messageDataArray.map { messageData -> ChatMessage in
+                                let audioRecord = messageData.audioRecord.map { audioData in
+                                    AudioRecord(id: UUID(),
+                                                fileName: audioData.fileName,
+                                                isUser: audioData.isUser,
+                                                duration: audioData.duration,
+                                                remoteURL: URL(string: "\(self.baseURL)/audio/\(audioData.fileName)"))
+                                }
+                                return ChatMessage(id: UUID(),
+                                                   role: messageData.role,
+                                                   content: messageData.content,
+                                                   audioRecord: audioRecord,
+                                                   date: Date())
+                            }
+                            promise(.success(savedMessages))
+                        } else {
+                            promise(.success([]))
+                        }
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+     */
+    
+    func saveChatHistory(mcId: Int, messages: [ChatMessage]) -> AnyPublisher<Void, Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        let parameters: [String: Any] = [
+            "messages": messages.map { message in
+                var messageDict: [String: Any] = [
+                    "role": message.role,
+                    "content": message.content
+                ]
+                if let audioRecord = message.audioRecord {
+                    messageDict["audioRecord"] = [
+                        "fileName": audioRecord.fileName,
+                        "isUser": audioRecord.isUser,
+                        "duration": audioRecord.duration
+                    ]
+                }
+                return messageDict
+            }
+        ]
+        
+        return Future { promise in
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseDecodable(of: ChatHistoryResponse.self) { response in
+                    switch response.result {
+                    case .success:
+                        promise(.success(()))
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func getChatHistory(mcId: Int) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        return Future { promise in
+            AF.request(url).responseDecodable(of: ChatHistoryResponse.self) { response in
+                switch response.result {
+                case .success(let chatHistoryResponse):
+                    if let messageData = chatHistoryResponse.data {
+                        let messages = messageData.map { data in
+                            ChatMessage(
+                                id: UUID(),
+                                role: data.role,
+                                content: data.content,
+                                audioRecord: data.audioRecord.map { audioData in
+                                    AudioRecord(
+                                        id: UUID(),
+                                        fileName: audioData.fileName,
+                                        isUser: audioData.isUser,
+                                        duration: audioData.duration,
+                                        remoteURL: URL(string: "\(self.baseURL)/audio/\(audioData.fileName)")
+                                    )
+                                },
+                                date: Date()
+                            )
+                        }
+                        promise(.success(messages))
+                    } else {
+                        promise(.success([]))  // 데이터가 없는 경우 빈 배열 반환
+                    }
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func getInitialPrompt(mcId: Int) -> AnyPublisher<String, Error> {
+        let url = "\(baseURL)/\(mcId)/initial-prompt"
+        
+        return Future { promise in
+            AF.request(url).responseDecodable(of: InitialPromptResponse.self) { response in
+                switch response.result {
+                case .success(let promptResponse):
+                    promise(.success(promptResponse.data))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
 }
 
 

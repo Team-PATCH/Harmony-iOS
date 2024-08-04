@@ -64,8 +64,6 @@ struct MemoryCardData: Codable {
 
 
 
-
-
 // MARK: - 채팅 관련 임시 응답 및 더미데이터 모델링 -> 이제 실제 채팅 데이터를 쓸 거여서 일단은 주석처리?
 
 //struct ChatMessage: Identifiable {
