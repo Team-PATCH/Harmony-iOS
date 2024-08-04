@@ -170,7 +170,6 @@ struct MemoryChatView: View {
         _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(memoryCardId: memoryCardId))
     }
     
-    
     var body: some View {
         NavigationStack {
             VStack {
@@ -208,7 +207,7 @@ struct MemoryChatView: View {
                 }
 
                 HStack {
-                    NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId)) {
+                    NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatHistory)) {
                         Text(viewModel.chatHistory.isEmpty ? "모니와 대화 시작하기" : "이어서 대화하기")
                             .foregroundStyle(.white)
                             .padding()

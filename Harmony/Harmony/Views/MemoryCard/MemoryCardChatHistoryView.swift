@@ -10,6 +10,9 @@ import SwiftUI
 struct ChatHistoryView: View {
     let memoryCardId: Int
     @StateObject private var viewModel: ChatHistoryViewModel
+    @State private var selectedMessageId: UUID?
+    @StateObject private var audioPlayer = AudioPlayer()
+    @State private var showAudioPlayer = false
     
     init(memoryCardId: Int) {
         self.memoryCardId = memoryCardId
@@ -17,9 +20,51 @@ struct ChatHistoryView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(viewModel.chatMessages) { message in
-                ChatMessageView(message: message)
+        VStack {
+            List {
+                ForEach(viewModel.chatMessages) { message in
+                    ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
+                        .onTapGesture {
+                            withAnimation {
+                                if selectedMessageId == message.id {
+                                    selectedMessageId = nil
+                                    audioPlayer.playPause()
+                                } else {
+                                    selectedMessageId = message.id
+                                    if let audioRecord = message.audioRecord {
+                                        let url = FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)
+                                        audioPlayer.loadPlaylist([url])
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+            
+            HStack {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatMessages)) {
+                    Text("이어서 대화하기")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                Button("음성 듣기") {
+                    playAllAudio()
+                    showAudioPlayer = true
+                }
+                .padding()
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .padding()
+            
+            if showAudioPlayer {
+                AudioPlayerView(audioPlayer: audioPlayer)
+                    .frame(height: 100)
+                    .padding()
             }
         }
         .navigationTitle("대화 기록")
@@ -27,10 +72,21 @@ struct ChatHistoryView: View {
             viewModel.loadChatHistory()
         }
     }
+    
+    func playAllAudio() {
+        let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
+            guard let audioRecord = message.audioRecord else { return nil }
+            return FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)
+        }
+        audioPlayer.loadPlaylist(audioURLs)
+        audioPlayer.playPause()
+    }
 }
 
 struct ChatMessageView: View {
     let message: ChatMessage
+    let isSelected: Bool
+    @ObservedObject var audioPlayer: AudioPlayer
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -43,12 +99,13 @@ struct ChatMessageView: View {
                 .background(message.role == "user" ? Color.blue.opacity(0.1) : Color.gray.opacity(0.1))
                 .cornerRadius(10)
             
-            if let audioRecord = message.audioRecord {
+            if isSelected, let audioRecord = message.audioRecord {
                 Button(action: {
-                    // 오디오 재생 로직
+                    audioPlayer.playPause()
                 }) {
-                    Label("음성 듣기", systemImage: "play.circle")
+                    Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
                 }
+                .transition(.scale)
             }
         }
     }

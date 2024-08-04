@@ -40,6 +40,7 @@ final class AzureAIViewModel: ObservableObject {
     private var amplitudeBuffer: [CGFloat] = []
     private let bufferSize = 5 // 버퍼 크기
     
+    /*
     init(chatHistory: ChatHistory? = nil, memoryCardId: Int) {
         self.memoryCardId = memoryCardId
         
@@ -47,6 +48,19 @@ final class AzureAIViewModel: ObservableObject {
             self.chatHistory = history.messages
             self.isChatting = true  // 대화를 바로 시작하도록 설정
             self.currentMessage = "이전 대화를 불러왔습니다. 계속해서 대화를 이어갑니다."
+        } else {
+            self.chatHistory = []
+            self.isChatting = false
+            self.currentMessage = "대화를 시작해주세요."
+        }
+    }
+     */
+    init(chatMessages: [ChatMessage]? = nil, memoryCardId: Int) {
+        self.memoryCardId = memoryCardId
+        if let messages = chatMessages {
+            self.chatHistory = messages
+            self.isChatting = false
+            self.currentMessage = "이전 대화를 불러왔습니다. 대화 시작하기 버튼을 눌러 대화를 이어가세요."
         } else {
             self.chatHistory = []
             self.isChatting = false

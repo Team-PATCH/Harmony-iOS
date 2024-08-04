@@ -155,7 +155,7 @@ struct MemoryCardDetailView: View {
             Spacer()
             
             HStack(spacing: 10) {
-                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId)) {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, previousChatHistory: viewModel.chatHistory)) {
                     Text(viewModel.memoryCardDetail?.description.isEmpty ?? true ? "모니와 대화하기" : "이어서 대화하기")
                         .foregroundStyle(.white)
                         .padding()
