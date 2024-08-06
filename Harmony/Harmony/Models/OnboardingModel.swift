@@ -33,6 +33,7 @@ struct GroupCreationResponse: Codable {
 struct GroupJoinResponse: Codable {
     let message: String
     let group: Group
+    let permission: String
 }
 
 struct OnboardingUpdateResponse: Codable {
