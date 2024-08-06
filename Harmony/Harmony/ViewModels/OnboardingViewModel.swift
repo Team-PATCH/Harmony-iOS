@@ -54,8 +54,8 @@ final class OnboardingViewModel: ObservableObject {
     }
     
     func createGroup() {
-        guard !groupName.isEmpty, !alias.isEmpty else {
-            errorMessage = "그룹 이름과 별칭을 입력해주세요."
+        guard !groupName.isEmpty else {
+            errorMessage = "그룹 이름을 입력해주세요."
             print("Error: \(errorMessage ?? "")")
             return
         }
@@ -75,6 +75,7 @@ final class OnboardingViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.currentGroup = group
                     self.isLoading = false
+                    self.navigateTo(.inviteVIP)
                     print("Group created successfully - groupId: \(group.groupId), inviteUrl: \(inviteUrl), vipInviteUrl: \(vipInviteUrl)")
                 }
             } catch {

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct InviteVIPView: View {
     @ObservedObject var viewModel: OnboardingViewModel
+    @State var hasShared = false
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -32,7 +34,7 @@ struct InviteVIPView: View {
                 item: URL(string: "https://apps.apple.com/kr/app/instagram/id389801252")!
                 ,subject: Text("하모니 앱을 다운로드")
                 ,message: Text("손녀 조다은님이 할머니 윤여정님을 '하모니' 앱에 초대했어요. 앱을 다운로드 받고, 아래 코드를 입력하세요.\n 입장 코드: [\(viewModel.currentGroup?.vipInviteUrl ?? "")] 입니다.")
-
+                
             ) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
@@ -44,12 +46,31 @@ struct InviteVIPView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .padding(.trailing, 30)
-                .background(Color.mainGreen)
+                .background(hasShared ? Color.gray4 : Color.mainGreen)
                 .cornerRadius(10)
             }
+            .onTapGesture {
+                hasShared = true
+            }
+            
+            
+            
             
             Spacer()
-            
+            if hasShared {
+                Button {
+                    viewModel.navigateTo(.inputUserInfo) // 적절한 네비게이션 대상으로 변경해주세요
+                } label: {
+                    Text("다음")
+                        .font(.pretendardSemiBold(size: 24))
+                        .foregroundColor(.wh)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.mainGreen)
+                        .cornerRadius(10)
+                }
+                .padding(.bottom, 20)
+            }
         }
         .padding()
         .background(Color.wh)
@@ -59,5 +80,5 @@ struct InviteVIPView: View {
 
 //#Preview{
 //    InviteVIPView(path: .constant([]))
-//    
+//
 //}
