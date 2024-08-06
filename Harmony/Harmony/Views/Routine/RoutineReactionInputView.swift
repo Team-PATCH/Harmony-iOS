@@ -117,6 +117,8 @@ struct RoutineReactionRow: View {
                 Text(author)
                     .font(.pretendardMedium(size: 18))
                     .foregroundColor(.gray5)
+                
+                Spacer()
             }
             
             HStack(alignment: .top) {

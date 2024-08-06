@@ -20,10 +20,11 @@ struct RoutineDetailView: View {
     @State private var showingReactionView = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if let routine = routine {
                 if let completedTime = dailyRoutine.completedTime, let completedPhoto = dailyRoutine.completedPhoto, let completedPhotoURL = URL(string: completedPhoto) {
                     VStack(spacing: 0) {
+                        // Header
                         HStack {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
@@ -38,6 +39,7 @@ struct RoutineDetailView: View {
                         }
                         .padding(.horizontal, 20)
                         .frame(height: 60)
+                        .background(Color.white)
                         
                         // 인증된 사진 섹션
                         AsyncImage(url: completedPhotoURL) { phase in
@@ -46,7 +48,6 @@ struct RoutineDetailView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 393, height: 240)
-                                
                             } else if phase.error != nil {
                                 Text("Failed to load image")
                                     .foregroundColor(.red)
@@ -55,8 +56,9 @@ struct RoutineDetailView: View {
                                     .frame(width: 393, height: 240)
                             }
                         }
-                        .padding(0)
+                        .background(Color.white)
                         
+                        // Title and Time
                         VStack(spacing: 0) {
                             Text(routine.title)
                                 .font(.pretendardBold(size: 24))
@@ -70,26 +72,25 @@ struct RoutineDetailView: View {
                         .padding(.vertical, 25)
                         .background(Color.wh)
                         
-                        
-                        VStack(alignment: .center) {
-                            HStack {
-                                Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
-                                    .font(.pretendardMedium(size: 18))
-                                    .foregroundColor(.gray)
-                                Spacer()
-                            }
-                            
-                            VStack(alignment: .center) {      
+                        // 댓글 섹션
+                        ScrollView {
+                            VStack(alignment: .center, spacing: 10) {
+                                HStack {
+                                    Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
+                                        .font(.pretendardMedium(size: 18))
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
+                                
                                 ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
                                     RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, reactionPhoto: reaction.photo)
                                 }
                             }
+                            .padding(.horizontal)
+                            .padding(.top, 20)
                         }
-                        .padding()
-                        
-                        Spacer()
                     }
-                    .background(Color.gray1)
+                    .background(Color.gray1.edgesIgnoringSafeArea(.all))
                     .overlay(
                         VStack {
                             Spacer()
@@ -199,7 +200,6 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
-        .background(Color.wh.edgesIgnoringSafeArea(.all))
         .onAppear {
             Task {
                 await viewModel.fetchRoutineReactions(dailyId: dailyRoutine.id)
