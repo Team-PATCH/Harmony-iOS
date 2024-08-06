@@ -12,6 +12,7 @@ struct QuestionDetailView: View {
     let questionId: Int
     @State private var showingCommentModal = false
     @State private var isVIP: Bool = false
+    @State private var commentToEdit: Comment?
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -44,17 +45,17 @@ struct QuestionDetailView: View {
             }
         }
         .sheet(isPresented: $showingCommentModal) {
-            CommentModalView(viewModel: viewModel, questionId: questionId)
-                .presentationDetents([.medium])
-        }
-        .task {
-            await viewModel.fetchQuestionDetail(questionId: questionId)
-            await viewModel.fetchComments(questionId: questionId)
-        }
-        .onAppear {
-            isVIP = UserDefaultsManager.shared.isVIP()
-        }
-    }
+                    CommentModalView(viewModel: viewModel, questionId: questionId, commentToEdit: commentToEdit)
+                        .presentationDetents([.medium])
+                }
+                .task {
+                    await viewModel.fetchQuestionDetail(questionId: questionId)
+                    await viewModel.fetchComments(questionId: questionId)
+                }
+                .onAppear {
+                    isVIP = UserDefaultsManager.shared.isVIP()
+                }
+            }
     
     private var questionSection: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -98,7 +99,7 @@ struct QuestionDetailView: View {
             .foregroundColor(.gray5)
             
             ForEach(viewModel.comments) { comment in
-                CommentView(comment: comment)
+                CommentView(viewModel: viewModel, comment: comment)
             }
         }
         .padding()
@@ -107,21 +108,23 @@ struct QuestionDetailView: View {
     
     private var addCommentButton: some View {
         Button(action: {
-            showingCommentModal = true
-        }) {
-            Text("댓글 남기기")
-                .font(.pretendardSemiBold(size: 22))
-                .padding(.horizontal, 20)
-                .padding(.vertical,20)
-                .frame(maxWidth: .infinity)
-                .background(Color.mainGreen)
-                .foregroundColor(.white)
-                .cornerRadius(999)
-        }
-        .padding(.horizontal, 100)
-        .padding(.bottom, 20)
-        .background(Color.gray1)
-    }
+                    // MARK: - 수정: 새 댓글 작성 시 commentToEdit를 nil로 설정
+                    commentToEdit = nil
+                    showingCommentModal = true
+                }) {
+                    Text("댓글 남기기")
+                        .font(.pretendardSemiBold(size: 22))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical,20)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.mainGreen)
+                        .foregroundColor(.white)
+                        .cornerRadius(999)
+                }
+                .padding(.horizontal, 100)
+                .padding(.bottom, 20)
+                .background(Color.gray1)
+            }
     
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
@@ -131,7 +134,15 @@ struct QuestionDetailView: View {
 }
 
 struct CommentView: View {
+    @ObservedObject var viewModel: QuestionViewModel
     let comment: Comment
+    @State private var showingOptions = false
+    @State private var showingEditModal = false  // 추가: 수정 모달 표시 여부
+
+    init(viewModel: QuestionViewModel, comment: Comment) {
+            self.viewModel = viewModel
+            self.comment = comment
+        }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -139,16 +150,36 @@ struct CommentView: View {
                 Image("mock-profile")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40, height: 40) // 이미지 크기 조절
+                    .frame(width: 40, height: 40)
                 
                 VStack(alignment: .leading) {
                     Text(comment.authorId)
                         .font(.pretendardMedium(size: 18))
                         .foregroundColor(.gray5)
                 }
-                .frame(height: 40, alignment: .center) // 이미지 높이와 동일하게 설정
+                .frame(height: 40, alignment: .center)
                 
                 Spacer()
+
+                Button(action: {
+                    showingOptions = true
+                }) {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.gray)
+                }
+                .actionSheet(isPresented: $showingOptions) {
+                    ActionSheet(title: Text("댓글 옵션"), buttons: [
+                        .default(Text("수정")) {
+                            showingEditModal = true  // 수정: 수정 모달 표시
+                        },
+                        .destructive(Text("삭제")) {
+                            Task {
+                                await viewModel.deleteComment(commentId: comment.id)
+                            }
+                        },
+                        .cancel()
+                    ])
+                }
             }
             
             Text(comment.content)
@@ -157,14 +188,27 @@ struct CommentView: View {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white)
+        .sheet(isPresented: $showingEditModal) {
+            // 추가: 수정 모달 표시
+            CommentModalView(viewModel: viewModel, questionId: comment.questionId, commentToEdit: comment)
+                .presentationDetents([.medium])
+        }
     }
 }
 
 struct CommentModalView: View {
     @ObservedObject var viewModel: QuestionViewModel
     let questionId: Int
-    @State private var commentText = ""
+    let commentToEdit: Comment?  // 수정할 댓글 (없으면 새 댓글 작성)
+    @State private var commentText: String
     @Environment(\.presentationMode) var presentationMode
+    
+    init(viewModel: QuestionViewModel, questionId: Int, commentToEdit: Comment? = nil) {
+        self.viewModel = viewModel
+        self.questionId = questionId
+        self.commentToEdit = commentToEdit
+        _commentText = State(initialValue: commentToEdit?.content ?? "")
+    }
     
     var body: some View {
         NavigationView {
@@ -182,13 +226,19 @@ struct CommentModalView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                     
-                    Button("작성 완료") {
+                    Button(commentToEdit == nil ? "작성 완료" : "수정 완료") {
                         Task {
-                            await viewModel.postComment(
-                                questionId: questionId,
-                                groupId: viewModel.selectedQuestion?.groupId ?? 0,
-                                content: commentText
-                            )
+                            if let comment = commentToEdit {
+                                // 댓글 수정
+                                await viewModel.updateComment(commentId: comment.id, content: commentText)
+                            } else {
+                                // 새 댓글 작성
+                                await viewModel.postComment(
+                                    questionId: questionId,
+                                    groupId: viewModel.selectedQuestion?.groupId ?? 0,
+                                    content: commentText
+                                )
+                            }
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
@@ -201,11 +251,11 @@ struct CommentModalView: View {
                     .disabled(commentText.isEmpty)
                 }
             }
-            .navigationTitle("댓글 남기기")
+            .navigationTitle(commentToEdit == nil ? "댓글 남기기" : "댓글 수정")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("댓글 남기기")
+                    Text(commentToEdit == nil ? "댓글 남기기" : "댓글 수정")
                         .font(.pretendardSemiBold(size: 20))
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {

@@ -14,57 +14,36 @@ final class QuestionCardService {
 
     private init() {}
 
-    func fetchData<T: Decodable>(endpoint: String, method: HTTPMethod = .get, parameters: [String: Any]? = nil) async throws -> T {
-        let url = baseURL + endpoint
-        print("Requesting URL: \(url)")
-        
-        return try await withCheckedThrowingContinuation { continuation in
-            AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
-                .validate()
-                .responseData { response in
+    func fetchData<T: Decodable>(endpoint: String) async throws -> ServerResponse<T> {
+            let url = baseURL + endpoint
+            
+            return try await withCheckedThrowingContinuation { continuation in
+                AF.request(url).responseDecodable(of: ServerResponse<T>.self) { response in
                     switch response.result {
-                    case .success(let data):
-                        print("Raw response data: \(String(data: data, encoding: .utf8) ?? "Unable to convert data to string")")
-                        do {
-                            let decodedData = try JSONDecoder().decode(T.self, from: data)
-                            continuation.resume(returning: decodedData)
-                        } catch {
-                            print("Decoding error: \(error)")
-                            continuation.resume(throwing: error)
-                        }
+                    case .success(let serverResponse):
+                        continuation.resume(returning: serverResponse)
                     case .failure(let error):
-                        print("Network error: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
+            }
         }
-    }
-
-    func postData<U: Decodable>(endpoint: String, parameters: [String: Any]) async throws -> U {
-        let url = baseURL + endpoint
-        print("Posting to URL: \(url)")
         
-        return try await withCheckedThrowingContinuation { continuation in
-            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-                .validate()
-                .responseData { response in
-                    switch response.result {
-                    case .success(let data):
-                        print("Raw response data: \(String(data: data, encoding: .utf8) ?? "Unable to convert data to string")")
-                        do {
-                            let decodedData = try JSONDecoder().decode(U.self, from: data)
-                            continuation.resume(returning: decodedData)
-                        } catch {
-                            print("Decoding error: \(error)")
+        func postData<T: Decodable>(endpoint: String, parameters: [String: Any]) async throws -> ServerResponse<T> {
+            let url = baseURL + endpoint
+            
+            return try await withCheckedThrowingContinuation { continuation in
+                AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                    .responseDecodable(of: ServerResponse<T>.self) { response in
+                        switch response.result {
+                        case .success(let serverResponse):
+                            continuation.resume(returning: serverResponse)
+                        case .failure(let error):
                             continuation.resume(throwing: error)
                         }
-                    case .failure(let error):
-                        print("Network error: \(error)")
-                        continuation.resume(throwing: error)
                     }
-                }
+            }
         }
-    }
 
     func fetchRawData(endpoint: String, method: HTTPMethod = .get, parameters: [String: Any]? = nil) async throws -> Data {
         let url = baseURL + endpoint
@@ -85,4 +64,47 @@ final class QuestionCardService {
                 }
         }
     }
+    
+    //PUT
+    func putData<T: Decodable>(endpoint: String, parameters: [String: Any]) async throws -> ServerResponse<T> {
+        let url = baseURL + endpoint
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .responseDecodable(of: ServerResponse<T>.self) { response in
+                    switch response.result {
+                    case .success(let serverResponse):
+                        continuation.resume(returning: serverResponse)
+                    case .failure(let error):
+                        if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                            print("Raw server response: \(str)")
+                        }
+                        continuation.resume(throwing: error)
+                    }
+                }
+        }
+    }
+    
+    //DELETE
+    func deleteData<T: Decodable>(endpoint: String) async throws -> ServerResponse<T> {
+        let url = baseURL + endpoint
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: .delete)
+                .validate()
+                .responseDecodable(of: ServerResponse<T>.self) { response in
+                    switch response.result {
+                    case .success(let serverResponse):
+                        continuation.resume(returning: serverResponse)
+                    case .failure(let error):
+                        if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                            print("Raw server response: \(str)")
+                        }
+                        continuation.resume(throwing: error)
+                    }
+                }
+        }
+    }
+    
 }

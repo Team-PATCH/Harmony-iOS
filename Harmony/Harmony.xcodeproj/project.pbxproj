@@ -75,6 +75,7 @@
 		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
+		C46D39572C60E70600489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D39562C60E70600489A4A /* Secrets.xcconfig */; };
 		C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C47B35B82C5A4373006A3561 /* Secrets.xcconfig */; };
 		C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */; };
 		C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */; };
@@ -162,6 +163,7 @@
 		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 		BEA2AA872C50CF940033AAEF /* AzureAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIService.swift; sourceTree = "<group>"; };
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
+		C46D39562C60E70600489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		C47B35B82C5A4373006A3561 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoModel.swift; sourceTree = "<group>"; };
 		C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoViewModel.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				55A10B232C4F94C8001728EF /* Info.plist */,
 				550003482C53657700B00635 /* Secrets.xcconfig */,
 				C47B35B82C5A4373006A3561 /* Secrets.xcconfig */,
+				C46D39562C60E70600489A4A /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -532,6 +535,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46D39572C60E70600489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
 				C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */,
