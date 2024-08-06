@@ -9,10 +9,38 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var authViewModel = AuthViewModel()
-
+    @StateObject var onboardingViewModel = OnboardingViewModel()
+    
     var body: some View {
         if authViewModel.isLoggedIn {
-            AllowNotificationView()
+            NavigationStack(path: $onboardingViewModel.navigationPath) {
+                AllowNotificationView(viewModel: onboardingViewModel)
+                    .navigationDestination(for: NavigationDestination.self) { destination in
+                        
+                        switch destination {
+                        case .createGroup:
+                            CreateGroupSpaceView(viewModel: onboardingViewModel)
+                        case .inputVIPInfo:
+                            InputVIPInfoView(viewModel: onboardingViewModel)
+
+                        case .inputUserInfo:
+                            InputUserInfoView(viewModel: onboardingViewModel)
+
+                        case .inviteVIP:
+                            InviteVIPView(viewModel: onboardingViewModel)
+
+                        case .registerProfile:
+                            RegisterProfileView(viewModel: onboardingViewModel)
+
+                        case .joinGroup:
+                            JoinGroupSpaceView(viewModel: onboardingViewModel)
+
+                        case .enterGroup:
+                            EnterGroupSpaceView(viewModel: onboardingViewModel)
+                            
+                        }
+                    }
+            }
         } else {
             LoginView()
                 .environmentObject(authViewModel)

@@ -5,9 +5,9 @@
 //  Created by 한수빈 on 7/31/24.
 //
 
-import Foundation
 import Combine
 import Alamofire
+import SwiftUI
 
 // MARK: - ViewModel
 
@@ -38,6 +38,11 @@ final class OnboardingViewModel: ObservableObject {
     @Published var currentUserGroup: UserGroup? {
         didSet { logStateChange("currentUserGroup", oldValue, currentUserGroup) }
     }
+    
+    @Published var navigationPath: NavigationPath = NavigationPath() {
+        didSet { logStateChange("navigationPath", oldValue, navigationPath)}
+    }
+
     
     init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService
@@ -83,8 +88,8 @@ final class OnboardingViewModel: ObservableObject {
     }
     
     func joinGroup() {
-        guard !inviteCode.isEmpty, !alias.isEmpty else {
-            errorMessage = "초대 코드와 별칭을 입력해주세요."
+        guard !inviteCode.isEmpty else {
+            errorMessage = "초대 코드를 입력해주세요."
             print("Error: \(errorMessage ?? "")")
             return
         }
@@ -98,11 +103,12 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let group = try await apiService.joinGroup(userId: userId, inviteCode: inviteCode, deviceToken: deviceToken, alias: alias)
+                let group = try await apiService.joinGroup(userId: userId, inviteCode: inviteCode, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
                     self.currentGroup = group
                     self.isLoading = false
+                    self.navigateTo(.enterGroup)
                     print("Successfully joined group - groupId: \(group.groupId)")
                 }
             } catch {
@@ -146,5 +152,29 @@ final class OnboardingViewModel: ObservableObject {
                 }
             }
         }
+        
     }
+    func navigateTo(_ destination: NavigationDestination) {
+        navigationPath.append(destination)
+    }
+    
+    func navigateBack() {
+        navigationPath.removeLast()
+    }
+    
+    func navigateToRoot() {
+        navigationPath.removeLast(navigationPath.count)
+    }
+}
+
+
+@frozen enum NavigationDestination: Hashable {
+    case createGroup
+    case inputVIPInfo
+    case inputUserInfo
+    case inviteVIP
+    case registerProfile
+    case joinGroup
+    case enterGroup
+    // 필요한 만큼 케이스 추가
 }

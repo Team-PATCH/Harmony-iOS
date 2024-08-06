@@ -31,16 +31,18 @@
 		5573E97A2C5B182400284775 /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9792C5B182400284775 /* OnboardingModel.swift */; };
 		5573E97C2C5B18BA00284775 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E97B2C5B18BA00284775 /* AuthInterceptor.swift */; };
 		5573E97E2C5B193B00284775 /* OnboardingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E97D2C5B193B00284775 /* OnboardingService.swift */; };
+		5573E9802C5B1E0B00284775 /* JoinGroupSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E97F2C5B1E0A00284775 /* JoinGroupSpaceView.swift */; };
+		55A0E8D82C61CBAC001431E0 /* EnterGroupSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A0E8D72C61CBAC001431E0 /* EnterGroupSpaceView.swift */; };
 		55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B192C4E5960001728EF /* UserDefaultsManager.swift */; };
 		55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */; };
 		55A10B202C4F76C5001728EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B1F2C4F76C5001728EF /* LoginView.swift */; };
 		55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */; };
 		55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */; };
-		55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B272C50C506001728EF /* VIPInfoEntryView.swift */; };
-		55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */; };
+		55A10B282C50C506001728EF /* InputVIPInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B272C50C506001728EF /* InputVIPInfoView.swift */; };
+		55A10B2A2C50FFAD001728EF /* InputUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B292C50FFAD001728EF /* InputUserInfoView.swift */; };
 		55A10B2C2C510475001728EF /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2B2C510475001728EF /* CustomTextFieldView.swift */; };
 		55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */; };
-		55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */; };
+		55A10B302C5119AB001728EF /* RegisterProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* RegisterProfileView.swift */; };
 		55A558712C561ECF00DF2CFF /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 55A558702C561ECF00DF2CFF /* KakaoSDK */; };
 		55A558732C56575400DF2CFF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A558722C56575400DF2CFF /* AuthViewModel.swift */; };
 		55A558752C57946B00DF2CFF /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A558742C57946B00DF2CFF /* AuthModel.swift */; };
@@ -137,17 +139,19 @@
 		5573E9792C5B182400284775 /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		5573E97B2C5B18BA00284775 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		5573E97D2C5B193B00284775 /* OnboardingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingService.swift; sourceTree = "<group>"; };
+		5573E97F2C5B1E0A00284775 /* JoinGroupSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupSpaceView.swift; sourceTree = "<group>"; };
+		55A0E8D72C61CBAC001431E0 /* EnterGroupSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterGroupSpaceView.swift; sourceTree = "<group>"; };
 		55A10B192C4E5960001728EF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleOnboardingView.swift; sourceTree = "<group>"; };
 		55A10B1F2C4F76C5001728EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationView.swift; sourceTree = "<group>"; };
 		55A10B232C4F94C8001728EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupSpaceView.swift; sourceTree = "<group>"; };
-		55A10B272C50C506001728EF /* VIPInfoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPInfoEntryView.swift; sourceTree = "<group>"; };
-		55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEntryView.swift; sourceTree = "<group>"; };
+		55A10B272C50C506001728EF /* InputVIPInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVIPInfoView.swift; sourceTree = "<group>"; };
+		55A10B292C50FFAD001728EF /* InputUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputUserInfoView.swift; sourceTree = "<group>"; };
 		55A10B2B2C510475001728EF /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownView.swift; sourceTree = "<group>"; };
-		55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRegisterView.swift; sourceTree = "<group>"; };
+		55A10B2F2C5119AB001728EF /* RegisterProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileView.swift; sourceTree = "<group>"; };
 		55A558722C56575400DF2CFF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		55A558742C57946B00DF2CFF /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -280,10 +284,12 @@
 				55A10B1C2C4E5997001728EF /* SimpleOnboardingView.swift */,
 				55A10B212C4F8A8C001728EF /* AllowNotificationView.swift */,
 				55A10B252C50A1E2001728EF /* CreateGroupSpaceView.swift */,
-				55A10B272C50C506001728EF /* VIPInfoEntryView.swift */,
-				55A10B292C50FFAD001728EF /* UserInfoEntryView.swift */,
-				55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */,
 				555F92212C51F33800BFC121 /* InviteVIPView.swift */,
+				55A10B272C50C506001728EF /* InputVIPInfoView.swift */,
+				55A10B292C50FFAD001728EF /* InputUserInfoView.swift */,
+				55A10B2F2C5119AB001728EF /* RegisterProfileView.swift */,
+				5573E97F2C5B1E0A00284775 /* JoinGroupSpaceView.swift */,
+				55A0E8D72C61CBAC001431E0 /* EnterGroupSpaceView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -634,6 +640,7 @@
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
 				BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */,
 				BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */,
+				55A10B282C50C506001728EF /* InputVIPInfoView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
@@ -674,11 +681,12 @@
 				3EA6EBAC2C4F773F00627C63 /* RoutineViewModel.swift in Sources */,
 				BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */,
 				5573E97E2C5B193B00284775 /* OnboardingService.swift in Sources */,
+				5573E9802C5B1E0B00284775 /* JoinGroupSpaceView.swift in Sources */,
 				3EA6EBA52C4F495700627C63 /* HomeView.swift in Sources */,
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
-				55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */,
+				55A10B302C5119AB001728EF /* RegisterProfileView.swift in Sources */,
 				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
 				BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */,
 				3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */,
@@ -689,6 +697,7 @@
 				3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				5573E97A2C5B182400284775 /* OnboardingModel.swift in Sources */,
+				55A0E8D82C61CBAC001431E0 /* EnterGroupSpaceView.swift in Sources */,
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
 				BE96B8012C4798A3003C41F9 /* Font+Extensions.swift in Sources */,
 				BEEA0D282C6B35D600A02BA1 /* LoadingView.swift in Sources */,
@@ -711,6 +720,7 @@
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
 				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
 				BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */,
+				55A10B2A2C50FFAD001728EF /* InputUserInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

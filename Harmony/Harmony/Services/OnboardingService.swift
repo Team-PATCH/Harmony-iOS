@@ -10,7 +10,7 @@ import Combine
 import Alamofire
 
 final class OnboardingService {
-    private let baseURL = ""
+    private let baseURL = "https://harmony-api.azurewebsites.net"
     private let session: Session
     
     init() {
@@ -34,12 +34,11 @@ final class OnboardingService {
         return (response.group, response.inviteUrl, response.vipInviteUrl)
     }
     
-    func joinGroup(userId: String, inviteCode: String, deviceToken: String, alias: String) async throws -> Group {
+    func joinGroup(userId: String, inviteCode: String, deviceToken: String) async throws -> Group {
         let parameters: [String: Any] = [
             "userId": userId,
             "inviteCode": inviteCode,
             "deviceToken": deviceToken,
-            "alias": alias
         ]
         
         let response: GroupJoinResponse = try await session.request("\(baseURL)/group/join", method: .post, parameters: parameters, encoding: JSONEncoding.default)
