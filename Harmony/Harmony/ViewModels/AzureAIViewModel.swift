@@ -193,6 +193,8 @@ final class AzureAIViewModel: ObservableObject {
     }
     */
     
+    /*
+    // MARK: - 0805 최종 동작 버전
     func endConversation() {
         isRecording = false
         isChatting = false
@@ -218,6 +220,33 @@ final class AzureAIViewModel: ObservableObject {
         ChatHistoryManager.shared.saveChatHistory(history)
         print("saveChatHistory Method Call for memory card \(memoryCardId)")
     }
+     */
+    func endConversation() {
+        isRecording = false
+        isChatting = false
+        stopRecordingWithoutSending()
+        audioPlayer?.stop()
+        audioPlayer = nil
+        currentMessage = "좋아요! 대화를 종료하고 기록을 저장했어요."
+        
+        MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Chat history saved to server successfully")
+                case .failure(let error):
+                    print("Failed to save chat history to server: \(error)")
+                }
+            }, receiveValue: { updatedMessages in
+                self.chatHistory = updatedMessages
+            })
+            .store(in: &cancellables)
+        
+        print("endConversation Method Call")
+    }
+    
+    
+    
     
     func saveChatHistory() {
         let history = ChatHistory(id: memoryCardId, date: Date(), messages: chatHistory)

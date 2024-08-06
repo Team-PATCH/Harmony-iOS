@@ -131,6 +131,8 @@ class ChatHistoryViewModel: ObservableObject {
 }
 */
 
+/*
+// MARK: - 0805
 import SwiftUI
 import Combine
 
@@ -217,10 +219,129 @@ struct ChatHistoryView: View {
 //        audioPlayer.loadPlaylist(audioURLs)
 //        audioPlayer.playPause()
 //    }
+    // MARK: - 0805 로컬 음성 재생
+//    func playAllAudio() {
+//        let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
+//            guard let audioRecord = message.audioRecord else { return nil }
+//            return URL(string: "\(MemoryCardService.shared.baseURL)/audio/\(audioRecord.fileName)")
+//        }
+//        audioPlayer.loadPlaylist(audioURLs)
+//        audioPlayer.playPause()
+//    }
+    func playAllAudio() {
+        let audioURLs = viewModel.chatMessages.compactMap { $0.audioRecord?.remoteURL }
+        audioPlayer.loadPlaylist(audioURLs)
+        audioPlayer.playPause()
+    }
+}
+*/
+
+
+import SwiftUI
+import Combine
+
+struct ChatHistoryView: View {
+    let memoryCardId: Int
+    let groupId: Int
+    @StateObject private var viewModel: ChatHistoryViewModel
+    @State private var selectedMessageId: UUID?
+    @StateObject private var audioPlayer = AudioPlayer()
+    @State private var showAudioPlayer = false
+    
+    init(memoryCardId: Int, groupId: Int) {
+        self.memoryCardId = memoryCardId
+        self.groupId = groupId
+        _viewModel = StateObject(wrappedValue: ChatHistoryViewModel(memoryCardId: memoryCardId))
+    }
+    
+    var body: some View {
+        VStack {
+//            List {
+//                ForEach(viewModel.chatMessages) { message in
+//                    ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
+//                        .onTapGesture {
+//                            withAnimation {
+//                                if selectedMessageId == message.id {
+//                                    selectedMessageId = nil
+//                                    audioPlayer.playPause()
+//                                } else {
+//                                    selectedMessageId = message.id
+//                                    if let remoteURL = message.audioRecord?.remoteURL {
+//                                        audioPlayer.loadPlaylist([remoteURL])
+//                                        audioPlayer.playPause()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                }
+//            }
+            List {
+                ForEach(viewModel.chatMessages) { message in
+                    ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
+                        .onTapGesture {
+                            withAnimation {
+                                if selectedMessageId == message.id {
+                                    selectedMessageId = nil
+                                    audioPlayer.playPause()
+                                } else {
+                                    selectedMessageId = message.id
+                                    if let urlString = message.audioRecord?.fileName,
+                                       let url = URL(string: urlString) {
+                                        audioPlayer.loadPlaylist([url])
+                                        audioPlayer.playPause()
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+            
+            HStack {
+                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: groupId, previousChatHistory: viewModel.chatMessages)) {
+                    Text("이어서 대화하기")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                Button("음성 듣기") {
+                    playAllAudio()
+                    showAudioPlayer = true
+                }
+                .padding()
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .padding()
+            
+            if showAudioPlayer {
+                AudioPlayerView(audioPlayer: audioPlayer)
+                    .frame(height: 100)
+                    .padding()
+            }
+        }
+        .navigationTitle("대화 기록")
+        .onAppear {
+            viewModel.loadChatHistory()
+        }
+    }
+    
+
+//    func playAllAudio() {
+//        let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
+//            guard let audioRecord = message.audioRecord else { return nil }
+//            return URL(string: audioRecord.fileName)
+//        }
+//        audioPlayer.loadPlaylist(audioURLs)
+//        audioPlayer.playPause()
+//    }
+    
     func playAllAudio() {
         let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
-            guard let audioRecord = message.audioRecord else { return nil }
-            return URL(string: "\(MemoryCardService.shared.baseURL)/audio/\(audioRecord.fileName)")
+            guard let urlString = message.audioRecord?.fileName else { return nil }
+            return URL(string: urlString)
         }
         audioPlayer.loadPlaylist(audioURLs)
         audioPlayer.playPause()
@@ -243,13 +364,27 @@ struct ChatMessageView: View {
                 .background(message.role == "user" ? Color.blue.opacity(0.1) : Color.gray.opacity(0.1))
                 .cornerRadius(10)
             
+//            if isSelected, let audioRecord = message.audioRecord {
+//                Button(action: {
+//                    audioPlayer.playPause()
+//                }) {
+//                    Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
+//                }
+//                .transition(.scale)
+//            }
             if isSelected, let audioRecord = message.audioRecord {
-                Button(action: {
-                    audioPlayer.playPause()
-                }) {
-                    Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
+                if let url = URL(string: audioRecord.fileName) {
+                    Button(action: {
+                        audioPlayer.loadPlaylist([url])
+                        audioPlayer.playPause()
+                    }) {
+                        Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
+                    }
+                    .transition(.scale)
+                } else {
+                    Text("Invalid URL: \(audioRecord.fileName)")
+                        .foregroundColor(.red)
                 }
-                .transition(.scale)
             }
         }
     }

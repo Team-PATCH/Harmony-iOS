@@ -79,6 +79,26 @@ struct ChatHistory: Identifiable, Codable {
 }
 
 
+// MARK: - 음성 파일 작업 중 새로 추가한 모델링
+
+struct ChatHistoryRequest: Codable {
+    let groupId: Int
+    let messages: [ChatMessageRequest]
+}
+
+struct ChatMessageRequest: Codable {
+    let role: String
+    let content: String
+    let audioRecord: AudioRecordRequest?
+}
+
+struct AudioRecordRequest: Codable {
+    let fileName: String
+    let isUser: Bool
+    let duration: TimeInterval
+}
+
+
 //struct ChatHistory: Identifiable, Codable {
 //    let id: UUID
 //    let date: Date
