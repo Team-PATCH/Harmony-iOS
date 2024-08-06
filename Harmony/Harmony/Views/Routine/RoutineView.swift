@@ -145,7 +145,6 @@ struct RoutineView: View {
                                 .padding()
                                 .background(Color.green)
                                 .clipShape(Circle())
-                                .shadow(radius: 2)
                         }
                         .padding()
                         .fullScreenCover(isPresented: $showingAddRoutineView, onDismiss: {
@@ -167,12 +166,17 @@ struct CustomProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.gray2)
+                .fill(Color.gray1)
                 .frame(height: 17)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray2, lineWidth: 1)
+                )
             
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.mainGreen)
-                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * (UIScreen.main.bounds.width - 40), height: 17)
+                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * (UIScreen.main.bounds.width - 40), height: 16)
+
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 18)

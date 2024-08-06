@@ -65,17 +65,22 @@ final class RoutineViewModel: ObservableObject {
             print("Error fetching routine reactions: \(error)")
         }
     }
-
-    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) async {
-        let parameters: [String: Any] = [
-            "routineId": dailyRoutine.routineId,
-            "groupId": dailyRoutine.groupId,
-            "authorId": "test@user.com",
-            "comment": content
-        ]
+    
+    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String, image: UIImage?, authorId: String) async {
+        var imageData: Data? = nil
+        if let image = image {
+            imageData = image.jpegData(compressionQuality: 0.8)
+        }
 
         do {
-            let newReaction = try await RoutineService.shared.addReaction(dailyId: dailyRoutine.id, parameters: parameters)
+            let newReaction = try await RoutineService.shared.addReaction(
+                dailyId: dailyRoutine.id,
+                routineId: dailyRoutine.routineId,
+                groupId: dailyRoutine.groupId,
+                authorId: authorId,
+                content: content,
+                imageData: imageData
+            )
             DispatchQueue.main.async {
                 self.routineReactions.append(newReaction)
             }

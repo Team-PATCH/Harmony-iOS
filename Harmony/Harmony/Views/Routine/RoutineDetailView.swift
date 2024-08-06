@@ -37,7 +37,7 @@ struct RoutineDetailView: View {
                             Spacer()
                         }
                         .padding(.horizontal, 20)
-                        .frame(height: 40)
+                        .frame(height: 60)
                         
                         // 인증된 사진 섹션
                         AsyncImage(url: completedPhotoURL) { phase in
@@ -71,7 +71,7 @@ struct RoutineDetailView: View {
                         .background(Color.wh)
                         
                         
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .center) {
                             HStack {
                                 Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
                                     .font(.pretendardMedium(size: 18))
@@ -79,14 +79,17 @@ struct RoutineDetailView: View {
                                 Spacer()
                             }
                             
-                            ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
-                                RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
+                            VStack(alignment: .center) {      
+                                ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
+                                    RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, reactionPhoto: reaction.photo)
+                                }
                             }
                         }
                         .padding()
                         
                         Spacer()
                     }
+                    .background(Color.gray1)
                     .overlay(
                         VStack {
                             Spacer()
@@ -211,8 +214,8 @@ struct RoutineDetailView: View {
         routineId: 1,
         groupId: 1,
         time: "Date()",
-        completedPhoto: nil,
-        completedTime: nil
+        completedPhoto: "https://saharmony.blob.core.windows.net/daily-routine-proving/daily-routine-proving/Rectangle 641722412176673.png",
+        completedTime: "nil"
     ),
                       viewModel: RoutineViewModel()
     )
