@@ -390,12 +390,11 @@ struct MemoryCardRecordView: View {
         }
         .onAppear {
             viewModel.loadMemoryCardDetail(id: memoryCardId)
-//            aiViewModel.memoryCardUUID = UUID(uuidString: "\(memoryCardId)") // memoryCardUUID 설정
+            aiViewModel.loadInitialChatHistory()
             aiViewModel.viewAppeared()
-//            aiViewModel.loadChatHistory(memoryCardId: memoryCardId) // 이 부분도 추가
         }
         .onDisappear {
-            aiViewModel.endConversation()
+            aiViewModel.stopConversationWithoutSaving()
         }
     }
 }

@@ -339,6 +339,7 @@ final class MemoryCardService {
     }
      */
     
+    /*
     func saveChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
         let url = "\(baseURL)/\(mcId)/chat"
         
@@ -393,6 +394,73 @@ final class MemoryCardService {
                     }
                 case .failure(let error):
                     print("Network error: \(error.localizedDescription)")
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    */
+    
+    func saveChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        return Future { promise in
+            AF.upload(multipartFormData: { multipartFormData in
+                let messagesData = messages.map { message -> [String: Any] in
+                    var messageDict: [String: Any] = [
+                        "role": message.role,
+                        "content": message.content
+                    ]
+                    if let audioRecord = message.audioRecord {
+                        messageDict["audioRecord"] = [
+                            "fileName": audioRecord.fileName,
+                            "isUser": audioRecord.isUser,
+                            "duration": audioRecord.duration
+                        ]
+                    }
+                    return messageDict
+                }
+                let requestData: [String: Any] = [
+                    "groupId": groupId,
+                    "messages": messagesData
+                ]
+                
+                if let jsonData = try? JSONSerialization.data(withJSONObject: requestData),
+                   let jsonString = String(data: jsonData, encoding: .utf8) {
+                    multipartFormData.append(jsonString.data(using: .utf8)!, withName: "data")
+                }
+                
+                for message in messages {
+                    if let audioRecord = message.audioRecord,
+                       let audioData = try? Data(contentsOf: FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)) {
+                        multipartFormData.append(audioData, withName: "audio", fileName: audioRecord.fileName, mimeType: "audio/wav")
+                    }
+                }
+            }, to: url)
+            .validate()
+            .responseDecodable(of: ChatHistoryResponse.self) { response in
+                switch response.result {
+                case .success(let chatHistoryResponse):
+                    if chatHistoryResponse.status, let data = chatHistoryResponse.data {
+                        let chatMessages = data.map { messageData in
+                            ChatMessage(id: UUID(uuidString: String(messageData.id)) ?? UUID(),
+                                        role: messageData.role,
+                                        content: messageData.content,
+                                        audioRecord: messageData.audioRecord.map { AudioRecord(
+                                            id: UUID(),
+                                            fileName: $0.fileName,
+                                            isUser: $0.isUser,
+                                            duration: $0.duration,
+                                            remoteURL: URL(string: $0.fileName)
+                                        )},
+                                        date: Date())
+                        }
+                        promise(.success(chatMessages))
+                    } else {
+                        promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: chatHistoryResponse.message])))
+                    }
+                case .failure(let error):
                     promise(.failure(error))
                 }
             }
@@ -473,6 +541,218 @@ final class MemoryCardService {
         }
         .eraseToAnyPublisher()
     }
+    
+    /*
+    func updateChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+            
+            return Future { promise in
+                AF.upload(multipartFormData: { multipartFormData in
+                    let messagesData = messages.map { message -> [String: Any] in
+                        var messageDict: [String: Any] = [
+                            "role": message.role,
+                            "content": message.content
+                        ]
+                        if let audioRecord = message.audioRecord {
+                            messageDict["audioRecord"] = [
+                                "fileName": audioRecord.fileName,
+                                "isUser": audioRecord.isUser,
+                                "duration": audioRecord.duration
+                            ]
+                        }
+                        return messageDict
+                    }
+                    let requestData: [String: Any] = [
+                        "groupId": groupId,
+                        "messages": messagesData
+                    ]
+                    
+                    // JSON 데이터를 문자열로 변환하여 전송
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: requestData),
+                       let jsonString = String(data: jsonData, encoding: .utf8) {
+                        multipartFormData.append(jsonString.data(using: .utf8)!, withName: "data")
+                    }
+                    
+                    // 오디오 파일 추가
+                    for message in messages {
+                        if let audioRecord = message.audioRecord,
+                           let audioData = try? Data(contentsOf: FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)) {
+                            multipartFormData.append(audioData, withName: "audio", fileName: audioRecord.fileName, mimeType: "audio/wav")
+                        }
+                    }
+                }, to: url, method: .put)
+                .validate()
+                .responseDecodable(of: ChatHistoryResponse.self) { response in
+                print("Request URL:", response.request?.url?.absoluteString ?? "Unknown")
+                print("Request method:", response.request?.httpMethod ?? "Unknown")
+                print("Request headers:", response.request?.allHTTPHeaderFields ?? [:])
+                print("Response status code:", response.response?.statusCode ?? "Unknown")
+                print("Response body:", String(data: response.data ?? Data(), encoding: .utf8) ?? "No data")
+                
+                switch response.result {
+                    case .success(let chatHistoryResponse):
+                        if chatHistoryResponse.status, let savedMessages = chatHistoryResponse.data {
+                            let updatedMessages = savedMessages.map { messageData in
+                                ChatMessage(
+                                    id: UUID(uuidString: String(messageData.id)) ?? UUID(),
+                                    role: messageData.role,
+                                    content: messageData.content,
+                                    audioRecord: messageData.audioRecord.map { AudioRecord(
+                                        id: UUID(),
+                                        fileName: $0.fileName,
+                                        isUser: $0.isUser,
+                                        duration: $0.duration,
+                                        remoteURL: URL(string: "\(self.baseURL)/audio/\($0.fileName)")
+                                    )},
+                                    date: Date()
+                                )
+                            }
+                            promise(.success(updatedMessages))
+                            print("put process complete. update success")
+                        } else {
+                            promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: chatHistoryResponse.message ?? "Unknown error"])))
+                        }
+                    case .failure(let error):
+                        print("Network error:", error)
+                        print("Error response:", response.data.flatMap { String(data: $0, encoding: .utf8) } ?? "No error response")
+                        debugPrint(error)
+                        promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    */
+    func updateChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
+        let url = "\(baseURL)/\(mcId)/chat"
+        
+        return Future { promise in
+            AF.upload(multipartFormData: { multipartFormData in
+                let messagesData = messages.map { message -> [String: Any] in
+                    var messageDict: [String: Any] = [
+                        "role": message.role,
+                        "content": message.content
+                    ]
+                    if let audioRecord = message.audioRecord {
+                        messageDict["audioRecord"] = [
+                            "fileName": audioRecord.fileName,
+                            "isUser": audioRecord.isUser,
+                            "duration": audioRecord.duration
+                        ]
+                    }
+                    return messageDict
+                }
+                let requestData: [String: Any] = [
+                    "groupId": groupId,
+                    "messages": messagesData
+                ]
+                
+                if let jsonData = try? JSONSerialization.data(withJSONObject: requestData),
+                   let jsonString = String(data: jsonData, encoding: .utf8) {
+                    multipartFormData.append(jsonString.data(using: .utf8)!, withName: "data")
+                }
+                
+                for message in messages {
+                    if let audioRecord = message.audioRecord,
+                       let audioData = try? Data(contentsOf: FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)) {
+                        multipartFormData.append(audioData, withName: "audio", fileName: audioRecord.fileName, mimeType: "audio/wav")
+                    }
+                }
+            }, to: url, method: .patch)
+            .responseDecodable(of: ChatHistoryResponse.self) { response in
+                switch response.result {
+                    case .success(let chatHistoryResponse):
+                        if chatHistoryResponse.status, let data = chatHistoryResponse.data {
+                            let chatMessages = data.map { messageData in
+                                ChatMessage(id: UUID(uuidString: String(messageData.id)) ?? UUID(),
+                                            role: messageData.role,
+                                            content: messageData.content,
+                                            audioRecord: messageData.audioRecord.map { AudioRecord(id: UUID(),
+                                                                                                   fileName: $0.fileName,
+                                                                                                   isUser: $0.isUser,
+                                                                                                   duration: $0.duration,
+                                                                                                   remoteURL: URL(string: $0.fileName)) },
+                                            date: Date())
+                            }
+                            promise(.success(chatMessages))
+                        } else {
+                            promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: chatHistoryResponse.message])))
+                        }
+                    case .failure(let error):
+                        print("Network error: \(error.localizedDescription)")
+                        promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+     
+//    func updateChatHistory(mcId: Int, groupId: Int, messages: [ChatMessage]) -> AnyPublisher<[ChatMessage], Error> {
+//        let url = "\(baseURL)/\(mcId)/chat"
+//        
+//        return Future { promise in
+//            AF.upload(multipartFormData: { multipartFormData in
+//                // JSON 데이터 추가
+//                let messagesData = messages.map { message -> [String: Any] in
+//                    var messageDict: [String: Any] = [
+//                        "role": message.role,
+//                        "content": message.content
+//                    ]
+//                    if let audioRecord = message.audioRecord {
+//                        messageDict["audioRecord"] = [
+//                            "fileName": audioRecord.fileName,
+//                            "isUser": audioRecord.isUser,
+//                            "duration": audioRecord.duration
+//                        ]
+//                    }
+//                    return messageDict
+//                }
+//                let requestData: [String: Any] = [
+//                    "groupId": groupId,
+//                    "messages": messagesData
+//                ]
+//                let jsonData = try! JSONSerialization.data(withJSONObject: requestData)
+//                multipartFormData.append(jsonData, withName: "data")
+//                
+//                // 오디오 파일 추가
+//                for message in messages {
+//                    if let audioRecord = message.audioRecord,
+//                       let audioData = try? Data(contentsOf: FileManager.getDocumentsDirectory().appendingPathComponent(audioRecord.fileName)) {
+//                        multipartFormData.append(audioData, withName: "audio_\(message.id)", fileName: audioRecord.fileName, mimeType: "audio/wav")
+//                    }
+//                }
+//            }, to: url, method: .put)
+//            .responseDecodable(of: ChatHistoryResponse.self) { response in
+//                switch response.result {
+//                case .success(let chatHistoryResponse):
+//                    if chatHistoryResponse.status, let savedMessages = chatHistoryResponse.data {
+//                        let updatedMessages = savedMessages.map { messageData in
+//                            ChatMessage(
+//                                id: UUID(uuidString: String(messageData.id)) ?? UUID(),
+//                                role: messageData.role,
+//                                content: messageData.content,
+//                                audioRecord: messageData.audioRecord.map { AudioRecord(
+//                                    id: UUID(),
+//                                    fileName: $0.fileName,
+//                                    isUser: $0.isUser,
+//                                    duration: $0.duration,
+//                                    remoteURL: URL(string: $0.fileName)
+//                                )},
+//                                date: Date()
+//                            )
+//                        }
+//                        promise(.success(updatedMessages))
+//                    } else {
+//                        promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: chatHistoryResponse.message])))
+//                    }
+//                case .failure(let error):
+//                    print("Network error: \(error.localizedDescription)")
+//                    promise(.failure(error))
+//                }
+//            }
+//        }
+//        .eraseToAnyPublisher()
+//    }
     
 
     func getInitialPrompt(mcId: Int) -> AnyPublisher<String, Error> {

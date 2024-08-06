@@ -25,6 +25,7 @@ final class AzureAIViewModel: ObservableObject {
     @Published var chatHistory: [ChatMessage] = []
     @Published var isViewAppeared = false
     @Published var forceUpdate: Bool = false
+    
 
     private var audioRecorder: AVAudioRecorder?
     private var audioPlayer: AVAudioPlayer?
@@ -32,7 +33,7 @@ final class AzureAIViewModel: ObservableObject {
     private var lastAudioLevel: Float = -160.0
     private let silenceDuration: TimeInterval = 2.0
     private var silenceStartTime: Date?
-//    private var chatId: UUID
+    
     private var memoryCardId: Int
     private let groupId: Int
     
@@ -41,25 +42,10 @@ final class AzureAIViewModel: ObservableObject {
     private var amplitudeBuffer: [CGFloat] = []
     private let bufferSize = 5 // 버퍼 크기
     
-    
+    private var existingChatSession: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
-    /*
-    init(chatHistory: ChatHistory? = nil, memoryCardId: Int) {
-        self.memoryCardId = memoryCardId
-        
-        if let history = chatHistory {
-            self.chatHistory = history.messages
-            self.isChatting = true  // 대화를 바로 시작하도록 설정
-            self.currentMessage = "이전 대화를 불러왔습니다. 계속해서 대화를 이어갑니다."
-        } else {
-            self.chatHistory = []
-            self.isChatting = false
-            self.currentMessage = "대화를 시작해주세요."
-        }
-    }
-    */
     
     init(chatMessages: [ChatMessage]? = nil, memoryCardId: Int, groupId: Int) {
         self.memoryCardId = memoryCardId
@@ -221,31 +207,131 @@ final class AzureAIViewModel: ObservableObject {
         print("saveChatHistory Method Call for memory card \(memoryCardId)")
     }
      */
+//    func endConversation() {
+//        isRecording = false
+//        isChatting = false
+//        stopRecordingWithoutSending()
+//        audioPlayer?.stop()
+//        audioPlayer = nil
+//        currentMessage = "좋아요! 대화를 종료하고 기록을 저장했어요."
+//        
+//        MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    print("Chat history saved to server successfully")
+//                case .failure(let error):
+//                    print("Failed to save chat history to server: \(error)")
+//                }
+//            }, receiveValue: { updatedMessages in
+//                self.chatHistory = updatedMessages
+//            })
+//            .store(in: &cancellables)
+//        
+//        print("endConversation Method Call")
+//    }
+    /*
+    // MARK: - 1
+    
     func endConversation() {
         isRecording = false
         isChatting = false
         stopRecordingWithoutSending()
         audioPlayer?.stop()
         audioPlayer = nil
-        currentMessage = "좋아요! 대화를 종료하고 기록을 저장했어요."
+        currentMessage = "대화가 종료되었습니다."
         
-        MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("Chat history saved to server successfully")
-                case .failure(let error):
-                    print("Failed to save chat history to server: \(error)")
-                }
-            }, receiveValue: { updatedMessages in
-                self.chatHistory = updatedMessages
-            })
-            .store(in: &cancellables)
+        if !chatHistory.isEmpty {
+            if existingChatSession {
+                MemoryCardService.shared.updateChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Chat history updated successfully")
+                        case .failure(let error):
+                            print("Failed to update chat history: \(error)")
+                        }
+                    }, receiveValue: { updatedMessages in
+                        self.chatHistory = updatedMessages
+                    })
+                    .store(in: &cancellables)
+            } else {
+                MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Chat history saved successfully")
+                        case .failure(let error):
+                            print("Failed to save chat history: \(error)")
+                        }
+                    }, receiveValue: { savedMessages in
+                        self.chatHistory = savedMessages
+                        self.existingChatSession = true
+                    })
+                    .store(in: &cancellables)
+            }
+        }
+    }
+     */
+    
+    func endConversation() {
+        isRecording = false
+        isChatting = false
+        stopRecordingWithoutSending()
+        audioPlayer?.stop()
+        audioPlayer = nil
+        currentMessage = "대화가 종료되었습니다."
         
-        print("endConversation Method Call")
+        if !chatHistory.isEmpty {
+            if existingChatSession {
+                MemoryCardService.shared.updateChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Chat history updated successfully")
+                        case .failure(let error):
+                            print("Failed to update chat history: \(error)")
+                        }
+                    }, receiveValue: { updatedMessages in
+                        self.chatHistory = updatedMessages
+                    })
+                    .store(in: &cancellables)
+            } else {
+                MemoryCardService.shared.saveChatHistory(mcId: memoryCardId, groupId: groupId, messages: chatHistory)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Chat history saved successfully")
+                        case .failure(let error):
+                            print("Failed to save chat history: \(error)")
+                        }
+                    }, receiveValue: { savedMessages in
+                        self.chatHistory = savedMessages
+                        self.existingChatSession = true
+                    })
+                    .store(in: &cancellables)
+            }
+        }
     }
     
+    func stopConversationWithoutSaving() {
+        isRecording = false
+        isChatting = false
+        stopRecordingWithoutSending()
+        audioPlayer?.stop()
+        audioPlayer = nil
+    }
     
+    func loadInitialChatHistory() {
+        print("loadInitialChatHistory 메서드 콜")
+        MemoryCardService.shared.getChatHistory(mcId: memoryCardId)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] messages in
+                self?.chatHistory = messages
+                self?.existingChatSession = !messages.isEmpty
+            })
+            .store(in: &cancellables)
+    }
     
     
     func saveChatHistory() {

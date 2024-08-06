@@ -263,7 +263,7 @@ class AudioPlayer: NSObject, ObservableObject {
     }
     
     private func updateDuration() {
-        duration = playerItems.reduce(0) { $0 + ($1.asset.duration.seconds) }
+        duration = playerItems.reduce(0) { $0 + ($1.asset.duration.seconds.isFinite ? $1.asset.duration.seconds : 0) }
     }
     
     deinit {

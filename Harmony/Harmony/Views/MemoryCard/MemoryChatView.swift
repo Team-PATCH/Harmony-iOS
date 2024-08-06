@@ -155,6 +155,7 @@ struct MemoryChatView: View {
 }
 */
 
+/*
 import SwiftUI
 
 struct MemoryChatView: View {
@@ -259,6 +260,6 @@ struct ChatBubble: View {
 #Preview {
     MemoryChatView(memoryCardId: 1, groupId: 1)
 }
-
+*/
 
 
