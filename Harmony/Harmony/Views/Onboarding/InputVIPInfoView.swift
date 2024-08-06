@@ -37,7 +37,7 @@ struct InputVIPInfoView: View {
             Spacer()
             
             Button{
-                viewModel.navigateTo(.inputUserInfo)
+                viewModel.createGroup()
             } label: {
                 Text("다음")
                     .font(.pretendardSemiBold(size: 24))
