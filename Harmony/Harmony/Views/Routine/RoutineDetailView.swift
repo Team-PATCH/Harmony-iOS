@@ -20,25 +20,26 @@ struct RoutineDetailView: View {
     @State private var showingReactionView = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if let routine = routine {
                 if let completedTime = dailyRoutine.completedTime, let completedPhoto = dailyRoutine.completedPhoto, let completedPhotoURL = URL(string: completedPhoto) {
-                    VStack {
+                    VStack(spacing: 0) {
+                        // Header
                         HStack {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
-                                Image(systemName: "arrow.left")
-                                    .font(.title2)
-                                    .foregroundColor(.black)
+                                Image("back-icon")
+                                    .foregroundColor(.clear)
                             }
                             Spacer()
-                            Text("일과 알림")
+                            Text("일과 인증")
                                 .font(.pretendardBold(size: 20))
                             Spacer()
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.clear)
                         }
+                        .padding(.horizontal, 20)
+                        .frame(height: 60)
+                        .background(Color.white)
                         
                         // 인증된 사진 섹션
                         AsyncImage(url: completedPhotoURL) { phase in
@@ -47,7 +48,6 @@ struct RoutineDetailView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 393, height: 240)
-                                    .padding()
                             } else if phase.error != nil {
                                 Text("Failed to load image")
                                     .foregroundColor(.red)
@@ -56,46 +56,59 @@ struct RoutineDetailView: View {
                                     .frame(width: 393, height: 240)
                             }
                         }
+                        .background(Color.white)
                         
-                        Text(routine.title)
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.black)
-                            .padding(.top)
-                        
-                        Spacer()
-                        
-                        VStack(alignment: .leading) {
-                            Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                            ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
-                                RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, imageName: "granddaughter")
-                            }
+                        // Title and Time
+                        VStack(spacing: 0) {
+                            Text(routine.title)
+                                .font(.pretendardBold(size: 24))
+                            
+                            Text(dailyRoutine.time.formattedTime)
+                                .font(.pretendardMedium(size: 20))
+                                .foregroundColor(Color.mainGreen)
+                                .padding(.top, 10)
                         }
-                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 25)
+                        .background(Color.wh)
                         
-                        Spacer()
+                        // 댓글 섹션
+                        ScrollView {
+                            VStack(alignment: .center, spacing: 10) {
+                                HStack {
+                                    Text("댓글 \(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }.count)")
+                                        .font(.pretendardMedium(size: 18))
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
+                                
+                                ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
+                                    RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, reactionPhoto: reaction.photo)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.top, 20)
+                        }
                     }
+                    .background(Color.gray1.edgesIgnoringSafeArea(.all))
                     .overlay(
                         VStack {
                             Spacer()
                             HStack {
-                                Spacer()
                                 Button(action: {
                                     showingReactionView.toggle()
                                 }) {
                                     Text("댓글 남기기")
-                                        .font(.headline)
+                                        .font(.pretendardSemiBold(size: 22))
                                         .foregroundColor(.white)
                                         .padding()
-                                        .background(Color.green)
-                                        .cornerRadius(10)
+                                        .frame(width: 201, height: 68)
+                                        .background(Color.mainGreen)
+                                        .cornerRadius(999)
                                 }
-                                .padding()
+                                .padding(10)
                                 .sheet(isPresented: $showingReactionView) {
                                     RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
-                                        .presentationDetents([.medium, .fraction(0.4)])
                                 }
                             }
                         }
@@ -106,44 +119,44 @@ struct RoutineDetailView: View {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
-                                Image(systemName: "arrow.left")
+                                Image("back-icon")
                                     .font(.title2)
                                     .foregroundColor(.black)
                             }
                             Spacer()
-                            Text("일과 인증")
+                            Text("일과 알림")
                                 .font(.pretendardBold(size: 20))
                             Spacer()
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.clear)
                         }
+                        .padding(.horizontal, 20)
+                        .frame(height: 60)
+                        .padding(.bottom, 15)
                         
                         ZStack {
                             Image("speech-bubble")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 285)
-                                .padding()
                             
-                            VStack {
-                                Text("dailyRoutine.time")
-                                    .font(.title)
-                                    .foregroundColor(.green)
+                            VStack(spacing: 0) {
+                                Text(dailyRoutine.time.formattedTime)
+                                    .font(.pretendardMedium(size: 28))
+                                    .foregroundColor(Color.mainGreen)
+                                    .padding(.bottom, 25)
+                                
                                 Text(routine.title)
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundColor(.black)
+                                    .font(.pretendardSemiBold(size: 36))
                                     .multilineTextAlignment(.center)
-                                    .padding()
+                                    .lineSpacing(36 * 0.2)
+                                    .frame(width: 235, height: 100, alignment: .center)
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
                         }
                         
-                        Spacer()
-                        
-                        Image("character")
+                        Image("moni-face")
                             .resizable()
-                            .frame(width: 100, height: 100)
-                            .padding()
+                            .frame(width: 164, height: 136)
+                            .padding(.top, 15)
                         
                         Spacer()
                         
@@ -152,11 +165,11 @@ struct RoutineDetailView: View {
                                 showingProvingView.toggle()
                             }) {
                                 Text("인증사진 남기러 가기")
-                                    .font(.headline)
+                                    .font(.pretendardSemiBold(size: 24))
                                     .foregroundColor(.white)
-                                    .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.green)
+                                    .frame(height: 68)
+                                    .background(Color.mainGreen)
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
@@ -168,11 +181,11 @@ struct RoutineDetailView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }) {
                                 Text("나중에 남기기")
-                                    .font(.headline)
+                                    .font(.pretendardSemiBold(size: 24))
                                     .foregroundColor(.white)
-                                    .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.black)
+                                    .frame(height: 68)
+                                    .background(Color.bl)
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
@@ -187,7 +200,6 @@ struct RoutineDetailView: View {
                     .padding()
             }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             Task {
                 await viewModel.fetchRoutineReactions(dailyId: dailyRoutine.id)
@@ -202,9 +214,9 @@ struct RoutineDetailView: View {
         routineId: 1,
         groupId: 1,
         time: "Date()",
-        completedPhoto: nil,
-        completedTime: nil
+        completedPhoto: "https://saharmony.blob.core.windows.net/daily-routine-proving/daily-routine-proving/Rectangle 641722412176673.png",
+        completedTime: "nil"
     ),
-        viewModel: RoutineViewModel()
+                      viewModel: RoutineViewModel()
     )
 }

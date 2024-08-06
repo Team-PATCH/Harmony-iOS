@@ -65,17 +65,22 @@ final class RoutineViewModel: ObservableObject {
             print("Error fetching routine reactions: \(error)")
         }
     }
-
-    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String) async {
-        let parameters: [String: Any] = [
-            "routineId": dailyRoutine.routineId,
-            "groupId": dailyRoutine.groupId,
-            "authorId": "test@user.com",
-            "comment": content
-        ]
+    
+    func addReactionToRoutine(to dailyRoutine: DailyRoutine, content: String, image: UIImage?, authorId: String) async {
+        var imageData: Data? = nil
+        if let image = image {
+            imageData = image.jpegData(compressionQuality: 0.8)
+        }
 
         do {
-            let newReaction = try await RoutineService.shared.addReaction(dailyId: dailyRoutine.id, parameters: parameters)
+            let newReaction = try await RoutineService.shared.addReaction(
+                dailyId: dailyRoutine.id,
+                routineId: dailyRoutine.routineId,
+                groupId: dailyRoutine.groupId,
+                authorId: authorId,
+                content: content,
+                imageData: imageData
+            )
             DispatchQueue.main.async {
                 self.routineReactions.append(newReaction)
             }
@@ -145,5 +150,22 @@ extension String {
 
     subscript(i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
+    }
+    
+    var formattedTime: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        if let date = dateFormatter.date(from: self) {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            
+            if let hour = components.hour, let minute = components.minute {
+                let period = hour < 12 ? "오전" : "오후"
+                let hourString = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour)
+                return String(format: "%@ %d시 %d분", period, hourString, minute)
+            }
+        }
+        return self
     }
 }

@@ -21,15 +21,14 @@ struct RoutineProvingView: View {
     @State private var isSaving = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if let routine = routine {
                 HStack {
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        Image(systemName: "arrow.left")
+                        Image("back-icon")
                             .font(.title2)
-                            .foregroundColor(.black)
                     }
                     Spacer()
                     Text("일과 인증")
@@ -38,8 +37,10 @@ struct RoutineProvingView: View {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.clear)
                 }
+                .padding(.horizontal, 20)
+                .frame(height: 40)
                 
-                VStack {
+                VStack(spacing: 0) {
                     Button(action: {
                         showingCameraView.toggle()
                     }) {
@@ -50,16 +51,21 @@ struct RoutineProvingView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 393, height: 240)
                             } else {
-                                Image(systemName: "camera")
+                                Image("camera-icon")
                                     .font(.largeTitle)
                                     .foregroundColor(.gray)
-                                Text("이곳을 눌러 사진을 남겨보세요!")
-                                    .font(.headline)
-                                    .foregroundColor(.green)
+                                    .padding(.top, 80)
+                                ZStack(alignment: .center) {
+                                    Image("speech-bubble-2")
+                                    Text("이곳을 눌러 사진을 남겨보세요!")
+                                        .font(.pretendardSemiBold(size: 22))
+                                        .foregroundColor(Color.wh)
+                                        .padding(.top, 20)
+                                }
                             }
                         }
                         .frame(width: 393, height: 240)
-                        .background(Color(UIColor.systemGray6))
+                        .background(Color.gray1)
                         .cornerRadius(10)
                     }
                     .sheet(isPresented: $showingCameraView) {
@@ -67,15 +73,13 @@ struct RoutineProvingView: View {
                     }
                     
                     Text(routine.title)
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.black)
-                        .padding(.top)
+                        .font(.pretendardBold(size: 28))
+                        .padding(.top, 40)
                     
-                    Text(dailyRoutine.time)
-                        .font(.title3)
-                        .foregroundColor(.green)
-                        .padding(.top)
+                    Text(dailyRoutine.time.formattedTime)
+                        .font(.pretendardMedium(size: 20))
+                        .foregroundColor(Color.mainGreen)
+                        .padding(.top, 10)
                 }
                 .padding()
                 
@@ -100,24 +104,27 @@ struct RoutineProvingView: View {
                         }
                     }) {
                         Text("인증 완료")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
+                            .font(.pretendardSemiBold(size: 24))
+                            .foregroundColor(Color.wh)
                             .frame(maxWidth: .infinity)
-                            .background(selectedImage == nil ? Color.gray : Color.green)
+                            .frame(height: 68)
+                            .background(selectedImage == nil ? Color.gray2 : Color.mainGreen)
                             .cornerRadius(10)
                             .padding()
                     }
                     .disabled(selectedImage == nil)
                 }
             } else {
-                Text("루틴 정보를 불러올 수 없습니다.")
-                    .font(.headline)
-                    .foregroundColor(.red)
-                    .padding()
+                VStack {
+                    Text("루틴 정보를 불러올 수 없습니다.")
+                        .font(.pretendardSemiBold(size: 24))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.bl)
+                        .padding()
+                }
             }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(Color.wh.edgesIgnoringSafeArea(.all))
     }
 }
 
