@@ -65,6 +65,15 @@ struct MemoryCardData: Codable {
 
 
 
+// MARK: - 추억카드 요약 생성 관련 AI 응답
+
+
+struct SummaryResponse: Codable {
+    let status: Bool
+    let data: String
+    let message: String
+}
+
 
 // MARK: - 채팅 관련 임시 응답 및 더미데이터 모델링 -> 이제 실제 채팅 데이터를 쓸 거여서 일단은 주석처리?
 
