@@ -13,9 +13,18 @@ struct User: Identifiable {
     var profile: String?
 }
 
+//struct FamilyMember: Identifiable {
+//    let id: String
+//    var user: User
+//    let permissionId: String
+//    var alias: String?
+//}
+
 struct FamilyMember: Identifiable {
     let id: String
     var user: User
-    let permissionId: String
+    let permissionId: UserRole
     var alias: String?
+    var groupId: Int
+    var deviceToken: String?
 }

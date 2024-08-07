@@ -75,8 +75,9 @@
 		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
-		C46D39572C60E70600489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D39562C60E70600489A4A /* Secrets.xcconfig */; };
-		C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C47B35B82C5A4373006A3561 /* Secrets.xcconfig */; };
+		C46D395B2C61F7C000489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D395A2C61F7C000489A4A /* Secrets.xcconfig */; };
+		C46D395D2C61FCAC00489A4A /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395C2C61FCAC00489A4A /* UserRole.swift */; };
+		C46D395F2C62023200489A4A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395E2C62023200489A4A /* MainViewModel.swift */; };
 		C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */; };
 		C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */; };
 		C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */; };
@@ -163,8 +164,9 @@
 		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 		BEA2AA872C50CF940033AAEF /* AzureAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIService.swift; sourceTree = "<group>"; };
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
-		C46D39562C60E70600489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		C47B35B82C5A4373006A3561 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C46D395A2C61F7C000489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C46D395C2C61FCAC00489A4A /* UserRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
+		C46D395E2C62023200489A4A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoModel.swift; sourceTree = "<group>"; };
 		C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoViewModel.swift; sourceTree = "<group>"; };
 		C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FamilyInfoView.swift; path = Harmony/ViewModels/FamilyInfoView.swift; sourceTree = SOURCE_ROOT; };
@@ -406,8 +408,7 @@
 				5500034A2C5367D600B00635 /* Harmony.entitlements */,
 				55A10B232C4F94C8001728EF /* Info.plist */,
 				550003482C53657700B00635 /* Secrets.xcconfig */,
-				C47B35B82C5A4373006A3561 /* Secrets.xcconfig */,
-				C46D39562C60E70600489A4A /* Secrets.xcconfig */,
+				C46D395A2C61F7C000489A4A /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -440,6 +441,7 @@
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
 				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
 				C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */,
+				C46D395E2C62023200489A4A /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -453,6 +455,7 @@
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
 				C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */,
+				C46D395C2C61FCAC00489A4A /* UserRole.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -535,10 +538,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46D39572C60E70600489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
-				C47B35B92C5A4373006A3561 /* Secrets.xcconfig in Resources */,
+				C46D395B2C61F7C000489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
 				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
@@ -592,7 +594,9 @@
 				BE884B612C5A124900D9BCCA /* YearPickerView.swift in Sources */,
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
 				55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */,
+				C46D395D2C61FCAC00489A4A /* UserRole.swift in Sources */,
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
+				C46D395F2C62023200489A4A /* MainViewModel.swift in Sources */,
 				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
 				BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */,
