@@ -97,18 +97,3 @@ struct AudioRecordRequest: Codable {
     let isUser: Bool
     let duration: TimeInterval
 }
-
-
-//struct ChatHistory: Identifiable, Codable {
-//    let id: UUID
-//    let date: Date
-//    let messages: [ChatMessage]
-//    
-//    init(id: UUID = UUID(), date: Date = Date(), messages: [ChatMessage]) {
-//        self.id = id
-//        self.date = date
-//        self.messages = messages
-//    }
-//}
-
-
