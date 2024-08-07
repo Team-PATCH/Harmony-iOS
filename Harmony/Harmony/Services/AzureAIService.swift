@@ -11,12 +11,19 @@ import Alamofire
 class AzureSpeechService {
     static let shared = AzureSpeechService()
 
+    private let sttEndPoint = Bundle.main.infoDictionary?["RECOGNIZE_SPEECH_ENDPOINT"] as! String
+    private let sttKey = Bundle.main.infoDictionary?["RECOGNIZE_SPEECH_KEY"] as! String
+    private let openAIEndPoint = Bundle.main.infoDictionary?["OPENAI_ENDPOINT"] as! String
+    private let openAIKey = Bundle.main.infoDictionary?["OPENAI_KEY"] as! String
+    private let ttsEndPoint = Bundle.main.infoDictionary?["SYNTHESIZE_SPEECH_ENDPOINT"] as! String
+    private let ttsKey = Bundle.main.infoDictionary?["SYNTHESIZE_SPEECH_KEY"] as! String
+    
     private init() {}
 
     func recognizeSpeech(audioData: Data, completion: @escaping (String) -> Void) {
-        let url = "https://koreacentral.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=ko-KR"
+        let url = sttEndPoint
         let headers: HTTPHeaders = [
-            "Ocp-Apim-Subscription-Key": "a84015bd8b264580b81e5ddebdd6ec73",
+            "Ocp-Apim-Subscription-Key": sttKey,
             "Content-Type": "audio/wav"
         ]
         
@@ -43,9 +50,9 @@ class AzureSpeechService {
     }
 
     func chatWithGPT4(messages: [ChatMessage], completion: @escaping (String) -> Void) {
-        let url = "https://patch-harmony.openai.azure.com/openai/deployments/test2/chat/completions?api-version=2024-07-01-preview"
+        let url = openAIEndPoint
         let headers: HTTPHeaders = [
-            "api-key": "5b76d0e6a6ea4ed0948db1d9ee1e5e54",
+            "api-key": openAIKey,
             "Content-Type": "application/json"
         ]
         
@@ -77,9 +84,9 @@ class AzureSpeechService {
     }
 
     func synthesizeSpeech(text: String, completion: @escaping (URL) -> Void) {
-        let url = "https://koreacentral.tts.speech.microsoft.com/cognitiveservices/v1"
+        let url = ttsEndPoint
         let headers: HTTPHeaders = [
-            "Ocp-Apim-Subscription-Key": "488fde61f6a646d9b47d24c9a8916674",
+            "Ocp-Apim-Subscription-Key": ttsKey,
             "Content-Type": "application/ssml+xml",
             "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3"
         ]

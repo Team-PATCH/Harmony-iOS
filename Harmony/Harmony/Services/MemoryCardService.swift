@@ -11,7 +11,8 @@ import SwiftUI
 
 final class MemoryCardService {
     static let shared = MemoryCardService()
-    let baseURL = "http://localhost:3000/mc"
+//    let baseURL = "http://localhost:3000/mc"
+    private let baseURL = Bundle.main.infoDictionary?["SION_BASE_URL"] as! String
     
     func fetchMemoryCards() -> AnyPublisher<[MemoryCard], Error> {
         Future { promise in

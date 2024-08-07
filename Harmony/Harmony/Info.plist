@@ -20,5 +20,19 @@
 	<string>$(API_KEY)</string>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
+	<key>SION_BASE_URL</key>
+	<string>$(SION_BASE_URL)</string>
+	<key>RECOGNIZE_SPEECH_ENDPOINT</key>
+	<string>$(RECOGNIZE_SPEECH_ENDPOINT)</string>
+	<key>RECOGNIZE_SPEECH_KEY</key>
+	<string>$(RECOGNIZE_SPEECH_KEY)</string>
+	<key>OPENAI_ENDPOINT</key>
+	<string>$(OPENAI_ENDPOINT)</string>
+	<key>OPENAI_KEY</key>
+	<string>$(OPENAI_KEY)</string>
+	<key>SYNTHESIZE_SPEECH_ENDPOINT</key>
+	<string>$(SYNTHESIZE_SPEECH_ENDPOINT)</string>
+	<key>SYNTHESIZE_SPEECH_KEY</key>
+	<string>$(SYNTHESIZE_SPEECH_KEY)</string>
 </dict>
 </plist>
