@@ -18,10 +18,9 @@ final class OnboardingService {
         self.session = Session(interceptor: interceptor)
     }
     
-    func createGroup(name: String, alias: String, userId: String, deviceToken: String) async throws -> (Group, String, String) {
+    func createGroup(name: String, userId: String, deviceToken: String) async throws -> (Int, String, String, String) {
         let parameters: [String: Any] = [
             "name": name,
-            "alias": alias,
             "userId": userId,
             "deviceToken": deviceToken
         ]
@@ -31,7 +30,7 @@ final class OnboardingService {
             .serializingDecodable(GroupCreationResponse.self)
             .value
         
-        return (response.group, response.inviteUrl, response.vipInviteUrl)
+        return (response.groupId, response.groupName, response.inviteUrl, response.vipInviteUrl)
     }
     
     func joinGroup(userId: String, inviteCode: String, deviceToken: String) async throws -> Group {

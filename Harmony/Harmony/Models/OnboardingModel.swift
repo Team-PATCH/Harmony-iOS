@@ -25,7 +25,8 @@ struct UserGroup: Codable {
 }
 
 struct GroupCreationResponse: Codable {
-    let group: Group
+    let groupId: Int
+    let groupName: String
     let inviteUrl: String
     let vipInviteUrl: String
 }

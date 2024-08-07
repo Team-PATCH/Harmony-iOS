@@ -14,8 +14,19 @@ import SwiftUI
 final class OnboardingViewModel: ObservableObject {
     private let apiService: OnboardingService
     
-    @Published var groupName = "" {
+    @Published var groupId: Int? {
+        didSet { logStateChange("groupId", oldValue, groupId) }
+    }
+    
+    @Published var groupName: String? {
         didSet { logStateChange("groupName", oldValue, groupName) }
+    }
+    
+    @Published var vipAlias = "선택해주세요" {
+        didSet { logStateChange("vipCategory", oldValue, vipAlias) }
+    }
+    @Published var vipName = "" {
+        didSet { logStateChange("vipName", oldValue, vipName) }
     }
     @Published var alias = "" {
         didSet { logStateChange("alias", oldValue, alias) }
@@ -57,7 +68,7 @@ final class OnboardingViewModel: ObservableObject {
     }
     
     func createGroup() {
-        guard !groupName.isEmpty else {
+        guard !vipName.isEmpty && !vipAlias.isEmpty else {
             errorMessage = "그룹 이름을 입력해주세요."
             print("Error: \(errorMessage ?? "")")
             return
@@ -72,14 +83,16 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let (group, inviteUrl, vipInviteUrl) = try await apiService.createGroup(name: groupName, alias: alias, userId: userId, deviceToken: deviceToken)
-                
+                let (groupId, groupName, inviteUrl, vipInviteUrl) = try await apiService.createGroup(name: "\(vipAlias) \(vipName)", userId: userId, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
-                    self.currentGroup = group
+                    self.groupId = groupId
+                    self.groupName = groupName
+                    self.inviteCode = vipInviteUrl
+                    // TODO: - member invitecode도
                     self.isLoading = false
                     self.navigateTo(.inviteVIP)
-                    print("Group created successfully - groupId: \(group.groupId), inviteUrl: \(inviteUrl), vipInviteUrl: \(vipInviteUrl)")
+                    print("Group created successfully - groupId: \(self.groupId), groupName: \(self.groupName), vipInviteUrl: \(self.inviteCode)")
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -126,7 +139,7 @@ final class OnboardingViewModel: ObservableObject {
     }
     
     func updateOnboardingInfo() {
-        guard let groupId = currentGroup?.groupId else {
+        guard let groupId = self.groupId else {
             errorMessage = "현재 그룹 정보가 없습니다."
             print("Error: \(errorMessage ?? "")")
             return

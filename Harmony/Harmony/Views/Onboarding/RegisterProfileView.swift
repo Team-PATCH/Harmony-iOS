@@ -71,7 +71,7 @@ struct RegisterProfileView: View {
                 viewModel.isOnboardingEnd = true
                 viewModel.navigateToRoot()
             } label: {
-                Text("다음")
+                Text("완료")
                     .font(.pretendardSemiBold(size: 24))
                     .foregroundColor(.wh)
                     .frame(maxWidth: .infinity)

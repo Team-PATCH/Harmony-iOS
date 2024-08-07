@@ -2,7 +2,6 @@ import SwiftUI
 
 struct InputVIPInfoView: View {
     @ObservedObject var viewModel: OnboardingViewModel
-    @State private var selectedRole: String = "선택해주세요"
     @State private var isDropdownOpen = false
     
     let roles = ["할머니", "할아버지"]
@@ -26,11 +25,11 @@ struct InputVIPInfoView: View {
             
             HStack(alignment: .top , spacing: 12) {
                 
-                CustomDropdownView(selected: $selectedRole, isOpen: $isDropdownOpen, list: roles)
+                CustomDropdownView(selected: $viewModel.vipAlias, isOpen: $isDropdownOpen, list: roles)
                 
                 CustomTextFieldView(placeholder: "성함", value: Binding(
-                    get: { self.viewModel.groupName },
-                    set: { self.viewModel.groupName = $0 }
+                    get: { self.viewModel.vipName },
+                    set: { self.viewModel.vipName = $0 }
                 ))
             }
             
@@ -44,10 +43,10 @@ struct InputVIPInfoView: View {
                     .foregroundColor(.wh)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(selectedRole != "선택해주세요" && !viewModel.groupName.isEmpty ? Color.mainGreen : Color.gray3)
+                    .background(viewModel.vipAlias != "선택해주세요" && !viewModel.vipName.isEmpty ? Color.mainGreen : Color.gray3)
                     .cornerRadius(10)
             }
-            .disabled(selectedRole == "선택해주세요" || viewModel.groupName.isEmpty)
+            .disabled(viewModel.vipAlias == "선택해주세요" || viewModel.vipName.isEmpty)
         }
         .padding()
         .background(Color.wh)
