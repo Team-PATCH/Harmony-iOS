@@ -10,8 +10,8 @@ import Alamofire
 
 final class RoutineService {
     static let shared = RoutineService()
-        private let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as! String
-//        private let baseURL = "http://localhost:3000"
+    private let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as! String
+    //        private let baseURL = "http://localhost:3000"
     
     private init() {}
     
@@ -67,9 +67,33 @@ final class RoutineService {
         }
     }
     
-    func addReaction(dailyId: Int, parameters: [String: Any]) async throws -> RoutineReaction {
-        let response: Response<RoutineReaction> = try await postData(endpoint: "/dailyroutine/reaction/\(dailyId)", parameters: parameters)
-        return response.data
+    func addReaction(dailyId: Int, routineId: Int, groupId: Int, authorId: String, content: String, imageData: Data?) async throws -> RoutineReaction {
+        let url = baseURL + "/dailyroutine/reaction/\(dailyId)"
+        let headers: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(Data(content.utf8), withName: "comment")
+                multipartFormData.append(Data(routineId.description.utf8), withName: "routineId")
+                multipartFormData.append(Data(groupId.description.utf8), withName: "groupId")
+                multipartFormData.append(Data(authorId.utf8), withName: "authorId")
+                if let imageData = imageData {
+                    multipartFormData.append(imageData, withName: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")
+                }
+            }, to: url, headers: headers)
+            .responseDecodable(of: Response<RoutineReaction>.self) { response in
+                switch response.result {
+                case .success(let responseData):
+                    if responseData.status {
+                        continuation.resume(returning: responseData.data)
+                    } else {
+                        continuation.resume(throwing: URLError(.badServerResponse))
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
     
     private func fetchData<T: Decodable>(endpoint: String, method: HTTPMethod = .get, parameters: [String: Any]? = nil) async throws -> T {

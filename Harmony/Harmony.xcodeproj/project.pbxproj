@@ -83,8 +83,10 @@
 		BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA832C4F91920033AAEF /* WaveFormView.swift */; };
 		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
-		C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */; };
-		C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */; };
+		C46D395B2C61F7C000489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D395A2C61F7C000489A4A /* Secrets.xcconfig */; };
+		C46D395F2C62023200489A4A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395E2C62023200489A4A /* HomeViewModel.swift */; };
+		C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* GroupModel.swift */; };
+		C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */; };
 		C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */; };
 		C47B35C32C5A44C0006A3561 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C22C5A44C0006A3561 /* ProfileEditView.swift */; };
 		C47B35C52C5A44D8006A3561 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C42C5A44D8006A3561 /* SettingsView.swift */; };
@@ -177,8 +179,10 @@
 		BEA2AA832C4F91920033AAEF /* WaveFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormView.swift; sourceTree = "<group>"; };
 		BEA2AA872C50CF940033AAEF /* AzureAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIService.swift; sourceTree = "<group>"; };
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
-		C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoModel.swift; sourceTree = "<group>"; };
-		C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInfoViewModel.swift; sourceTree = "<group>"; };
+		C46D395A2C61F7C000489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C46D395E2C62023200489A4A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C47B35BC2C5A43CD006A3561 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
+		C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FamilyInfoView.swift; path = Harmony/ViewModels/FamilyInfoView.swift; sourceTree = SOURCE_ROOT; };
 		C47B35C22C5A44C0006A3561 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileEditView.swift; path = Harmony/ViewModels/ProfileEditView.swift; sourceTree = SOURCE_ROOT; };
 		C47B35C42C5A44D8006A3561 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Harmony/ViewModels/SettingsView.swift; sourceTree = SOURCE_ROOT; };
@@ -455,8 +459,9 @@
 				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
 				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
-				C47B35BE2C5A4412006A3561 /* FamilyInfoViewModel.swift */,
 				BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */,
+				C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */,
+				C46D395E2C62023200489A4A /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -469,8 +474,8 @@
 				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
-				C47B35BC2C5A43CD006A3561 /* FamilyInfoModel.swift */,
 				BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */,
+				C47B35BC2C5A43CD006A3561 /* GroupModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 			files = (
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
+				C46D395B2C61F7C000489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
 				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
@@ -579,7 +585,7 @@
 				C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */,
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
-				C47B35BF2C5A4412006A3561 /* FamilyInfoViewModel.swift in Sources */,
+				C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
@@ -603,7 +609,7 @@
 				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
 				C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */,
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
-				C47B35BD2C5A43CD006A3561 /* FamilyInfoModel.swift in Sources */,
+				C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,
 				C47B35C52C5A44D8006A3561 /* SettingsView.swift in Sources */,
 				5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */,
@@ -613,6 +619,7 @@
 				55A10B1D2C4E5997001728EF /* SimpleOnboardingView.swift in Sources */,
 				55A10B1B2C4E5960001728EF /* UserDefaultsManager.swift in Sources */,
 				BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */,
+				C46D395F2C62023200489A4A /* HomeViewModel.swift in Sources */,
 				BE3E50052C4657A1003EC4E1 /* MemoryCardViewModel.swift in Sources */,
 				BE3E50032C461C16003EC4E1 /* MemoryCardDetailView.swift in Sources */,
 				BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */,

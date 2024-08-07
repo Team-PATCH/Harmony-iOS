@@ -11,9 +11,11 @@ struct RoutineReactionInputView: View {
     @State var dailyRoutine: DailyRoutine
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: RoutineViewModel
-
+    
     @State private var newReaction: String = ""
-
+    @State private var selectedImage: UIImage?
+    @State private var showingCameraView = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -27,18 +29,53 @@ struct RoutineReactionInputView: View {
                 Spacer()
             }
             .padding()
-
-            TextField("댓글을 입력해주세요.", text: $newReaction)
-                .padding()
-                .background(Color.gray.opacity(0.2))
+            
+            
+            
+            Button(action: {
+                showingCameraView.toggle()
+            }) {
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 352, height: 195)
+                        .background(Color.gray1)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray2, style: StrokeStyle(lineWidth: 2, dash: [2, 4]))
+                        )
+                    
+                    if let selectedImage = selectedImage {
+                        Image(uiImage: selectedImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 352, height: 195)
+                    } else {
+                        Image("camera-icon")
+                            .font(.largeTitle)
+                    }
+                }
+            }
+            .sheet(isPresented: $showingCameraView) {
+                CameraView(selectedImage: $selectedImage)
+            }
+            
+            CustomTextEditor(text: $newReaction, backgroundColor: UIColor(Color.gray1), placeholder: "댓글을 입력해 주세요.")
                 .cornerRadius(10)
-                .padding(.horizontal)
+                .padding()
             
             Button(action: {
                 if !newReaction.isEmpty {
                     Task {
-                        await viewModel.addReactionToRoutine(to: dailyRoutine, content: newReaction)
+                        await viewModel.addReactionToRoutine(
+                            to: dailyRoutine,
+                            content: newReaction,
+                            image: selectedImage,
+                            authorId: "test@user.com" // Author ID를 하드코딩 예시로 추가
+                        )
                         newReaction = ""
+                        selectedImage = nil
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -49,41 +86,69 @@ struct RoutineReactionInputView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.green)
-                    .cornerRadius(10)
-                    .padding()
+                    .cornerRadius(5)
+                    .padding(.horizontal)
             }
-
+            
             Spacer()
         }
-        .frame(height: 376)
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .frame(height: 585)
+        .background(Color.wh.edgesIgnoringSafeArea(.all))
+        .cornerRadius(10, corners: .topLeft)
+        .cornerRadius(10, corners: .topRight)
     }
 }
 
 struct RoutineReactionRow: View {
     let author: String
     let comment: String
-    let imageName: String
+    let reactionPhoto: URL?
     
     var body: some View {
-        HStack(alignment: .top) {
-            Image(imageName)
-                .resizable()
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
-                .padding(.trailing, 8)
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
+            HStack {
+                Image("imageName")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+                    .padding(.trailing, 8)
+                
                 Text(author)
-                    .font(.headline)
-                    .foregroundColor(.black)
-                Text(comment)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .font(.pretendardMedium(size: 18))
+                    .foregroundColor(.gray5)
+                
+                Spacer()
             }
-            Spacer()
+            
+            HStack(alignment: .top) {
+                AsyncImage(url: reactionPhoto) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .frame(width: 88, height: 88)
+                            .scaledToFit()
+                            .cornerRadius(5)
+                        
+                    } else if phase.error != nil {
+                        Text("Failed to load image")
+                    }
+                }
+                .padding(0)
+                
+                Text(comment)
+                    .font(.pretendardMedium(size: 20))
+            }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 18)
+        .frame(width: 353)
+        .background(Color.wh)
+        .overlay(
+            Rectangle()
+                .inset(by: 0.5)
+                .stroke(Color.gray2, lineWidth: 1)
+        )
     }
 }
 

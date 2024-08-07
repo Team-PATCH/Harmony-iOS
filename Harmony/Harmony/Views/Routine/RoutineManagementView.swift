@@ -12,103 +12,120 @@ struct RoutineManagementView: View {
     @State private var showingAddRoutineView = false
     @State private var showingEditRoutineView = false
     @State private var selectedRoutine: Routine?
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        NavigationView {
-            VStack {
-                if viewModel.routines.isEmpty {
+        VStack {
+            if viewModel.routines.isEmpty {
+                VStack {
                     Text("아직 일과가 없습니다.")
                         .font(.headline)
                         .foregroundColor(.gray)
                         .padding()
-                } else {
-                    List {
-                        ForEach(viewModel.routines) { routine in
-                            HStack {
-                                Image(systemName: "rectangle")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .background(Color.gray)
-                                    .cornerRadius(8)
-                                    .padding(.trailing, 8)
-                                VStack(alignment: .leading) {
-                                    Text(routine.title)
-                                        .font(.headline)
-                                    Text("\(viewModel.daysAsString(for: routine)) / \(routine.time)")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                }
-                                Spacer()
-                                Menu {
-                                    Button(action: {
-                                        selectedRoutine = routine
-                                        showingEditRoutineView = true
-                                    }) {
-                                        Text("일과 수정")
-                                    }
-                                    Button(action: {
-                                        Task {
-                                            await deleteRoutine(routine)
-                                        }
-                                    }) {
-                                        Text("일과 삭제")
-                                            .foregroundColor(.red)
-                                    }
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                        .rotationEffect(.degrees(90))
-                                        .foregroundColor(.black)
-                                        .padding()
-                                }
-                                .buttonStyle(PlainButtonStyle()) // Button 스타일을 명확히 지정합니다.
-                            }
-                            .contentShape(Rectangle()) // 전체 HStack을 터치할 수 있게 지정합니다.
-                        }
+                }
+                .background(Color.gray1)
+            } else {
+                List {
+                    ForEach(viewModel.routines) { routine in
+                        RoutineRow(routine: routine, selectedRoutine: $selectedRoutine, showingEditRoutineView: $showingEditRoutineView, viewModel: viewModel)
+                            .contentShape(Rectangle())
                     }
-                    .listStyle(PlainListStyle())
+                    .listRowBackground(Color.gray1)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
                 }
-
-                Spacer()
-
-                Button(action: {
-                    showingAddRoutineView.toggle()
-                }) {
-                    Text("+ 추가하기")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .cornerRadius(10)
-                        .padding()
-                }
-                .sheet(isPresented: $showingAddRoutineView, onDismiss: {
-                    Task {
-                        await viewModel.fetchRoutines()
-                        await viewModel.fetchDailyRoutines()
-                    }
-                }) {
-                    RoutineAddView(viewModel: viewModel)
-                }
+                .listStyle(PlainListStyle())
             }
-            .navigationBarTitle("일과 관리", displayMode: .inline)
-            .sheet(item: $selectedRoutine) { routine in
-                RoutineEditView(viewModel: viewModel, routine: routine)
-            }
-            .onAppear {
-                Task {
-                    await viewModel.fetchRoutines()
-                }
+        }
+        .background(Color.gray1)
+        .navigationBarTitle("일과 관리", displayMode: .inline)
+        .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image("back-icon")
+                })
+        .sheet(item: $selectedRoutine) { routine in
+            RoutineEditView(viewModel: viewModel, routine: routine)
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchRoutines()
             }
         }
     }
-
+    
     func deleteRoutine(_ routine: Routine) async {
         do {
             try await viewModel.deleteRoutine(routine)
         } catch {
             print("Error deleting routine: \(error)")
         }
+    }
+}
+
+struct RoutineRow: View {
+    let routine: Routine
+    @Binding var selectedRoutine: Routine?
+    @Binding var showingEditRoutineView: Bool
+    let viewModel: RoutineViewModel
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("\(viewModel.daysAsString(for: routine)) / \(routine.time.formattedTime)")
+                    .font(.pretendardMedium(size: 16))
+                    .foregroundColor(Color.gray4)
+                Text(routine.title)
+                    .font(.pretendardSemiBold(size: 24))
+                    .foregroundColor(.black)
+                    .lineSpacing(20 * 0.2)
+                    .frame(width: 157, height: 68, alignment: .topLeading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.leading)
+            }
+            Spacer()
+            Menu {
+                Button(action: {
+                    selectedRoutine = routine
+                    showingEditRoutineView = true
+                }) {
+                    Text("일과 수정")
+                }
+                Button(action: {
+                    Task {
+                        do {
+                            try await viewModel.deleteRoutine(routine)
+                        } catch {
+                            print("Error deleting routine: \(error)")
+                        }
+                    }
+                }) {
+                    Text("일과 삭제")
+                        .foregroundColor(.red)
+                }
+            } label: {
+                VStack {
+                    Image(systemName: "ellipsis")
+                        .rotationEffect(.degrees(90))
+                        .padding(.top)
+                    Spacer()
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        .padding(.vertical, 15)
+        .padding(.leading, 25)
+        .padding(.trailing, 15)
+        .background(Color.white)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray2, lineWidth: 1)
+        )
     }
 }
 
