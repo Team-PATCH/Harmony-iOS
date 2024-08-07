@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MemoryCardCreateView: View {
+    @StateObject private var viewModel = MemoryCardViewModel()
     @Binding var isPresented: Bool
     @State private var isShowingImagePicker = false
     @State private var selectedImage: UIImage?
@@ -21,6 +22,12 @@ struct MemoryCardCreateView: View {
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter
+    }
+    
+    private var serverDateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }
 
@@ -134,7 +141,21 @@ struct MemoryCardCreateView: View {
                         
                         Button(action: {
                             // 여기에 저장 로직 구현
-                            closeView()
+                            if let selectedImage = selectedImage {
+                                viewModel.createMemoryCard(
+                                    groupId: 1,
+                                    title: description,
+                                    date: selectedDate,
+                                    image: selectedImage
+                                ) { result in
+                                    switch result {
+                                        case .success(_):
+                                            closeView()
+                                        case .failure(let error):
+                                            print("Error: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
                         }) {
                             Text("추억 카드 보내기")
                                 .frame(maxWidth: .infinity)

@@ -9,18 +9,29 @@ import SwiftUI
 import Kingfisher
 
 struct MemoryCardRecordView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = MemoryCardViewModel() // ViewModel 객체
-    @State private var isRecording = false
-    @State private var chatBotMessage = "안녕하세요! 추억을 기록하러 오셨군요.\n 아래 버튼을 누르면 기록을 시작합니다."
-    
     var memoryCardId: Int
+    var groupId: Int
+    var previousChatHistory: [ChatMessage]
+    @StateObject private var viewModel: MemoryCardViewModel
+    @StateObject private var aiViewModel: AzureAIViewModel
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isConversationStarted = false
+
+    
+    init(memoryCardId: Int, groupId: Int, previousChatHistory: [ChatMessage]) {
+        self.memoryCardId = memoryCardId
+        self.groupId = groupId
+        self.previousChatHistory = previousChatHistory
+        _viewModel = StateObject(wrappedValue: MemoryCardViewModel())
+        _aiViewModel = StateObject(wrappedValue: AzureAIViewModel(chatMessages: previousChatHistory, memoryCardId: memoryCardId, groupId: groupId))
+    }
+    
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                Text("다은이 태어난 날")
+                Text(viewModel.memoryCard?.title ?? "모니와 대화하기")
                     .font(.title2)
                     .bold()
                 Spacer()
@@ -32,7 +43,7 @@ struct MemoryCardRecordView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top)
+//            .padding(.top)
             
             VStack(spacing: 0) {
                 Divider()
@@ -40,17 +51,17 @@ struct MemoryCardRecordView: View {
             }
             
             ZStack {
-                Color.gray1 // 이미지 영역 배경색
+                Color.gray1
                 
                 VStack {
                     if let card = viewModel.memoryCard, !card.image.isEmpty {
                         KFImage(URL(string: card.image))
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .clipped()
                             .cornerRadius(10)
-                            .padding(.horizontal)
+//                            .padding(.horizontal)
                     } else {
                         Image(systemName: "camera.fill")
                             .resizable()
@@ -60,76 +71,102 @@ struct MemoryCardRecordView: View {
                     }
                 }
             }
-            .frame(height: 250) // 이미지 영역 높이 지정
+            .frame(height: 200)
             
-            VStack {
+            ScrollView {
                 Spacer()
                 
                 VStack(alignment: .center, spacing: 10) {
-                    Text(chatBotMessage)
-                        .font(.title3)
+                    Text(aiViewModel.currentMessage)
+                        .font(.headline)
                         .bold()
+                        .lineLimit(3)
                         .multilineTextAlignment(.center)
                         .padding()
                         .background(Color.gray.opacity(0.1))
-                        .cornerRadius(15)
+//                        .cornerRadius(15)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color.gray3, lineWidth: 0.5)
                         )
-                    HStack {
-                        Spacer()
+                    ZStack {
+                        if aiViewModel.isRecording {
+                            WaveFormView(amplitude: $aiViewModel.amplitude)
+                                .frame(height: 50)
+                        }
+                        
                         Image("moni-talk")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 200, height: 200)
+                            .frame(width: 180, height: 180)
                             .clipShape(Circle())
-                        Spacer()
                     }
                 }
-                .padding(.bottom, 20)
+                .padding(.top, 5)
                 
-                if isRecording {
-                    WaveFormView()
-                        .frame(height: 50)
-                        .padding(.bottom, 20)
+                if aiViewModel.isRecording {
+                    Text("목소리를 듣는 중이에요")
+                        .foregroundColor(.gray)
+                } else if aiViewModel.isSpeaking {
+                    Text("모니가 답변을 생각하고 있어요")
+                        .foregroundColor(.gray)
                 }
                 
-                Spacer()
+                Spacer(minLength: 20)
                 
                 Button(action: {
-                    isRecording.toggle()
-                    if isRecording {
-                        viewModel.startRecording()
+                    if !isConversationStarted {
+                        isConversationStarted = true
+                        aiViewModel.startRecording()
                     } else {
-                        viewModel.stopRecording()
+                        aiViewModel.endConversation()
+                        viewModel.updateSummaryAfterChat(for: memoryCardId)
+                        isConversationStarted = false
                     }
                 }) {
                     HStack {
-                        Image(systemName: isRecording ? "stop.fill" : "mic.fill")
-                        Text(isRecording ? "대화 종료" : "대화 시작")
+                        Image(systemName: aiViewModel.isRecording ? "stop.fill" : "mic.fill")
+                        Text(isConversationStarted ? "대화 종료" : "대화 시작")
                             .bold()
                     }
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(isRecording ? Color.red : Color.mainGreen)
+                    .background(isConversationStarted ? Color.red : Color.mainGreen)
                     .cornerRadius(10)
                 }
                 .padding(.horizontal)
-                
+                .padding(.bottom, 20) // 탭바 높이만큼 여백 추가
             }
-            .background(Color.white) // 나머지 부분 배경색
+            .background(Color.white)
         }
-//        .background(Color.gray1.edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.loadMemoryCardDetail(id: memoryCardId)
+            if aiViewModel.chatHistory.isEmpty {
+                aiViewModel.loadInitialPrompt(for: memoryCardId)
+            }
+            aiViewModel.loadInitialChatHistory()
+            aiViewModel.viewAppeared()
+        }
+        .onChange(of: viewModel.initialPrompt) { newPrompt in
+            if !newPrompt.isEmpty {
+                aiViewModel.setInitialPrompt(newPrompt)
+            }
+        }
+        .onDisappear {
+            aiViewModel.stopConversationWithoutSaving()
         }
     }
 }
 
 #Preview {
-    MemoryCardRecordView(memoryCardId: 1)
+    MemoryCardRecordView(
+        memoryCardId: 1,
+        groupId: 1,
+        previousChatHistory: [
+            ChatMessage(role: "system", content: "You are a helpful assistant."),
+            ChatMessage(role: "user", content: "Hello!"),
+            ChatMessage(role: "assistant", content: "Hello! How can I help you today?")
+        ]
+    )
 }
-
-

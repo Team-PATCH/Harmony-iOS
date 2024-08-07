@@ -23,7 +23,6 @@
 		3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C12C57A92E00B16DB8 /* RoutineService.swift */; };
 		3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */; };
 		3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */; };
-		550003492C53657700B00635 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 550003482C53657700B00635 /* Secrets.xcconfig */; };
 		5500034C2C536FF500B00635 /* AppDelegate+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */; };
 		5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5500034D2C5377E700B00635 /* NotificationManager.swift */; };
 		555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555F92212C51F33800BFC121 /* InviteVIPView.swift */; };
@@ -38,6 +37,7 @@
 		55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */; };
 		55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
+		BE2A35112C631FCA00E13244 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BE2A35102C631FCA00E13244 /* Secrets.xcconfig */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
 		BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */; };
@@ -53,6 +53,14 @@
 		BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */; };
 		BE884B652C5A3E3E00D9BCCA /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */; };
 		BE884B672C5A406500D9BCCA /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */; };
+		BE884B6B2C5E5E5D00D9BCCA /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */; };
+		BE884B6D2C5E5EBA00D9BCCA /* AzureAIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */; };
+		BE884B6F2C5E5EF100D9BCCA /* ChatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */; };
+		BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */; };
+		BE884B732C5EF07A00D9BCCA /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */; };
+		BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */; };
+		BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */; };
+		BE884B792C5F91C400D9BCCA /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B782C5F91C400D9BCCA /* Array+Extensions.swift */; };
 		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
@@ -110,7 +118,6 @@
 		3EE527C12C57A92E00B16DB8 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
 		3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditView.swift; sourceTree = "<group>"; };
 		3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
-		550003482C53657700B00635 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5500034A2C5367D600B00635 /* Harmony.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Harmony.entitlements; sourceTree = "<group>"; };
 		5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Extentions.swift"; sourceTree = "<group>"; };
 		5500034D2C5377E700B00635 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -127,6 +134,7 @@
 		55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownView.swift; sourceTree = "<group>"; };
 		55A10B2F2C5119AB001728EF /* ProfileRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRegisterView.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		BE2A35102C631FCA00E13244 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardModel.swift; sourceTree = "<group>"; };
 		BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardService.swift; sourceTree = "<group>"; };
 		BE3E4FFD2C461062003EC4E1 /* MemoryCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardsView.swift; sourceTree = "<group>"; };
@@ -140,6 +148,14 @@
 		BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
+		BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAIViewModel.swift; sourceTree = "<group>"; };
+		BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryManager.swift; sourceTree = "<group>"; };
+		BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
+		BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardChatHistoryView.swift; sourceTree = "<group>"; };
+		BE884B782C5F91C400D9BCCA /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -228,6 +244,8 @@
 				BE96B7E62C473337003C41F9 /* FormatManager.swift */,
 				55A10B192C4E5960001728EF /* UserDefaultsManager.swift */,
 				5500034D2C5377E700B00635 /* NotificationManager.swift */,
+				BE884B6E2C5E5EF100D9BCCA /* ChatHistoryManager.swift */,
+				BE884B722C5EF07A00D9BCCA /* AudioPlayerManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -285,11 +303,13 @@
 		BE06A0DB2C44F1A9008D3C03 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BE884B782C5F91C400D9BCCA /* Array+Extensions.swift */,
 				BE96B8002C4798A3003C41F9 /* Font+Extensions.swift */,
 				BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */,
 				BE3E50092C468276003EC4E1 /* View+Extensions.swift */,
 				BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */,
 				5500034B2C536FF500B00635 /* AppDelegate+Extentions.swift */,
+				BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,6 +376,8 @@
 				BE884B622C5A3BA000D9BCCA /* DatePickerView.swift */,
 				BE884B642C5A3E3E00D9BCCA /* CustomDatePickerView.swift */,
 				BE884B662C5A406400D9BCCA /* YearMonthPickerView.swift */,
+				BE884B702C5EF04C00D9BCCA /* AudioPlayerView.swift */,
+				BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -405,8 +427,7 @@
 			children = (
 				5500034A2C5367D600B00635 /* Harmony.entitlements */,
 				55A10B232C4F94C8001728EF /* Info.plist */,
-				550003482C53657700B00635 /* Secrets.xcconfig */,
-				C46D395A2C61F7C000489A4A /* Secrets.xcconfig */,
+				BE2A35102C631FCA00E13244 /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -438,6 +459,7 @@
 				BE3E50042C4657A1003EC4E1 /* MemoryCardViewModel.swift */,
 				C49DBE162C4FADFE00B1A87D /* QuestionCardViewModel.swift */,
 				3EA6EBAB2C4F773F00627C63 /* RoutineViewModel.swift */,
+				BE884B6C2C5E5EBA00D9BCCA /* AzureAIViewModel.swift */,
 				C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */,
 				C46D395E2C62023200489A4A /* HomeViewModel.swift */,
 			);
@@ -452,6 +474,7 @@
 				3EA6EBA92C4F724200627C63 /* RoutineModel.swift */,
 				BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */,
 				3EE527C72C58DC0D00B16DB8 /* APIResponse.swift */,
+				BE884B6A2C5E5E5D00D9BCCA /* ChatModel.swift */,
 				C47B35BC2C5A43CD006A3561 /* GroupModel.swift */,
 			);
 			path = Models;
@@ -544,7 +567,7 @@
 				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
 				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
 				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,
-				550003492C53657700B00635 /* Secrets.xcconfig in Resources */,
+				BE2A35112C631FCA00E13244 /* Secrets.xcconfig in Resources */,
 				BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */,
 				BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */,
 				BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */,
@@ -558,6 +581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE884B6D2C5E5EBA00D9BCCA /* AzureAIViewModel.swift in Sources */,
 				C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */,
 				3EA6EBB22C5094CC00627C63 /* RoutineDetailView.swift in Sources */,
 				5500034E2C5377E700B00635 /* NotificationManager.swift in Sources */,
@@ -565,15 +589,18 @@
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
 				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
+				BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */,
 				BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
+				BE884B6B2C5E5E5D00D9BCCA /* ChatModel.swift in Sources */,
 				C49DBE1E2C4FAE8300B1A87D /* AnswerView.swift in Sources */,
 				BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */,
 				BEA2AA842C4F91920033AAEF /* WaveFormView.swift in Sources */,
 				555F92222C51F33800BFC121 /* InviteVIPView.swift in Sources */,
 				BE3E4FFC2C460F9D003EC4E1 /* MemoryCardService.swift in Sources */,
+				BE884B732C5EF07A00D9BCCA /* AudioPlayerManager.swift in Sources */,
 				3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */,
 				3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
@@ -607,8 +634,11 @@
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
 				55A10B302C5119AB001728EF /* ProfileRegisterView.swift in Sources */,
 				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
+				BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */,
 				3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */,
 				3EA6EBAE2C4F874300627C63 /* RoutineAddView.swift in Sources */,
+				BE884B792C5F91C400D9BCCA /* Array+Extensions.swift in Sources */,
+				BE884B6F2C5E5EF100D9BCCA /* ChatHistoryManager.swift in Sources */,
 				3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */,
 				BE96B8032C479DC7003C41F9 /* MemoryChatView.swift in Sources */,
 				55A10B222C4F8A8C001728EF /* AllowNotificationView.swift in Sources */,
@@ -627,6 +657,7 @@
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
 				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
 				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
+				BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,7 +666,7 @@
 /* Begin XCBuildConfiguration section */
 		BE99A1912C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 550003482C53657700B00635 /* Secrets.xcconfig */;
+			baseConfigurationReference = BE2A35102C631FCA00E13244 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
