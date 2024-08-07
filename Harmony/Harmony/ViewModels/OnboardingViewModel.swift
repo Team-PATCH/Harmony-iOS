@@ -9,8 +9,6 @@ import Combine
 import Alamofire
 import SwiftUI
 
-// MARK: - ViewModel
-
 final class OnboardingViewModel: ObservableObject {
     private let apiService: OnboardingService
     
@@ -89,7 +87,7 @@ final class OnboardingViewModel: ObservableObject {
                     self.groupId = groupId
                     self.groupName = groupName
                     self.inviteCode = vipInviteUrl
-                    // TODO: - member invitecode도
+                    // TODO: - member invitecode도 처리해줘야함
                     self.isLoading = false
                     self.navigateTo(.inviteVIP)
                     print("Group created successfully - groupId: \(self.groupId), groupName: \(self.groupName), vipInviteUrl: \(self.inviteCode)")

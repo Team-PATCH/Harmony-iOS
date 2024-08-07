@@ -14,7 +14,7 @@ struct InviteVIPView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("윤여정 할머니를")
+                Text("\(viewModel.vipName) \(viewModel.vipAlias)를")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.green)
                 Text("초대해주세요.")
@@ -22,16 +22,17 @@ struct InviteVIPView: View {
                     .foregroundColor(.black)
             }
             
-            Text("할머니를 초대해야\n하모니를 시작할 수 있어요.")
+            Text("\(viewModel.vipAlias)를 초대해야\n하모니를 시작할 수 있어요.")
                 .font(.system(size: 18, weight: .medium))
                 .lineSpacing(4)
                 .foregroundColor(.gray5)
                 .padding(.top, 8)
                 .padding(.bottom, 20)
             
-            CustomShareButton(hasShared: $hasShared,
+            CustomShareButton(message: "\(viewModel.vipAlias) \(viewModel.vipName)님을 '하모니' 앱에 초대했어요. 앱을 다운로드 받고, 아래 코드를 입력하세요.\n 입장 코드: [\(viewModel.inviteCode)] 입니다.",
+                              hasShared: $hasShared,
                               shareURL: URL(string: "https://apps.apple.com/kr/app/")!,
-                              inviteCode: viewModel.currentGroup?.vipInviteUrl ?? ""
+                              inviteCode: viewModel.inviteCode
             ) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
@@ -70,12 +71,14 @@ struct InviteVIPView: View {
 }
 
 struct CustomShareButton<Content: View>: View {
+    let message: String
     @Binding var hasShared: Bool
     let shareURL: URL
     let inviteCode: String
     let content: Content
     
-    init(hasShared: Binding<Bool>, shareURL: URL, inviteCode: String, @ViewBuilder content: () -> Content) {
+    init(message: String, hasShared: Binding<Bool>, shareURL: URL, inviteCode: String, @ViewBuilder content: () -> Content) {
+        self.message = message
         self._hasShared = hasShared
         self.shareURL = shareURL
         self.inviteCode = inviteCode
@@ -90,7 +93,6 @@ struct CustomShareButton<Content: View>: View {
     }
     
     func shareContent() {
-        let message = "손녀 조다은님이 할머니 윤여정님을 '하모니' 앱에 초대했어요. 앱을 다운로드 받고, 아래 코드를 입력하세요.\n 입장 코드: [\(inviteCode)] 입니다."
         let activityVC = UIActivityViewController(activityItems: [shareURL, message], applicationActivities: nil)
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

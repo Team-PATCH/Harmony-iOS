@@ -13,7 +13,7 @@ struct InputUserInfoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("할머니와")
+                Text("\(viewModel.vipName) \(viewModel.vipAlias)와")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.green)
                 Text("어떤 관계인가요?")
