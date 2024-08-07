@@ -180,7 +180,29 @@ final class MemoryCardService {
         .eraseToAnyPublisher()
     }
     
-    func getSummary(mcId: Int, forceUpdate: Bool = false) -> AnyPublisher<String, Error> {
+//    func getSummary(mcId: Int, forceUpdate: Bool = false) -> AnyPublisher<String, Error> {
+//        var urlComponents = URLComponents(string: "\(baseURL)/\(mcId)/summary")!
+//        if forceUpdate {
+//            urlComponents.queryItems = [URLQueryItem(name: "forceUpdate", value: "true")]
+//        }
+//        
+//        return Future { promise in
+//            AF.request(urlComponents.url!).responseDecodable(of: SummaryResponse.self) { response in
+//                switch response.result {
+//                case .success(let summaryResponse):
+//                    if summaryResponse.status {
+//                        promise(.success(summaryResponse.data))
+//                    } else {
+//                        promise(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: summaryResponse.message])))
+//                    }
+//                case .failure(let error):
+//                    promise(.failure(error))
+//                }
+//            }
+//        }
+//        .eraseToAnyPublisher()
+//    }
+    func getSummary(mcId: Int, forceUpdate: Bool = false) -> AnyPublisher<SummaryData, Error> {
         var urlComponents = URLComponents(string: "\(baseURL)/\(mcId)/summary")!
         if forceUpdate {
             urlComponents.queryItems = [URLQueryItem(name: "forceUpdate", value: "true")]

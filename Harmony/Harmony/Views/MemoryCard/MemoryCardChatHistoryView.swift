@@ -11,15 +11,23 @@ import Combine
 struct ChatHistoryView: View {
     let memoryCardId: Int
     let groupId: Int
+    
     @StateObject private var viewModel: ChatHistoryViewModel
     @State private var selectedMessageId: UUID?
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var showAudioPlayer = false
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var shouldRefreshSummary: Bool
+    @ObservedObject var memoryCardViewModel: MemoryCardViewModel
+    @State private var initialMessageCount: Int = 0
     
-    init(memoryCardId: Int, groupId: Int) {
+    
+    init(memoryCardId: Int, groupId: Int, shouldRefreshSummary: Binding<Bool>, memoryCardViewModel: MemoryCardViewModel) {
         self.memoryCardId = memoryCardId
         self.groupId = groupId
         _viewModel = StateObject(wrappedValue: ChatHistoryViewModel(memoryCardId: memoryCardId))
+        self._shouldRefreshSummary = shouldRefreshSummary
+        self.memoryCardViewModel = memoryCardViewModel
     }
     
     var body: some View {
@@ -83,6 +91,13 @@ struct ChatHistoryView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.loadChatHistory()
+            initialMessageCount = viewModel.chatMessages.count
+        }
+        .onDisappear {
+            if viewModel.chatMessages.count > initialMessageCount {
+                shouldRefreshSummary = true
+                memoryCardViewModel.lastMessageId = viewModel.chatMessages.last?.id.hashValue
+            }
         }
     }
 

@@ -15,6 +15,7 @@ struct MemoryCardRecordView: View {
     @StateObject private var viewModel: MemoryCardViewModel
     @StateObject private var aiViewModel: AzureAIViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State private var isConversationStarted = false
 
     
     init(memoryCardId: Int, groupId: Int, previousChatHistory: [ChatMessage]) {
@@ -30,7 +31,7 @@ struct MemoryCardRecordView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("모니와 대화하기")
+                Text(viewModel.memoryCard?.title ?? "모니와 대화하기")
                     .font(.title2)
                     .bold()
                 Spacer()
@@ -42,7 +43,7 @@ struct MemoryCardRecordView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top)
+//            .padding(.top)
             
             VStack(spacing: 0) {
                 Divider()
@@ -56,11 +57,11 @@ struct MemoryCardRecordView: View {
                     if let card = viewModel.memoryCard, !card.image.isEmpty {
                         KFImage(URL(string: card.image))
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .clipped()
                             .cornerRadius(10)
-                            .padding(.horizontal)
+//                            .padding(.horizontal)
                     } else {
                         Image(systemName: "camera.fill")
                             .resizable()
@@ -70,65 +71,72 @@ struct MemoryCardRecordView: View {
                     }
                 }
             }
-            .frame(height: 250)
+            .frame(height: 200)
             
-            VStack {
+            ScrollView {
                 Spacer()
                 
                 VStack(alignment: .center, spacing: 10) {
                     Text(aiViewModel.currentMessage)
                         .font(.headline)
                         .bold()
-                        .lineLimit(2)
+                        .lineLimit(3)
                         .multilineTextAlignment(.center)
                         .padding()
                         .background(Color.gray.opacity(0.1))
-                        .cornerRadius(15)
+//                        .cornerRadius(15)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color.gray3, lineWidth: 0.5)
                         )
-                    HStack {
-                        Spacer()
+                    ZStack {
+                        if aiViewModel.isRecording {
+                            WaveFormView(amplitude: $aiViewModel.amplitude)
+                                .frame(height: 50)
+                        }
+                        
                         Image("moni-talk")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 200, height: 200)
+                            .frame(width: 180, height: 180)
                             .clipShape(Circle())
-                        Spacer()
                     }
                 }
-                .padding(.bottom, 20)
+                .padding(.top, 5)
                 
                 if aiViewModel.isRecording {
-                    WaveFormView(amplitude: $aiViewModel.amplitude)
-                        .frame(height: 50)
-                        .padding(.bottom, 20)
+                    Text("목소리를 듣는 중이에요")
+                        .foregroundColor(.gray)
+                } else if aiViewModel.isSpeaking {
+                    Text("모니가 답변을 생각하고 있어요")
+                        .foregroundColor(.gray)
                 }
                 
-                Spacer()
+                Spacer(minLength: 20)
                 
                 Button(action: {
-                    if aiViewModel.isRecording {
+                    if !isConversationStarted {
+                        isConversationStarted = true
+                        aiViewModel.startRecording()
+                    } else {
                         aiViewModel.endConversation()
                         viewModel.updateSummaryAfterChat(for: memoryCardId)
-                    } else {
-                        aiViewModel.startRecording()
+                        isConversationStarted = false
                     }
                 }) {
                     HStack {
                         Image(systemName: aiViewModel.isRecording ? "stop.fill" : "mic.fill")
-                        Text(aiViewModel.isRecording ? "대화 종료" : "대화 시작")
+                        Text(isConversationStarted ? "대화 종료" : "대화 시작")
                             .bold()
                     }
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(aiViewModel.isRecording ? Color.red : Color.mainGreen)
+                    .background(isConversationStarted ? Color.red : Color.mainGreen)
                     .cornerRadius(10)
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 80) // 탭바 높이만큼 여백 추가
+                .padding(.bottom, 20) // 탭바 높이만큼 여백 추가
             }
             .background(Color.white)
         }
@@ -151,8 +159,14 @@ struct MemoryCardRecordView: View {
     }
 }
 
-//#Preview {
-//    MemoryCardRecordView(memoryCardId: 1)
-//}
-
-
+#Preview {
+    MemoryCardRecordView(
+        memoryCardId: 1,
+        groupId: 1,
+        previousChatHistory: [
+            ChatMessage(role: "system", content: "You are a helpful assistant."),
+            ChatMessage(role: "user", content: "Hello!"),
+            ChatMessage(role: "assistant", content: "Hello! How can I help you today?")
+        ]
+    )
+}

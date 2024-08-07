@@ -44,7 +44,7 @@ struct WaveFormView: View {
                     path.addLine(to: CGPoint(x: x, y: y))
                 }
             }
-            .stroke(Color.green, lineWidth: 2)
+            .stroke(Color.green, lineWidth: 7)
         }
         .animation(.linear(duration: 1.0 / 120.0), value: amplitude)
         .onAppear {

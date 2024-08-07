@@ -13,6 +13,7 @@ struct MemoryCardDetailView: View {
     var groupId: Int
     @StateObject var viewModel = MemoryCardViewModel()
     @State private var showingActionSheet = false
+    @State private var shouldRefreshSummary = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -80,7 +81,7 @@ struct MemoryCardDetailView: View {
                     // Content section
                     ScrollView {
                         if viewModel.isSummaryLoading {
-                            ProgressView("요약을 불러오는 중...")
+                            ProgressView("모니가 대화를 요약하고 있어요☺️")
                                 .padding()
                         } else if !viewModel.summary.isEmpty {
                             Text(viewModel.summary)
@@ -93,7 +94,7 @@ struct MemoryCardDetailView: View {
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
                         } else {
-                            Text("아직 이 추억에 대해 대화를 나누지 않았네요, 모니와 대화를 시작해보세요!")
+                            Text("아직 이 추억에 대해 대화를 나누지 않았네요, 모니와 대화를 시작해보세요!😄")
                                 .font(.body)
                                 .foregroundColor(.gray)
                                 .multilineTextAlignment(.center)
@@ -110,7 +111,7 @@ struct MemoryCardDetailView: View {
                     Spacer()
                     
                     // Button section
-                    NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId, groupId: groupId)) {
+                    NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId, groupId: groupId, shouldRefreshSummary: $shouldRefreshSummary, memoryCardViewModel: viewModel)) {
                         Text("대화 전체 보기")
                             .font(.headline)
                             .foregroundColor(.wh)
@@ -149,10 +150,20 @@ struct MemoryCardDetailView: View {
                 .cancel(Text("취소").foregroundColor(.gray4))
             ])
         }
+        .onChange(of: shouldRefreshSummary) { newValue in
+            if newValue {
+                viewModel.getSummary(for: memoryCardId, force: true)
+                shouldRefreshSummary = false
+            }
+        }
         .onAppear {
             viewModel.loadMemoryCardDetail(id: memoryCardId)
             viewModel.getSummary(for: memoryCardId)
         }
+//        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+//            viewModel.loadMemoryCardDetail(id: memoryCardId)
+//            viewModel.getSummary(for: memoryCardId)
+//        }
     }
 }
 

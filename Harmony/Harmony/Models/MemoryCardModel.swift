@@ -70,8 +70,13 @@ struct MemoryCardData: Codable {
 
 struct SummaryResponse: Codable {
     let status: Bool
-    let data: String
+    let data: SummaryData
     let message: String
+}
+
+struct SummaryData: Codable {
+    let summary: String
+    let lastMessageId: Int?
 }
 
 

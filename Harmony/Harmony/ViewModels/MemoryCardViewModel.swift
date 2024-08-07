@@ -27,14 +27,59 @@ final class MemoryCardViewModel: ObservableObject {
     @Published var summary: String = ""
     @Published var isSummaryLoading: Bool = false
     @Published var isSummaryLoaded: Bool = false
+    @Published var lastMessageId: Int?
+    @Published var lastSummarizedMessageId: Int?
 
 
     
     private var cancellables = Set<AnyCancellable>()
     
+    func refreshSummary(for memoryCardId: Int) {
+        getSummary(for: memoryCardId, force: true)
+    }
+    
+//    func getSummary(for memoryCardId: Int, force: Bool = false) {
+//        if !force && isSummaryLoaded {
+//            return // 이미 로드된 경우 중복 요청 방지
+//        }
+//        
+//        isSummaryLoading = true
+//        MemoryCardService.shared.getSummary(mcId: memoryCardId, forceUpdate: force)
+//            .sink(receiveCompletion: { [weak self] completion in
+//                self?.isSummaryLoading = false
+//                if case .failure(let error) = completion {
+//                    self?.errorMessage = error.localizedDescription
+//                }
+//                self?.isSummaryLoaded = true
+//            }, receiveValue: { [weak self] summary in
+//                self?.summary = summary
+//            })
+//            .store(in: &cancellables)
+//    }
+    
+    
+//    func getSummary(for memoryCardId: Int, force: Bool = false) {
+//        if !force && isSummaryLoaded && !summary.isEmpty {
+//            return // 이미 로드되었고 요약이 있는 경우 중복 요청 방지
+//        }
+//        
+//        isSummaryLoading = true
+//        MemoryCardService.shared.getSummary(mcId: memoryCardId, forceUpdate: force)
+//            .sink(receiveCompletion: { [weak self] completion in
+//                self?.isSummaryLoading = false
+//                if case .failure(let error) = completion {
+//                    self?.errorMessage = error.localizedDescription
+//                }
+//                self?.isSummaryLoaded = true
+//            }, receiveValue: { [weak self] summary in
+//                self?.summary = summary
+//            })
+//            .store(in: &cancellables)
+//    }
+    
     func getSummary(for memoryCardId: Int, force: Bool = false) {
-        if !force && isSummaryLoaded {
-            return // 이미 로드된 경우 중복 요청 방지
+        if !force && isSummaryLoaded && !summary.isEmpty && lastSummarizedMessageId == lastMessageId {
+            return // 이미 로드되었고 요약이 있으며 새 메시지가 없는 경우 중복 요청 방지
         }
         
         isSummaryLoading = true
@@ -45,11 +90,17 @@ final class MemoryCardViewModel: ObservableObject {
                     self?.errorMessage = error.localizedDescription
                 }
                 self?.isSummaryLoaded = true
-            }, receiveValue: { [weak self] summary in
-                self?.summary = summary
+            }, receiveValue: { [weak self] summaryData in
+                if self?.lastSummarizedMessageId != summaryData.lastMessageId {
+                    self?.summary = summaryData.summary
+                    self?.lastMessageId = summaryData.lastMessageId
+                    self?.lastSummarizedMessageId = summaryData.lastMessageId
+                }
             })
             .store(in: &cancellables)
     }
+    
+    
     
     // 채팅 기록 업데이트 후 요약 갱신
     func updateSummaryAfterChat(for memoryCardId: Int) {
