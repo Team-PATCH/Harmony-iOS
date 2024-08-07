@@ -8,6 +8,8 @@
 import SwiftUI
 import Combine
 
+import SwiftUI
+
 struct ChatHistoryView: View {
     let memoryCardId: Int
     let groupId: Int
@@ -21,7 +23,6 @@ struct ChatHistoryView: View {
     @ObservedObject var memoryCardViewModel: MemoryCardViewModel
     @State private var initialMessageCount: Int = 0
     
-    
     init(memoryCardId: Int, groupId: Int, shouldRefreshSummary: Binding<Bool>, memoryCardViewModel: MemoryCardViewModel) {
         self.memoryCardId = memoryCardId
         self.groupId = groupId
@@ -33,27 +34,43 @@ struct ChatHistoryView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                LazyVStack(spacing: 16) {
+                LazyVStack(spacing: 16, pinnedViews: []) {
                     ForEach(viewModel.chatMessages) { message in
-                        ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
-                            .onTapGesture {
-                                withAnimation {
-                                    if selectedMessageId == message.id {
-                                        selectedMessageId = nil
-                                        audioPlayer.playPause()
-                                    } else {
-                                        selectedMessageId = message.id
-                                        if let urlString = message.audioRecord?.fileName,
-                                           let url = URL(string: urlString) {
-                                            audioPlayer.loadPlaylist([url])
+                        VStack {
+                            if shouldDisplayDate(for: message) {
+                                HStack {
+                                    Spacer()
+                                    Text(formatDate(message.date))
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                        .padding(.vertical, 4)
+                                        .padding(.horizontal, 12)
+                                        .background(Capsule().fill(Color.gray2))
+                                    Spacer()
+                                }
+                            }
+                            ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
+                                .onTapGesture {
+                                    withAnimation {
+                                        if selectedMessageId == message.id {
+                                            selectedMessageId = nil
                                             audioPlayer.playPause()
+                                        } else {
+                                            selectedMessageId = message.id
+                                            if let urlString = message.audioRecord?.fileName,
+                                               let url = URL(string: urlString) {
+                                                audioPlayer.loadPlaylist([url])
+                                                audioPlayer.playPause()
+                                            }
                                         }
                                     }
                                 }
-                            }
+                                .frame(maxWidth: .infinity, alignment: message.role == "user" ? .trailing : .leading)
+                        }
                     }
                 }
-                .padding()
+                .padding(.horizontal, 5)
+                .padding(.top)
             }
             .background(Color.gray1)
             
@@ -62,6 +79,7 @@ struct ChatHistoryView: View {
                     .frame(height: 100)
                     .padding()
                     .background(Color.wh)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
             HStack(spacing: 16) {
@@ -74,15 +92,23 @@ struct ChatHistoryView: View {
                         .cornerRadius(10)
                 }
                 
-                Button("음성 듣기") {
-                    playAllAudio()
-                    showAudioPlayer = true
+                Button(action: {
+                    withAnimation {
+                        showAudioPlayer.toggle()
+                    }
+                    if showAudioPlayer {
+                        playAllAudio()
+                    } else {
+                        audioPlayer.pausePlayback() // pause 메서드 호출
+                    }
+                }) {
+                    Text("음성 듣기")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray2)
+                        .foregroundColor(.bl)
+                        .cornerRadius(10)
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.gray2)
-                .foregroundColor(.bl)
-                .cornerRadius(10)
             }
             .padding()
             .background(Color.wh)
@@ -100,7 +126,23 @@ struct ChatHistoryView: View {
             }
         }
     }
-
+    
+    private func shouldDisplayDate(for message: ChatMessage) -> Bool {
+        // Implement logic to determine if date should be displayed
+        // Example: Display date if the previous message was on a different day
+        if let previousMessage = viewModel.chatMessages.last(where: { $0.date < message.date }) {
+            return !Calendar.current.isDate(previousMessage.date, inSameDayAs: message.date)
+        }
+        return true
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy년 M월 d일"
+        return dateFormatter.string(from: date)
+    }
+    
     func playAllAudio() {
         let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
             guard let urlString = message.audioRecord?.fileName else { return nil }
@@ -111,179 +153,65 @@ struct ChatHistoryView: View {
     }
 }
 
+
+
 struct ChatMessageView: View {
     let message: ChatMessage
     let isSelected: Bool
     @ObservedObject var audioPlayer: AudioPlayer
     
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
-            if message.role != "user" {
-//                Image("moni-avatar") // 모니 아바타 이미지
-//                    .resizable()
-//                    .frame(width: 40, height: 40)
-//                    .clipShape(Circle())
-            } else {
-                Spacer()
+        HStack {
+            if message.role == "user" {
+                Spacer(minLength: 0)
             }
             
             VStack(alignment: message.role == "user" ? .trailing : .leading, spacing: 4) {
-                Text(message.content)
-                    .padding(10)
-                    .background(message.role == "user" ? Color.mainGreen : Color.wh)
-                    .foregroundColor(message.role == "user" ? .wh : .bl)
-                    .cornerRadius(15)
-                
-                if isSelected, let audioRecord = message.audioRecord {
-                    if let url = URL(string: audioRecord.fileName) {
-                        Button(action: {
-                            audioPlayer.loadPlaylist([url])
-                            audioPlayer.playPause()
-                        }) {
-                            Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
-                        }
-                        .foregroundColor(.mainGreen)
-                        .transition(.scale)
-                    } else {
-                        Text("Invalid URL: \(audioRecord.fileName)")
-                            .foregroundColor(.subRed)
+                HStack {
+                    if message.role == "assistant" {
+                        Image("moni-avatar")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
                     }
-                }
-            }
-            
-            if message.role == "user" {
-//                Image("user-avatar") // 사용자 아바타 이미지
-//                    .resizable()
-//                    .frame(width: 40, height: 40)
-//                    .clipShape(Circle())
-            } else {
-                Spacer()
-            }
-        }
-        .padding(.vertical, 4)
-    }
-}
-
-
-/*
-// MARK: - 디자인 수정 전 최종
-import SwiftUI
-import Combine
-
-struct ChatHistoryView: View {
-    let memoryCardId: Int
-    let groupId: Int
-    @StateObject private var viewModel: ChatHistoryViewModel
-    @State private var selectedMessageId: UUID?
-    @StateObject private var audioPlayer = AudioPlayer()
-    @State private var showAudioPlayer = false
-    
-    init(memoryCardId: Int, groupId: Int) {
-        self.memoryCardId = memoryCardId
-        self.groupId = groupId
-        _viewModel = StateObject(wrappedValue: ChatHistoryViewModel(memoryCardId: memoryCardId))
-    }
-    
-    var body: some View {
-        VStack {
-            List {
-                ForEach(viewModel.chatMessages) { message in
-                    ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
-                        .onTapGesture {
-                            withAnimation {
-                                if selectedMessageId == message.id {
-                                    selectedMessageId = nil
-                                    audioPlayer.playPause()
-                                } else {
-                                    selectedMessageId = message.id
-                                    if let urlString = message.audioRecord?.fileName,
-                                       let url = URL(string: urlString) {
-                                        audioPlayer.loadPlaylist([url])
-                                        audioPlayer.playPause()
-                                    }
-                                }
-                            }
-                        }
-                }
-            }
-            
-            HStack {
-                NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: groupId, previousChatHistory: viewModel.chatMessages)) {
-                    Text("이어서 대화하기")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    
+                    Text(message.content)
+                        .padding(10)
+                        .background(message.role == "user" ? Color.subGreen : Color.wh)
+                        .foregroundColor(message.role == "user" ? .bl : .bl)
+                        .cornerRadius(15)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(message.role == "user" ? Color.mainGreen.opacity(0.5) : Color.gray3, lineWidth: 1)
+                        )
                 }
                 
-                Button("음성 듣기") {
-                    playAllAudio()
-                    showAudioPlayer = true
-                }
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding()
-            
-            if showAudioPlayer {
-                AudioPlayerView(audioPlayer: audioPlayer)
-                    .frame(height: 100)
-                    .padding()
-            }
-        }
-        .navigationTitle("대화 기록")
-        .onAppear {
-            viewModel.loadChatHistory()
-        }
-    }
-    
-    func playAllAudio() {
-        let audioURLs = viewModel.chatMessages.compactMap { message -> URL? in
-            guard let urlString = message.audioRecord?.fileName else { return nil }
-            return URL(string: urlString)
-        }
-        audioPlayer.loadPlaylist(audioURLs)
-        audioPlayer.playPause()
-    }
-}
-
-
-struct ChatMessageView: View {
-    let message: ChatMessage
-    let isSelected: Bool
-    @ObservedObject var audioPlayer: AudioPlayer
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(message.role == "user" ? "사용자" : "모니")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Text(message.content)
-                .padding(10)
-                .background(message.role == "user" ? Color.blue.opacity(0.1) : Color.gray.opacity(0.1))
-                .cornerRadius(10)
-            
-            if isSelected, let audioRecord = message.audioRecord {
-                if let url = URL(string: audioRecord.fileName) {
+                if isSelected, let audioRecord = message.audioRecord, let url = URL(string: audioRecord.fileName) {
                     Button(action: {
                         audioPlayer.loadPlaylist([url])
                         audioPlayer.playPause()
                     }) {
                         Label(audioPlayer.isPlaying ? "일시정지" : "음성 듣기", systemImage: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
                     }
+                    .foregroundColor(.mainGreen)
                     .transition(.scale)
-                } else {
-                    Text("Invalid URL: \(audioRecord.fileName)")
-                        .foregroundColor(.red)
                 }
             }
+            
+            if message.role == "assistant" {
+                Spacer(minLength: 0)
+            }
         }
+        .padding(.horizontal, 5)
+        .padding(.vertical, 4)
     }
 }
-*/
+
+
+
+
+
+
 
 class ChatHistoryViewModel: ObservableObject {
     let memoryCardId: Int
@@ -306,6 +234,10 @@ class ChatHistoryViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] messages in
                 self?.chatMessages = messages
+                // 로그 추가
+                for message in messages {
+                    print("Message role: \(message.role), content: \(message.content)")
+                }
             })
             .store(in: &cancellables)
     }

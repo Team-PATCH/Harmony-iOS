@@ -93,6 +93,7 @@ struct MemoryCardRecordView: View {
                         if aiViewModel.isRecording {
                             WaveFormView(amplitude: $aiViewModel.amplitude)
                                 .frame(height: 50)
+                                .transition(.opacity.animation(.easeInOut(duration: 0.3)))
                         }
                         
                         Image("moni-talk")

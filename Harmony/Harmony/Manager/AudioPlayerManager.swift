@@ -60,7 +60,7 @@ class AudioPlayer: NSObject, ObservableObject {
         updateCurrentTime()
     }
     
-    private func pausePlayback() {
+    func pausePlayback() {
         player?.pause()
         isPlaying = false
     }
