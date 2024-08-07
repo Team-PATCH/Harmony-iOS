@@ -68,13 +68,8 @@ struct RegisterProfileView: View {
             Spacer()
             
             Button {
-                if let group = viewModel.currentGroup {
-                    
-                }
-                else {
-                    viewModel.createGroup()
-                }
-                viewModel.navigateTo(.inviteVIP)
+                viewModel.isOnboardingEnd = true
+                viewModel.navigateToRoot()
             } label: {
                 Text("다음")
                     .font(.pretendardSemiBold(size: 24))

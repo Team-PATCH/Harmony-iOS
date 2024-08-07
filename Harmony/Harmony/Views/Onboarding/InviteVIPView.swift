@@ -9,8 +9,7 @@ import SwiftUI
 
 struct InviteVIPView: View {
     @ObservedObject var viewModel: OnboardingViewModel
-    @State var hasShared = false
-    
+    @State private var hasShared = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -30,11 +29,9 @@ struct InviteVIPView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 20)
             
-            ShareLink(
-                item: URL(string: "https://apps.apple.com/kr/app/instagram/id389801252")!
-                ,subject: Text("하모니 앱을 다운로드")
-                ,message: Text("손녀 조다은님이 할머니 윤여정님을 '하모니' 앱에 초대했어요. 앱을 다운로드 받고, 아래 코드를 입력하세요.\n 입장 코드: [\(viewModel.currentGroup?.vipInviteUrl ?? "")] 입니다.")
-                
+            CustomShareButton(hasShared: $hasShared,
+                              shareURL: URL(string: "https://apps.apple.com/kr/app/")!,
+                              inviteCode: viewModel.currentGroup?.vipInviteUrl ?? ""
             ) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
@@ -46,21 +43,16 @@ struct InviteVIPView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .padding(.trailing, 30)
-                .background(hasShared ? Color.gray4 : Color.mainGreen)
+                .background(hasShared ? Color.gray : Color.mainGreen)
                 .cornerRadius(10)
             }
-            .onTapGesture {
-                hasShared = true
-            }
-            
-            
-            
             
             Spacer()
+            
             if hasShared {
-                Button {
+                Button(action: {
                     viewModel.navigateTo(.inputUserInfo) // 적절한 네비게이션 대상으로 변경해주세요
-                } label: {
+                }) {
                     Text("다음")
                         .font(.pretendardSemiBold(size: 24))
                         .foregroundColor(.wh)
@@ -75,10 +67,41 @@ struct InviteVIPView: View {
         .padding()
         .background(Color.wh)
     }
-    
 }
 
-//#Preview{
-//    InviteVIPView(path: .constant([]))
-//
-//}
+struct CustomShareButton<Content: View>: View {
+    @Binding var hasShared: Bool
+    let shareURL: URL
+    let inviteCode: String
+    let content: Content
+    
+    init(hasShared: Binding<Bool>, shareURL: URL, inviteCode: String, @ViewBuilder content: () -> Content) {
+        self._hasShared = hasShared
+        self.shareURL = shareURL
+        self.inviteCode = inviteCode
+        self.content = content()
+    }
+    
+    var body: some View {
+        content
+            .onTapGesture {
+                shareContent()
+            }
+    }
+    
+    func shareContent() {
+        let message = "손녀 조다은님이 할머니 윤여정님을 '하모니' 앱에 초대했어요. 앱을 다운로드 받고, 아래 코드를 입력하세요.\n 입장 코드: [\(inviteCode)] 입니다."
+        let activityVC = UIActivityViewController(activityItems: [shareURL, message], applicationActivities: nil)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first,
+           let rootVC = window.rootViewController {
+            activityVC.completionWithItemsHandler = { (_, completed, _, _) in
+                if completed {
+                    hasShared = true
+                }
+            }
+            rootVC.present(activityVC, animated: true, completion: nil)
+        }
+    }
+}

@@ -43,6 +43,9 @@ final class OnboardingViewModel: ObservableObject {
         didSet { logStateChange("navigationPath", oldValue, navigationPath)}
     }
 
+    @Published var isOnboardingEnd = false {
+        didSet { logStateChange("isOnboardingEnd", oldValue, isOnboardingEnd) }
+    }
     
     init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService

@@ -12,7 +12,9 @@ struct ContentView: View {
     @StateObject var onboardingViewModel = OnboardingViewModel()
     
     var body: some View {
-        if authViewModel.isLoggedIn {
+        if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn  {
+            MainTabView()
+        } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
             NavigationStack(path: $onboardingViewModel.navigationPath) {
                 AllowNotificationView(viewModel: onboardingViewModel)
                     .navigationDestination(for: NavigationDestination.self) { destination in
@@ -22,26 +24,28 @@ struct ContentView: View {
                             CreateGroupSpaceView(viewModel: onboardingViewModel)
                         case .inputVIPInfo:
                             InputVIPInfoView(viewModel: onboardingViewModel)
-
+                            
                         case .inputUserInfo:
                             InputUserInfoView(viewModel: onboardingViewModel)
-
+                            
                         case .inviteVIP:
                             InviteVIPView(viewModel: onboardingViewModel)
-
+                            
                         case .registerProfile:
                             RegisterProfileView(viewModel: onboardingViewModel)
-
+                            
                         case .joinGroup:
                             JoinGroupSpaceView(viewModel: onboardingViewModel)
-
+                            
                         case .enterGroup:
                             EnterGroupSpaceView(viewModel: onboardingViewModel)
                             
                         }
                     }
             }
-        } else {
+            
+        }
+        else {
             LoginView()
                 .environmentObject(authViewModel)
         }
