@@ -32,6 +32,9 @@ final class OnboardingViewModel: ObservableObject {
     @Published var userName: String = "" {
         didSet { logStateChange("userName", oldValue, userName) }
     }
+    @Published var profile: String = "" {
+        didSet { logStateChange("profile", oldValue, profile) }
+    }
     @Published var inviteCode = "" {
         didSet { logStateChange("inviteCode", oldValue, inviteCode) }
     }
@@ -51,7 +54,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var navigationPath: NavigationPath = NavigationPath() {
         didSet { logStateChange("navigationPath", oldValue, navigationPath)}
     }
-
+    
     @Published var isOnboardingEnd = false {
         didSet { logStateChange("isOnboardingEnd", oldValue, isOnboardingEnd) }
     }
@@ -122,6 +125,10 @@ final class OnboardingViewModel: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self.currentGroup = group
+                    self.groupId = group.groupId
+                    self.groupName = group.name
+                    self.vipName = group.name.components(separatedBy: " ")[1]
+                    self.vipAlias = group.name.components(separatedBy: " ")[0]
                     self.isLoading = false
                     self.navigateTo(.enterGroup)
                     print("Successfully joined group - groupId: \(group.groupId)")
@@ -152,12 +159,14 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let userGroup = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: alias, deviceToken: deviceToken)
+                let response = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: self.alias, userName: self.userName, profile: self.profile, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
-                    self.currentUserGroup = userGroup
+                    self.currentUserGroup = response.userGroup
                     self.isLoading = false
-                    print("Onboarding info updated successfully - userId: \(userGroup.userId), groupId: \(userGroup.groupId)")
+                    print("Onboarding info updated successfully - userId: \(response.userGroup.userId), groupId: \(response.userGroup.groupId)")
+                    self.isOnboardingEnd = true
+                    self.navigateToRoot()
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -167,7 +176,6 @@ final class OnboardingViewModel: ObservableObject {
                 }
             }
         }
-        
     }
     func navigateTo(_ destination: NavigationDestination) {
         navigationPath.append(destination)

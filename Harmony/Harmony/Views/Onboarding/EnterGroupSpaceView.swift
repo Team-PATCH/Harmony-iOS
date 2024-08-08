@@ -12,10 +12,10 @@ struct EnterGroupSpaceView: View {
     var body: some View {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("손녀 조다은님이")
+                    Text("\(viewModel.groupName ?? "당신을")")
                         .font(.system(size: 28, weight: .bold))
                         .foregroundColor(.green)
-                    Text("만든 가족공간이에요.")
+                    Text("을 위한 가족공간이에요.")
                         .font(.system(size: 28, weight: .bold))
                         .foregroundColor(.black)
                 }
@@ -71,6 +71,7 @@ struct EnterGroupSpaceView: View {
                 }
                 
                 Button {
+                    if user
                     viewModel.navigateTo(.inputUserInfo)
                 } label: {
                     

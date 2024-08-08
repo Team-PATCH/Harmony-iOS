@@ -27,7 +27,7 @@ struct RegisterProfileView: View {
                     .foregroundColor(.black)
             }
             
-            Text("할머니에게 보여질\n프로필 사진을 설정해 주세요.")
+            Text("\(viewModel.vipAlias)에게 보여질\n프로필 사진을 설정해 주세요.")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(.gray)
                 .padding(.top, 8)
@@ -68,8 +68,7 @@ struct RegisterProfileView: View {
             Spacer()
             
             Button {
-                viewModel.isOnboardingEnd = true
-                viewModel.navigateToRoot()
+                viewModel.updateOnboardingInfo()
             } label: {
                 Text("완료")
                     .font(.pretendardSemiBold(size: 24))

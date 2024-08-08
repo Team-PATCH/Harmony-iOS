@@ -48,19 +48,21 @@ final class OnboardingService {
         return response.group
     }
     
-    func updateOnboardingInfo(groupId: Int, userId: String, alias: String, deviceToken: String) async throws -> UserGroup {
+    func updateOnboardingInfo(groupId: Int, userId: String, alias: String, userName: String, profile: String, deviceToken: String) async throws -> OnboardingUpdateResponse {
         let parameters: [String: Any] = [
             "userId": userId,
+            "userName": userName,
+            "profile": profile,
             "alias": alias,
             "deviceToken": deviceToken
         ]
         
-        let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .put, parameters: parameters, encoding: JSONEncoding.default)
+        let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate()
             .serializingDecodable(OnboardingUpdateResponse.self)
             .value
         
-        return response.userGroup
+        return response
     }
     
 }

@@ -46,15 +46,16 @@ final class AuthViewModel: ObservableObject {
             } else {
                 if let user {
                     guard let id = user.id,
-                          let nick = user.kakaoAccount?.profile?.nickname,
-                          let profile = user.kakaoAccount?.profile?.profileImageUrl else { return }
-                    
+                          let nick = user.kakaoAccount?.profile?.nickname
+                         // let profile = user.kakaoAccount?.profile?.profileImageUrl 
+                    else { return }
                     UserDefaults.standard.setValue(id, forKey: "userId")
                     UserDefaults.standard.setValue(nick, forKey: "nick")
                     //UserDefaults.standard.setValue(profile, forKey: "profile")
                     self.user.userId = String(id)
                     self.user.nick = nick
                     self.user.authProvider = "kakao"
+                    //self.user.profile = UserDefaults.standard.string(forKey: "profile")
                     self.user.socialToken = UserDefaults.standard.string(forKey: "socialToken")
                     self.user.refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
                     self.user.socialTokenExpiredAt = UserDefaults.standard.string(forKey: "expiredAt")
@@ -62,7 +63,7 @@ final class AuthViewModel: ObservableObject {
                     let endpoint = "https://harmony-api.azurewebsites.net/user/signup"
                     let params: Parameters = [ "userId": self.user.userId,
                                                "nick": self.user.nick,
-                                               "profile": "",
+                                               //"profile": self.user.profile ?? "",
                                                "authProvider": self.user.authProvider,
                                                "socialToken": self.user.socialToken ?? "",
                                                "refreshToken": self.user.refreshToken ?? "",

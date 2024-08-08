@@ -16,14 +16,6 @@ struct Group: Codable {
     let createdAt: String
 }
 
-struct UserGroup: Codable {
-    let userId: String
-    let groupId: String
-    let permissionId: String
-    let alias: String
-    let deviceToken: String
-}
-
 struct GroupCreationResponse: Codable {
     let groupId: Int
     let groupName: String
@@ -35,6 +27,29 @@ struct GroupJoinResponse: Codable {
     let message: String
     let group: Group
     let permission: String
+}
+
+struct UserGroup: Codable {
+    let ugId: Int
+    let userId: String
+    let permissionId: String
+    let groupId: Int
+    let alias: String
+    let deviceToken: String
+    let createdAt: String
+    let updatedAt: String
+    let deletedAt: String?
+    let user: User
+    
+    enum CodingKeys: String, CodingKey {
+        case ugId, userId, permissionId, groupId, alias, deviceToken, createdAt, updatedAt, deletedAt
+        case user = "User"
+    }
+}
+
+struct User: Codable {
+    let nick: String
+    let profile: String
 }
 
 struct OnboardingUpdateResponse: Codable {
