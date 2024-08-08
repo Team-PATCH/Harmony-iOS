@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemoryCard: Identifiable, Codable {
+struct MemoryCard: Identifiable, Codable, Equatable {
     var id: Int
     var title: String
     var dateTime: String
@@ -17,6 +17,15 @@ struct MemoryCard: Identifiable, Codable {
     enum CodingKeys: String, CodingKey {
         case id = "memorycardId"
         case title, dateTime, image, groupId
+    }
+
+    // Equatable 프로토콜 준수하기 위해 == 연산자 정의
+    static func == (lhs: MemoryCard, rhs: MemoryCard) -> Bool {
+        return lhs.id == rhs.id
+            && lhs.title == rhs.title
+            && lhs.dateTime == rhs.dateTime
+            && lhs.image == rhs.image
+            && lhs.groupId == rhs.groupId
     }
 }
 

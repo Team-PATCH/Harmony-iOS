@@ -11,6 +11,9 @@ struct MemoryCardsView: View {
     @StateObject private var viewModel = MemoryCardViewModel()
     @State private var searchText = ""
     @State private var isSearchBarVisible = false
+    @State private var isAppeared = false
+    @State private var isContentVisible = false
+    @State private var appearingCardIndex = 0
 
     let columns = [
         GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20)
@@ -72,7 +75,6 @@ struct MemoryCardsView: View {
                     }
                 }
 
-
                 HStack {
                     Spacer()
                     Button(action: {
@@ -95,29 +97,61 @@ struct MemoryCardsView: View {
                 Divider()
                     .background(Color.gray3)
 
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 30) {
-                        ForEach(viewModel.filteredMemoryCards) { card in
-                            NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: card.groupId ?? 1)) {
-                                MemoryCardView(card: card, viewModel: viewModel)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .padding(.horizontal, -15)
-                                    .padding(.bottom, -15)
+                ZStack {
+                    if viewModel.isLoading {
+                        LoadingView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.gray1)
+                    } else {
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 30) {
+                                ForEach(Array(viewModel.filteredMemoryCards.enumerated()), id: \.element.id) { index, card in
+                                    NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: card.groupId ?? 1)) {
+                                        MemoryCardView(card: card, viewModel: viewModel)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                            .padding(.horizontal, -15)
+                                            .padding(.bottom, -15)
+                                            .opacity(index <= appearingCardIndex ? 1 : 0)
+                                            .offset(y: index <= appearingCardIndex ? 0 : 100)
+                                            .animation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.2).delay(Double(index) * 0.03), value: appearingCardIndex)
+                                    }
+                                }
                             }
+                            .padding([.horizontal, .top])
+                            .background(Color.gray1)
                         }
-                    }
-                    .padding([.horizontal, .top])
-                    .background(Color.gray1)
-                }
-                .background(Color.gray1)
-                .navigationBarHidden(true)
-                .onAppear {
-                    if !viewModel.hasLoaded {
-                        viewModel.loadMemoryCards()
+                        .background(Color.gray1)
                     }
                 }
+                .opacity(isContentVisible ? 1 : 0)
+                .animation(.easeInOut(duration: 0.3), value: isContentVisible)
             }
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
+            .navigationBarHidden(true)
+            .onAppear {
+                if !viewModel.hasLoaded {
+                    viewModel.loadMemoryCards()
+                }
+            }
+            .onChange(of: viewModel.isLoading) { isLoading in
+                if !isLoading {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isContentVisible = true
+                    }
+                    animateCards()
+                }
+            }
+        }
+    }
+    
+    private func animateCards() {
+        let totalCards = viewModel.filteredMemoryCards.count
+        for index in 0..<totalCards {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.03) {
+                withAnimation {
+                    self.appearingCardIndex = index
+                }
+            }
         }
     }
 }

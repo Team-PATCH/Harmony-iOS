@@ -18,7 +18,7 @@ struct MemoryCardDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.isLoading {
-                ProgressView("상세 정보를 불러오고 있어요🥹")
+                LoadingView()
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
             } else if let memoryCardDetail = viewModel.memoryCardDetail {
@@ -28,12 +28,12 @@ struct MemoryCardDetailView: View {
                         KFImage(URL(string: memoryCard.image))
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 200)
+                            .frame(height: 300)
                             .clipped()
                     } else {
                         Rectangle()
                             .fill(Color.gray2)
-                            .frame(height: 200)
+                            .frame(height: 300)
                             .overlay(
                                 Image(systemName: "camera")
                                     .foregroundColor(.gray4)
@@ -167,6 +167,34 @@ struct MemoryCardDetailView: View {
     }
 }
 
+struct LoadingView: View {
+    @State private var isAnimating = false
+
+    var body: some View {
+        VStack {
+            Image("moni-wholebody")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+//                .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
+//                .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
+            
+                .scaleEffect(isAnimating ? 1.1 : 0.9)
+                .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isAnimating)
+            Text("모니가 상세 정보를 가져오고 있어요😀")
+                .font(.headline)
+                .padding(.top, 20)
+        }
+        .onAppear {
+            isAnimating = true
+        }
+    }
+}
+
 #Preview {
     MemoryCardDetailView(memoryCardId: 1, groupId: 1)
+}
+
+#Preview {
+    LoadingView()
 }
