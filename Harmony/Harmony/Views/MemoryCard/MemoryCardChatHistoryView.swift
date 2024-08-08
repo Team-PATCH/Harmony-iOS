@@ -8,8 +8,6 @@
 import SwiftUI
 import Combine
 
-import SwiftUI
-
 struct ChatHistoryView: View {
     let memoryCardId: Int
     let groupId: Int
@@ -33,46 +31,64 @@ struct ChatHistoryView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView {
-                LazyVStack(spacing: 16, pinnedViews: []) {
-                    ForEach(viewModel.chatMessages) { message in
-                        VStack {
-                            if shouldDisplayDate(for: message) {
-                                HStack {
-                                    Spacer()
-                                    Text(formatDate(message.date))
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                        .padding(.vertical, 4)
-                                        .padding(.horizontal, 12)
-                                        .background(Capsule().fill(Color.gray2))
-                                    Spacer()
+            if viewModel.chatMessages.isEmpty {
+                VStack {
+                    Spacer()
+                    Image("moni-wholebody")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                    Text("아직 이 추억에 대해 대화를 나누지 않으셨네요.\n모니와 대화를 나눠보세요!😄")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.gray1)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 16, pinnedViews: []) {
+                        ForEach(viewModel.chatMessages) { message in
+                            VStack {
+                                if shouldDisplayDate(for: message) {
+                                    HStack {
+                                        Spacer()
+                                        Text(formatDate(message.date))
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                            .padding(.vertical, 4)
+                                            .padding(.horizontal, 12)
+                                            .background(Capsule().fill(Color.gray2))
+                                        Spacer()
+                                    }
                                 }
-                            }
-                            ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
-                                .onTapGesture {
-                                    withAnimation {
-                                        if selectedMessageId == message.id {
-                                            selectedMessageId = nil
-                                            audioPlayer.playPause()
-                                        } else {
-                                            selectedMessageId = message.id
-                                            if let urlString = message.audioRecord?.fileName,
-                                               let url = URL(string: urlString) {
-                                                audioPlayer.loadPlaylist([url])
+                                ChatMessageView(message: message, isSelected: selectedMessageId == message.id, audioPlayer: audioPlayer)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            if selectedMessageId == message.id {
+                                                selectedMessageId = nil
                                                 audioPlayer.playPause()
+                                            } else {
+                                                selectedMessageId = message.id
+                                                if let urlString = message.audioRecord?.fileName,
+                                                   let url = URL(string: urlString) {
+                                                    audioPlayer.loadPlaylist([url])
+                                                    audioPlayer.playPause()
+                                                }
                                             }
                                         }
                                     }
-                                }
-                                .frame(maxWidth: .infinity, alignment: message.role == "user" ? .trailing : .leading)
+                                    .frame(maxWidth: .infinity, alignment: message.role == "user" ? .trailing : .leading)
+                            }
                         }
                     }
+                    .padding(.horizontal, 5)
+                    .padding(.top)
                 }
-                .padding(.horizontal, 5)
-                .padding(.top)
+                .background(Color.gray1)
             }
-            .background(Color.gray1)
             
             if showAudioPlayer {
                 AudioPlayerView(audioPlayer: audioPlayer)
@@ -152,6 +168,7 @@ struct ChatHistoryView: View {
         audioPlayer.playPause()
     }
 }
+
 
 
 
