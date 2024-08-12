@@ -25,6 +25,7 @@ struct AudioPlayerView: View {
                     audioPlayer.scrubbing(false)
                 }
             })
+            .accentColor(.mainGreen)
             .onAppear {
                 scrubbingValue = audioPlayer.currentTime
             }
@@ -39,13 +40,16 @@ struct AudioPlayerView: View {
                 Spacer()
                 Button(action: { audioPlayer.skipBackward() }) {
                     Image(systemName: "gobackward.10")
+                        .foregroundColor(.mainGreen)
                 }
                 Button(action: { audioPlayer.playPause() }) {
                     Image(systemName: audioPlayer.isPlaying ? "pause.circle" : "play.circle")
                         .font(.largeTitle)
+                        .foregroundColor(.mainGreen)
                 }
                 Button(action: { audioPlayer.skipForward() }) {
                     Image(systemName: "goforward.10")
+                        .foregroundColor(.mainGreen)
                 }
                 Spacer()
                 Text(timeString(audioPlayer.duration))
@@ -62,3 +66,4 @@ struct AudioPlayerView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
+

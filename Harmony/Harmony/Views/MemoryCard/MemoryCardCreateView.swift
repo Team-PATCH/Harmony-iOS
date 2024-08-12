@@ -5,6 +5,7 @@
 //  Created by 한범석 on 7/31/24.
 //
 
+
 import SwiftUI
 
 struct MemoryCardCreateView: View {
@@ -18,6 +19,8 @@ struct MemoryCardCreateView: View {
     @State private var offset: CGFloat = 1000
     @State private var datePickerPosition: CGPoint = .zero
     @State private var datePickerOpacity: Double = 0
+    var onMemoryCardCreated: (() -> Void)? // 새로 추가된 클로저
+
 
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -150,6 +153,7 @@ struct MemoryCardCreateView: View {
                                 ) { result in
                                     switch result {
                                         case .success(_):
+                                            onMemoryCardCreated?() // 추억카드 생성 완료 시 클로저 호출
                                             closeView()
                                         case .failure(let error):
                                             print("Error: \(error.localizedDescription)")
@@ -209,5 +213,6 @@ struct MemoryCardCreateView: View {
 
 
 #Preview {
-    MemoryCardCreateView(isPresented: .constant(true))
+    MemoryCardCreateView(isPresented: .constant(true), onMemoryCardCreated: nil)
 }
+

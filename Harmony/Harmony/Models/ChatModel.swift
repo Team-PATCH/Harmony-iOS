@@ -90,6 +90,7 @@ struct ChatMessageRequest: Codable {
     let role: String
     let content: String
     let audioRecord: AudioRecordRequest?
+    let createdAt: Date
 }
 
 struct AudioRecordRequest: Codable {

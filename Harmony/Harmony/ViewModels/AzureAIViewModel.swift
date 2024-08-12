@@ -27,6 +27,7 @@ final class AzureAIViewModel: ObservableObject {
     @Published var forceUpdate: Bool = false
     @Published var initialPrompt: String = ""
     @Published var isInitialPromptLoaded: Bool = false
+    @Published var isProcessing: Bool = false
     
 
     private var audioRecorder: AVAudioRecorder?
@@ -55,11 +56,11 @@ final class AzureAIViewModel: ObservableObject {
         if let messages = chatMessages {
             self.chatHistory = messages
             self.isChatting = false
-            self.currentMessage = "이전 대화를 불러왔습니다. 대화 시작하기 버튼을 눌러 대화를 이어가세요."
+            self.currentMessage = ""
         } else {
             self.chatHistory = []
             self.isChatting = false
-            self.currentMessage = "대화를 시작해주세요."
+            self.currentMessage = ""
         }
     }
 
@@ -90,57 +91,6 @@ final class AzureAIViewModel: ObservableObject {
         forceUpdate.toggle()
     }
     
-    
-    /*
-    func setInitialPrompt(_ prompt: String) {
-        self.currentMessage = prompt
-        self.chatHistory.append(ChatMessage(role: "assistant", content: prompt))
-    }
-    
-    func loadInitialPrompt(for memoryCardId: Int) {
-        if isInitialPromptLoaded {
-            return // 이미 로드된 경우 중복 요청 방지
-        }
-        
-        MemoryCardService.shared.getInitialPrompt(mcId: memoryCardId)
-            .sink(receiveCompletion: { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print("Failed to load initial prompt: \(error)")
-                }
-                self?.isInitialPromptLoaded = true
-            }, receiveValue: { [weak self] prompt in
-                self?.initialPrompt = prompt
-                self?.currentMessage = prompt
-            })
-            .store(in: &cancellables)
-    }
-
-    func startChat() {
-        isChatting = true
-        continueChat = true
-        isChatEnded = false
-        chatHistory = []
-        
-        MemoryCardService.shared.getInitialPrompt(mcId: memoryCardId)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("Failed to get initial prompt: \(error)")
-                    self.currentMessage = "대화를 시작합니다."
-                    self.configureAudioSession()
-                    self.startRecording()
-                }
-            }, receiveValue: { prompt in
-                print("Successfully to get initial prompt.")
-                self.currentMessage = prompt
-                self.configureAudioSession()
-                self.startRecording()
-            })
-            .store(in: &cancellables)
-    }
-    */
     
     func setInitialPrompt(_ prompt: String) {
         self.currentMessage = prompt
@@ -190,7 +140,7 @@ final class AzureAIViewModel: ObservableObject {
         stopRecordingWithoutSending()
         audioPlayer?.stop()
         audioPlayer = nil
-        currentMessage = "대화가 종료되었습니다."
+        currentMessage = "좋아요! 그럼 지금까지 나눈 추억 대화를 저장할게요.☺️"
         let history = ChatHistory(id: memoryCardId, date: Date(), messages: chatHistory)
         ChatHistoryManager.shared.saveChatHistory(history)
     }
@@ -202,7 +152,7 @@ final class AzureAIViewModel: ObservableObject {
         stopRecordingWithoutSending()
         audioPlayer?.stop()
         audioPlayer = nil
-        currentMessage = "대화가 종료되었습니다."
+        currentMessage = "좋아요! 그럼 지금까지 나눈 추억 대화를 저장할게요.☺️"
         
         if !chatHistory.isEmpty {
             if existingChatSession {
@@ -292,6 +242,8 @@ final class AzureAIViewModel: ObservableObject {
     
     func startRecording() {
         print("startRecording called")
+        isProcessing = false  // 녹음 시작 시 처리 상태 초기화
+        
         guard isViewAppeared else {
             print("View has not appeared yet, cannot start recording")
             return
@@ -305,6 +257,8 @@ final class AzureAIViewModel: ObservableObject {
         }
         
         isRecording = true
+        isSpeaking = false
+        isProcessing = false
         recordingState = "목소리 듣는 중..."
         
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.wav")
@@ -336,7 +290,7 @@ final class AzureAIViewModel: ObservableObject {
                     self.updateAmplitude(audioLevel)
                 }
                 
-                if audioLevel > -30 {
+                if audioLevel > -20 {
                     self.isSpeaking = true
                     self.silenceStartTime = nil
                 } else if self.isSpeaking {
@@ -378,6 +332,7 @@ final class AzureAIViewModel: ObservableObject {
         isSpeaking = false
         silenceStartTime = nil
         isRecording = false
+        isProcessing = true
         
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.wav")
         if FileManager.default.fileExists(atPath: audioFilename.path) {
@@ -404,6 +359,7 @@ final class AzureAIViewModel: ObservableObject {
         
         print("stop recording and STT processing...")
         recordingState = "대답 준비 중..."
+        isProcessing = true  // 처리 시작
         
         AzureSpeechService.shared.recognizeSpeech(audioData: audioData) { [weak self] recognizedText in
             guard let self = self else { return }
@@ -415,6 +371,7 @@ final class AzureAIViewModel: ObservableObject {
             AzureSpeechService.shared.chatWithGPT4(messages: self.chatHistory) { responseText in
                 if self.isChatEnded {
                     print("Chat has ended. Not processing chat response.")
+                    self.isProcessing = false  // 처리 시작
                     return
                 }
                 
@@ -424,6 +381,8 @@ final class AzureAIViewModel: ObservableObject {
                 self.recordingState = ""
                 
                 AzureSpeechService.shared.synthesizeSpeech(text: responseText) { audioURL in
+                    self.isProcessing = false
+                    self.isSpeaking = true
                     if let audioData = try? Data(contentsOf: audioURL) {
                         self.saveAudioData(audioData, isUser: false, content: responseText)
                     }
@@ -487,13 +446,17 @@ final class AzureAIViewModel: ObservableObject {
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             isPlaying = true
+            isSpeaking = true  // 음성 재생 시작
             
             DispatchQueue.main.asyncAfter(deadline: .now() + (audioPlayer?.duration ?? 0)) {
+                self.isPlaying = false
+                self.isSpeaking = false  // 음성 재생 종료
                 completion()
             }
         } catch {
             print("Failed to play audio: \(error.localizedDescription)")
             isPlaying = false
+            isSpeaking = false
             completion()
         }
     }

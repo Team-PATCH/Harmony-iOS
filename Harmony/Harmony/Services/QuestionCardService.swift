@@ -10,7 +10,7 @@ import Alamofire
 
 final class QuestionCardService {
     static let shared = QuestionCardService()
-    private let baseURL = "http://localhost:3000/qc" // 로컬 서버 주소
+    private let baseURL = "\(Bundle.main.infoDictionary?["BASE_URL"] as! String)/qc"
 
     private init() {}
 

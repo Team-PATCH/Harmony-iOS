@@ -9,13 +9,14 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    @Binding var isAuth: Bool
     
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
                 switch selectedTab {
                 case 0:
-                    HomeView()
+                    HomeView(isAuth: $isAuth)
                 case 1:
                     MemoryCardsView()
                 case 2:
@@ -23,7 +24,7 @@ struct MainTabView: View {
                 case 3:
                     RoutineView()
                 default:
-                    HomeView()
+                    HomeView(isAuth: $isAuth)
                 }
             }
             
@@ -34,6 +35,6 @@ struct MainTabView: View {
 
 
 
-#Preview {
-    MainTabView()
-}
+//#Preview {
+//    MainTabView()
+//}
