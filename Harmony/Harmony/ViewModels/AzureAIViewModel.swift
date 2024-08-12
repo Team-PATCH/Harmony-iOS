@@ -290,7 +290,7 @@ final class AzureAIViewModel: ObservableObject {
                     self.updateAmplitude(audioLevel)
                 }
                 
-                if audioLevel > -30 {
+                if audioLevel > -20 {
                     self.isSpeaking = true
                     self.silenceStartTime = nil
                 } else if self.isSpeaking {

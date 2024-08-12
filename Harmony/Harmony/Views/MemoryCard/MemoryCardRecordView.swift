@@ -23,6 +23,7 @@ struct MemoryCardRecordView: View {
     @State private var buttonOffset: CGFloat = 0
     @State private var moniImage = "moni-talk"
     @State private var showText = false
+    @State private var showManualStopButton = false
 
     
     init(memoryCardId: Int, groupId: Int, previousChatHistory: [ChatMessage]) {
@@ -38,14 +39,15 @@ struct MemoryCardRecordView: View {
         NavigationStack {
             VStack {
                 HStack {
+//                    Spacer()
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        // Image(systemName: "xmark")
-                        //     .foregroundColor(.black)
+//                         Image(systemName: "xmark")
+//                             .foregroundColor(.black)
                     }
                 }
-                .padding(.horizontal)
+                
                 
                 ZStack {
                     Color.gray1
@@ -55,9 +57,8 @@ struct MemoryCardRecordView: View {
                             KFImage(URL(string: card.image))
                                 .resizable()
                                 .scaledToFill()
-                                .frame(maxWidth: .infinity, maxHeight: 300)
+                                .frame(maxWidth: .infinity, maxHeight: 280)
                                 .clipped()
-                                .cornerRadius(10)
                         } else {
                             Image(systemName: "camera.fill")
                                 .resizable()
@@ -67,7 +68,7 @@ struct MemoryCardRecordView: View {
                         }
                     }
                 }
-                .frame(height: 300)
+                .frame(height: 280)
                 
                 Spacer()
                 
@@ -100,7 +101,7 @@ struct MemoryCardRecordView: View {
                     }
                 }
                 .padding(.top, 5)
-                .frame(height: 100)
+                .frame(height: 115)
                 .animation(.easeInOut, value: isTyping)
                 
                 Spacer()
@@ -124,10 +125,21 @@ struct MemoryCardRecordView: View {
                     
                 }
                 if aiViewModel.isRecording {
-                    Text("목소리를 듣는 중이에요")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                    
+                    HStack {
+                        Text("목소리를 듣는 중이에요")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                        Button(action: {
+                            aiViewModel.stopRecordingAndSendData()
+                            showManualStopButton = false
+                        }) {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .foregroundColor(.mainGreen)
+                                .font(.system(size: 24))
+                        }
+                        .opacity(showManualStopButton ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.3), value: showManualStopButton)
+                    }
                 } else if aiViewModel.isProcessing {
                     Text("모니가 답변을 생각하고 있어요")
                         .font(.headline)
@@ -149,6 +161,7 @@ struct MemoryCardRecordView: View {
                                 chatbotImageOffset = -50
                                 buttonOffset = 50
                                 moniImage = "moni-face"
+//                                showManualStopButton = true
                             }
                         } else {
                             aiViewModel.endConversation()
@@ -158,6 +171,7 @@ struct MemoryCardRecordView: View {
                                 chatbotImageOffset = 0
                                 buttonOffset = 0
                                 moniImage = "moni-happy"
+//                                showManualStopButton = false
                             }
                         }
                     }) {
@@ -221,6 +235,13 @@ struct MemoryCardRecordView: View {
                     withAnimation {
                         moniImage = "moni-happy"
                     }
+                }
+            }
+            .onChange(of: aiViewModel.isRecording) { newValue in
+                if newValue && isConversationStarted {
+                    showManualStopButton = true
+                } else {
+                    showManualStopButton = false
                 }
             }
             .onDisappear {
@@ -300,7 +321,7 @@ struct LoadingAnimationView: View {
 
 #Preview {
     MemoryCardRecordView(
-        memoryCardId: 1,
+        memoryCardId: 32,
         groupId: 1,
         previousChatHistory: [
             ChatMessage(role: "system", content: "You are a helpful assistant."),
