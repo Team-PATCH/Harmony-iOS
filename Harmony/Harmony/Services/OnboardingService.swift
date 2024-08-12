@@ -33,7 +33,7 @@ final class OnboardingService {
         return (response.groupId, response.groupName, response.inviteUrl, response.vipInviteUrl)
     }
     
-    func joinGroup(userId: String, inviteCode: String, deviceToken: String) async throws -> Group {
+    func joinGroup(userId: String, inviteCode: String, deviceToken: String) async throws -> GroupJoinResponse {
         let parameters: [String: Any] = [
             "userId": userId,
             "inviteCode": inviteCode,
@@ -45,7 +45,7 @@ final class OnboardingService {
             .serializingDecodable(GroupJoinResponse.self)
             .value
         
-        return response.group
+        return response
     }
     
     func updateOnboardingInfo(groupId: Int, userId: String, alias: String, userName: String, profile: String, deviceToken: String) async throws -> OnboardingUpdateResponse {

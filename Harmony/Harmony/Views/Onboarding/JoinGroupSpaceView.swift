@@ -41,7 +41,8 @@ struct JoinGroupSpaceView: View {
                     .multilineTextAlignment(.center)
                     .background(Color.gray1)
                     .font(.pretendardBold(size: 27))
-                
+                    .cornerRadius(10)
+
                 Spacer()
                 
                 Button {

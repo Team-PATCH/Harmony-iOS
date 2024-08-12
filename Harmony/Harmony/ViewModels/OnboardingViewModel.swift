@@ -59,6 +59,10 @@ final class OnboardingViewModel: ObservableObject {
         didSet { logStateChange("isOnboardingEnd", oldValue, isOnboardingEnd) }
     }
     
+    @Published var permission = "" {
+        didSet { logStateChange("permission", oldValue, permission) }
+    }
+    
     init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService
         print("OnboardingViewModel initialized")
@@ -121,17 +125,18 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let group = try await apiService.joinGroup(userId: userId, inviteCode: inviteCode, deviceToken: deviceToken)
+                let groupRes = try await apiService.joinGroup(userId: userId, inviteCode: inviteCode, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
-                    self.currentGroup = group
-                    self.groupId = group.groupId
-                    self.groupName = group.name
-                    self.vipName = group.name.components(separatedBy: " ")[1]
-                    self.vipAlias = group.name.components(separatedBy: " ")[0]
+                    self.currentGroup = groupRes.group
+                    self.groupId = groupRes.group.groupId
+                    self.groupName = groupRes.group.name
+                    self.vipName = groupRes.group.name.components(separatedBy: " ")[1]
+                    self.vipAlias = groupRes.group.name.components(separatedBy: " ")[0]
                     self.isLoading = false
                     self.navigateTo(.enterGroup)
-                    print("Successfully joined group - groupId: \(group.groupId)")
+                    self.permission = groupRes.permission
+                    print("Successfully joined group - groupId: \(groupRes.group.groupId)")
                 }
             } catch {
                 DispatchQueue.main.async {

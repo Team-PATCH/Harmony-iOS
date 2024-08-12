@@ -71,8 +71,13 @@ struct EnterGroupSpaceView: View {
                 }
                 
                 Button {
-                    if user
-                    viewModel.navigateTo(.inputUserInfo)
+                    print(viewModel.inviteCode, viewModel.currentGroup?.vipInviteUrl)
+                    if viewModel.permission == "v" {
+                        viewModel.isOnboardingEnd = true
+                        viewModel.navigateToRoot()
+                    } else {
+                        viewModel.navigateTo(.inputUserInfo)
+                    }
                 } label: {
                     
                     Text("가족 공간 입장하기")

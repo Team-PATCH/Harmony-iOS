@@ -18,7 +18,6 @@ struct ContentView: View {
             NavigationStack(path: $onboardingViewModel.navigationPath) {
                 AllowNotificationView(viewModel: onboardingViewModel)
                     .navigationDestination(for: NavigationDestination.self) { destination in
-                        
                         switch destination {
                         case .createGroup:
                             CreateGroupSpaceView(viewModel: onboardingViewModel)
@@ -43,7 +42,6 @@ struct ContentView: View {
                         }
                     }
             }
-            
         }
         else {
             LoginView()

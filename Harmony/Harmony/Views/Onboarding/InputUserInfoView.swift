@@ -12,7 +12,7 @@ struct InputUserInfoView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("\(viewModel.vipName) \(viewModel.vipAlias)와")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.green)
@@ -27,7 +27,7 @@ struct InputUserInfoView: View {
                 .padding(.top, 8)
                 .lineSpacing(4)
             
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text("관계")
                     .padding(.leading,10)
                     .font(.pretendardMedium(size: 18))
@@ -63,4 +63,8 @@ struct InputUserInfoView: View {
         .padding()
         .background(Color.wh)
     }
+}
+
+#Preview {
+    InputUserInfoView(viewModel: OnboardingViewModel())
 }

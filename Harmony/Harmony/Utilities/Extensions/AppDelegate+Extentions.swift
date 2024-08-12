@@ -14,15 +14,15 @@ import KakaoSDKUser
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            if granted {
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            }
-        }
-        center.delegate = self
+//        let center = UNUserNotificationCenter.current()
+//        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+//            if granted {
+//                DispatchQueue.main.async(execute: {
+//                    UIApplication.shared.registerForRemoteNotifications()
+//                })
+//            }
+//        }
+//        center.delegate = self
         guard let nativeAppKey = Bundle.main.nativeAppKey else {
             print("카카오 네이티브 앱 키를 로드하지 못했음")
             return false
