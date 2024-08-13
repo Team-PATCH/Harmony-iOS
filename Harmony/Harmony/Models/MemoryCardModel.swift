@@ -52,10 +52,6 @@ struct ImageUploadResponse: Decodable {
     let imageUrl: String
 }
 
-extension Int: Identifiable {
-    public var id: Int { self }
-}
-
 // MARK: - 메모리 카드 생성 POST 응답
 
 

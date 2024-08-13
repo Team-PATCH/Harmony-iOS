@@ -162,33 +162,6 @@ final class MemoryCardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    
-    /*
-    func createMemoryCard(groupId: Int, title: String, date: Date, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
-        isLoading = true
-        let serverDateFormatter = DateFormatter()
-        serverDateFormatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = serverDateFormatter.string(from: date)
-        
-        MemoryCardService.shared.createMemoryCard(groupId: groupId, title: title, year: formattedDate, image: image)
-            .sink(receiveCompletion: { [weak self] completionResult in
-                switch completionResult {
-                case .finished:
-                    self?.isLoading = false
-                case .failure(let error):
-                    self?.errorMessage = "추억 카드 생성 실패: \(error.localizedDescription)"
-                    completion(.failure(error))
-                }
-            }, receiveValue: { [weak self] memoryCardData in
-                self?.memoryCardData = memoryCardData
-                self?.hasMemoryCard = true
-                self?.memoryCardImage = image
-                completion(.success(memoryCardData))
-            })
-            .store(in: &cancellables)
-    }
-*/
-    
     func setNewMemoryCard(_ card: MemoryCard) {
         DispatchQueue.main.async {
             self.newMemoryCard = card
@@ -196,37 +169,6 @@ final class MemoryCardViewModel: ObservableObject {
         }
     }
     
-    /*
-    func createMemoryCard(groupId: Int, title: String, date: Date, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
-        isLoading = true
-        let serverDateFormatter = DateFormatter()
-        serverDateFormatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = serverDateFormatter.string(from: date)
-        
-        MemoryCardService.shared.createMemoryCard(groupId: groupId, title: title, year: formattedDate, image: image)
-            .sink(receiveCompletion: { [weak self] completionResult in
-                self?.isLoading = false
-                switch completionResult {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.errorMessage = "메모리 카드 생성 실패: \(error.localizedDescription)"
-                        completion(.failure(error))
-                }
-            }, receiveValue: { [weak self] memoryCardData in
-                let newCard = MemoryCard(id: memoryCardData.memorycardId,
-                                         title: memoryCardData.title,
-                                         dateTime: memoryCardData.dateTime,
-                                         image: memoryCardData.image,
-                                         groupId: groupId)
-                self?.newMemoryCard = newCard
-                self?.setNewMemoryCard(newCard)
-                self?.showNewMemoryCardNotification = true
-                completion(.success(memoryCardData))
-            })
-            .store(in: &cancellables)
-    }
-     */
     
     func createMemoryCard(groupId: Int, title: String, date: Date, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
         isLoading = true
