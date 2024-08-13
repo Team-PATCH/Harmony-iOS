@@ -46,8 +46,9 @@ struct RoutineDetailView: View {
                             if let image = phase.image {
                                 image
                                     .resizable()
-                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
                                     .frame(width: 393, height: 240)
+                                    .clipped()
                             } else if phase.error != nil {
                                 Text("Failed to load image")
                                     .foregroundColor(.red)
@@ -109,6 +110,7 @@ struct RoutineDetailView: View {
                                 .padding(10)
                                 .sheet(isPresented: $showingReactionView) {
                                     RoutineReactionInputView(dailyRoutine: dailyRoutine, viewModel: viewModel)
+                                        .presentationDetents([.fraction(0.8)])
                                 }
                             }
                         }
