@@ -55,7 +55,7 @@ final class OnboardingViewModel: ObservableObject {
         didSet { logStateChange("navigationPath", oldValue, navigationPath)}
     }
     
-    @Published var isOnboardingEnd = false {
+    @Published var isOnboardingEnd: Bool {
         didSet { logStateChange("isOnboardingEnd", oldValue, isOnboardingEnd) }
     }
     
@@ -65,6 +65,7 @@ final class OnboardingViewModel: ObservableObject {
     
     init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService
+        self.isOnboardingEnd = UserDefaults.standard.bool(forKey: "isOnboardingEnd")
         print("OnboardingViewModel initialized")
     }
     
@@ -170,6 +171,7 @@ final class OnboardingViewModel: ObservableObject {
                     self.currentUserGroup = response.userGroup
                     self.isLoading = false
                     print("Onboarding info updated successfully - userId: \(response.userGroup.userId), groupId: \(response.userGroup.groupId)")
+                    UserDefaults.standard.setValue(true, forKey: "isOnboardingEnd")
                     self.isOnboardingEnd = true
                     self.navigateToRoot()
                 }

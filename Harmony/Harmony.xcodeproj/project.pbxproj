@@ -46,6 +46,7 @@
 		55A558712C561ECF00DF2CFF /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 55A558702C561ECF00DF2CFF /* KakaoSDK */; };
 		55A558732C56575400DF2CFF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A558722C56575400DF2CFF /* AuthViewModel.swift */; };
 		55A558752C57946B00DF2CFF /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A558742C57946B00DF2CFF /* AuthModel.swift */; };
+		55A6D3C02C6A56B400627DD2 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A6D3BF2C6A56B400627DD2 /* AppleSignInButton.swift */; };
 		BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */; };
 		BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */; };
 		BE3E4FF82C460F88003EC4E1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE3E4FF72C460F88003EC4E1 /* Alamofire */; };
@@ -154,6 +155,7 @@
 		55A10B2F2C5119AB001728EF /* RegisterProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileView.swift; sourceTree = "<group>"; };
 		55A558722C56575400DF2CFF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		55A558742C57946B00DF2CFF /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		55A6D3BF2C6A56B400627DD2 /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
 		BE06A0E32C44F2C0008D3C03 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		BE3E4FF42C460F6B003EC4E1 /* MemoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardModel.swift; sourceTree = "<group>"; };
 		BE3E4FFB2C460F9D003EC4E1 /* MemoryCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardService.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				55A10B1F2C4F76C5001728EF /* LoginView.swift */,
+				55A6D3BF2C6A56B400627DD2 /* AppleSignInButton.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -686,6 +689,7 @@
 				C49DBE172C4FADFE00B1A87D /* QuestionCardViewModel.swift in Sources */,
 				BE99A1892C44AA230011F371 /* HarmonyApp.swift in Sources */,
 				3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */,
+				55A6D3C02C6A56B400627DD2 /* AppleSignInButton.swift in Sources */,
 				55A10B302C5119AB001728EF /* RegisterProfileView.swift in Sources */,
 				55A10B2E2C5115BF001728EF /* CustomDropdownView.swift in Sources */,
 				BE884B712C5EF04C00D9BCCA /* AudioPlayerView.swift in Sources */,

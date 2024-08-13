@@ -39,6 +39,29 @@ final class AuthViewModel: ObservableObject {
         }
     }
     
+    private func loginService() {
+        let endpoint = "https://harmony-api.azurewebsites.net/user/signup"
+        let params: Parameters = [ "userId": self.user.userId,
+                                   "nick": self.user.nick,
+                                   //"profile": self.user.profile ?? "",
+                                   "authProvider": self.user.authProvider,
+                                   "socialToken": self.user.socialToken ?? "",
+                                   "refreshToken": self.user.refreshToken ?? "",
+                                   "socialTokenExpiredAt": self.user.socialTokenExpiredAt ?? ""]
+        print(params)
+        AF.request(endpoint, method: .post, parameters: params)
+            .validate()
+            .responseDecodable(of: AuthResponse.self) { res in
+                switch res.result {
+                case .success(let result):
+                    UserDefaults.standard.setValue(result.token, forKey: "serverToken")
+                    print("제발 \(result)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+    }
+    
     private func getUserInfo() {
         UserApi.shared.me { (user, error) in
             if let error {
@@ -60,26 +83,7 @@ final class AuthViewModel: ObservableObject {
                     self.user.refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
                     self.user.socialTokenExpiredAt = UserDefaults.standard.string(forKey: "expiredAt")
                     
-                    let endpoint = "https://harmony-api.azurewebsites.net/user/signup"
-                    let params: Parameters = [ "userId": self.user.userId,
-                                               "nick": self.user.nick,
-                                               //"profile": self.user.profile ?? "",
-                                               "authProvider": self.user.authProvider,
-                                               "socialToken": self.user.socialToken ?? "",
-                                               "refreshToken": self.user.refreshToken ?? "",
-                                               "socialTokenExpiredAt": self.user.socialTokenExpiredAt ?? ""]
-                    print(params)
-                    AF.request(endpoint, method: .post, parameters: params)
-                        .validate()
-                        .responseDecodable(of: AuthRes.self) { res in
-                            switch res.result {
-                            case .success(let result):
-                                UserDefaults.standard.setValue(result.token, forKey: "serverToken")
-                                print("제발 \(result)")
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            }
-                        }
+                    self.loginService()
                         
 
                     self.isLoggedIn = true

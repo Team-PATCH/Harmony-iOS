@@ -20,17 +20,7 @@ struct LoginView: View {
                 Spacer()
                 
                 VStack(spacing: 12) {
-                    Button {
-                        //
-                    } label: {
-                        Text("Apple로 계속하기")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.bl)
-                            .foregroundColor(.wh)
-                            .cornerRadius(10)
-                    }
-                    .frame(width: geometry.size.width * 0.9)
+                    AppleSignInButton(isLoggedIn: $authViewModel.isLoggedIn)
                     
                     Button {
                         authViewModel.loginWithKakao()
