@@ -22,36 +22,43 @@ struct RoutineReactionInputView: View {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }) {
+                    Spacer()
+                    
+                    Text("댓글 남기기")
+                        .font(.pretendardMedium(size: 18))
+                        .foregroundColor(Color.bl)
+                    
+                    Spacer()
+                    
                     Image(systemName: "xmark")
                         .font(.title2)
                         .foregroundColor(.black)
                 }
-                Spacer()
             }
             .padding()
-            
-            
             
             Button(action: {
                 showingCameraView.toggle()
             }) {
                 ZStack {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 352, height: 195)
-                        .background(Color.gray1)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray2, style: StrokeStyle(lineWidth: 2, dash: [2, 4]))
-                        )
-                    
                     if let selectedImage = selectedImage {
                         Image(uiImage: selectedImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 352, height: 195)
+                            .clipped()
+                            .cornerRadius(10)
                     } else {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 352, height: 195)
+                            .background(Color.gray1)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray2, style: StrokeStyle(lineWidth: 2, dash: [2, 4]))
+                            )
+                        
                         Image("camera-icon")
                             .font(.largeTitle)
                     }
@@ -72,7 +79,7 @@ struct RoutineReactionInputView: View {
                             to: dailyRoutine,
                             content: newReaction,
                             image: selectedImage,
-                            authorId: "test@user.com" // Author ID를 하드코딩 예시로 추가
+                            authorId: UserDefaultsManager.shared.getAlias() ?? "손녀 다우닝"
                         )
                         newReaction = ""
                         selectedImage = nil
@@ -81,11 +88,12 @@ struct RoutineReactionInputView: View {
                 }
             }) {
                 Text("작성 완료")
-                    .font(.headline)
+                    .font(.pretendardSemiBold(size: 20))
                     .foregroundColor(.white)
-                    .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green)
+                    .frame(height: 30)
+                    .padding()
+                    .background(Color.mainGreen)
                     .cornerRadius(5)
                     .padding(.horizontal)
             }
@@ -120,6 +128,7 @@ struct RoutineReactionRow: View {
                 
                 Spacer()
             }
+            .padding(.leading, 20)
             
             HStack(alignment: .top) {
                 AsyncImage(url: reactionPhoto) { phase in
@@ -134,14 +143,13 @@ struct RoutineReactionRow: View {
                         Text("Failed to load image")
                     }
                 }
-                .padding(0)
+                .padding(.leading, 20)
                 
                 Text(comment)
                     .font(.pretendardMedium(size: 20))
             }
         }
         .padding(.vertical, 20)
-        .padding(.horizontal, 18)
         .frame(width: 353)
         .background(Color.wh)
         .overlay(

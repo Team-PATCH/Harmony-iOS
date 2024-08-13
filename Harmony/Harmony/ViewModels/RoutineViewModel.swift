@@ -153,6 +153,17 @@ extension String {
     }
     
     var formattedTime: String {
+        // Routine의 time 값이 "HH:MM:SS" 형식인지 확인
+        if self.count == 8, self[2] == ":" && self[5] == ":" {
+            let components = self.split(separator: ":").map { Int($0) }
+            if let hour = components[0], let minute = components[1] {
+                let period = hour < 12 ? "오전" : "오후"
+                let hourString = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour)
+                return String(format: "%@ %d시 %02d분", period, hourString, minute)
+            }
+        }
+
+        // DailyRoutine의 time 값이 "yyyy-MM-dd'T'HH:mm:ss.SSSZ" 형식인지 확인
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -163,9 +174,11 @@ extension String {
             if let hour = components.hour, let minute = components.minute {
                 let period = hour < 12 ? "오전" : "오후"
                 let hourString = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour)
-                return String(format: "%@ %d시 %d분", period, hourString, minute)
+                return String(format: "%@ %d시 %02d분", period, hourString, minute)
             }
         }
+
+        // 포매팅이 실패하면 원본 문자열 반환
         return self
     }
 }

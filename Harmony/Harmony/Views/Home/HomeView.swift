@@ -137,20 +137,6 @@ struct HomeView: View {
                             Spacer()
                         }
                         
-                        VStack(alignment: .leading) {
-                            Text("나머지도 힘내서 달성해 봐요!")
-                                .foregroundColor(.gray)
-                            HStack {
-                                Text("\(Int(routineViewModel.completionRate * 100))% 완료")
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundColor(.green)
-                                Spacer()
-                            }
-                            CustomProgressView(value: routineViewModel.completionRate)
-                        }
-                        .padding(.vertical)
-                        
                         if routineViewModel.dailyRoutines.isEmpty {
                             VStack(alignment: .center, spacing: 20) {
                                 Text("아직 일과가 없어요.")
