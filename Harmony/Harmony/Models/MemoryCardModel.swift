@@ -52,7 +52,6 @@ struct ImageUploadResponse: Decodable {
     let imageUrl: String
 }
 
-
 // MARK: - 메모리 카드 생성 POST 응답
 
 

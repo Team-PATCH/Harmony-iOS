@@ -33,11 +33,11 @@ struct MemoryCardView: View {
 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(card.title)
-                        .font(.title3)
+                        .font(.system(size: 20))
                         .bold()
                         .foregroundColor(.black)
                     Text(FormatManager.shared.formattedDate(from: card.dateTime))
-                        .font(.subheadline)
+                        .font(.system(size: 15))
                         .foregroundColor(.black)
                 }
                 .padding([.horizontal, .bottom])

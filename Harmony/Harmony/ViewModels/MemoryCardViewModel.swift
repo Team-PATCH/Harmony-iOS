@@ -31,6 +31,13 @@ final class MemoryCardViewModel: ObservableObject {
     @Published var lastSummarizedMessageId: Int?
     @Published var hasMemoryCard: Bool = false
     @Published var memoryCardImage: UIImage? = nil
+    @Published var newMemoryCard: MemoryCard? {
+        didSet {
+            print("newMemoryCard 설정됨: \(String(describing: newMemoryCard))")
+        }
+    }
+    @Published var showNewMemoryCardNotification: Bool = false
+
 
 
     
@@ -132,6 +139,37 @@ final class MemoryCardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    
+    func loadLatestMemoryCard() {
+        print("loadLatestMemoryCard 호출됨")
+        MemoryCardService.shared.fetchMemoryCards()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("메모리 카드 로드 완료")
+                    case .failure(let error):
+                        print("메모리 카드 로드 실패: \(error)")
+                }
+            } receiveValue: { [weak self] cards in
+                if let latestCard = cards.first {
+                    self?.newMemoryCard = latestCard
+                    print("최신 메모리 카드 로드됨: \(latestCard)")
+                } else {
+                    print("메모리 카드를 찾을 수 없음")
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setNewMemoryCard(_ card: MemoryCard) {
+        DispatchQueue.main.async {
+            self.newMemoryCard = card
+            print("새 메모리 카드 설정: \(card)")
+        }
+    }
+    
+    
     func createMemoryCard(groupId: Int, title: String, date: Date, image: UIImage, completion: @escaping (Result<MemoryCardData, Error>) -> Void) {
         isLoading = true
         let serverDateFormatter = DateFormatter()
@@ -140,22 +178,29 @@ final class MemoryCardViewModel: ObservableObject {
         
         MemoryCardService.shared.createMemoryCard(groupId: groupId, title: title, year: formattedDate, image: image)
             .sink(receiveCompletion: { [weak self] completionResult in
-                switch completionResult {
-                case .finished:
+                DispatchQueue.main.async {
                     self?.isLoading = false
-                case .failure(let error):
-                    self?.errorMessage = "추억 카드 생성 실패: \(error.localizedDescription)"
-                    completion(.failure(error))
+                    switch completionResult {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            self?.errorMessage = "메모리 카드 생성 실패: \(error.localizedDescription)"
+                            completion(.failure(error))
+                    }
                 }
             }, receiveValue: { [weak self] memoryCardData in
-                self?.memoryCardData = memoryCardData
-                self?.hasMemoryCard = true
-                self?.memoryCardImage = image
-                completion(.success(memoryCardData))
+                DispatchQueue.main.async {
+                    let newCard = MemoryCard(id: memoryCardData.memorycardId,
+                                             title: memoryCardData.title,
+                                             dateTime: memoryCardData.dateTime,
+                                             image: memoryCardData.image,
+                                             groupId: groupId)
+                    self?.setNewMemoryCard(newCard)
+                    completion(.success(memoryCardData))
+                }
             })
             .store(in: &cancellables)
     }
-
     
     func parseChatHistory(from description: String) -> [ChatMessage] {
         // 구현: description 문자열을 분석하여 ChatMessage 배열로 변환

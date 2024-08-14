@@ -90,6 +90,12 @@ struct ChatHistoryView: View {
                 .background(Color.gray1)
             }
             
+//            Divider()
+            Rectangle()
+                .fill(Color.gray3) // 구분선 색상 설정
+                .frame(height: 1)  // 구분선 굵기 설정
+                
+            
             if showAudioPlayer {
                 AudioPlayerView(audioPlayer: audioPlayer)
                     .frame(height: 100)

@@ -9,11 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isAuth = false
+    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
+
+    
     var body: some View {
         if isAuth {
             MainTabView(isAuth: $isAuth)
+                .environmentObject(memoryCardViewModel)
         } else {
             SimpleOnboardingView(isAuth: $isAuth)
+                .environmentObject(memoryCardViewModel)
         }
     }
 }

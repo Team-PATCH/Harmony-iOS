@@ -5,6 +5,7 @@
 //  Created by 한범석 on 7/23/24.
 //
 
+
 import SwiftUI
 import Kingfisher
 
@@ -36,7 +37,7 @@ struct MemoryCardRecordView: View {
     
     
     var body: some View {
-        NavigationStack {
+        GeometryReader { geometry in
             VStack {
                 HStack {
 //                    Spacer()
@@ -57,8 +58,9 @@ struct MemoryCardRecordView: View {
                             KFImage(URL(string: card.image))
                                 .resizable()
                                 .scaledToFill()
-                                .frame(maxWidth: .infinity, maxHeight: 280)
+                                .frame(maxWidth: .infinity, maxHeight: 235)
                                 .clipped()
+//                                .frame(maxWidth: .infinity, maxHeight: geometry.size.height * 0.33)
                         } else {
                             Image(systemName: "camera.fill")
                                 .resizable()
@@ -68,7 +70,8 @@ struct MemoryCardRecordView: View {
                         }
                     }
                 }
-                .frame(height: 280)
+//                .frame(height: geometry.size.height * 0.3)
+                .frame(height: 235)
                 
                 Spacer()
                 
@@ -101,11 +104,11 @@ struct MemoryCardRecordView: View {
                     }
                 }
                 .padding(.top, 5)
-                .frame(height: 115)
+                .frame(height: 125)
                 .animation(.easeInOut, value: isTyping)
                 
                 Spacer()
-                    .frame(height: 30)
+                    .frame(height: 5)
                 
                 VStack {
                     ZStack {
@@ -118,7 +121,7 @@ struct MemoryCardRecordView: View {
                         Image(moniImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 180, height: 180)
+                            .frame(width: 175, height: 175)
                             .clipShape(Circle())
 //                            .animation(.easeInOut, value: moniImage)
                     }
@@ -249,6 +252,8 @@ struct MemoryCardRecordView: View {
             }
         }
         .navigationTitle(viewModel.memoryCard?.title ?? "모니와 대화하기")
+//        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private func startTypingAnimation(text: String) {
@@ -321,7 +326,7 @@ struct LoadingAnimationView: View {
 
 #Preview {
     MemoryCardRecordView(
-        memoryCardId: 32,
+        memoryCardId: 70,
         groupId: 1,
         previousChatHistory: [
             ChatMessage(role: "system", content: "You are a helpful assistant."),

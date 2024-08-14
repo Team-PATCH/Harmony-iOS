@@ -3,6 +3,7 @@ import SwiftUI
 struct SimpleOnboardingView: View {
     @Binding var isAuth: Bool
     @State var isOnboarding = false
+    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
     
     var body: some View {
         ZStack {
