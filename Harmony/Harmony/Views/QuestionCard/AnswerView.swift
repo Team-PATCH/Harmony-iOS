@@ -296,6 +296,8 @@ extension Notification.Name {
 
 import SwiftUI
 import Speech
+import AVFoundation
+import Accelerate
 
 struct AnswerView: View {
     @ObservedObject var viewModel: QuestionViewModel
@@ -360,11 +362,15 @@ struct AnswerCommonView: View {
     let questionId: Int
     let onSubmit: (String) -> Void
     
+    @State private var audioLevel: CGFloat = 0.0
     @State private var answerText: String
     @State private var isSTTActive = false
     @State private var transcribedText = ""
     @State private var isSTTViewPresented = false
     @State private var isRecognizing = false
+    
+    @State private var showErrorAlert = false
+    @State private var errorMessage = ""
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ko-KR"))
     private let audioEngine = AVAudioEngine()
@@ -387,7 +393,7 @@ struct AnswerCommonView: View {
                 Color.wh.edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 10) {
                         questionSection
                         
                         sttButton
@@ -406,19 +412,26 @@ struct AnswerCommonView: View {
                                 isActive: $isSTTViewPresented,
                                 answerText: $answerText,
                                 isRecognizing: $isRecognizing,
+                                audioLevel: $audioLevel,
                                 onComplete: {
                             answerText += transcribedText
                             transcribedText = ""
                             stopRecording()
+                        },
+                                onCancel: {
+                            stopRecording()
                         })
                     }
                     .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: isSTTViewPresented)
                     .zIndex(1)
                 }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .animation(.spring(), value: isSTTViewPresented)
+        .alert(isPresented: $showErrorAlert) {
+            Alert(title: Text("오류"), message: Text(errorMessage), dismissButton: .default(Text("확인")))
+        }
     }
     
     private var questionSection: some View {
@@ -453,21 +466,26 @@ struct AnswerCommonView: View {
     
     private var sttButton: some View {
         Button(action: {
-            isSTTViewPresented = true
-            startSTT()
+            if isSTTViewPresented {
+                stopRecording()
+            } else {
+                isSTTViewPresented = true
+                startSTT()
+            }
         }) {
             HStack {
                 Image(systemName: "mic")
                 Text("음성으로 입력하기")
+                    .font(.system(size: 18, weight: .bold)) // 텍스트를 볼드로 변경
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(Color.mainGreen)
+            .padding(.horizontal, 25) // 가로 패딩 증가
+            .padding(.vertical, 15) // 세로 패딩 증가
+            .background(isSTTViewPresented ? Color.red : Color.mainGreen)
             .foregroundColor(.white)
             .clipShape(Capsule())
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.vertical)
+        .padding(.vertical, 5) // 상하 패딩 감소
     }
     
     private var submitButton: some View {
@@ -483,11 +501,13 @@ struct AnswerCommonView: View {
         .disabled(answerText.isEmpty)
     }
     
+    
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 M월 d일"
         return formatter.string(from: date)
     }
+    
     
     private func startSTT() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
@@ -496,9 +516,13 @@ struct AnswerCommonView: View {
                     do {
                         try self.startRecording()
                     } catch {
+                        self.errorMessage = "음성 인식을 시작할 수 없습니다: \(error.localizedDescription)"
+                        self.showErrorAlert = true
                         print("Failed to start recording: \(error)")
                     }
                 } else {
+                    self.errorMessage = "음성 인식 권한이 필요합니다."
+                    self.showErrorAlert = true
                     print("Speech recognition not authorized")
                 }
             }
@@ -506,9 +530,6 @@ struct AnswerCommonView: View {
     }
     
     private func startRecording() throws {
-        // 이미 녹음 중이면 중복 실행 방지
-        guard !isRecognizing else { return }
-        
         // 기존 태스크 취소
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -543,6 +564,9 @@ struct AnswerCommonView: View {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
             recognitionRequest.append(buffer)
+            
+            // 오디오 레벨 계산
+            self.updateAudioLevel(buffer: buffer)
         }
         
         audioEngine.prepare()
@@ -550,6 +574,38 @@ struct AnswerCommonView: View {
         
         isRecognizing = true
     }
+    
+    private func updateAudioLevel(buffer: AVAudioPCMBuffer) {
+        guard let channelData = buffer.floatChannelData?[0] else { return }
+        let frameLength = UInt(buffer.frameLength)
+        
+        var sum: Float = 0
+        vDSP_measqv(channelData, 1, &sum, frameLength)
+        var db = 10 * log10f(sum / Float(frameLength))
+        if db.isInfinite {
+            db = -160
+        }
+        let normalizedValue = (db + 160) / 160 // Normalize to 0-1 range
+        
+        DispatchQueue.main.async {
+            self.audioLevel = CGFloat(normalizedValue)
+        }
+    }
+    
+    private func scaledPower(power: Float) -> Float {
+        guard power.isFinite else { return 0.0 }
+        
+        let minDb: Float = -80
+        
+        if power < minDb {
+            return 0.0
+        } else if power >= 1.0 {
+            return 1.0
+        } else {
+            return (abs(minDb) - abs(power)) / abs(minDb)
+        }
+    }
+    
     
     private func stopRecording() {
         audioEngine.stop()
@@ -574,14 +630,29 @@ struct STTView: View {
     @Binding var isActive: Bool
     @Binding var answerText: String
     @Binding var isRecognizing: Bool
+    @Binding var audioLevel: CGFloat
     var onComplete: () -> Void
+    var onCancel: () -> Void
+    
+    @State private var glowAmount: CGFloat = 0.0
     
     var body: some View {
         VStack {
-            Image("moni-talk")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
+            ZStack {
+                Circle()
+                    .fill(Color.mainGreen.opacity(0.3))
+                    .frame(width: 120, height: 120)
+                    .scaleEffect(1 + glowAmount)
+                    .animation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true), value: glowAmount)
+                
+                Image("moni-talk")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            }
+            .onAppear {
+                self.glowAmount = 0.2
+            }
             
             Text(isRecognizing ? "모니가 음성을 듣고 있어요" : "음성 인식 준비 중...")
                 .font(.headline)
@@ -593,19 +664,36 @@ struct STTView: View {
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
             
-            Button("완료") {
-                onComplete()
+            HStack {
+                Button("취소") {
+                    onCancel()
+                }
+                .padding()
+                .background(Color.gray)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                
+                Spacer()
+                
+                Button("완료") {
+                    onComplete()
+                }
+                .padding()
+                .background(Color.mainGreen)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
-            .padding()
-            .background(Color.mainGreen)
-            .foregroundColor(.white)
-            .cornerRadius(10)
         }
         .padding()
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 10)
-        .frame(height: 300)
+        .frame(height: 350)
+        .onChange(of: audioLevel) { newValue in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                glowAmount = 0.2 + (newValue * 2)
+            }
+        }
     }
 }
 
