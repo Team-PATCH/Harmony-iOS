@@ -19,7 +19,6 @@
 		3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */; };
 		3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB52C50A1B900627C63 /* CameraView.swift */; };
 		3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */; };
-		3EB938D12C6A00D400D03BF3 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */; };
 		3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */; };
 		3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C12C57A92E00B16DB8 /* RoutineService.swift */; };
 		3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */; };
@@ -86,8 +85,6 @@
 		BEEA0D262C6B339500A02BA1 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0D252C6B339500A02BA1 /* Int+Extensions.swift */; };
 		BEEA0D282C6B35D600A02BA1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0D272C6B35D600A02BA1 /* LoadingView.swift */; };
 		C46D395F2C62023200489A4A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395E2C62023200489A4A /* HomeViewModel.swift */; };
-		C46D39652C6AF96C00489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D39642C6AF96C00489A4A /* Secrets.xcconfig */; };
-		C46D39672C6AF9D100489A4A /* Harmony.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C46D39662C6AF9D100489A4A /* Harmony.p8 */; };
 		C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* GroupModel.swift */; };
 		C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */; };
 		C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */; };
@@ -284,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				C46D395A2C61F7C000489A4A /* Secrets.xcconfig */,
+				C46D39642C6AF96C00489A4A /* Secrets.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -579,15 +577,12 @@
 			files = (
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
-				C46D39652C6AF96C00489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
 				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
-				C46D39672C6AF9D100489A4A /* Harmony.p8 in Resources */,
 				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
 				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
 				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,
-				3EB938D12C6A00D400D03BF3 /* Secrets.xcconfig in Resources */,
 				BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */,
 				BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */,
 				BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */,

@@ -241,19 +241,6 @@ struct HomeView: View {
                 Spacer()
             }
             
-            VStack(alignment: .leading) {
-                Text("나머지도 힘내서 달성해 봐요!")
-                    .foregroundColor(.gray)
-                HStack {
-                    Text("\(Int(routineViewModel.completionRate * 100))% 완료")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.green)
-                    Spacer()
-                }
-                CustomProgressView(value: routineViewModel.completionRate)
-            }
-            .padding(.vertical)
             
             if routineViewModel.dailyRoutines.isEmpty {
                 emptyRoutineView
@@ -316,22 +303,4 @@ struct HomeView: View {
     }
 }
 
-struct CustomProgressView: View {
-    var value: Double
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(Color.gray2)
-                    .frame(height: 17)
-                Rectangle()
-                    .fill(Color.mainGreen)
-                    .frame(width: CGFloat(value) * geometry.size.width, height: 17)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-        .frame(height: 17)
-    }
-}
 
