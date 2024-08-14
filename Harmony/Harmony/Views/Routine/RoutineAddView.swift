@@ -146,6 +146,7 @@ struct RoutineAddView: View {
             "days": days,
             "time": timeString
         ]
+        print(parameters)
 
         Task {
             do {
