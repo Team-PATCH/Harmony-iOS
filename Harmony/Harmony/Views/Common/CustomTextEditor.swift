@@ -53,6 +53,7 @@ protocol CustomTextViewControllerDelegate: AnyObject {
 }
 
 class CustomTextViewController: UIViewController, UITextViewDelegate {
+    var textPadding: UIEdgeInsets = UIEdgeInsets(top: 15, left: 19, bottom: 0, right: 8)
     weak var delegate: CustomTextViewControllerDelegate?
     
     var text: String = "" {
@@ -114,18 +115,21 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
         view.addSubview(characterCountLabel)
         textView.addSubview(placeholderLabel)
         
+        // Set the text view's text container inset to match the placeholder padding
+        textView.textContainerInset = textPadding
+        
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: view.topAnchor),
             textView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            characterCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            characterCountLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            characterCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -19),
+            characterCountLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15),
             
-            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 8),
-            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 4),
-            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -4)
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: textPadding.top),
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: textPadding.left),
+            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -textPadding.right)
         ])
         
         textView.delegate = self
@@ -135,6 +139,7 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
         updatePlaceholder()
         updateCharacterCount()
     }
+
     
     private func updateBackgroundColor() {
         textView.backgroundColor = backgroundColor
@@ -159,7 +164,7 @@ class CustomTextViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        placeholderLabel.isHidden = !textView.text.isEmpty
+        placeholderLabel.isHidden = true
     }
     
     func textViewDidChange(_ textView: UITextView) {

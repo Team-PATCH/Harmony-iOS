@@ -19,6 +19,7 @@
 		3EA6EBB42C509DDB00627C63 /* RoutineProvingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */; };
 		3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB52C50A1B900627C63 /* CameraView.swift */; };
 		3EA6EBB82C5117BD00627C63 /* DailyRoutineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */; };
+		3EB938D12C6A00D400D03BF3 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */; };
 		3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */; };
 		3EE527C22C57A92E00B16DB8 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C12C57A92E00B16DB8 /* RoutineService.swift */; };
 		3EE527C62C58BBC700B16DB8 /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */; };
@@ -114,6 +115,7 @@
 		3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineProvingView.swift; sourceTree = "<group>"; };
 		3EA6EBB52C50A1B900627C63 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineRow.swift; sourceTree = "<group>"; };
+		3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineReactionInputView.swift; sourceTree = "<group>"; };
 		3EE527C12C57A92E00B16DB8 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
 		3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditView.swift; sourceTree = "<group>"; };
@@ -229,9 +231,9 @@
 			children = (
 				3EA6EBA72C4F497700627C63 /* RoutineView.swift */,
 				3EA6EBAF2C4F98EB00627C63 /* RoutineManagementView.swift */,
+				3EA6EBB12C5094CB00627C63 /* RoutineDetailView.swift */,
 				3EA6EBAD2C4F874300627C63 /* RoutineAddView.swift */,
 				3EE527C52C58BBC700B16DB8 /* RoutineEditView.swift */,
-				3EA6EBB12C5094CB00627C63 /* RoutineDetailView.swift */,
 				3EA6EBB32C509DDB00627C63 /* RoutineProvingView.swift */,
 				3EA6EBB72C5117BD00627C63 /* DailyRoutineRow.swift */,
 				3EE527942C51F9A400B16DB8 /* RoutineReactionInputView.swift */,
@@ -438,7 +440,7 @@
 			children = (
 				5500034A2C5367D600B00635 /* Harmony.entitlements */,
 				55A10B232C4F94C8001728EF /* Info.plist */,
-				C46D39642C6AF96C00489A4A /* Secrets.xcconfig */,
+				3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */,
 				BE99A1882C44AA230011F371 /* HarmonyApp.swift */,
 				BE99A18A2C44AA230011F371 /* ContentView.swift */,
 				3EA6EBA22C4F492900627C63 /* MainTabView.swift */,
@@ -579,6 +581,7 @@
 				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
 				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
 				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,
+				3EB938D12C6A00D400D03BF3 /* Secrets.xcconfig in Resources */,
 				BE96B7FF2C47986C003C41F9 /* Pretendard-Thin.ttf in Resources */,
 				BE96B7F72C47986C003C41F9 /* Pretendard-Black.ttf in Resources */,
 				BE96B7FB2C47986C003C41F9 /* Pretendard-Light.ttf in Resources */,
@@ -677,7 +680,7 @@
 /* Begin XCBuildConfiguration section */
 		BE99A1912C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C46D39642C6AF96C00489A4A /* Secrets.xcconfig */;
+			baseConfigurationReference = 3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -741,7 +744,7 @@
 		};
 		BE99A1922C44AA250011F371 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C46D39642C6AF96C00489A4A /* Secrets.xcconfig */;
+			baseConfigurationReference = 3EB938D02C6A00D400D03BF3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -812,6 +815,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -849,6 +853,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Harmony/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
