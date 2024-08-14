@@ -23,7 +23,6 @@ struct MemoryCardDetailView: View {
                 Text(errorMessage)
             } else if let memoryCardDetail = viewModel.memoryCardDetail {
                 VStack(spacing: 0) {
-                    // Image section
                     if let memoryCard = viewModel.memoryCard {
                         KFImage(URL(string: memoryCard.image))
                             .resizable()
@@ -41,12 +40,11 @@ struct MemoryCardDetailView: View {
                             )
                     }
                     
-                    // Title and tags section
                     VStack {
                         Text(memoryCardDetail.title)
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.bl)
+                            .foregroundColor(.black)
                             .padding(.top, 5)
                             .padding(.bottom, 5)
                         
@@ -70,15 +68,13 @@ struct MemoryCardDetailView: View {
                     }
                     .padding([.top, .bottom])
                     .frame(maxWidth: .infinity)
-                    .background(Color.wh)
+                    .background(Color.white)
                     .multilineTextAlignment(.center)
                     
-                    // Gray separator
                     Rectangle()
                         .fill(Color.gray1)
                         .frame(height: 8)
                     
-                    // Content section
                     ScrollView {
                         if viewModel.isSummaryLoading {
                             ProgressView("모니가 대화를 요약하고 있어요☺️")
@@ -86,7 +82,7 @@ struct MemoryCardDetailView: View {
                         } else if !viewModel.summary.isEmpty {
                             Text(viewModel.summary)
                                 .font(.body)
-                                .foregroundColor(.bl)
+                                .foregroundColor(.black)
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color.gray1)
@@ -106,28 +102,43 @@ struct MemoryCardDetailView: View {
                                 .padding(.vertical, 8)
                         }
                     }
-                    .background(Color.wh)
+                    .background(Color.white)
                     
                     Spacer()
                     
-                    // Button section
-                    NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId, groupId: groupId, shouldRefreshSummary: $shouldRefreshSummary, memoryCardViewModel: viewModel)) {
-                        Text("대화 전체 보기")
-                            .font(.headline)
-                            .foregroundColor(.wh)
-                            .frame(maxWidth: .infinity)
+                    VStack {
+                        if viewModel.summary.isEmpty {
+                            NavigationLink(destination: MemoryCardRecordView(memoryCardId: memoryCardId, groupId: groupId, previousChatHistory: [])) {
+                                Text("모니와 대화하기")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.mainGreen)
+                                    .cornerRadius(10)
+                            }
                             .padding()
-                            .background(Color.mainGreen)
-                            .cornerRadius(10)
+                            .background(Color.white)
+                        } else {
+                            NavigationLink(destination: ChatHistoryView(memoryCardId: memoryCardId, groupId: groupId, shouldRefreshSummary: $shouldRefreshSummary, memoryCardViewModel: viewModel)) {
+                                Text("대화 전체 보기")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.mainGreen)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
+                            .background(Color.white)
+                        }
                     }
-                    .padding()
-                    .background(Color.wh)
                 }
             } else {
                 Text("카드를 불러오는 중이에요🥹")
             }
         }
-        .background(Color.wh)
+        .background(Color.white)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -135,19 +146,19 @@ struct MemoryCardDetailView: View {
                     showingActionSheet = true
                 }) {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.bl)
+                        .foregroundColor(.black)
                 }
             }
         }
         .actionSheet(isPresented: $showingActionSheet) {
             ActionSheet(title: Text(""), message: Text(""), buttons: [
-                .default(Text("다시 대화하기").foregroundColor(.bl)) {
+                .default(Text("다시 대화하기").foregroundColor(.black)) {
                     // 다시 대화하기 액션
                 },
-                .destructive(Text("삭제하기").foregroundColor(.subRed)) {
+                .destructive(Text("삭제하기").foregroundColor(.red)) {
                     // 삭제 액션 (아직 구현되지 않음)
                 },
-                .cancel(Text("취소").foregroundColor(.gray4))
+                .cancel(Text("취소").foregroundColor(.gray))
             ])
         }
         .onChange(of: shouldRefreshSummary) { newValue in
@@ -163,8 +174,6 @@ struct MemoryCardDetailView: View {
     }
 }
 
-
-
 #Preview {
-    MemoryCardDetailView(memoryCardId: 1, groupId: 1)
+    MemoryCardDetailView(memoryCardId: 70, groupId: 1)
 }

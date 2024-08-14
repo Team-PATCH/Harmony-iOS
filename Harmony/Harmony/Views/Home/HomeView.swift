@@ -7,18 +7,15 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     @StateObject private var routineViewModel = RoutineViewModel()
-//    @StateObject private var memoryCardViewModel = MemoryCardViewModel()
     @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
     @State private var isShowingMemoryCardCreate = false
     @State private var isShowingMemoryCardView = false
     @State private var selectedDailyRoutine: DailyRoutine?
     @State private var isShowingRoutineAdd = false
-    @State private var isShowingMemoryCardRecord = false
     @State private var hasSharedMemoryCard = false
-    @State private var selectedMemoryCard: MemoryCard?
-    
     @State private var selectedMemoryCardId: Int?
     
     @Binding var isAuth: Bool
@@ -62,11 +59,6 @@ struct HomeView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear(perform: setupNavigationBar)
-        .sheet(item: $selectedMemoryCardId) { cardId in
-            MemoryCardRecordView(memoryCardId: cardId, groupId: UserDefaultsManager.shared.getGroupId() ?? 1, previousChatHistory: [])
-                .environmentObject(memoryCardViewModel)
-        }
         .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
             RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: routineViewModel)
         }
@@ -80,11 +72,6 @@ struct HomeView: View {
         }
         .environmentObject(memoryCardViewModel)
         .onAppear {
-            // 상태를 명확하게 초기화
-            isShowingMemoryCardRecord = false
-            selectedMemoryCardId = nil
-            
-            // 필요한 경우 데이터 로드
             memoryCardViewModel.loadLatestMemoryCard()
             Task {
                 await routineViewModel.fetchRoutines()
@@ -92,8 +79,6 @@ struct HomeView: View {
             }
         }
         .onDisappear {
-            // 뷰가 사라질 때도 상태를 명확하게 초기화
-            isShowingMemoryCardRecord = false
             selectedMemoryCardId = nil
         }
     }
@@ -139,12 +124,10 @@ struct HomeView: View {
     private var vipView: some View {
         VStack(alignment: .center, spacing: 20) {
             if isShowingMemoryCardView, let card = memoryCardViewModel.newMemoryCard {
-                MemoryCardView(card: card, viewModel: memoryCardViewModel)
-                    .frame(height: 200)
-                    .onTapGesture {
-                        selectedMemoryCardId = card.id
-                        isShowingMemoryCardRecord = true
-                    }
+                NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
+                    MemoryCardView(card: card, viewModel: memoryCardViewModel)
+                        .frame(height: 200)
+                }
             } else {
                 Image("letter-image2")
                     .resizable()
@@ -167,38 +150,40 @@ struct HomeView: View {
             Text("어떤 추억인지 확인해 볼까요?")
                 .font(.pretendardMedium(size: 18))
                 .foregroundColor(.gray4)
-            Button(action: {
-                print("추억카드 확인하기 버튼 클릭")
-                
-                if let card = memoryCardViewModel.newMemoryCard {
-                    print("선택된 카드: \(card)")
-                    selectedMemoryCardId = card.id
-                    
-                    // 상태를 강제로 리셋 후 업데이트
-                    isShowingMemoryCardRecord = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        isShowingMemoryCardRecord = true
-                    }
-                } else {
-                    print("newMemoryCard가 nil입니다. 다시 로드 시도.")
-                    memoryCardViewModel.loadLatestMemoryCard()
+            
+            // Fix: Ensuring selectedMemoryCardId is properly set and used
+            if let selectedMemoryCardId = selectedMemoryCardId {
+                NavigationLink(destination: MemoryCardDetailView(memoryCardId: selectedMemoryCardId, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
+                    Text("추억카드 확인하기")
+                        .font(.pretendardSemiBold(size: 20))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.mainGreen)
+                        .cornerRadius(10)
                 }
-                
-            }) {
-                Text("추억카드 확인하기")
-                    .font(.pretendardSemiBold(size: 20))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.mainGreen)
-                    .cornerRadius(10)
+            } else {
+                Button(action: {
+                    if let card = memoryCardViewModel.newMemoryCard {
+                        selectedMemoryCardId = card.id
+                    } else {
+                        memoryCardViewModel.loadLatestMemoryCard()
+                    }
+                }) {
+                    Text("추억카드 확인하기")
+                        .font(.pretendardSemiBold(size: 20))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.mainGreen)
+                        .cornerRadius(10)
+                }
             }
         }
         .padding()
         .background(Color.gray1)
         .onAppear {
             memoryCardViewModel.loadLatestMemoryCard()
-            print("VIP 뷰 나타남, newMemoryCard: \(String(describing: memoryCardViewModel.newMemoryCard))")
         }
     }
     
@@ -331,7 +316,6 @@ struct HomeView: View {
     }
 }
 
-
 struct CustomProgressView: View {
     var value: Double
     
@@ -350,3 +334,4 @@ struct CustomProgressView: View {
         .frame(height: 17)
     }
 }
+
