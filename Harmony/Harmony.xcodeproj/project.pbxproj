@@ -84,6 +84,7 @@
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
 		BEEA0D262C6B339500A02BA1 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0D252C6B339500A02BA1 /* Int+Extensions.swift */; };
 		BEEA0D282C6B35D600A02BA1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0D272C6B35D600A02BA1 /* LoadingView.swift */; };
+		BEEA0D2C2C6D6B0B00A02BA1 /* RippleAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0D2B2C6D6B0B00A02BA1 /* RippleAnimationView.swift */; };
 		C46D395F2C62023200489A4A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395E2C62023200489A4A /* HomeViewModel.swift */; };
 		C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* GroupModel.swift */; };
 		C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */; };
@@ -181,6 +182,7 @@
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
 		BEEA0D252C6B339500A02BA1 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		BEEA0D272C6B35D600A02BA1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		BEEA0D2B2C6D6B0B00A02BA1 /* RippleAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleAnimationView.swift; sourceTree = "<group>"; };
 		C46D395A2C61F7C000489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		C46D395E2C62023200489A4A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C46D39642C6AF96C00489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */,
 				3EA6EBB52C50A1B900627C63 /* CameraView.swift */,
 				55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */,
+				BEEA0D2B2C6D6B0B00A02BA1 /* RippleAnimationView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */,
 				BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */,
 				C49DBE262C4FAEEE00B1A87D /* QuestionMainView.swift in Sources */,
+				BEEA0D2C2C6D6B0B00A02BA1 /* RippleAnimationView.swift in Sources */,
 				C49DBE192C4FAE2E00B1A87D /* QuestionCardService.swift in Sources */,
 				C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */,
 				BE3E50082C466BDB003EC4E1 /* MemoryCardView.swift in Sources */,

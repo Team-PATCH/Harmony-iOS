@@ -1,299 +1,3 @@
-//
-//  AnswerView.swift
-//  Harmony_ForPR
-//
-//  Created by Ji Hye PARK on 7/23/24.
-//
-
-
-import SwiftUI
-import Speech
-/*
-struct AnswerView: View {
-    @ObservedObject var viewModel: QuestionViewModel
-    let questionId: Int
-    @State private var answerText = ""
-    @State private var navigateToDetail = false
-    @State private var showErrorAlert = false
-    @State private var errorMessage = ""
-    
-    @State private var isSTTActive = false
-    @State private var transcribedText = ""
-    @State private var recognitionTask: SFSpeechRecognitionTask?
-    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ko-KR"))
-    private let audioEngine = AVAudioEngine()
-    
-    var isVIP: Bool {
-        UserDefaultsManager.shared.isVIP()
-    }
-    
-    var body: some View {
-        Group {
-            if isVIP {
-                AnswerCommonView(
-                    questionIndex: viewModel.currentQuestion?.id ?? 0,
-                    question: viewModel.currentQuestion?.question ?? "",
-                    answeredAt: nil,
-                    answerText: $answerText,
-                    buttonText: "답변 완료",
-                    onSubmit: submitAnswer
-                )
-                .navigationDestination(isPresented: $navigateToDetail) {
-                    QuestionDetailView(viewModel: viewModel, questionId: questionId)
-                }
-            } else {
-                Text("VIP 회원만 답변을 작성할 수 있습니다.")
-                    .font(.pretendardMedium(size: 18))
-                    .foregroundColor(.secondary)
-                    .padding()
-            }
-        }
-        .task {
-            if viewModel.currentQuestion == nil, let groupId = UserDefaultsManager.shared.getGroupId() {
-                await viewModel.fetchCurrentQuestion(groupId: groupId)
-            }
-        }
-        .alert("오류", isPresented: $showErrorAlert) {
-            Button("확인", role: .cancel) { }
-        } message: {
-            Text(errorMessage)
-        }
-        .sheet(isPresented: $isSTTActive) {
-            STTModalView(transcribedText: $transcribedText, isActive: $isSTTActive, answerText: $answerText, onComplete: {
-                answerText += transcribedText
-                transcribedText = ""
-            })
-        }
-    }
-    
-    private func submitAnswer() {
-        Task {
-            do {
-                await viewModel.postAnswer(questionId: questionId, answer: answerText)
-                navigateToDetail = true
-            } catch {
-                errorMessage = "답변 제출 중 오류가 발생했습니다: \(error.localizedDescription)"
-                showErrorAlert = true
-            }
-        }
-    }
-    
-    private var sttButton: some View {
-        Button(action: {
-            isSTTActive = true
-            startSTT()
-        }) {
-            HStack {
-                Image(systemName: "mic")
-                Text("음성으로 입력하기")
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(Color.mainGreen)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
-        }
-        .padding(.top)
-    }
-    
-    private func startSTT() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            DispatchQueue.main.async {
-                if authStatus == .authorized {
-                    do {
-                        try self.startRecording()
-                    } catch {
-                        print("Failed to start recording: \(error)")
-                    }
-                } else {
-                    print("Speech recognition not authorized")
-                }
-            }
-        }
-    }
-    
-    private func startRecording() throws {
-        // 기존 태스크 취소
-        recognitionTask?.cancel()
-        recognitionTask = nil
-        
-        // 오디오 세션 설정
-        let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
-        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        
-        let inputNode = audioEngine.inputNode
-        let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        recognitionRequest.shouldReportPartialResults = true
-        
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
-            if let result = result {
-                DispatchQueue.main.async {
-                    self.transcribedText = result.bestTranscription.formattedString
-                }
-            }
-            if error != nil {
-                self.stopRecording()
-            }
-        }
-        
-        let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
-            recognitionRequest.append(buffer)
-        }
-        
-        audioEngine.prepare()
-        try audioEngine.start()
-    }
-    
-    private func stopRecording() {
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-        recognitionTask?.cancel()
-        recognitionTask = nil
-    }
-    
-    
-}
-
-struct AnswerCommonView: View {
-    let questionIndex: Int
-    let question: String
-    let answeredAt: Date?
-    @Binding var answerText: String
-    let buttonText: String
-    let onSubmit: () -> Void
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Color.wh.edgesIgnoringSafeArea(.all)
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        questionSection
-                        
-                        textEditorSection(height: geometry.size.height * 0.6)
-                        
-                        
-                        
-                        submitButton
-                    }
-                    .padding()
-                }
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    private var questionSection: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text("#\(questionIndex)번째 질문")
-                .font(.pretendardMedium(size: 18))
-                .foregroundColor(.green)
-                .padding(.bottom)
-            Text(question)
-                .font(.pretendardSemiBold(size: 24))
-                .foregroundColor(.black)
-                .padding(.bottom, 10)
-            if let date = answeredAt {
-                Text(formatDate(date))
-                    .font(.pretendardMedium(size: 18))
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding(.bottom, 10)
-    }
-    
-    private func textEditorSection(height: CGFloat) -> some View {
-        ZStack(alignment: .bottomTrailing) {
-            CustomTextEditor(text: $answerText,
-                             backgroundColor: UIColor(Color.gray1), placeholder: "여정님의 답변을 알려주세요.")
-            .frame(height: height)
-            .cornerRadius(8)
-        }
-        .background(Color.gray1)
-        .cornerRadius(10)
-    }
-    
-    private var submitButton: some View {
-        Button(action: onSubmit) {
-            Text(buttonText)
-                .font(.pretendardSemiBold(size: 24))
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(answerText.isEmpty ? Color.gray2 : Color.mainGreen)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-        }
-        .disabled(answerText.isEmpty)
-    }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: date)
-    }
-    
-    
-}
-
-
-struct STTModalView: View {
-    @Binding var transcribedText: String
-    @Binding var isActive: Bool
-    @Binding var answerText: String
-    var onComplete: () -> Void
-    
-    var body: some View {
-        VStack {
-            Image("moni-talk") // 앱에서 사용하는 이미지 에셋 이름
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-            
-            Text("모니가 음성을 듣고 있어요")
-                .font(.headline)
-                .padding()
-            
-            Text(transcribedText)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
-            
-            Button("완료") {
-                stopRecording()
-                onComplete()
-                isActive = false
-            }
-            .padding()
-            .background(Color.mainGreen)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-        }
-        .padding()
-    }
-    
-    private func stopRecording() {
-        NotificationCenter.default.post(name: .stopSTTRecording, object: nil)
-    }
-}
-
-extension Notification.Name {
-    static let stopSTTRecording = Notification.Name("stopSTTRecording")
-}
-*/
-
-
-// MARK: - Preview
-//#Preview {
-//    NavigationView {
-//        AnswerView(viewModel: QuestionViewModel(mockData: true), questionId: 1)
-//    }
-//}
-
-
 import SwiftUI
 import Speech
 import AVFoundation
@@ -625,6 +329,8 @@ struct AnswerCommonView: View {
     }
 }
 
+import SwiftUI
+
 struct STTView: View {
     @Binding var transcribedText: String
     @Binding var isActive: Bool
@@ -634,16 +340,31 @@ struct STTView: View {
     var onComplete: () -> Void
     var onCancel: () -> Void
     
-    @State private var glowAmount: CGFloat = 0.0
+    @State private var rippleScale: CGFloat = 1.0
+    @State private var rippleOpacity: Double = 0.0
     
     var body: some View {
         VStack {
             ZStack {
+                // 물결 효과
+                ForEach(0..<3) { i in
+                    Circle()
+                        .stroke(Color.mainGreen.opacity(0.3), lineWidth: 2)
+                        .frame(width: 80, height: 80)
+                        .scaleEffect(rippleScale + CGFloat(i) * 0.3) // 간격을 0.1에서 0.3으로 증가
+                        .opacity(rippleOpacity - Double(i) * 0.1) // 바깥쪽 원일수록 투명도 감소
+                        .animation(
+                            Animation.easeInOut(duration: 2)
+                                .repeatForever(autoreverses: false)
+                                .delay(Double(i) * 0.4),
+                            value: rippleScale
+                        )
+                }
+                
+                // 메인 원
                 Circle()
                     .fill(Color.mainGreen.opacity(0.3))
                     .frame(width: 120, height: 120)
-                    .scaleEffect(1 + glowAmount)
-                    .animation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true), value: glowAmount)
                 
                 Image("moni-talk")
                     .resizable()
@@ -651,12 +372,14 @@ struct STTView: View {
                     .frame(width: 100, height: 100)
             }
             .onAppear {
-                self.glowAmount = 0.2
+                self.rippleScale = 1.5
+                self.rippleOpacity = 0.0
             }
             
             Text(isRecognizing ? "모니가 음성을 듣고 있어요" : "음성 인식 준비 중...")
                 .font(.headline)
-                .padding()
+                .padding([.horizontal, .bottom])
+                .padding(.top, -10)
             
             Text(transcribedText)
                 .padding()
@@ -688,10 +411,11 @@ struct STTView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 10)
-        .frame(height: 350)
+        .frame(height: 330)
         .onChange(of: audioLevel) { newValue in
             withAnimation(.easeInOut(duration: 0.1)) {
-                glowAmount = 0.2 + (newValue * 2)
+                self.rippleScale = 1.5 + (newValue * 0.8) // 스케일 범위 증가
+                self.rippleOpacity = Double(0.5 + newValue * 0.5) // 최소 투명도 증가
             }
         }
     }
