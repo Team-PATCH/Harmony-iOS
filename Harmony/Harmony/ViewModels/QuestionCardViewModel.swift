@@ -30,20 +30,62 @@ final class QuestionViewModel: ObservableObject {
     // 오늘의 질문 불러오기
     func fetchCurrentQuestion(groupId: Int) async {
         do {
+            print("Fetching current question for groupId: \(groupId)")
             let response: ServerResponse<Question> = try await QuestionCardService.shared.fetchData(endpoint: "/currentquestion/\(groupId)")
-            self.currentQuestion = response.data
+            print("Server response: \(response)")
+            if let question = response.data {
+                self.currentQuestion = question
+                print("Current question set: \(question)")
+                
+                // 현재 질문이 설정되었으므로 최근 질문 목록 갱신
+                // 답변 여부에 관계없이 항상 갱신하지만, fetchRecentQuestions에서 필터링됨
+                await fetchRecentQuestions(groupId: groupId)
+            } else {
+                print("No question data in response")
+            }
         } catch {
             print("Error fetching current question: \(error)")
         }
     }
     
-    // 최근질문 세개 조회
+    //최근질문 조회
     func fetchRecentQuestions(groupId: Int) async {
         do {
-            let response: ServerResponse<[Question]> = try await QuestionCardService.shared.fetchData(endpoint: "/questions/\(groupId)")
-            self.recentQuestions = response.data ?? []
+            print("Fetching recent questions for groupId: \(groupId)")
+            // 서버에서 더 많은 질문을 요청 (예: 10개)
+            let response: ServerResponse<[Question]> = try await QuestionCardService.shared.fetchData(endpoint: "/questions/\(groupId)?limit=10")
+            if let questions = response.data {
+                print("Received \(questions.count) questions from server")
+                
+                // 답변이 있는 질문만 필터링
+                var answeredQuestions = questions.filter { $0.answer != nil }
+                
+                // 현재 질문이 있고 답변이 있다면 포함
+                if let currentQuestion = self.currentQuestion,
+                   currentQuestion.answer != nil,
+                   !answeredQuestions.contains(where: { $0.id == currentQuestion.id }) {
+                    answeredQuestions.insert(currentQuestion, at: 0)
+                }
+                
+                // ID 기준으로 내림차순 정렬
+                answeredQuestions.sort { $0.id > $1.id }
+                
+                // 최대 3개의 가장 최근 답변된 질문 선택
+                self.recentQuestions = Array(answeredQuestions.prefix(4))
+                
+                print("Recent questions set: \(self.recentQuestions.map { $0.id })")
+                
+                // 3개 미만인 경우 추가 로깅
+                if self.recentQuestions.count < 3 {
+                    print("Warning: Less than 3 recent questions available. Total: \(self.recentQuestions.count)")
+                }
+            } else {
+                print("No questions data in response")
+                self.recentQuestions = []
+            }
         } catch {
             print("Error fetching recent questions: \(error)")
+            self.recentQuestions = []
         }
     }
     
@@ -87,6 +129,16 @@ final class QuestionViewModel: ObservableObject {
                 if let index = self.allQuestions.firstIndex(where: { $0.id == questionId }) {
                     self.allQuestions[index] = updatedQuestion
                 }
+                
+                // 현재 질문 업데이트
+                if self.currentQuestion?.id == questionId {
+                    self.currentQuestion = updatedQuestion
+                }
+                
+                // RecentQuestions 업데이트
+                await fetchRecentQuestions(groupId: updatedQuestion.groupId)
+            } else {
+                print("Error: Updated question data is nil")
             }
             
             // 답변 후 다음 질문 가져오기
@@ -95,7 +147,7 @@ final class QuestionViewModel: ObservableObject {
             print("Error posting answer: \(error)")
         }
     }
-    
+        
     func fetchNextQuestion() async {
         do {
             let response: ServerResponse<Question> = try await QuestionCardService.shared.fetchData(endpoint: "/nextquestion")

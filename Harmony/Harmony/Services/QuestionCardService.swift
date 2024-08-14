@@ -10,7 +10,15 @@ import Alamofire
 
 final class QuestionCardService {
     static let shared = QuestionCardService()
-    private let baseURL = "\(Bundle.main.infoDictionary?["BASE_URL"] as! String)/qc"
+//    private let baseURL = "\(Bundle.main.infoDictionary?["BASE_URL"] as! String)/qc"
+    
+    //BASE_URL을 Info.plist에서 가져온 후 /qc를 추가합니다.
+   private let baseURL: String = {
+       guard let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as? String else {
+           fatalError("BASE_URL is not set in Info.plist")
+       }
+       return baseURL + "/qc"
+   }()
 
     private init() {}
 

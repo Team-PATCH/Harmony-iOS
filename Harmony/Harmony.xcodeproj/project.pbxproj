@@ -84,6 +84,8 @@
 		BEA2AA882C50CF940033AAEF /* AzureAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA872C50CF940033AAEF /* AzureAIService.swift */; };
 		BEA2AA8A2C50D09C0033AAEF /* AzureAISpeechModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */; };
 		C46D395F2C62023200489A4A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D395E2C62023200489A4A /* HomeViewModel.swift */; };
+		C46D39652C6AF96C00489A4A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C46D39642C6AF96C00489A4A /* Secrets.xcconfig */; };
+		C46D39672C6AF9D100489A4A /* Harmony.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C46D39662C6AF9D100489A4A /* Harmony.p8 */; };
 		C47B35BD2C5A43CD006A3561 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BC2C5A43CD006A3561 /* GroupModel.swift */; };
 		C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */; };
 		C47B35C12C5A44A1006A3561 /* FamilyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */; };
@@ -180,6 +182,8 @@
 		BEA2AA892C50D09C0033AAEF /* AzureAISpeechModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureAISpeechModel.swift; sourceTree = "<group>"; };
 		C46D395A2C61F7C000489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		C46D395E2C62023200489A4A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C46D39642C6AF96C00489A4A /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C46D39662C6AF9D100489A4A /* Harmony.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Harmony.p8; sourceTree = "<group>"; };
 		C47B35BC2C5A43CD006A3561 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		C47B35BE2C5A4412006A3561 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		C47B35C02C5A44A1006A3561 /* FamilyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FamilyInfoView.swift; path = Harmony/ViewModels/FamilyInfoView.swift; sourceTree = SOURCE_ROOT; };
@@ -282,6 +286,7 @@
 		BE06A0D82C44F168008D3C03 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				C46D39662C6AF9D100489A4A /* Harmony.p8 */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -568,9 +573,11 @@
 			files = (
 				BE96B7FC2C47986C003C41F9 /* Pretendard-Medium.ttf in Resources */,
 				BE99A1902C44AA250011F371 /* Preview Assets.xcassets in Resources */,
+				C46D39652C6AF96C00489A4A /* Secrets.xcconfig in Resources */,
 				BE96B7FE2C47986C003C41F9 /* Pretendard-SemiBold.ttf in Resources */,
 				BE99A18D2C44AA250011F371 /* Assets.xcassets in Resources */,
 				BE96B7F92C47986C003C41F9 /* Pretendard-ExtraBold.ttf in Resources */,
+				C46D39672C6AF9D100489A4A /* Harmony.p8 in Resources */,
 				BE96B7FA2C47986C003C41F9 /* Pretendard-ExtraLight.ttf in Resources */,
 				BE96B7FD2C47986C003C41F9 /* Pretendard-Regular.ttf in Resources */,
 				BE96B7F82C47986C003C41F9 /* Pretendard-Bold.ttf in Resources */,

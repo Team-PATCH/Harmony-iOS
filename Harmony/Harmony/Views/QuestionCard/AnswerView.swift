@@ -13,7 +13,12 @@ struct AnswerView: View {
     let questionId: Int
     @State private var answerText = ""
     @State private var navigateToDetail = false
-    @State private var isVIP: Bool = false
+    @State private var showErrorAlert = false
+    @State private var errorMessage = ""
+    
+    var isVIP: Bool {
+        UserDefaultsManager.shared.isVIP()
+    }
     
     var body: some View {
         Group {
@@ -24,12 +29,7 @@ struct AnswerView: View {
                     answeredAt: nil,
                     answerText: $answerText,
                     buttonText: "답변 완료",
-                    onSubmit: {
-                        Task {
-                            await viewModel.postAnswer(questionId: questionId, answer: answerText)
-                            navigateToDetail = true
-                        }
-                    }
+                    onSubmit: submitAnswer
                 )
                 .navigationDestination(isPresented: $navigateToDetail) {
                     QuestionDetailView(viewModel: viewModel, questionId: questionId)
@@ -42,12 +42,26 @@ struct AnswerView: View {
             }
         }
         .task {
-            if let groupId = UserDefaultsManager.shared.getGroupId() {
+            if viewModel.currentQuestion == nil, let groupId = UserDefaultsManager.shared.getGroupId() {
                 await viewModel.fetchCurrentQuestion(groupId: groupId)
             }
         }
-        .onAppear {
-            isVIP = UserDefaultsManager.shared.isVIP()
+        .alert("오류", isPresented: $showErrorAlert) {
+            Button("확인", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
+        }
+    }
+    
+    private func submitAnswer() {
+        Task {
+            do {
+                await viewModel.postAnswer(questionId: questionId, answer: answerText)
+                navigateToDetail = true
+            } catch {
+                errorMessage = "답변 제출 중 오류가 발생했습니다: \(error.localizedDescription)"
+                showErrorAlert = true
+            }
         }
     }
 }
