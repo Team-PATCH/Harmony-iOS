@@ -84,7 +84,7 @@ struct RoutineDetailView: View {
                                 }
                                 
                                 ForEach(viewModel.routineReactions.filter { $0.dailyId == dailyRoutine.id }) { reaction in
-                                    RoutineReactionRow(author: reaction.authorId, comment: reaction.comment, reactionPhoto: reaction.photo)
+                                    RoutineReactionRow(id: reaction.id, author: reaction.authorId, comment: reaction.comment, reactionPhoto: reaction.photo)
                                 }
                             }
                             .padding(.horizontal)

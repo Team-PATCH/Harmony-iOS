@@ -108,19 +108,40 @@ struct RoutineReactionInputView: View {
 }
 
 struct RoutineReactionRow: View {
+    let id: Int
     let author: String
     let comment: String
+    let profilePhoto: String =  "https://saharmony.blob.core.windows.net/daily-routine-proving/daily-routine-proving/app-icon.png"
     let reactionPhoto: URL?
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image("imageName")
+//                AsyncImage(url: URL(string: profilePhoto)) { phase in
+//                    if let image = phase.image {
+//                        image
+//                            .resizable()
+//                            .frame(width: 40, height: 40)
+//                            .clipShape(Circle())
+//                            .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+//                            .padding(.trailing, 10)
+//                        
+//                    } else if phase.error != nil {
+//                        Image("imageName")
+//                            .resizable()
+//                            .frame(width: 40, height: 40)
+//                            .clipShape(Circle())
+//                            .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+//                            .padding(.trailing, 10)
+//                    }
+//                }
+
+                Image("\(id)")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.gray, lineWidth: 1))
-                    .padding(.trailing, 8)
+                    .padding(.trailing, 7)
                 
                 Text(author)
                     .font(.pretendardMedium(size: 18))
@@ -138,9 +159,10 @@ struct RoutineReactionRow: View {
                             .frame(width: 88, height: 88)
                             .scaledToFit()
                             .cornerRadius(5)
+                            .padding(.trailing, 7)
                         
                     } else if phase.error != nil {
-                        Text("Failed to load image")
+                        
                     }
                 }
                 .padding(.leading, 20)
