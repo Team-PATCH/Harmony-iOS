@@ -345,12 +345,14 @@ struct STTView: View {
     
     var body: some View {
         VStack {
+            Spacer()
+                .frame(height: 15)
             ZStack {
                 // 물결 효과
-                ForEach(0..<3) { i in
+                ForEach(0..<2) { i in
                     Circle()
                         .stroke(Color.mainGreen.opacity(0.3), lineWidth: 2)
-                        .frame(width: 80, height: 80)
+                        .frame(width: 62, height: 62)
                         .scaleEffect(rippleScale + CGFloat(i) * 0.3) // 간격을 0.1에서 0.3으로 증가
                         .opacity(rippleOpacity - Double(i) * 0.1) // 바깥쪽 원일수록 투명도 감소
                         .animation(
@@ -364,7 +366,7 @@ struct STTView: View {
                 // 메인 원
                 Circle()
                     .fill(Color.mainGreen.opacity(0.3))
-                    .frame(width: 120, height: 120)
+                    .frame(width: 100, height: 100)
                 
                 Image("moni-talk")
                     .resizable()
@@ -378,14 +380,18 @@ struct STTView: View {
             
             Text(isRecognizing ? "모니가 음성을 듣고 있어요" : "음성 인식 준비 중...")
                 .font(.headline)
-                .padding([.horizontal, .bottom])
-                .padding(.top, -10)
+                .padding(.horizontal)
+                .padding(.top, 15)
+                .padding(.bottom, 5)
             
-            Text(transcribedText)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
+            ScrollView {
+                Text(transcribedText)
+                    .padding()
+                    .frame(maxWidth: .infinity, minHeight: 200, alignment: .topLeading) // 높이 조정
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(10)
+            }
+            .frame(height: 200)
             
             HStack {
                 Button("취소") {
@@ -411,7 +417,8 @@ struct STTView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 10)
-        .frame(height: 330)
+        .frame(height: 465)
+//        .frame(maxHeight: .infinity)
         .onChange(of: audioLevel) { newValue in
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.rippleScale = 1.5 + (newValue * 0.8) // 스케일 범위 증가
@@ -420,6 +427,9 @@ struct STTView: View {
         }
     }
 }
+
+
+
 
 extension Notification.Name {
     static let stopSTTRecording = Notification.Name("stopSTTRecording")
