@@ -5,8 +5,6 @@
 //  Created by 한범석 on 8/3/24.
 //
 
-// MARK: - 1차 동작 버전
-
 import SwiftUI
 import AVFoundation
 import Combine

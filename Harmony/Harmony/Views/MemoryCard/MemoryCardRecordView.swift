@@ -58,7 +58,7 @@ struct MemoryCardRecordView: View {
                             KFImage(URL(string: card.image))
                                 .resizable()
                                 .scaledToFill()
-                                .frame(maxWidth: .infinity, maxHeight: 235)
+                                .frame(maxWidth: .infinity, maxHeight: 285)
                                 .clipped()
 //                                .frame(maxWidth: .infinity, maxHeight: geometry.size.height * 0.33)
                         } else {
@@ -71,9 +71,8 @@ struct MemoryCardRecordView: View {
                     }
                 }
 //                .frame(height: geometry.size.height * 0.3)
-                .frame(height: 235)
-                
-                Spacer()
+                .frame(height: 285)
+                .padding(.bottom, -15)
                 
                 VStack(alignment: .center, spacing: 10) {
                     if isTyping {
@@ -104,7 +103,8 @@ struct MemoryCardRecordView: View {
                     }
                 }
                 .padding(.top, 5)
-                .frame(height: 125)
+                .padding(.bottom, -15)
+                .frame(height: 155)
                 .animation(.easeInOut, value: isTyping)
                 
                 Spacer()
@@ -113,7 +113,7 @@ struct MemoryCardRecordView: View {
                 VStack {
                     ZStack {
                         if aiViewModel.isRecording {
-                            WaveFormView(amplitude: $aiViewModel.amplitude)
+                            RippleAnimationView(amplitude: $aiViewModel.amplitude)
                                 .frame(height: 50)
                                 .transition(.opacity.animation(.easeInOut(duration: 0.3)))
                         }

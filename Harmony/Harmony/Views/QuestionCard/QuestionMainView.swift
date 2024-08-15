@@ -1,17 +1,13 @@
-//
-//  QuestionMainView.swift
-//  Harmony_ForPR
-//
-//  Created by Ji Hye PARK on 7/23/24.
-//
 
 import SwiftUI
 
 struct QuestionMainView: View {
     @StateObject var viewModel = QuestionViewModel()
     let userNick = UserDefaultsManager.shared.getNick() ?? " "
-    // 추가: VIP 여부를 저장할 State 변수
     @State private var isVIP: Bool = false
+    @State private var appearAnimation = false
+    @State private var currentQuestionAppear = false
+    @State private var recentQuestionsAppear = false
     
     var body: some View {
         NavigationStack {
@@ -25,12 +21,15 @@ struct QuestionMainView: View {
                             .padding()
                             .background(Color.wh)
                             .cornerRadius(10)
+                            .opacity(currentQuestionAppear ? 1 : 0)
+                            .offset(y: currentQuestionAppear ? 0 : 50)
+                            .animation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.3), value: currentQuestionAppear)
                         }
                     }
                     .padding()
                     .background(Color.gray1)
                     
-                    RecentQuestionsSection(viewModel: viewModel)
+                    RecentQuestionsSection(viewModel: viewModel, appearAnimation: $recentQuestionsAppear)
                         .background(Color.white)
                 }
             }
@@ -48,6 +47,9 @@ struct QuestionMainView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, -1)
                     .padding(.bottom)
+                    .opacity(appearAnimation ? 1 : 0)
+                    .offset(y: appearAnimation ? 0 : -20)
+                    .animation(.easeOut(duration: 0.5), value: appearAnimation)
                 }
             }
         }
@@ -59,6 +61,25 @@ struct QuestionMainView: View {
         }
         .onAppear {
             isVIP = UserDefaultsManager.shared.isVIP()
+            animateView()
+        }
+    }
+    
+    private func animateView() {
+        withAnimation(.easeOut(duration: 0.5)) {
+            appearAnimation = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                currentQuestionAppear = true
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                recentQuestionsAppear = true
+            }
         }
     }
 }
@@ -67,6 +88,7 @@ struct CurrentQuestionBox: View {
     let question: Question
     @ObservedObject var viewModel: QuestionViewModel
     let isVIP: Bool
+    @State private var buttonScale: CGFloat = 1.0
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -86,16 +108,22 @@ struct CurrentQuestionBox: View {
                 .padding(.horizontal, 24)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity)
-                .background(isVIP ? Color.mainGreen : Color.gray)  // 변경: VIP 여부에 따라 배경색 변경
+                .background(isVIP ? Color.mainGreen : Color.gray)
                 .cornerRadius(999)
+                .scaleEffect(buttonScale)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: buttonScale)
             }
-            .disabled(!isVIP)  // 추가: VIP가 아닌 경우 버튼 비활성화
+            .disabled(!isVIP)
+            .onHover { hovering in
+                buttonScale = hovering ? 1.05 : 1.0
+            }
         }
     }
 }
 
 struct RecentQuestionsSection: View {
     @ObservedObject var viewModel: QuestionViewModel
+    @Binding var appearAnimation: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -112,13 +140,17 @@ struct RecentQuestionsSection: View {
             }
             .padding()
             .background(Color.white)
+            .opacity(appearAnimation ? 1 : 0)
+            .offset(y: appearAnimation ? 0 : 20)
+            .animation(.easeOut(duration: 0.5).delay(0.2), value: appearAnimation)
             
             VStack(spacing: 10) {
-                ForEach(viewModel.recentQuestions) { question in
+                ForEach(Array(viewModel.recentQuestions.enumerated()), id: \.element.id) { index, question in
                     QuestionBox(question: question, viewModel: viewModel)
+                        .opacity(appearAnimation ? 1 : 0)
+                        .offset(y: appearAnimation ? 0 : 20)
+                        .animation(.spring(response: 0.6, dampingFraction: 0.8).delay(Double(index) * 0.1 + 0.3), value: appearAnimation)
                 }
-                .font(.pretendardSemiBold(size: 20))
-                .foregroundColor(.black)
             }
             .padding(.horizontal)
             .padding(.bottom)
@@ -130,6 +162,7 @@ struct RecentQuestionsSection: View {
 struct QuestionBox: View {
     let question: Question
     @ObservedObject var viewModel: QuestionViewModel
+    @State private var isHovered = false
     
     var body: some View {
         NavigationLink(destination: QuestionDetailView(viewModel: viewModel, questionId: question.id)) {
@@ -151,12 +184,12 @@ struct QuestionBox: View {
             .background(Color.gray1)
             .frame(maxWidth: .infinity, alignment: .leading)
             .cornerRadius(10)
+            .scaleEffect(isHovered ? 1.02 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHovered)
         }
         .buttonStyle(PlainButtonStyle())
+        .onHover { hovering in
+            isHovered = hovering
+        }
     }
 }
-
-// MARK: - Preview
-//#Preview {
-//    QuestionMainView(viewModel: QuestionViewModel(mockData: true))
-//}
