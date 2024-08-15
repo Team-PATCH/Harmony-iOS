@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct HomeView: View {
     @StateObject private var routineViewModel = RoutineViewModel()
     @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
@@ -29,74 +28,80 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationStack {
-                    ScrollView {
-                        VStack(spacing: 0) {
-                            if UserDefaultsManager.shared.isMember() {
-                                memberView
-                            } else {
-                                vipView
+        ZStack {
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        if UserDefaultsManager.shared.isMember() {
+                            memberView
+                        } else {
+                            vipView
+                        }
+                        
+                        routineSection
+                    }
+                    .opacity(appearAnimation ? 1 : 0)
+                    .offset(y: appearAnimation ? 0 : 50)
+                }
+                .background(Color.gray1.edgesIgnoringSafeArea(.all))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image("harmony-logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 30)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 30)
+                            .foregroundColor(.black)
+                            .onTapGesture {
+                                isAuth = false
                             }
-                            
-                            routineSection
-                        }
-                        .opacity(appearAnimation ? 1 : 0)
-                        .offset(y: appearAnimation ? 0 : 50)
                     }
-                    .background(Color.gray1.edgesIgnoringSafeArea(.all))
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Image("harmony-logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                                .foregroundColor(.black)
-                                .onTapGesture {
-                                    isAuth = false
-                                }
-                        }
-                    }
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
-                    RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: routineViewModel)
-                }
-                .fullScreenCover(isPresented: $isShowingRoutineAdd) {
-                    RoutineAddView(viewModel: routineViewModel)
-                }
-                .fullScreenCover(isPresented: $isShowingMemoryCardCreate) {
-                    MemoryCardCreateView(isPresented: $isShowingMemoryCardCreate, onMemoryCardCreated: {
-                        hasSharedMemoryCard = true
-                    })
-                }
-                .environmentObject(memoryCardViewModel)
-                .onAppear {
-                    memoryCardViewModel.loadLatestMemoryCard()
-                    Task {
-                        await routineViewModel.fetchRoutines()
-                        await routineViewModel.fetchDailyRoutines()
-                    }
-                    withAnimation(.easeOut(duration: 0.8)) {
-                        appearAnimation = true
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        withAnimation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0.8)) {
-                            letterImageAnimation = true
-                        }
-                    }
-                    animateHomeView()
-                }
-                .onDisappear {
-                    selectedMemoryCardId = nil
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .fullScreenCover(item: $selectedDailyRoutine) { dailyRoutine in
+                RoutineDetailView(dailyRoutine: dailyRoutine, viewModel: routineViewModel)
+            }
+            .fullScreenCover(isPresented: $isShowingRoutineAdd) {
+                RoutineAddView(viewModel: routineViewModel)
+            }
+            .environmentObject(memoryCardViewModel)
+            .onAppear {
+                memoryCardViewModel.loadLatestMemoryCard()
+                Task {
+                    await routineViewModel.fetchRoutines()
+                    await routineViewModel.fetchDailyRoutines()
+                }
+                withAnimation(.easeOut(duration: 0.8)) {
+                    appearAnimation = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    withAnimation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0.8)) {
+                        letterImageAnimation = true
+                    }
+                }
+                animateHomeView()
+            }
+            .onDisappear {
+                selectedMemoryCardId = nil
+            }
+            
+            // MemoryCardCreateView를 직접 호출하여 화면에 추가
+            if isShowingMemoryCardCreate {
+                MemoryCardCreateView(isPresented: $isShowingMemoryCardCreate, onMemoryCardCreated: {
+                    hasSharedMemoryCard = true
+                })
+                .transition(.move(edge: .bottom))
+                .zIndex(1)
+            }
+        }
+    }
     
     private var memberView: some View {
         Group {
@@ -137,71 +142,71 @@ struct HomeView: View {
     }
     
     private var vipView: some View {
-            VStack(alignment: .center, spacing: 20) {
-                ZStack {
-                    if isShowingMemoryCardView, let card = memoryCardViewModel.newMemoryCard {
-                        NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
-                            MemoryCardView(card: card, viewModel: memoryCardViewModel)
-                                .frame(height: 200)
-                        }
-                    } else {
-                        Image("letter-image2")
-                            .resizable()
-                            .scaledToFit()
+        VStack(alignment: .center, spacing: 20) {
+            ZStack {
+                if isShowingMemoryCardView, let card = memoryCardViewModel.newMemoryCard {
+                    NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
+                        MemoryCardView(card: card, viewModel: memoryCardViewModel)
                             .frame(height: 200)
-                            .scaleEffect(letterImageAnimation ? 1.0 : 0.8)
-                            .opacity(letterImageAnimation ? 1.0 : 0.0)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0.8)) {
-                                    isShowingMemoryCardView = true
-                                    showConfirmButton = true
-                                }
-                            }
-                    }
-                }
-                
-                Text("오늘의 ")
-                    .font(.pretendardBold(size: 28)) +
-                Text("추억카드가 ")
-                    .font(.pretendardBold(size: 28))
-                    .foregroundColor(.mainGreen) +
-                Text("도착했어요!")
-                    .font(.pretendardBold(size: 28))
-                Text("편지를 눌러 어떤 추억인지 확인해 볼까요?")
-                    .font(.pretendardMedium(size: 21))
-                    .foregroundColor(.gray4)
-                
-                if let selectedMemoryCardId = selectedMemoryCardId {
-                    NavigationLink(destination: MemoryCardDetailView(memoryCardId: selectedMemoryCardId, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
-                        Text("추억카드 확인하기")
-                            .font(.pretendardSemiBold(size: 20))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.mainGreen)
-                            .cornerRadius(10)
                     }
                 } else {
-                    Button(action: {
-                        if let card = memoryCardViewModel.newMemoryCard {
-                            selectedMemoryCardId = card.id
-                        } else {
-                            memoryCardViewModel.loadLatestMemoryCard()
+                    Image("letter-image2")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                        .scaleEffect(letterImageAnimation ? 1.0 : 0.8)
+                        .opacity(letterImageAnimation ? 1.0 : 0.0)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0.8)) {
+                                isShowingMemoryCardView = true
+                                showConfirmButton = true
+                            }
                         }
-                    }) {
-                        Text("추억카드 확인하기")
-                            .font(.pretendardSemiBold(size: 20))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.mainGreen)
-                            .cornerRadius(10)
-                    }
                 }
             }
-            .padding()
-            .background(Color.gray1)
+            
+            Text("오늘의 ")
+                .font(.pretendardBold(size: 28)) +
+            Text("추억카드가 ")
+                .font(.pretendardBold(size: 28))
+                .foregroundColor(.mainGreen) +
+            Text("도착했어요!")
+                .font(.pretendardBold(size: 28))
+            Text("편지를 눌러 어떤 추억인지 확인해 볼까요?")
+                .font(.pretendardMedium(size: 21))
+                .foregroundColor(.gray4)
+            
+            if let selectedMemoryCardId = selectedMemoryCardId {
+                NavigationLink(destination: MemoryCardDetailView(memoryCardId: selectedMemoryCardId, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
+                    Text("추억카드 확인하기")
+                        .font(.pretendardSemiBold(size: 20))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.mainGreen)
+                        .cornerRadius(10)
+                }
+            } else {
+                Button(action: {
+                    if let card = memoryCardViewModel.newMemoryCard {
+                        selectedMemoryCardId = card.id
+                    } else {
+                        memoryCardViewModel.loadLatestMemoryCard()
+                    }
+                }) {
+                    Text("추억카드 확인하기")
+                        .font(.pretendardSemiBold(size: 20))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.mainGreen)
+                        .cornerRadius(10)
+                }
+            }
         }
+        .padding()
+        .background(Color.gray1)
+    }
     
     private var sharedMemoryCardView: some View {
         ZStack {
@@ -339,5 +344,8 @@ struct HomeView: View {
         return formatter.string(from: Date())
     }
 }
+
+
+
 
 
