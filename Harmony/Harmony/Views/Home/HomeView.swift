@@ -171,10 +171,22 @@ struct HomeView: View {
                     .font(.pretendardMedium(size: 21))
                     .foregroundColor(.gray4)
                 
-                if showConfirmButton {
+                if let selectedMemoryCardId = selectedMemoryCardId {
+                    NavigationLink(destination: MemoryCardDetailView(memoryCardId: selectedMemoryCardId, groupId: UserDefaultsManager.shared.getGroupId() ?? 1)) {
+                        Text("추억카드 확인하기")
+                            .font(.pretendardSemiBold(size: 20))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.mainGreen)
+                            .cornerRadius(10)
+                    }
+                } else {
                     Button(action: {
                         if let card = memoryCardViewModel.newMemoryCard {
                             selectedMemoryCardId = card.id
+                        } else {
+                            memoryCardViewModel.loadLatestMemoryCard()
                         }
                     }) {
                         Text("추억카드 확인하기")
@@ -185,8 +197,6 @@ struct HomeView: View {
                             .background(Color.mainGreen)
                             .cornerRadius(10)
                     }
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
-                    .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0.8), value: showConfirmButton)
                 }
             }
             .padding()
