@@ -42,8 +42,41 @@ VIP가 일과를 수행하고 인증합니다.
 
 # 팀 소개
 
+<!-- 
 |한수빈|박지혜|조다은|한범석|
 |---|---|---|---|
 |팀장, 온보딩|일일 문답|미션 일과|추억카드, 회상대화|
-|사진|<img src="https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4" width="100" alt="박지혜 화이트" style="max-width: 100px; width: 100%; height: auto;">|사진|사진|
-|@Waterbean|@jhpa0308|@thisisdana49|@beomseoktv|
+|사진|사진|사진|사진|
+|@Waterbean|@jhpa0308|@thisisdana49|@beomseoktv| 
+-->
+
+<!-- 이 테이블은 팀원들의 정보를 보여줍니다 -->
+<table>
+  <tr>
+    <th align="center">한수빈</th>
+    <th align="center">박지혜</th>
+    <th align="center">조다은</th>
+    <th align="center">한범석</th>
+  </tr>
+  <!-- 각 행은 팀원의 역할, 사진, GitHub 계정을 보여줍니다 -->
+  <tr>
+    <td align="center">팀장, 온보딩</td>
+    <td align="center">일일 문답</td>
+    <td align="center">미션 일과</td>
+    <td align="center">추억카드, 회상대화</td>
+  </tr>
+  [//]: # (아래 행에는 팀원들의 사진이 들어갑니다)
+  <tr>
+    <td align="center"><img src="https://via.placeholder.com/150" width="100" alt="한수빈 사진"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4" width="100" alt="박지혜 화이트"></td>
+    <td align="center"><img src="https://via.placeholder.com/150" width="100" alt="조다은 사진"></td>
+    <td align="center"><img src="https://via.placeholder.com/150" width="100" alt="한범석 사진"></td>
+  </tr>
+  [comment]: <> (아래 행에는 팀원들의 GitHub 계정이 들어갑니다)
+  <tr>
+    <td align="center">@Waterbean</td>
+    <td align="center">@jhpa0308</td>
+    <td align="center">@thisisdana49</td>
+    <td align="center">@beomseoktv</td>
+  </tr>
+</table>
