@@ -22,7 +22,7 @@ GIF 추가바람
 추억을 공유합니다.
 
 ## 일일 문답
-GIF 추가바람
+![질문시연영상_gif용9초](https://github.com/user-attachments/assets/728c9aa0-c6f6-4a2a-904a-e4ecb2edaccf)
 
 VIP가 질문에 대답합니다.
 
@@ -45,5 +45,5 @@ VIP가 일과를 수행하고 인증합니다.
 |한수빈|박지혜|조다은|한범석|
 |---|---|---|---|
 |팀장, 온보딩|일일 문답|미션 일과|추억카드, 회상대화|
-|사진|사진|사진|사진|
+|사진|![박지혜 화이트](https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4)|사진|사진|
 |@Waterbean|@thisisdana49|@thisisdana49|@beomseoktv|
