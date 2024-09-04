@@ -45,5 +45,5 @@ VIP가 일과를 수행하고 인증합니다.
 |한수빈|박지혜|조다은|한범석|
 |---|---|---|---|
 |팀장, 온보딩|일일 문답|미션 일과|추억카드, 회상대화|
-|사진|<img src="https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4" width="25%" alt="박지혜 화이트">|사진|사진|
+|사진|<img src="https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4" width="100" alt="박지혜 화이트" style="max-width: 100px; width: 100%; height: auto;">|사진|사진|
 |@Waterbean|@jhpa0308|@thisisdana49|@beomseoktv|
