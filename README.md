@@ -92,7 +92,7 @@ VIP가 일과를 수행하고 인증합니다.
     <td align="center"><img src="https://via.placeholder.com/250" width="200" height="250" alt="한수빈 사진"></td>
     <td align="center"><img src="https://github.com/user-attachments/assets/acfb84e0-babd-4cb6-902a-405e83cd98a4" width="200" height="250" alt="박지혜 화이트"></td>
     <td align="center"><img src="https://via.placeholder.com/250" width="200" height="250" alt="조다은 사진"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/4cf64d21-e776-43cc-8021-959e378c8c7f" width="200" height="260" alt="한범석 사진"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/4cf64d21-e776-43cc-8021-959e378c8c7f" width="200" height="250" alt="한범석 사진"></td>
   </tr>
   <tr>
     <td align="center">@Waterbean</td>
