@@ -95,9 +95,9 @@ VIP가 일과를 수행하고 인증합니다.
     <td align="center"><img src="https://github.com/user-attachments/assets/4cf64d21-e776-43cc-8021-959e378c8c7f" width="200" height="250" alt="한범석 사진"></td>
   </tr>
   <tr>
-    <td align="center">@Waterbean</td>
-    <td align="center">@jhpa0308</td>
-    <td align="center">@thisisdana49</td>
+    <td align="center"><a href="https://github.com/Waterbean">@Waterbean</a></td>
+    <td align="center"><a href="https://github.com/jhpa0308">@jhpa0308</a></td>
+    <td align="center"><a href="https://github.com/thisisdana49">@thisisdana49</a></td>
     <td align="center"><a href="https://github.com/sion555">@sion555</a></td>
   </tr>
 </table>
