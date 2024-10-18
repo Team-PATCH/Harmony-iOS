@@ -5,10 +5,11 @@
 //  Created by 한범석 on 7/16/24.
 //
 
+// MARK: - 그리드 목록에 보이는 개별 메모리 카드 뷰입니다.
+
+
 import SwiftUI
 import Kingfisher
-
-// MARK: - 그리드 목록에 보이는 개별 메모리 카드 뷰입니다.
 
 struct MemoryCardView: View {
     let card: MemoryCard
@@ -17,18 +18,32 @@ struct MemoryCardView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 10) {
-                if let url = URL(string: card.image), !card.image.isEmpty {
-                    KFImage(url)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width, height: 120)
-                        .clipped()
-                        .cornerRadius(10, corners: [.topLeft, .topRight])
-                } else {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: geometry.size.width, height: 120)
-                        .cornerRadius(10, corners: [.topLeft, .topRight])
+                ZStack(alignment: .topTrailing) {
+                    if let url = URL(string: card.image), !card.image.isEmpty {
+                        KFImage(url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: 120)
+                            .clipped()
+                            .cornerRadius(10, corners: [.topLeft, .topRight])
+                    } else {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: geometry.size.width, height: 120)
+                            .cornerRadius(10, corners: [.topLeft, .topRight])
+                    }
+
+                    // "새로운 추억" 캡슐 추가
+                    if viewModel.newMemoryCard == card {
+                        Text("새로운 추억")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(Color.mainGreen)
+                            .cornerRadius(15)
+                            .offset(x: -10, y: 10)  // 위치 조정
+                    }
                 }
 
                 VStack(alignment: .leading, spacing: 5) {
@@ -57,10 +72,4 @@ struct MemoryCardView: View {
     }
 }
 
-#Preview {
-    MemoryCardView(card: MemoryCard(id: 1, title: "Sample Title", dateTime: "2024-01-01T12:00:00Z", image: "", groupId: 1), viewModel: MemoryCardViewModel())
-}
 
-let dummyMemoryCard = MemoryCard(id: 1, title: "더미", dateTime: "2024-08-04T13:21:08.000Z", image: "https://cdn.eyesmag.com/content/uploads/posts/2022/09/07/main-b40b2d5d-2d99-4734-80af-9fd4ac428fb4.jpg")
-
-let dummyViewModel = MemoryCardViewModel()
