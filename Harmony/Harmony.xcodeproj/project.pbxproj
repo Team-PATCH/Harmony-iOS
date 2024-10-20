@@ -577,7 +577,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					BE99A1842C44AA230011F371 = {
 						CreatedOnToolsVersion = 15.3;
@@ -640,10 +640,9 @@
 				C47B35BF2C5A4412006A3561 /* GroupViewModel.swift in Sources */,
 				C49DBE202C4FAEA100B1A87D /* AnswerEditView.swift in Sources */,
 				BE884B5F2C59E31000D9BCCA /* ImagePicker.swift in Sources */,
-				55A10B282C50C506001728EF /* VIPInfoEntryView.swift in Sources */,
+				55A10B282C50C506001728EF /* InputVIPInfoView.swift in Sources */,
 				BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */,
 				BE884B632C5A3BA000D9BCCA /* DatePickerView.swift in Sources */,
-				55A10B282C50C506001728EF /* InputVIPInfoView.swift in Sources */,
 				3EA6EBB02C4F98EB00627C63 /* RoutineManagementView.swift in Sources */,
 				BE3E4FF52C460F6B003EC4E1 /* MemoryCardModel.swift in Sources */,
 				BE99A18B2C44AA230011F371 /* ContentView.swift in Sources */,
@@ -721,10 +720,9 @@
 				BE06A0E42C44F2C0008D3C03 /* Color+Extensions.swift in Sources */,
 				5573E97C2C5B18BA00284775 /* AuthInterceptor.swift in Sources */,
 				55A10B262C50A1E2001728EF /* CreateGroupSpaceView.swift in Sources */,
-				55A10B2A2C50FFAD001728EF /* UserInfoEntryView.swift in Sources */,
+				55A10B2A2C50FFAD001728EF /* InputUserInfoView.swift in Sources */,
 				3EE527C82C58DC0D00B16DB8 /* APIResponse.swift in Sources */,
 				BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */,
-				55A10B2A2C50FFAD001728EF /* InputUserInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,7 +852,6 @@
 		};
 		BE99A1942C44AA250011F371 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 550003482C53657700B00635 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
