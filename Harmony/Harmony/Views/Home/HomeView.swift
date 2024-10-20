@@ -21,12 +21,6 @@ struct HomeView: View {
     @State private var showConfirmButton = false
     @State private var routineRowsAppear = false
     
-    @Binding var isAuth: Bool
-    
-    init(isAuth: Binding<Bool>) {
-        self._isAuth = isAuth
-    }
-    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -58,9 +52,6 @@ struct HomeView: View {
                             .scaledToFit()
                             .frame(height: 30)
                             .foregroundColor(.black)
-                            .onTapGesture {
-                                isAuth = false
-                            }
                     }
                 }
             }

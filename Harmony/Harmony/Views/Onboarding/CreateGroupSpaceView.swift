@@ -8,76 +8,73 @@
 import SwiftUI
 
 struct CreateGroupSpaceView: View {
-    @Binding var path: [String]
-    
+    @ObservedObject var viewModel: OnboardingViewModel
     var body: some View {
-        
-        NavigationStack(path: $path) {
-            VStack(alignment: .leading, spacing: 20) {
-                
-                
-                Text("먼저 가족 공간을\n만들어 주세요.")
-                    .font(.pretendardBold(size: 28))
-                    .foregroundColor(.black)
-                
-                Text("가족 공간을 만든 사람이\n우리 가족의 매니저가 돼요.")
-                    .font(.pretendardMedium(size: 18))
-                    .foregroundColor(.gray5)
-                    .padding(.bottom, 20)
-                
-                VStack(spacing: 12) {
-                    NavigationLink {
-                        VIPInfoEntryView(path: $path)
-                    } label: {
-                        HStack {
-                            Image("create-group-icon")
-                                .padding()
-                            VStack(alignment: .leading) {
-                                Text("아직 가족 공간이 없다면,")
-                                    .font(.pretendardMedium(size: 18))
-                                    .foregroundColor(.gray4)
-                                Text("가족 공간 만들기")
-                                    .font(.pretendardSemiBold(size: 24))
-                                    .foregroundColor(.black)
-                                
-                            }
-                            Spacer()
+        VStack(alignment: .leading, spacing: 20) {
+            
+            Text("먼저 가족 공간을\n만들어 주세요.")
+                .font(.pretendardBold(size: 28))
+                .foregroundColor(.black)
+            
+            Text("가족 공간을 만든 사람이\n우리 가족의 매니저가 돼요.")
+                .font(.pretendardMedium(size: 18))
+                .foregroundColor(.gray5)
+                .padding(.bottom, 20)
+            
+            VStack(spacing: 12) {
+                Button {
+                    viewModel.navigateTo(.inputVIPInfo)
+                } label: {
+                    HStack {
+                        Image("create-group-icon")
+                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("아직 가족 공간이 없다면,")
+                                .font(.pretendardMedium(size: 18))
+                                .foregroundColor(.gray4)
+                            Text("가족 공간 만들기")
+                                .font(.pretendardSemiBold(size: 24))
+                                .foregroundColor(.black)
+                            
                         }
-                        .padding()
-                        .background(Color.gray1)
-                        .cornerRadius(10)
+                        Spacer()
                     }
-                    
-                    Button(action: {
-                        // 가족 공간 입장하기 액션
-                    }) {
-                        HStack {
-                            Image("invite-icon")
-                                .padding()
-                            VStack(alignment: .leading) {
-                                Text("이미 가족 공간이 있다면,")
-                                    .font(.pretendardMedium(size: 18))
-                                    .foregroundColor(.gray4)
-                                Text("가족 공간 입장하기")
-                                    .font(.pretendardSemiBold(size: 24))
-                                    .foregroundColor(.black)
-                                
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                        .background(Color.gray1)
-                        .cornerRadius(10)                    }
+                    .padding()
+                    .background(Color.gray1)
+                    .cornerRadius(10)
                 }
                 
-                Spacer()
+                Button {
+                    viewModel.navigateTo(.joinGroup)
+                } label: {
+                    HStack {
+                        Image("invite-icon")
+                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("이미 가족 공간이 있다면,")
+                                .font(.pretendardMedium(size: 18))
+                                .foregroundColor(.gray4)
+                            Text("가족 공간 입장하기")
+                                .font(.pretendardSemiBold(size: 24))
+                                .foregroundColor(.black)
+                            
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    .background(Color.gray1)
+                    .cornerRadius(10)
+                }
             }
-            .padding()
-            .background(Color.wh)
+            
+            Spacer()
         }
+        .padding()
+        .background(Color.wh)
+        
     }
 }
 
-#Preview {
-    CreateGroupSpaceView(path: .constant([]))
-}
+//#Preview {
+//    CreateGroupSpaceView(path: .constant([]))
+//}
