@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Group: Codable {
+struct HarmonyGroup: Codable {
     let groupId: Int
     let name: String
     let inviteUrl: String?
@@ -25,7 +25,7 @@ struct GroupCreationResponse: Codable {
 
 struct GroupJoinResponse: Codable {
     let message: String
-    let group: Group
+    let group: HarmonyGroup
     let permission: String
 }
 
@@ -39,7 +39,7 @@ struct UserGroup: Codable {
     let createdAt: String
     let updatedAt: String
     let deletedAt: String?
-    let user: User
+    let user: HarmonyUser
     
     enum CodingKeys: String, CodingKey {
         case ugId, userId, permissionId, groupId, alias, deviceToken, createdAt, updatedAt, deletedAt
@@ -47,7 +47,7 @@ struct UserGroup: Codable {
     }
 }
 
-struct User: Codable {
+struct HarmonyUser: Codable {
     let nick: String
     let profile: String
 }

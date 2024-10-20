@@ -44,7 +44,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var errorMessage: String? {
         didSet { logStateChange("errorMessage", oldValue, errorMessage) }
     }
-    @Published var currentGroup: Group? {
+    @Published var currentGroup: HarmonyGroup? {
         didSet { logStateChange("currentGroup", oldValue, currentGroup) }
     }
     @Published var currentUserGroup: UserGroup? {
