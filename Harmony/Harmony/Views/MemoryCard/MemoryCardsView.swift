@@ -5,11 +5,10 @@
 //  Created by 한범석 on 7/16/24.
 //
 
-
 import SwiftUI
 
 struct MemoryCardsView: View {
-    @StateObject private var viewModel = MemoryCardViewModel()
+    @EnvironmentObject var viewModel: MemoryCardViewModel
     @State private var searchText = ""
     @State private var isSearchBarVisible = false
     @State private var isAppeared = false
@@ -136,11 +135,18 @@ struct MemoryCardsView: View {
             .background(Color.gray1.edgesIgnoringSafeArea(.all))
             .navigationBarHidden(true)
             .onAppear {
-                if !viewModel.hasLoaded {
-                    viewModel.isLoading = true  // 즉시 로딩 상태로 설정
-                    viewModel.loadMemoryCards()
+                // 매번 모든 메모리 카드를 로드
+                viewModel.isLoading = true
+                viewModel.loadMemoryCards()
+
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isContentVisible = true
                 }
             }
+
+
+
+
             .onChange(of: viewModel.isLoading) { isLoading in
                 if !isLoading {
                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -149,9 +155,9 @@ struct MemoryCardsView: View {
                     animateCards()
                 }
             }
+
         }
     }
-    
     private func animateCards() {
         let totalCards = viewModel.filteredMemoryCards.count
         for index in 0..<totalCards {
@@ -164,6 +170,3 @@ struct MemoryCardsView: View {
     }
 }
 
-#Preview {
-    MemoryCardsView()
-}

@@ -88,20 +88,4 @@ struct SummaryData: Codable {
 }
 
 
-// MARK: - 채팅 관련 임시 응답 및 더미데이터 모델링 -> 이제 실제 채팅 데이터를 쓸 거여서 일단은 주석처리?
-
-//struct ChatMessage: Identifiable {
-//    let id = UUID()
-//    let date: String
-//    let sender: String
-//    let message: String
-//}
-//
-//let dummyChatMessages = [
-//    ChatMessage(date: "20XX년 5월 4일, 화요일", sender: "모니", message: "다은이를 분만실에서 처음 봤을 때 어떤 느낌이 들었나요?"),
-//    ChatMessage(date: "20XX년 5월 4일, 화요일", sender: "사용자", message: "어쩌구 저쩌구 더미 텍스트 어쩌구 저쩌구 더미 텍스트 어쩌구 저쩌구 더미"),
-//    ChatMessage(date: "20XX년 7월 9일, 화요일", sender: "모니", message: "다은이를 분만실에서 처음 봤을 때 어떤 느낌이 들었나요?"),
-//    ChatMessage(date: "20XX년 7월 9일, 화요일", sender: "사용자", message: "어쩌구 저쩌구 더미 텍스트 어쩌구 저쩌구 더미 텍스트 어쩌구 저쩌구 더미")
-//]
-
 
