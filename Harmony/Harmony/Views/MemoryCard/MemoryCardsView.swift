@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct MemoryCardsView: View {
     @EnvironmentObject var viewModel: MemoryCardViewModel
