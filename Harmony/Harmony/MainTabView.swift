@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
-    @Binding var isAuth: Bool
     @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
     
     var body: some View {
@@ -17,7 +16,7 @@ struct MainTabView: View {
             ZStack {
                 switch selectedTab {
                 case 0:
-                    HomeView(isAuth: $isAuth)
+                    HomeView()
                             .environmentObject(memoryCardViewModel)
                 case 1:
                     MemoryCardsView()
@@ -27,7 +26,7 @@ struct MainTabView: View {
                 case 3:
                     RoutineView()
                 default:
-                    HomeView(isAuth: $isAuth)
+                    HomeView()
                             .environmentObject(memoryCardViewModel)
                 }
             }

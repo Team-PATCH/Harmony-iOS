@@ -1,9 +1,11 @@
 import SwiftUI
+import UserNotifications
 
 struct AllowNotificationView: View {
-    @Binding var path: [String]
+    @ObservedObject var viewModel: OnboardingViewModel
     @State private var isNotificationEnabled = false
-
+    @State private var isPermissionRequested = false
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 20) {
@@ -54,18 +56,11 @@ struct AllowNotificationView: View {
                     .frame(height: geometry.size.height * 0.35)
                 
                 Spacer()
-                
-                // 버튼
-                Button {
-                    NotificationManager.shared.requestAuthorization { granted in
-                        self.isNotificationEnabled = granted
-                    }
-                } label: {
-                    Text("dasdfasdf")
-                }
 
-                NavigationLink{
-                    CreateGroupSpaceView(path: $path)
+                Button {
+                    requestNotificationPermission{
+                        viewModel.navigateTo(.createGroup)
+                    }
                 } label: {
                     Text("하모니 시작하기")
                         .font(.pretendardSemiBold(size: 24))
@@ -82,10 +77,21 @@ struct AllowNotificationView: View {
             .background(Color.gray1)
             .edgesIgnoringSafeArea(.bottom)
         }
-        .onAppear {
-
+    }
+    
+    private func requestNotificationPermission(completion: @escaping ()->()) {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            DispatchQueue.main.async {
+                self.isPermissionRequested = true
+                UIApplication.shared.registerForRemoteNotifications()
+                print("알림 권한이 허용되었습니다.")
+                print(UserDefaults.standard.string(forKey: "serverToken"))
+                completion()
+            }
         }
     }
+    
 }
 
 struct Triangle: Shape {
@@ -99,6 +105,3 @@ struct Triangle: Shape {
     }
 }
 
-#Preview {
-    AllowNotificationView(path: .constant(["1","2"]))
-}
