@@ -89,13 +89,13 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let (groupId, groupName, inviteUrl, vipInviteUrl) = try await apiService.createGroup(name: "\(vipAlias) \(vipName)", userId: userId, deviceToken: deviceToken)
+                let (groupId, groupName, memberInviteCode, vipInviteCode) = try await apiService.createGroup(name: "\(vipAlias) \(vipName)", userId: userId, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
                     self.groupId = groupId
                     self.groupName = groupName
-                    self.inviteCode = vipInviteUrl
-                    // TODO: - member invitecode도 처리해줘야함
+                    self.inviteCode = vipInviteCode
+                    self.inviteCode = memberInviteCode
                     self.isLoading = false
                     self.navigateTo(.inviteVIP)
                     print("Group created successfully - groupId: \(self.groupId), groupName: \(self.groupName), vipInviteUrl: \(self.inviteCode)")
@@ -149,7 +149,7 @@ final class OnboardingViewModel: ObservableObject {
         }
     }
     
-    func updateOnboardingInfo() {
+    func updateOnboardingInfo(selectedImage: UIImage) {
         guard let groupId = self.groupId else {
             errorMessage = "현재 그룹 정보가 없습니다."
             print("Error: \(errorMessage ?? "")")
@@ -165,7 +165,7 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let response = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: self.alias, userName: self.userName, profile: self.profile, deviceToken: deviceToken)
+                let response = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: self.alias, userName: self.userName, profile: selectedImage, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
                     self.currentUserGroup = response.userGroup
