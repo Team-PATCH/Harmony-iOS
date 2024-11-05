@@ -9,10 +9,12 @@ import SwiftUI
 
 struct RegisterProfileView: View {
     @ObservedObject var viewModel: OnboardingViewModel
+    @State var selectedImage: UIImage?
+    @State var isImagePickerPresented: Bool = false
+
     
     @State private var relationship: String = ""
     @State private var name: String = ""
-    @State private var profileImage: Image?// = Image(systemName: "3.circle")
     
     
     var body: some View {
@@ -41,30 +43,34 @@ struct RegisterProfileView: View {
                     Circle()
                         .fill(Color.gray2)
                         .frame(width: 200, height: 200)
-                    
-                    if let profileImage = profileImage {
-                        profileImage
+                    if let selectedImage {
+                        Image(uiImage: selectedImage)
                             .resizable()
-                            .scaledToFill()
+                            .scaledToFit()
                             .frame(width: 200, height: 200)
-                            .clipShape(Circle())
                     } else {
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
                             .foregroundColor(.gray4)
+                        
+                        Image("camera")
+                            .frame(width: 70, height: 70)
+                            .background(Color.green)
+                            .clipShape(Circle())
+                            .offset(x: 70, y: 70)
                     }
-                    
-                    Image("camera")
-                        .frame(width: 70, height: 70)
-                        .background(Color.green)
-                        .clipShape(Circle())
-                        .offset(x: 70, y: 70)
                 }
             }
             .frame(maxWidth: .infinity)
-            
+            .sheet(isPresented: $isImagePickerPresented) {
+                ImagePicker(image: $selectedImage)
+                    .ignoresSafeArea()
+            }
+            .onTapGesture {
+                isImagePickerPresented.toggle()
+            }
             Spacer()
             
             Button {

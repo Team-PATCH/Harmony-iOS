@@ -247,6 +247,7 @@
 				C49DBE212C4FAEB700B1A87D /* CustomTextEditor.swift */,
 				3EA6EBA02C4F489F00627C63 /* CustomTabBar.swift */,
 				3EA6EBB52C50A1B900627C63 /* CameraView.swift */,
+				BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */,
 				55A10B2D2C5115BF001728EF /* CustomDropdownView.swift */,
 				BEEA0D2B2C6D6B0B00A02BA1 /* RippleAnimationView.swift */,
 			);
@@ -339,7 +340,6 @@
 			children = (
 				BE06A0DB2C44F1A9008D3C03 /* Extensions */,
 				BE06A0DD2C44F1BA008D3C03 /* Helpers */,
-				BE884B5E2C59E31000D9BCCA /* ImagePicker.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

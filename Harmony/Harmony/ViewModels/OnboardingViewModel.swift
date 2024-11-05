@@ -89,13 +89,13 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let (groupId, groupName, inviteUrl, vipInviteUrl) = try await apiService.createGroup(name: "\(vipAlias) \(vipName)", userId: userId, deviceToken: deviceToken)
+                let (groupId, groupName, memberInviteCode, vipInviteCode) = try await apiService.createGroup(name: "\(vipAlias) \(vipName)", userId: userId, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
                     self.groupId = groupId
                     self.groupName = groupName
-                    self.inviteCode = vipInviteUrl
-                    // TODO: - member invitecode도 처리해줘야함
+                    self.inviteCode = vipInviteCode
+                    self.inviteCode = memberInviteCode
                     self.isLoading = false
                     self.navigateTo(.inviteVIP)
                     print("Group created successfully - groupId: \(self.groupId), groupName: \(self.groupName), vipInviteUrl: \(self.inviteCode)")
