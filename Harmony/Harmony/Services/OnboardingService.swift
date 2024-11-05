@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Alamofire
+import UIKit
 
 final class OnboardingService {
     private let baseURL = "https://harmony-api.azurewebsites.net"
@@ -48,7 +49,7 @@ final class OnboardingService {
         return response
     }
     
-    func updateOnboardingInfo(groupId: Int, userId: String, alias: String, userName: String, profile: String, deviceToken: String) async throws -> OnboardingUpdateResponse {
+    func updateOnboardingInfo(groupId: Int, userId: String, alias: String, userName: String, profile: UIImage, deviceToken: String) async throws -> OnboardingUpdateResponse {
         let parameters: [String: Any] = [
             "userId": userId,
             "userName": userName,
@@ -57,7 +58,11 @@ final class OnboardingService {
             "deviceToken": deviceToken
         ]
         
-        let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        let headers: HTTPHeaders = [
+            "Content-Type": "multipart/form-data"
+        ]
+        
+        let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .validate()
             .serializingDecodable(OnboardingUpdateResponse.self)
             .value

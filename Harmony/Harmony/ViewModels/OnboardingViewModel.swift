@@ -149,7 +149,7 @@ final class OnboardingViewModel: ObservableObject {
         }
     }
     
-    func updateOnboardingInfo() {
+    func updateOnboardingInfo(selectedImage: UIImage) {
         guard let groupId = self.groupId else {
             errorMessage = "현재 그룹 정보가 없습니다."
             print("Error: \(errorMessage ?? "")")
@@ -165,7 +165,7 @@ final class OnboardingViewModel: ObservableObject {
         
         Task {
             do {
-                let response = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: self.alias, userName: self.userName, profile: self.profile, deviceToken: deviceToken)
+                let response = try await apiService.updateOnboardingInfo(groupId: groupId, userId: userId, alias: self.alias, userName: self.userName, profile: selectedImage, deviceToken: deviceToken)
                 
                 DispatchQueue.main.async {
                     self.currentUserGroup = response.userGroup

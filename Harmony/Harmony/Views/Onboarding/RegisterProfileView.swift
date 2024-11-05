@@ -18,7 +18,6 @@ struct RegisterProfileView: View {
     
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("마지막으로")
@@ -74,7 +73,7 @@ struct RegisterProfileView: View {
             Spacer()
             
             Button {
-                viewModel.updateOnboardingInfo()
+                viewModel.updateOnboardingInfo(selectedImage: selectedImage ?? UIImage())
             } label: {
                 Text("완료")
                     .font(.pretendardSemiBold(size: 24))
