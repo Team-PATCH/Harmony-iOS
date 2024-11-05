@@ -868,6 +868,8 @@
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AI 챗봇과의 음성 대화를 위해 마이크 권한이 필요해요.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "사용자의 음성을 텍스트로 변환하기 위해 음성 인식 권한이 필요해요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -879,10 +881,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
+				PRODUCT_BUNDLE_IDENTIFIER = com.patch.harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Development;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Dev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -907,6 +909,8 @@
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AI 챗봇과의 음성 대화를 위해 마이크 권한이 필요해요.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "사용자의 음성을 텍스트로 변환하기 위해 음성 인식 권한이 필요해요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -918,10 +922,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.kibwa.patch.Harmony;
+				PRODUCT_BUNDLE_IDENTIFIER = com.patch.harmony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Development;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Harmony_Dev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
