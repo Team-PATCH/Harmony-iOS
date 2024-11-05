@@ -50,24 +50,49 @@ final class OnboardingService {
     }
     
     func updateOnboardingInfo(groupId: Int, userId: String, alias: String, userName: String, profile: UIImage, deviceToken: String) async throws -> OnboardingUpdateResponse {
-        let parameters: [String: Any] = [
-            "userId": userId,
-            "userName": userName,
-            "profile": profile,
-            "alias": alias,
-            "deviceToken": deviceToken
-        ]
         
-        let headers: HTTPHeaders = [
-            "Content-Type": "multipart/form-data"
-        ]
-        
-        let response: OnboardingUpdateResponse = try await session.request("\(baseURL)/group/\(groupId)/onboarding", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        guard let token = UserDefaults.standard.string(forKey: "serverToken") else {
+            throw UploadError.invalidResponse
+        }
+
+        return try await withCheckedThrowingContinuation { continuation in
+            guard let imageData = profile.jpegData(compressionQuality: 0.7) else {
+                continuation.resume(throwing: UploadError.imageCompressionFailed)
+                return
+            }
+            
+            AF.upload(multipartFormData: { multipartFormData in
+                // 이미지 데이터 추가
+                multipartFormData.append(imageData,
+                                         withName: "profile",
+                                         fileName: "profile.jpg",
+                                         mimeType: "image/jpeg")
+                
+                // 다른 파라미터들 추가
+                multipartFormData.append(Data(userId.utf8), withName: "userId")
+                multipartFormData.append(Data(userName.utf8), withName: "userName")
+                multipartFormData.append(Data(alias.utf8), withName: "alias")
+                multipartFormData.append(Data(deviceToken.utf8), withName: "deviceToken")
+                
+            }, to: "\(baseURL)/group/\(groupId)/onboarding",
+                      method: .post,
+                      headers: ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(token)"])
             .validate()
-            .serializingDecodable(OnboardingUpdateResponse.self)
-            .value
-        
-        return response
+            .responseDecodable(of: OnboardingUpdateResponse.self) { response in
+                switch response.result {
+                case .success(let value):
+                    continuation.resume(returning: value)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
-    
+}
+
+enum UploadError: Error {
+    case imageCompressionFailed
+    case invalidResponse
+    case networkError(Error)
+    case requestCancelled
 }
