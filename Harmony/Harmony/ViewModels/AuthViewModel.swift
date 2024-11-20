@@ -13,11 +13,24 @@ final class AuthViewModel: ObservableObject {
     @Published var isLoggedIn = false
     @Published var user: AuthModel
     
-    
+    /*
     init() {
         isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
         user = AuthModel(userId: "", nick: "", authProvider: "")
     }
+    */
+    
+    // MARK: - simpleOnboardingView로 앱 기능에 접근하기 위한 init 메서드 임시 수정 코드입니다.(개발용)
+    
+    init() {
+        isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+        user = AuthModel(
+            userId: UserDefaults.standard.string(forKey: "userId") ?? "",
+            nick: UserDefaults.standard.string(forKey: "nick") ?? "",
+            authProvider: UserDefaults.standard.string(forKey: "authProvider") ?? ""
+        )
+    }
+
     
     func loginWithKakao() {
         if UserApi.isKakaoTalkLoginAvailable() {

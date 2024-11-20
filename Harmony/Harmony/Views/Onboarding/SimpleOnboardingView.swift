@@ -1,10 +1,18 @@
+//
+//  SimpleOnboardingView.swift
+//  Harmony
+//
+//  Created by 한범석 on 7/15/24.
+//
+
 import SwiftUI
 
 struct SimpleOnboardingView: View {
     @Binding var isAuth: Bool
-    @State var isOnboarding = false
-    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
-    
+    @State var isOnboarding = false // 상태 초기화 추가
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var onboardingViewModel: OnboardingViewModel
+
     var body: some View {
         ZStack {
             Color.subGreen.ignoresSafeArea()
@@ -17,8 +25,6 @@ struct SimpleOnboardingView: View {
                     .frame(height: 75)
                     .padding(.top, 50)
                     .padding(.bottom, 20)
-                
-                
                 
                 VStack(spacing: 3) {
                     HStack {
@@ -40,13 +46,11 @@ struct SimpleOnboardingView: View {
                         .foregroundColor(.bl)
                 }
                 .multilineTextAlignment(.center)
-
-                
                 
                 VStack(spacing: 15) {
+                    // VIP 버튼
                     Button {
-                        saveUserData(permission: "v")
-                        isAuth = true
+                        handleVIPSelection()
                     } label: {
                         Text("VIP")
                             .font(.system(size: 18, weight: .semibold))
@@ -57,9 +61,9 @@ struct SimpleOnboardingView: View {
                             .cornerRadius(10)
                     }
                     
+                    // Member 버튼
                     Button {
-                        saveUserData(permission: "m")
-                        isAuth = true
+                        handleMemberSelection()
                     } label: {
                         Text("Member")
                             .font(.system(size: 18, weight: .semibold))
@@ -70,8 +74,9 @@ struct SimpleOnboardingView: View {
                             .cornerRadius(10)
                     }
                     
+                    // Onboarding 버튼
                     Button {
-                        self.isOnboarding = true
+                        self.isOnboarding = true // Onboarding 화면 활성화
                     } label: {
                         Text("Onboarding")
                             .font(.system(size: 18, weight: .semibold))
@@ -103,19 +108,29 @@ struct SimpleOnboardingView: View {
         }
         .fullScreenCover(isPresented: $isOnboarding) {
             LoginView()
+                .environmentObject(authViewModel)
         }
     }
 }
 
-struct SimpleOnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SimpleOnboardingView(isAuth: .constant(false))
+extension SimpleOnboardingView {
+    private func handleVIPSelection() {
+        saveUserData(permission: "v") // VIP 데이터 저장
+        onboardingViewModel.isOnboardingEnd = true // 온보딩 완료 설정
+        authViewModel.isLoggedIn = true // 로그인 상태로 변경
+        isAuth = true // MainTabView로 이동
+    }
+    
+    private func handleMemberSelection() {
+        saveUserData(permission: "m") // Member 데이터 저장
+        onboardingViewModel.isOnboardingEnd = true // 온보딩 완료 설정
+        authViewModel.isLoggedIn = true // 로그인 상태로 변경
+        isAuth = true // MainTabView로 이동
     }
 }
 
 func saveUserData(permission: String) {
     let userData: UserData
-    
     if permission == "v" {
         userData = UserData(
             userId: "yeojeong@naver.com",
@@ -137,9 +152,4 @@ func saveUserData(permission: String) {
     }
     
     UserDefaultsManager.shared.saveUserData(userData)
-}
-
-
-#Preview {
-    SimpleOnboardingView(isAuth: .constant(false))
 }

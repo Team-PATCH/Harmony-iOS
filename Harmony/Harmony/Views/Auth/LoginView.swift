@@ -1,6 +1,4 @@
 import SwiftUI
-import KakaoSDKUser
-
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -46,4 +44,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environmentObject(AuthViewModel())
 }
