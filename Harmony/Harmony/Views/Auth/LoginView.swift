@@ -7,6 +7,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    // 아래의 두 프로퍼티는 LoginView+Debug에서 사용중입니다.
     @EnvironmentObject var onboardingViewModel: OnboardingViewModel
     @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
 
