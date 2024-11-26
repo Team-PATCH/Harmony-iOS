@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var routineViewModel = RoutineViewModel()
     @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var onboardingViewModel: OnboardingViewModel
     @State private var isShowingMemoryCardCreate = false
     @State private var isShowingMemoryCardView = false
     @State private var selectedDailyRoutine: DailyRoutine?
@@ -46,13 +48,20 @@ struct HomeView: View {
                             .scaledToFit()
                             .frame(height: 30)
                     }
+#if DEBUG
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 30)
-                            .foregroundColor(.black)
+                        Button(action: {
+                            authViewModel.logout()
+                            onboardingViewModel.navigationPath.removeLast(onboardingViewModel.navigationPath.count)
+                        }) {
+                            Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                                .foregroundColor(.mainGreen)
+                        }
                     }
+#endif
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())

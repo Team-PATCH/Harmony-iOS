@@ -71,6 +71,7 @@
 		BE884B752C5EF2B900D9BCCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */; };
 		BE884B772C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */; };
 		BE884B792C5F91C400D9BCCA /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE884B782C5F91C400D9BCCA /* Array+Extensions.swift */; };
+		BE9332432CF5F1D800A9BE94 /* LoginView+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9332422CF5F1D400A9BE94 /* LoginView+Debug.swift */; };
 		BE96B7E72C473337003C41F9 /* FormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E62C473337003C41F9 /* FormatManager.swift */; };
 		BE96B7E92C477FAF003C41F9 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */; };
 		BE96B7EB2C478040003C41F9 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */; };
@@ -178,6 +179,7 @@
 		BE884B742C5EF2B900D9BCCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		BE884B762C5EFCCE00D9BCCA /* MemoryCardChatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCardChatHistoryView.swift; sourceTree = "<group>"; };
 		BE884B782C5F91C400D9BCCA /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		BE9332422CF5F1D400A9BE94 /* LoginView+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginView+Debug.swift"; sourceTree = "<group>"; };
 		BE96B7E62C473337003C41F9 /* FormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatManager.swift; sourceTree = "<group>"; };
 		BE96B7E82C477FAF003C41F9 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BE96B7EA2C478040003C41F9 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 		55A10B242C4FB97A001728EF /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				BE9332422CF5F1D400A9BE94 /* LoginView+Debug.swift */,
 				55A10B1F2C4F76C5001728EF /* LoginView.swift */,
 				55A6D3BF2C6A56B400627DD2 /* AppleSignInButton.swift */,
 			);
@@ -656,6 +659,7 @@
 				BE884B732C5EF07A00D9BCCA /* AudioPlayerManager.swift in Sources */,
 				3EA6EBB62C50A1B900627C63 /* CameraView.swift in Sources */,
 				3EE527952C51F9A400B16DB8 /* RoutineReactionInputView.swift in Sources */,
+				BE9332432CF5F1D800A9BE94 /* LoginView+Debug.swift in Sources */,
 				3EA6EBA12C4F489F00627C63 /* CustomTabBar.swift in Sources */,
 				3EA6EBA32C4F492900627C63 /* MainTabView.swift in Sources */,
 				3EA6EBAA2C4F724200627C63 /* RoutineModel.swift in Sources */,

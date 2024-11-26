@@ -1,8 +1,15 @@
+//
+//  LoginView.swift
+//  Harmony
+//
+
 import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    
+    @EnvironmentObject var onboardingViewModel: OnboardingViewModel
+    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -16,6 +23,13 @@ struct LoginView: View {
                 }
                 
                 Spacer()
+#if DEBUG
+                DebugLoginButtons(
+                    handleVIPEntry: handleVIPEntry,
+                    handleMemberEntry: handleMemberEntry
+                )
+                .frame(width: geometry.size.width * 0.9)
+#endif
                 
                 VStack(spacing: 12) {
                     AppleSignInButton(isLoggedIn: $authViewModel.isLoggedIn)
@@ -38,11 +52,6 @@ struct LoginView: View {
             .font(.pretendardBold(size: 24))
         }
         .background(Color.gray1)
-        
     }
 }
 
-#Preview {
-    LoginView()
-        .environmentObject(AuthViewModel())
-}

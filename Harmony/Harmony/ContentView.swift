@@ -11,15 +11,12 @@ struct ContentView: View {
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var onboardingViewModel = OnboardingViewModel()
     
-    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
-    
     var body: some View {
         NavigationStack(path: $onboardingViewModel.navigationPath) {
             Group {
                 if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn {
                     MainTabView()
                         .environmentObject(authViewModel)
-                        .environmentObject(memoryCardViewModel)
                 } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
                     AllowNotificationView(viewModel: onboardingViewModel)
                         .navigationDestination(for: NavigationDestination.self) { destination in
@@ -50,24 +47,6 @@ struct ContentView: View {
                 } else {
                     LoginView()
                         .environmentObject(authViewModel)
-                }
-            }
-            .navigationDestination(for: String.self) { destination in
-                if destination == "SimpleOnboarding" {
-                    SimpleOnboardingView(isAuth: $authViewModel.isLoggedIn)
-                        .environmentObject(authViewModel)
-                        .environmentObject(onboardingViewModel)
-                        .environmentObject(memoryCardViewModel)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        onboardingViewModel.navigationPath.append("SimpleOnboarding")
-                    } label: {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(.mainGreen)
-                    }
                 }
             }
         }

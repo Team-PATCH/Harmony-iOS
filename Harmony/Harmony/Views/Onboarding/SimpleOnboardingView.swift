@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SimpleOnboardingView: View {
     @Binding var isAuth: Bool
-    @State var isOnboarding = false // 상태 초기화 추가
+    @State var isOnboarding = false
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var onboardingViewModel: OnboardingViewModel
 
@@ -48,9 +48,9 @@ struct SimpleOnboardingView: View {
                 .multilineTextAlignment(.center)
                 
                 VStack(spacing: 15) {
-                    // VIP 버튼
+                    
                     Button {
-                        handleVIPSelection()
+//                        handleVIPSelection()
                     } label: {
                         Text("VIP")
                             .font(.system(size: 18, weight: .semibold))
@@ -61,9 +61,8 @@ struct SimpleOnboardingView: View {
                             .cornerRadius(10)
                     }
                     
-                    // Member 버튼
                     Button {
-                        handleMemberSelection()
+//                        handleMemberSelection()
                     } label: {
                         Text("Member")
                             .font(.system(size: 18, weight: .semibold))
@@ -74,9 +73,8 @@ struct SimpleOnboardingView: View {
                             .cornerRadius(10)
                     }
                     
-                    // Onboarding 버튼
                     Button {
-                        self.isOnboarding = true // Onboarding 화면 활성화
+                        self.isOnboarding = true
                     } label: {
                         Text("Onboarding")
                             .font(.system(size: 18, weight: .semibold))
@@ -113,19 +111,20 @@ struct SimpleOnboardingView: View {
     }
 }
 
+/*
 extension SimpleOnboardingView {
     private func handleVIPSelection() {
-        saveUserData(permission: "v") // VIP 데이터 저장
-        onboardingViewModel.isOnboardingEnd = true // 온보딩 완료 설정
-        authViewModel.isLoggedIn = true // 로그인 상태로 변경
-        isAuth = true // MainTabView로 이동
+        saveUserData(permission: "v")
+        onboardingViewModel.isOnboardingEnd = true
+        authViewModel.isLoggedIn = true
+        isAuth = true
     }
     
     private func handleMemberSelection() {
-        saveUserData(permission: "m") // Member 데이터 저장
-        onboardingViewModel.isOnboardingEnd = true // 온보딩 완료 설정
-        authViewModel.isLoggedIn = true // 로그인 상태로 변경
-        isAuth = true // MainTabView로 이동
+        saveUserData(permission: "m")
+        onboardingViewModel.isOnboardingEnd = true
+        authViewModel.isLoggedIn = true
+        isAuth = true 
     }
 }
 
@@ -153,3 +152,4 @@ func saveUserData(permission: String) {
     
     UserDefaultsManager.shared.saveUserData(userData)
 }
+*/
