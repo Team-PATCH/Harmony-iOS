@@ -54,11 +54,11 @@ struct HomeView: View {
                             authViewModel.logout()
                             onboardingViewModel.navigationPath.removeLast(onboardingViewModel.navigationPath.count)
                         }) {
-                            Image(systemName: "heart.fill")
+                            Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 30)
-                                .foregroundColor(.mainGreen)
+                                .foregroundColor(.black)
                         }
                     }
 #endif
