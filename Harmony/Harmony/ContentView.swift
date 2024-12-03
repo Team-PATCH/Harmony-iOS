@@ -12,12 +12,13 @@ struct ContentView: View {
     @StateObject var onboardingViewModel = OnboardingViewModel()
     
     var body: some View {
-        NavigationStack(path: $onboardingViewModel.navigationPath) {
-            Group {
-                if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn {
-                    MainTabView()
-                        .environmentObject(authViewModel)
-                } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
+        Group {
+            if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn {
+                MainTabView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(onboardingViewModel)
+            } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
+                NavigationStack(path: $onboardingViewModel.navigationPath) {
                     AllowNotificationView(viewModel: onboardingViewModel)
                         .navigationDestination(for: NavigationDestination.self) { destination in
                             switch destination {
@@ -41,16 +42,15 @@ struct ContentView: View {
                                     
                                 case .enterGroup:
                                     EnterGroupSpaceView(viewModel: onboardingViewModel)
-                                    
                             }
                         }
-                } else {
-                    LoginView()
-                        .environmentObject(authViewModel)
                 }
+            } else {
+                LoginView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(onboardingViewModel)
             }
         }
-        .environmentObject(onboardingViewModel)
     }
 }
 
