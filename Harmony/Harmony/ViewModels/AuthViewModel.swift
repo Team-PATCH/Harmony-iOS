@@ -97,5 +97,14 @@ final class AuthViewModel: ObservableObject {
             }
         }
     }
+#if DEBUG
+    func logout() {
+        isLoggedIn = false
+        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.removeObject(forKey: "nick")
+    }
+#endif
+    
 }
 

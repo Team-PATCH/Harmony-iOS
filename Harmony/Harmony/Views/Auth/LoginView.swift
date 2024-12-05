@@ -2,10 +2,10 @@ import SwiftUI
 import KakaoSDKUser
 import AuthenticationServices
 
+import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var onboardingViewModel: AuthViewModel
     
     var body: some View {
         VStack(alignment: .center) {
@@ -20,6 +20,14 @@ struct LoginView: View {
             Spacer()
             // TODO: - 최근 로그인했던 방식 저장하는 로직 필요
             VStack() {
+#if DEBUG
+                DebugLoginButtons(
+                    handleVIPEntry: handleVIPEntry,
+                    handleMemberEntry: handleMemberEntry
+                )
+                .frame(width: geometry.size.width * 0.9)
+#endif
+
                 AppleSignInButton(completion: { appleIDCredential in authViewModel.loginWithApple(appleIDCredential: appleIDCredential)})
                     .padding(.horizontal)
                     .frame(height: 60)
