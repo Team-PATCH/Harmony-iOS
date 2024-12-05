@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct InputVIPInfoView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     @State private var isDropdownOpen = false
     
     let roles = ["할머니", "할아버지"]

@@ -19,11 +19,12 @@ struct HarmonyApp: App {
     
     init() {
         // Kakao SDK 초기화
-        guard let nativeAppKey = Bundle.main.nativeAppKey else {
+        if let nativeAppKey = Bundle.main.nativeAppKey  {
+            KakaoSDK.initSDK(appKey: nativeAppKey)
+        } else {
             print("카카오 네이티브 앱 키를 로드하지 못했음")
-            return
+            // TODO: - 네이티브 앱 키를 로드하지 못했을 때 처리해줘야하는 로직
         }
-        KakaoSDK.initSDK(appKey: nativeAppKey)
     }
     
     var body: some Scene {

@@ -12,38 +12,41 @@ struct ContentView: View {
     @StateObject var onboardingViewModel = OnboardingViewModel()
     
     var body: some View {
-        if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn  {
-            MainTabView()
-        } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
-            NavigationStack(path: $onboardingViewModel.navigationPath) {
-                AllowNotificationView(viewModel: onboardingViewModel)
-                    .navigationDestination(for: NavigationDestination.self) { destination in
-                        switch destination {
-                        case .createGroup:
-                            CreateGroupSpaceView(viewModel: onboardingViewModel)
-                        case .inputVIPInfo:
-                            InputVIPInfoView(viewModel: onboardingViewModel)
-                            
-                        case .inputUserInfo:
-                            InputUserInfoView(viewModel: onboardingViewModel)
-                            
-                        case .inviteVIP:
-                            InviteVIPView(viewModel: onboardingViewModel)
-                            
-                        case .registerProfile:
-                            RegisterProfileView(viewModel: onboardingViewModel)
-                            
-                        case .joinGroup:
-                            JoinGroupSpaceView(viewModel: onboardingViewModel)
-                            
-                        case .enterGroup:
-                            EnterGroupSpaceView(viewModel: onboardingViewModel)
-                            
-                        }
+        if authViewModel.isLoggedIn  {
+            if authViewModel.groupId > 0 || onboardingViewModel.isOnboardingEnd {
+                MainTabView()
+            } else if !onboardingViewModel.isOnboardingEnd {
+                Group {
+                    NavigationStack(path: $onboardingViewModel.navigationPath) {
+                        AllowNotificationView()
+                            .navigationDestination(for: NavigationDestination.self) { destination in
+                                switch destination {
+                                case .createGroup:
+                                    CreateGroupSpaceView()
+                                case .inputVIPInfo:
+                                    InputVIPInfoView()
+                                    
+                                case .inputUserInfo:
+                                    InputUserInfoView()
+                                    
+                                case .inviteVIP:
+                                    InviteVIPView()
+                                    
+                                case .registerProfile:
+                                    RegisterProfileView()
+                                    
+                                case .joinGroup:
+                                    JoinGroupSpaceView()
+                                    
+                                case .enterGroup:
+                                    EnterGroupSpaceView()
+                                }
+                            }
                     }
+                }
+                .environmentObject(onboardingViewModel)
             }
-        }
-        else {
+        } else {
             LoginView()
                 .environmentObject(authViewModel)
         }

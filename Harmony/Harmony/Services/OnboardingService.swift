@@ -5,19 +5,24 @@
 //  Created by 한수빈 on 8/1/24.
 //
 
-import Foundation
+import UIKit
 import Combine
 import Alamofire
-import UIKit
-
+// TODO: - 요청, 응답에 필요한 모델 또한 리팩토링 필요
 final class OnboardingService {
-    private let baseURL = "https://harmony-api.azurewebsites.net"
     private let session: Session
     
     init() {
         let interceptor = AuthInterceptor()
         self.session = Session(interceptor: interceptor)
     }
+    
+    private let baseURL: String = {
+        guard let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as? String else {
+            fatalError("BASE_URL is not set in Info.plist")
+        }
+        return baseURL
+    }()
     
     func createGroup(name: String, userId: String, deviceToken: String) async throws -> (Int, String, String, String) {
         let parameters: [String: Any] = [

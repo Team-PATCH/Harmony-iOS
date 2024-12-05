@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateGroupSpaceView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             
