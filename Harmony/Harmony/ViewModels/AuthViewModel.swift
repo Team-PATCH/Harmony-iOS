@@ -13,7 +13,6 @@ final class AuthViewModel: ObservableObject {
     @Published var isLoggedIn = false
     @Published var user: AuthModel
     
-    
     init() {
         isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
         user = AuthModel(userId: "", nick: "", authProvider: "")
@@ -93,5 +92,15 @@ final class AuthViewModel: ObservableObject {
             }
         }
     }
+    
+#if DEBUG
+    func logout() {
+        isLoggedIn = false
+        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.removeObject(forKey: "nick")
+    }
+#endif
+    
 }
 

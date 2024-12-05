@@ -1,10 +1,16 @@
-import SwiftUI
-import KakaoSDKUser
+//
+//  LoginView.swift
+//  Harmony
+//
 
+import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    
+    // 아래의 두 프로퍼티는 LoginView+Debug에서 사용중입니다.
+    @EnvironmentObject var onboardingViewModel: OnboardingViewModel
+    @EnvironmentObject var memoryCardViewModel: MemoryCardViewModel
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -18,6 +24,13 @@ struct LoginView: View {
                 }
                 
                 Spacer()
+#if DEBUG
+                DebugLoginButtons(
+                    handleVIPEntry: handleVIPEntry,
+                    handleMemberEntry: handleMemberEntry
+                )
+                .frame(width: geometry.size.width * 0.9)
+#endif
                 
                 VStack(spacing: 12) {
                     AppleSignInButton(isLoggedIn: $authViewModel.isLoggedIn)
@@ -40,10 +53,6 @@ struct LoginView: View {
             .font(.pretendardBold(size: 24))
         }
         .background(Color.gray1)
-        
     }
 }
 
-#Preview {
-    LoginView()
-}
