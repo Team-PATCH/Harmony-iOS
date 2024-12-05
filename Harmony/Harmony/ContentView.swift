@@ -17,40 +17,38 @@ struct ContentView: View {
                 MainTabView()
                     .environmentObject(authViewModel)
             } else if !onboardingViewModel.isOnboardingEnd {
-                Group {
-                    NavigationStack(path: $onboardingViewModel.navigationPath) {
-                        AllowNotificationView()
-                            .navigationDestination(for: NavigationDestination.self) { destination in
-                                switch destination {
-                                case .createGroup:
-                                    CreateGroupSpaceView()
-                                case .inputVIPInfo:
-                                    InputVIPInfoView()
-                                    
-                                case .inputUserInfo:
-                                    InputUserInfoView()
-                                    
-                                case .inviteVIP:
-                                    InviteVIPView()
-                                    
-                                case .registerProfile:
-                                    RegisterProfileView()
-                                    
-                                case .joinGroup:
-                                    JoinGroupSpaceView()
-                                    
-                                case .enterGroup:
-                                    EnterGroupSpaceView()
-                                }
+                NavigationStack(path: $onboardingViewModel.navigationPath) {
+                    AllowNotificationView()
+                        .navigationDestination(for: NavigationDestination.self) { destination in
+                            switch destination {
+                            case .createGroup:
+                                CreateGroupSpaceView()
+                            case .inputVIPInfo:
+                                InputVIPInfoView()
+                                
+                            case .inputUserInfo:
+                                InputUserInfoView()
+                                
+                            case .inviteVIP:
+                                InviteVIPView()
+                                
+                            case .registerProfile:
+                                RegisterProfileView()
+                                
+                            case .joinGroup:
+                                JoinGroupSpaceView()
+                                
+                            case .enterGroup:
+                                EnterGroupSpaceView()
                             }
-                    }
+                        }
                 }
                 .environmentObject(onboardingViewModel)
             }
         } else {
             LoginView()
                 .environmentObject(authViewModel)
-
+            
         }
     }
 }
