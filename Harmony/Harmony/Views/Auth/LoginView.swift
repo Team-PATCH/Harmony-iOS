@@ -25,7 +25,6 @@ struct LoginView: View {
                     handleVIPEntry: handleVIPEntry,
                     handleMemberEntry: handleMemberEntry
                 )
-                .frame(width: geometry.size.width * 0.9)
 #endif
 
                 AppleSignInButton(completion: { appleIDCredential in authViewModel.loginWithApple(appleIDCredential: appleIDCredential)})

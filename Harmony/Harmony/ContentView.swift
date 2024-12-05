@@ -15,6 +15,7 @@ struct ContentView: View {
         if authViewModel.isLoggedIn  {
             if authViewModel.groupId > 0 || onboardingViewModel.isOnboardingEnd {
                 MainTabView()
+                    .environmentObject(authViewModel)
             } else if !onboardingViewModel.isOnboardingEnd {
                 Group {
                     NavigationStack(path: $onboardingViewModel.navigationPath) {
