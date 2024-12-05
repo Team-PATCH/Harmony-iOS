@@ -25,6 +25,7 @@ struct LoginView: View {
                     handleVIPEntry: handleVIPEntry,
                     handleMemberEntry: handleMemberEntry
                 )
+                .padding(.horizontal)
 #endif
 
                 AppleSignInButton(completion: { appleIDCredential in authViewModel.loginWithApple(appleIDCredential: appleIDCredential)})
@@ -37,13 +38,13 @@ struct LoginView: View {
                     HStack {
                         KakaoLogoView(size: 20)
                         Text("카카오로 계속하기")
-                            .font(.pretendardMedium(size: 20))
+                            .font(.system(size: 20))
                             .foregroundStyle(Color(white: 0, opacity: 85))
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background(Color.init(hex: "FEE500"))
-                .cornerRadius(8, corners: .allCorners)
+                .cornerRadius(6, corners: .allCorners)
                 .padding(.horizontal)
             }
             .padding(.bottom, 30)
