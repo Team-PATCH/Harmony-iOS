@@ -2,7 +2,7 @@ import SwiftUI
 import UserNotifications
 
 struct AllowNotificationView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     @State private var isNotificationEnabled = false
     @State private var isPermissionRequested = false
     

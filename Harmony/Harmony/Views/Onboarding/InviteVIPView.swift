@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InviteVIPView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     @State private var hasShared = false
     
     var body: some View {

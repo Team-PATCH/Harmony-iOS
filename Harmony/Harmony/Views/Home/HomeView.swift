@@ -52,7 +52,6 @@ struct HomeView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             authViewModel.logout()
-                            onboardingViewModel.navigationPath.removeLast(onboardingViewModel.navigationPath.count)
                         }) {
                             Image(systemName: "person.circle")
                                 .resizable()

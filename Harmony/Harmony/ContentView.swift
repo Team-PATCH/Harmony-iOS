@@ -12,44 +12,43 @@ struct ContentView: View {
     @StateObject var onboardingViewModel = OnboardingViewModel()
     
     var body: some View {
-        Group {
-            if onboardingViewModel.isOnboardingEnd && authViewModel.isLoggedIn {
+        if authViewModel.isLoggedIn  {
+            if authViewModel.groupId > 0 || onboardingViewModel.isOnboardingEnd {
                 MainTabView()
                     .environmentObject(authViewModel)
-                    .environmentObject(onboardingViewModel)
-            } else if authViewModel.isLoggedIn && !onboardingViewModel.isOnboardingEnd {
+            } else if !onboardingViewModel.isOnboardingEnd {
                 NavigationStack(path: $onboardingViewModel.navigationPath) {
-                    AllowNotificationView(viewModel: onboardingViewModel)
+                    AllowNotificationView()
                         .navigationDestination(for: NavigationDestination.self) { destination in
                             switch destination {
-                                case .createGroup:
-                                    CreateGroupSpaceView(viewModel: onboardingViewModel)
-                                    
-                                case .inputVIPInfo:
-                                    InputVIPInfoView(viewModel: onboardingViewModel)
-                                    
-                                case .inputUserInfo:
-                                    InputUserInfoView(viewModel: onboardingViewModel)
-                                    
-                                case .inviteVIP:
-                                    InviteVIPView(viewModel: onboardingViewModel)
-                                    
-                                case .registerProfile:
-                                    RegisterProfileView(viewModel: onboardingViewModel)
-                                    
-                                case .joinGroup:
-                                    JoinGroupSpaceView(viewModel: onboardingViewModel)
-                                    
-                                case .enterGroup:
-                                    EnterGroupSpaceView(viewModel: onboardingViewModel)
+                            case .createGroup:
+                                CreateGroupSpaceView()
+                            case .inputVIPInfo:
+                                InputVIPInfoView()
+                                
+                            case .inputUserInfo:
+                                InputUserInfoView()
+                                
+                            case .inviteVIP:
+                                InviteVIPView()
+                                
+                            case .registerProfile:
+                                RegisterProfileView()
+                                
+                            case .joinGroup:
+                                JoinGroupSpaceView()
+                                
+                            case .enterGroup:
+                                EnterGroupSpaceView()
                             }
                         }
                 }
-            } else {
-                LoginView()
-                    .environmentObject(authViewModel)
-                    .environmentObject(onboardingViewModel)
+                .environmentObject(onboardingViewModel)
             }
+        } else {
+            LoginView()
+                .environmentObject(authViewModel)
+            
         }
     }
 }

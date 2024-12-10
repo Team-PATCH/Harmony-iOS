@@ -12,13 +12,13 @@ import SwiftUI
 extension LoginView {
     func handleVIPEntry() {
         saveUserData(permission: "v")
-        onboardingViewModel.isOnboardingEnd = true
+        authViewModel.groupId = 1
         authViewModel.isLoggedIn = true
     }
     
     func handleMemberEntry() {
         saveUserData(permission: "m")
-        onboardingViewModel.isOnboardingEnd = true
+        authViewModel.groupId = 1
         authViewModel.isLoggedIn = true
     }
     

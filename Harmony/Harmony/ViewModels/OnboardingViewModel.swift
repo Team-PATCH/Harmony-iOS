@@ -65,7 +65,7 @@ final class OnboardingViewModel: ObservableObject {
     
     init(apiService: OnboardingService = OnboardingService()) {
         self.apiService = apiService
-        self.isOnboardingEnd = UserDefaults.standard.bool(forKey: "isOnboardingEnd")
+        self.isOnboardingEnd = false
         print("OnboardingViewModel initialized")
     }
     
@@ -171,7 +171,6 @@ final class OnboardingViewModel: ObservableObject {
                     self.currentUserGroup = response.userGroup
                     self.isLoading = false
                     print("Onboarding info updated successfully - userId: \(response.userGroup.userId), groupId: \(response.userGroup.groupId)")
-                    UserDefaults.standard.setValue(true, forKey: "isOnboardingEnd")
                     self.isOnboardingEnd = true
                     self.navigateToRoot()
                 }
@@ -198,7 +197,7 @@ final class OnboardingViewModel: ObservableObject {
 }
 
 
-@frozen enum NavigationDestination: Hashable {
+enum NavigationDestination: Hashable {
     case createGroup
     case inputVIPInfo
     case inputUserInfo

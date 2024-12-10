@@ -11,7 +11,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+final class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 //        let center = UNUserNotificationCenter.current()
@@ -55,11 +55,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if (AuthApi.isKakaoTalkLoginUrl(url)) {
-            
             return AuthController.handleOpenUrl(url: url)
         }
-        
-        
         return false
     }
     
@@ -78,10 +75,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
 }
 
-/// 푸쉬 알림 관련 설정
+// MARK: - 원격 푸쉬 관련 설정. SwiftUI에서 AppDelegate를 사용하지 않고 처리할 수 있는 방법이 있는지 확인
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let info = response.notification.request.content.userInfo
+        _ = response.notification.request.content.userInfo
         completionHandler()
     }
     

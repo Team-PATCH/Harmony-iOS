@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterProfileView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     @State var selectedImage: UIImage?
     @State var isImagePickerPresented: Bool = false
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JoinGroupSpaceView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @EnvironmentObject var viewModel: OnboardingViewModel
     @State private var isConfirmButtonEnabled = false
     @FocusState private var isFocused: Bool
     
