@@ -31,7 +31,6 @@ struct MemoryCardView: View {
                                 height: isNew ? 180 : 120
                             )
                             .clipped()
-                            .cornerRadius(10, corners: [.topLeft, .topRight])
                     } else {
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
@@ -39,7 +38,6 @@ struct MemoryCardView: View {
                                 width: geometry.size.width,
                                 height: isNew ? 180 : 120
                             )
-                            .cornerRadius(10, corners: [.topLeft, .topRight])
                     }
 
                     if isNew {
@@ -50,7 +48,7 @@ struct MemoryCardView: View {
                             .padding(.horizontal, 10)
                             .background(Color.mainGreen)
                             .cornerRadius(15)
-                            .offset(x: -10, y: 10)  // 위치 조정
+                            .offset(x: -10, y: 10)
                     }
                 }
 
@@ -66,10 +64,9 @@ struct MemoryCardView: View {
                 .padding([.horizontal, .bottom])
             }
             .background(Color.white)
-            .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 0)
                     .stroke(Color.gray3, lineWidth: 0.5)
             )
         }
