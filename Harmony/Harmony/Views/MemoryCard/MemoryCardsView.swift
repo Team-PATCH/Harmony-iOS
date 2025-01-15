@@ -14,11 +14,12 @@ struct MemoryCardsView: View {
     @State private var isAppeared = false
     @State private var isContentVisible = false
     @State private var appearingCardIndex = 0
-
+    
     let columns = [
-        GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20)
+        GridItem(.flexible(), spacing: 20),
+        GridItem(.flexible(), spacing: 20)
     ]
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -28,6 +29,7 @@ struct MemoryCardsView: View {
                         .background(Color.gray1)
                 } else {
                     VStack(spacing: 0) {
+                        // MARK: - 상단 바 요소들
                         VStack(spacing: 0) {
                             if isSearchBarVisible {
                                 HStack {
@@ -80,7 +82,8 @@ struct MemoryCardsView: View {
                                 .background(Color.white)
                             }
                         }
-
+                        
+                        // 정렬 버튼
                         HStack {
                             Spacer()
                             Button(action: {
@@ -102,27 +105,55 @@ struct MemoryCardsView: View {
                         
                         Divider()
                             .background(Color.gray3)
-
+                        
+                        // 오류 메시지
                         if let errorMessage = viewModel.errorMessage {
                             Text(errorMessage)
                                 .foregroundColor(.red)
                                 .padding()
                         } else {
+                            // MARK: - ScrollView 영역
                             ScrollView {
-                                LazyVGrid(columns: columns, spacing: 30) {
-                                    ForEach(Array(viewModel.filteredMemoryCards.enumerated()), id: \.element.id) { index, card in
-                                        NavigationLink(destination: MemoryCardDetailView(memoryCardId: card.id, groupId: card.groupId ?? 1)) {
-                                            MemoryCardView(card: card, viewModel: viewModel)
-                                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                                .padding(.horizontal, -15)
-                                                .padding(.bottom, -15)
-                                                .opacity(index <= appearingCardIndex ? 1 : 0)
-                                                .offset(y: index <= appearingCardIndex ? 0 : 100)
-                                                .animation(.spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.2).delay(Double(index) * 0.03), value: appearingCardIndex)
+                                VStack(spacing: 0) {
+                                    if let newCard = viewModel.newMemoryCard {
+                                        NavigationLink(
+                                            destination: MemoryCardDetailView(
+                                                memoryCardId: newCard.id,
+                                                groupId: newCard.groupId ?? 1
+                                            )
+                                        ) {
+                                            MemoryCardView(card: newCard, viewModel: viewModel)
+                                                .padding(.top, 20)
                                         }
                                     }
+                                    
+                                    LazyVGrid(columns: columns, spacing: 30) {
+                                        ForEach(Array(viewModel.filteredMemoryCards.enumerated()), id: \.element.id) { index, card in
+                                            if card != viewModel.newMemoryCard {
+                                                NavigationLink(
+                                                    destination: MemoryCardDetailView(
+                                                        memoryCardId: card.id,
+                                                        groupId: card.groupId ?? 1
+                                                    )
+                                                ) {
+                                                    MemoryCardView(card: card, viewModel: viewModel)
+                                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                                        .padding(.horizontal, -15)
+                                                        .padding(.bottom, -15)
+                                                        .opacity(index <= appearingCardIndex ? 1 : 0)
+                                                        .offset(y: index <= appearingCardIndex ? 0 : 100)
+                                                        .animation(
+                                                            .spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.2)
+                                                            .delay(Double(index) * 0.03),
+                                                            value: appearingCardIndex
+                                                        )
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .padding([.horizontal, .top])
+                                    .background(Color.gray1)
                                 }
-                                .padding([.horizontal, .top])
                                 .background(Color.gray1)
                             }
                             .background(Color.gray1)
@@ -143,10 +174,6 @@ struct MemoryCardsView: View {
                     isContentVisible = true
                 }
             }
-
-
-
-
             .onChange(of: viewModel.isLoading) { isLoading in
                 if !isLoading {
                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -155,9 +182,10 @@ struct MemoryCardsView: View {
                     animateCards()
                 }
             }
-
         }
     }
+    
+    // MARK: - 카드 애니메이션
     private func animateCards() {
         let totalCards = viewModel.filteredMemoryCards.count
         for index in 0..<totalCards {
