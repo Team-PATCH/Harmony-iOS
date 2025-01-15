@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FamilyInfoView: View {
-    @StateObject var viewModel: FamilyInfoViewModel
+    @StateObject var viewModel = FamilyInfoViewModel()
     
     var body: some View {
         NavigationStack {
