@@ -53,7 +53,7 @@ struct HomeView: View {
                         Button(action: {
                             authViewModel.logout()
                         }) {
-                            Image(systemName: "person.circle")
+                            Image(systemName: "lock.slash")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 30)
@@ -61,6 +61,15 @@ struct HomeView: View {
                         }
                     }
 #endif
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: FamilyInfoView()) {
+                         Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                                .foregroundColor(.black)
+                        }
+                    }
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())
