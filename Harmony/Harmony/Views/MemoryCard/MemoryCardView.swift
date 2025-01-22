@@ -17,24 +17,30 @@ struct MemoryCardView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            
+            let isNew = (viewModel.newMemoryCard == card)
+            
             VStack(alignment: .leading, spacing: 10) {
                 ZStack(alignment: .topTrailing) {
                     if let url = URL(string: card.image), !card.image.isEmpty {
                         KFImage(url)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: geometry.size.width, height: 120)
+                            .frame(
+                                width: geometry.size.width,
+                                height: isNew ? 180 : 120
+                            )
                             .clipped()
-                            .cornerRadius(10, corners: [.topLeft, .topRight])
                     } else {
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
-                            .frame(width: geometry.size.width, height: 120)
-                            .cornerRadius(10, corners: [.topLeft, .topRight])
+                            .frame(
+                                width: geometry.size.width,
+                                height: isNew ? 180 : 120
+                            )
                     }
 
-                    // "새로운 추억" 캡슐 추가
-                    if viewModel.newMemoryCard == card {
+                    if isNew {
                         Text("새로운 추억")
                             .font(.system(size: 14, weight: .bold))
                             .foregroundColor(.white)
@@ -42,7 +48,7 @@ struct MemoryCardView: View {
                             .padding(.horizontal, 10)
                             .background(Color.mainGreen)
                             .cornerRadius(15)
-                            .offset(x: -10, y: 10)  // 위치 조정
+                            .offset(x: -10, y: 10)
                     }
                 }
 
@@ -58,15 +64,14 @@ struct MemoryCardView: View {
                 .padding([.horizontal, .bottom])
             }
             .background(Color.white)
-            .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 0)
                     .stroke(Color.gray3, lineWidth: 0.5)
             )
         }
         .padding(.horizontal)
-        .frame(height: 200)
+        .frame(height: (viewModel.newMemoryCard == card) ? 260 : 200)
         .frame(maxHeight: .infinity)
         .transition(.opacity.combined(with: .scale))
     }
